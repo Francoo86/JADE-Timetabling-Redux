@@ -18,6 +18,7 @@ public class AgenteProfesor extends Agent {
     private String rut;
     private Asignatura asignatura;
     private int turno;
+    private List<String> horarioAsignado;
 
     protected void setup() {
         Object[] args = getArguments();
@@ -53,69 +54,79 @@ public class AgenteProfesor extends Agent {
 
         // Agregar comportamientos
         addBehaviour(new SolicitarHorarioBehaviour());
-        addBehaviour(new RecibirPropuestaBehaviour());
-    }
-
-    private List<Asignatura> parseAsignaturas(JSONObject asignaturaJson) {
-        List<Asignatura> asignaturas = new ArrayList<>();
-        String nombre = (String) asignaturaJson.get("Nombre");
-        int nivel = ((Long) asignaturaJson.get("Nivel")).intValue();
-        int semestre = ((Long) asignaturaJson.get("Semestre")).intValue();
-        int horas = ((Long) asignaturaJson.get("Horas")).intValue();
-        int vacantes = ((Long) asignaturaJson.get("Vacantes")).intValue();
-        asignaturas.add(new Asignatura(nombre, nivel, semestre, horas, vacantes));
-        return asignaturas;
     }
 
     private class SolicitarHorarioBehaviour extends OneShotBehaviour {
         public void action() {
-            // Enviar solicitud de horario a los agentes Sala
-            ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-            // Añadir destinatarios (agentes Sala)
-            msg.setContent("Solicitud de horario para " + nombre);
-            send(msg);
+            // Buscar agentes Sala
+            DFAgentDescription template = new DFAgentDescription();
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType("sala");
+            template.addServices(sd);
+            try {
+                DFAgentDescription[] result = DFService.search(myAgent, template);
+                if (result.length > 0) {
+                    // Enviar solicitud de horario a todas las salas
+                    ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                    for (DFAgentDescription agenteS : result) {
+                        msg.addReceiver(agenteS.getName());
+                    }
+                    msg.setContent(asignatura.toString());
+                    msg.setConversationId("solicitud-horario");
+                    myAgent.send(msg);
+
+                    // Agregar comportamiento para recibir propuestas
+                    myAgent.addBehaviour(new RecibirPropuestaBehaviour());
+                }
+            } catch (FIPAException fe) {
+                fe.printStackTrace();
+            }
         }
     }
 
-    private class RecibirPropuestaBehaviour extends CyclicBehaviour {
-        public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.PROPOSE);
-            ACLMessage msg = myAgent.receive(mt);
-            if (msg != null) {
-                // Procesar propuesta de horario
-                String propuesta = msg.getContent();
-                // Evaluar propuesta
-                boolean aceptada = evaluarPropuesta(propuesta);
+    private class RecibirPropuestaBehaviour extends Behaviour {
+        private int repliesCount = 0;
+        private boolean done = false;
 
-                ACLMessage reply = msg.createReply();
-                if (aceptada) {
-                    reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-                    reply.setContent("Propuesta aceptada");
-                    // Informar horario resultante
-                    informarHorarioResultante(propuesta);
-                    // Indicar siguiente agente profesor
-                    indicarSiguienteProfesor();
+        public void action() {
+            MessageTemplate mt = MessageTemplate.and(
+                    MessageTemplate.MatchConversationId("solicitud-horario"),
+                    MessageTemplate.MatchPerformative(ACLMessage.PROPOSE)
+            );
+            ACLMessage reply = myAgent.receive(mt);
+            if (reply != null) {
+                // Procesar propuesta de horario
+                String propuesta = reply.getContent();
+                if (evaluarPropuesta(propuesta)) {
+                    // Aceptar la propuesta
+                    ACLMessage accept = reply.createReply();
+                    accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                    accept.setContent("Propuesta aceptada");
+                    myAgent.send(accept);
+                    horarioAsignado = Arrays.asList(propuesta.split(","));
+                    System.out.println("Profesor " + nombre + " ha aceptado el horario: " + horarioAsignado);
+                    done = true;
                 } else {
-                    reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
-                    reply.setContent("Propuesta rechazada");
+                    // Rechazar la propuesta
+                    ACLMessage reject = reply.createReply();
+                    reject.setPerformative(ACLMessage.REJECT_PROPOSAL);
+                    reject.setContent("Propuesta rechazada");
+                    myAgent.send(reject);
                 }
-                send(reply);
+                repliesCount++;
             } else {
                 block();
             }
         }
 
         private boolean evaluarPropuesta(String propuesta) {
-            // Lógica para evaluar la propuesta
-            return true; // Por ahora, siempre aceptamos la primera propuesta
+            // Aquí puedes implementar la lógica para evaluar la propuesta
+            // Por ahora, aceptamos la primera propuesta válida
+            return propuesta.split(",").length == asignatura.horas;
         }
 
-        private void informarHorarioResultante(String horario) {
-            // Lógica para informar el horario resultante
-        }
-
-        private void indicarSiguienteProfesor() {
-            // Lógica para indicar el siguiente profesor
+        public boolean done() {
+            return done || repliesCount == 5; // Asumimos que hay 5 días en la semana
         }
     }
 }
