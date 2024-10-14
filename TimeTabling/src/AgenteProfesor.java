@@ -16,7 +16,7 @@ import java.io.FileReader;
 public class AgenteProfesor extends Agent {
     private String nombre;
     private String rut;
-    private List<Asignatura> asignaturas;
+    private Asignatura asignatura;
     private int turno;
 
     protected void setup() {
@@ -25,9 +25,18 @@ public class AgenteProfesor extends Agent {
             JSONObject profesorJson = (JSONObject) args[0];
             nombre = (String) profesorJson.get("Nombre");
             rut = (String) profesorJson.get("RUT");
-            asignaturas = parseAsignaturas((JSONObject) profesorJson.get("Asignatura"));
-            turno = ((Long) args[1]).intValue();
+
+            JSONObject asignaturaJson = (JSONObject) profesorJson.get("Asignatura");
+            asignatura = new Asignatura(
+                    (String) asignaturaJson.get("Nombre"),
+                    ((Number) asignaturaJson.get("Nivel")).intValue(),
+                    ((Number) asignaturaJson.get("Semestre")).intValue(),
+                    ((Number) asignaturaJson.get("Horas")).intValue(),
+                    ((Number) asignaturaJson.get("Vacantes")).intValue()
+            );
+            turno = ((Number) args[1]).intValue();
         }
+        System.out.println("Agente Profesor " + nombre + " iniciado. Turno: " + turno);
 
         // Registrar el agente en el DF
         DFAgentDescription dfd = new DFAgentDescription();
