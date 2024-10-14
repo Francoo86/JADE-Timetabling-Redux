@@ -1,5 +1,9 @@
 import java.io.FileReader;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 // Clase Aplicacion
 public class Aplicacion {
     public static void main(String[] args) {
@@ -17,16 +21,16 @@ public class Aplicacion {
             int turno = 1;
             for (Object obj : profesoresJson) {
                 JSONObject profesorJson = (JSONObject) obj;
-                Object[] args = {profesorJson, turno};
-                container.createNewAgent("Profesor" + turno, "AgenteProfesor", args).start();
+                Object[] profesorArgs = {profesorJson, turno};
+                container.createNewAgent("Profesor" + turno, "AgenteProfesor", profesorArgs).start();
                 turno++;
             }
 
             // Crear agentes salas
             for (Object obj : salasJson) {
                 JSONObject salaJson = (JSONObject) obj;
-                Object[] args = {salaJson};
-                container.createNewAgent("Sala" + salaJson.get("Codigo"), "AgenteSala", args).start();
+                Object[] salaArgs = {salaJson};
+                container.createNewAgent("Sala" + salaJson.get("Codigo"), "AgenteSala", salaArgs).start();
             }
 
         } catch (Exception e) {
