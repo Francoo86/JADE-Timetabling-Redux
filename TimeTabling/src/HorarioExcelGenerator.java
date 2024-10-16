@@ -36,11 +36,11 @@ public class HorarioExcelGenerator {
                 System.out.println("Procesando sala: " + nombreSala);
 
                 writer.append("Sala: ").append(nombreSala).append("\n");
-                writer.append("Lunes,Martes,Miércoles,Jueves,Viernes\n");
+                writer.append("Lunes,Martes,Miercoles,Jueves,Viernes\n");
 
                 for (int bloque = 0; bloque < 5; bloque++) {
                     StringBuilder linea = new StringBuilder();
-                    for (String dia : new String[]{"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"}) {
+                    for (String dia : new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"}) {
                         linea.append(horarioSala.get(dia).get(bloque)).append(",");
                     }
                     writer.append(linea.toString().trim()).append("\n");

@@ -72,25 +72,30 @@ public class Main {
                 System.out.println("Agente Sala " + codigo + " creado con JSON: " + jsonString);
             }
 
+            // Esperar un poco para asegurarse de que los agentes estén completamente iniciados
+            Thread.sleep(1000);
+
             // Establecer el número total de solicitudes para cada sala
-            for (AgentController salaController : salasControllers.values()) {
+            for (Map.Entry<String, AgentController> entry : salasControllers.entrySet()) {
+                String codigo = entry.getKey();
+                AgentController salaController = entry.getValue();
                 try {
                     SalaInterface salaInterface = salaController.getO2AInterface(SalaInterface.class);
                     if (salaInterface != null) {
                         salaInterface.setTotalSolicitudes(totalAsignaturas);
-                        System.out.println("Total de solicitudes establecido para sala: " + salaController.getName());
+                        System.out.println("Total de solicitudes establecido para sala: " + codigo);
                     } else {
-                        System.out.println("No se pudo obtener la interfaz SalaInterface para la sala: " + salaController.getName());
+                        System.out.println("No se pudo obtener la interfaz SalaInterface para la sala: " + codigo);
                     }
                 } catch (StaleProxyException e) {
-                    System.out.println("Error al obtener la interfaz para la sala: " + salaController.getName());
+                    System.out.println("Error al obtener la interfaz para la sala: " + codigo);
                     e.printStackTrace();
                 }
             }
 
-            // Esperar a que todos los agentes terminen
+            // Esperar a que todos los agentes terminen (puedes ajustar este tiempo según sea necesario)
             System.out.println("Esperando a que los agentes completen su trabajo...");
-            Thread.sleep(60000); // Aumentamos el tiempo de espera a 60 segundos
+            Thread.sleep(60000);
 
             // Generar archivo CSV
             System.out.println("Iniciando generación de archivo CSV...");
