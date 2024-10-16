@@ -1,0 +1,35 @@
+[
+    {
+      "Nombre": "Juan Pérez",
+      "RUT": "12345678-9",
+      "Asignatura": {
+        "Nombre": "Matemáticas Avanzadas",
+        "Nivel": 3,
+        "Semestre": 1,
+        "Horas": 4,
+        "Vacantes": 30
+      }
+    },
+    {
+      "Nombre": "María González",
+      "RUT": "98765432-1",
+      "Asignatura": {
+        "Nombre": "Programación en Java",
+        "Nivel": 2,
+        "Semestre": 2,
+        "Horas": 6,
+        "Vacantes": 25
+      }
+    },
+    {
+      "Nombre": "Carlos Rodríguez",
+      "RUT": "45678901-2",
+      "Asignatura": {
+        "Nombre": "Bases de Datos",
+        "Nivel": 4,
+        "Semestre": 1,
+        "Horas": 5,
+        "Vacantes": 20
+      }
+    }
+  ]
