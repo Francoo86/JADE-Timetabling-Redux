@@ -14,6 +14,10 @@ public class Asignatura {
         this.vacantes = vacantes;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     @Override
     public String toString() {   // Se sobreescribe el método toString
         return nombre + "," + nivel + "," + semestre + "," + horas + "," + vacantes;    // Se retorna un string con los atributos de la asignatura

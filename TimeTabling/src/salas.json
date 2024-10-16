@@ -1,18 +1,10 @@
 [
     {
-      "Codigo": "A101",
+      "Codigo": "A-1",
       "Capacidad": 30
     },
     {
-      "Codigo": "B205",
+      "Codigo": "B-2",
       "Capacidad": 25
-    },
-    {
-      "Codigo": "C310",
-      "Capacidad": 40
-    },
-    {
-      "Codigo": "D102",
-      "Capacidad": 20
     }
-  ]
+]

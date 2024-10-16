@@ -8,51 +8,93 @@ import jade.core.ProfileImpl;
 import jade.core.Runtime;
 import jade.wrapper.ContainerController;
 
+import jade.wrapper.StaleProxyException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            // Get a hold on JADE runtime
             Runtime rt = Runtime.instance();
-
-            // Exit the JVM when there are no more containers around
             rt.setCloseVM(true);
-
-            // Create a default profile
             Profile profile = new ProfileImpl(null, 1200, null);
-            profile.setParameter(Profile.GUI, "true"); // This line enables the GUI
+            profile.setParameter(Profile.GUI, "true");
+            AgentContainer container = rt.createMainContainer(profile);
 
-            // Create a new non-main container, connecting to the default main container
-            ContainerController cc = rt.createMainContainer(profile);
-
-            // Cargar y crear agentes profesores
             JSONArray profesoresJson = loadJsonArray("profesores.json");
-            for (int i = 0; i < profesoresJson.size(); i++) {
-                JSONObject profesorJson = (JSONObject) profesoresJson.get(i);
+            Map<String, JSONObject> profesoresMap = new HashMap<>();
+            int totalAsignaturas = 0;
+
+            for (Object obj : profesoresJson) {
+                JSONObject profesorJson = (JSONObject) obj;
+                String nombre = (String) profesorJson.get("Nombre");
+                String rut = (String) profesorJson.get("RUT");
+                String key = nombre + "-" + rut;
+
+                if (!profesoresMap.containsKey(key)) {
+                    profesoresMap.put(key, new JSONObject());
+                    profesoresMap.get(key).put("Nombre", nombre);
+                    profesoresMap.get(key).put("RUT", rut);
+                    profesoresMap.get(key).put("Asignaturas", new JSONArray());
+                }
+
+                JSONArray asignaturas = (JSONArray) profesoresMap.get(key).get("Asignaturas");
+                asignaturas.add(profesorJson.get("Asignatura"));
+                totalAsignaturas++;
+            }
+
+            int profesorCount = 0;
+            for (JSONObject profesorJson : profesoresMap.values()) {
                 String nombre = (String) profesorJson.get("Nombre");
                 String jsonString = profesorJson.toJSONString();
-                Object[] profesorArgs = {jsonString, String.valueOf(i + 1)};
-                AgentController profesor = cc.createNewAgent("Profesor" + (i + 1), "AgenteProfesor", profesorArgs);
+                Object[] profesorArgs = {jsonString};
+                AgentController profesor = container.createNewAgent("Profesor" + (++profesorCount), "AgenteProfesor", profesorArgs);
                 profesor.start();
                 System.out.println("Agente Profesor " + nombre + " creado con JSON: " + jsonString);
             }
 
-            // Cargar y crear agentes salas
             JSONArray salasJson = loadJsonArray("salas.json");
-            for (int i = 0; i < salasJson.size(); i++) {
-                JSONObject salaJson = (JSONObject) salasJson.get(i);
+            Map<String, AgentController> salasControllers = new HashMap<>();
+            for (Object obj : salasJson) {
+                JSONObject salaJson = (JSONObject) obj;
                 String codigo = (String) salaJson.get("Codigo");
                 String jsonString = salaJson.toJSONString();
                 Object[] salaArgs = {jsonString};
-                AgentController sala = cc.createNewAgent("Sala" + codigo, "AgenteSala", salaArgs);
+                AgentController sala = container.createNewAgent("Sala" + codigo, "AgenteSala", salaArgs);
                 sala.start();
+                salasControllers.put(codigo, sala);
                 System.out.println("Agente Sala " + codigo + " creado con JSON: " + jsonString);
             }
+
+            // Establecer el número total de solicitudes para cada sala
+            for (AgentController salaController : salasControllers.values()) {
+                try {
+                    SalaInterface salaInterface = salaController.getO2AInterface(SalaInterface.class);
+                    if (salaInterface != null) {
+                        salaInterface.setTotalSolicitudes(totalAsignaturas);
+                        System.out.println("Total de solicitudes establecido para sala: " + salaController.getName());
+                    } else {
+                        System.out.println("No se pudo obtener la interfaz SalaInterface para la sala: " + salaController.getName());
+                    }
+                } catch (StaleProxyException e) {
+                    System.out.println("Error al obtener la interfaz para la sala: " + salaController.getName());
+                    e.printStackTrace();
+                }
+            }
+
+            // Esperar a que todos los agentes terminen
+            System.out.println("Esperando a que los agentes completen su trabajo...");
+            Thread.sleep(60000); // Aumentamos el tiempo de espera a 60 segundos
+
+            // Generar archivo CSV
+            System.out.println("Iniciando generación de archivo CSV...");
+            HorarioExcelGenerator.getInstance().generarArchivoCSV("horarios.csv");
 
         } catch (Exception e) {
             e.printStackTrace();

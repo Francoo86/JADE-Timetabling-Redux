@@ -1,0 +1,26 @@
+[
+    {
+      "Codigo": "A-1",
+      "Capacidad": 30
+    },
+    {
+      "Codigo": "B-2",
+      "Capacidad": 25
+    },
+    {
+      "Codigo": "C-3",
+      "Capacidad": 40
+    },
+    {
+      "Codigo": "D-4",
+      "Capacidad": 20
+    },
+    {
+      "Codigo": "E-5",
+      "Capacidad": 30
+    },
+    {
+      "Codigo": "F-6",
+      "Capacidad": 40
+    }
+]

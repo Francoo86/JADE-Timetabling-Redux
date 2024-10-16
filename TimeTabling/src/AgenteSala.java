@@ -11,10 +11,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.util.*;
 
-public class AgenteSala extends Agent {
+public class AgenteSala extends Agent implements SalaInterface {
     private String codigo;
     private int capacidad;
     private Map<String, List<String>> horario;
+    private int solicitudesProcesadas = 0;
+    private int totalSolicitudes;
 
     protected void setup() {
         Object[] args = getArguments();
@@ -44,6 +46,12 @@ public class AgenteSala extends Agent {
             fe.printStackTrace();
         }
 
+        // Habilitar O2A
+        setEnabledO2ACommunication(true, 0);
+
+        // Registrar la interfaz O2A
+        registerO2AInterface(SalaInterface.class, this);
+
         // Agregar comportamientos
         addBehaviour(new RecibirSolicitudBehaviour());
     }
@@ -60,98 +68,109 @@ public class AgenteSala extends Agent {
         }
     }
 
+    @Override
+    public void setTotalSolicitudes(int total) {
+        this.totalSolicitudes = total;
+        System.out.println("Total de solicitudes establecido para sala " + codigo + ": " + total);
+        addBehaviour(new VerificarFinalizacionBehaviour(this, 1000));
+    }
+
+    private class VerificarFinalizacionBehaviour extends TickerBehaviour {
+        public VerificarFinalizacionBehaviour(Agent a, long period) {
+            super(a, period);
+        }
+
+        protected void onTick() {
+            System.out.println("Verificando finalización para sala " + codigo + ". Procesadas: " + solicitudesProcesadas + " de " + totalSolicitudes);
+            if (solicitudesProcesadas >= totalSolicitudes) {
+                HorarioExcelGenerator.getInstance().agregarHorarioSala(codigo, horario);
+                System.out.println("Sala " + codigo + " ha finalizado su asignación de horarios y enviado los datos.");
+                stop();
+            }
+        }
+    }
+
     private class RecibirSolicitudBehaviour extends CyclicBehaviour {
-        public void action() {  // Se define la acción del comportamiento
-            MessageTemplate mt = MessageTemplate.and(  // Se crea una plantilla de mensaje
-                    MessageTemplate.MatchPerformative(ACLMessage.REQUEST),  // Se espera un mensaje de solicitud
-                    MessageTemplate.MatchConversationId("solicitud-horario")  // Se espera un mensaje con la conversación "solicitud-horario"
+        public void action() {
+            MessageTemplate mt = MessageTemplate.and(
+                    MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
+                    MessageTemplate.MatchConversationId("solicitud-horario")
             );
-            ACLMessage msg = myAgent.receive(mt);  // Se recibe un mensaje que cumpla con la plantilla
+            ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
+                solicitudesProcesadas++;
                 // Procesar solicitud de horario
-                String solicitud = msg.getContent();    // Se obtiene el contenido del mensaje
-                Asignatura asignatura = Asignatura.fromString(solicitud);  // Se convierte el contenido en una asignatura
+                String solicitud = msg.getContent();
+                Asignatura asignatura = Asignatura.fromString(solicitud);
 
                 // Generar propuesta de horario
-                List<String> propuesta = generarPropuesta(asignatura);  // Se genera una propuesta de horario
-  
-                if (!propuesta.isEmpty()) {  // Si la propuesta no está vacía
-                    ACLMessage reply = msg.createReply();  // Se crea una respuesta al mensaje recibido
-                    reply.setPerformative(ACLMessage.PROPOSE);  // Se define la acción del mensaje como propuesta
-                    reply.setContent(String.join(",", propuesta));  // Se agrega la propuesta al contenido del mensaje
-                    myAgent.send(reply);  // Se envía la respuesta al mensaje
+                String propuesta = generarPropuesta(asignatura);
+
+                if (!propuesta.isEmpty()) {
+                    ACLMessage reply = msg.createReply();
+                    reply.setPerformative(ACLMessage.PROPOSE);
+                    reply.setContent(propuesta);
+                    myAgent.send(reply);
 
                     // Esperar respuesta del profesor
-                    myAgent.addBehaviour(new EsperarRespuestaBehaviour(myAgent, msg.getSender(), propuesta));  // Se agrega un comportamiento para esperar la respuesta del profesor
+                    addBehaviour(new EsperarRespuestaBehaviour(myAgent, msg.getSender(), propuesta));
                 }
             } else {
-                block();  // Se bloquea el comportamiento si no se reciben mensajes
+                block();
             }
         }
 
-        private List<String> generarPropuesta(Asignatura asignatura) {
-            List<String> propuesta = new ArrayList<>();  // Se crea una lista vacía para la propuesta
-            int horasAsignadas = 0;  // Se inicializa el contador de horas asignadas
-
-            for (Map.Entry<String, List<String>> entry : horario.entrySet()) {  // Para cada día de la semana
-                String dia = entry.getKey();  // Se obtiene el día
-                List<String> bloques = entry.getValue();  // Se obtienen los bloques horarios
+        private String generarPropuesta(Asignatura asignatura) {
+            for (Map.Entry<String, List<String>> entry : horario.entrySet()) {
+                String dia = entry.getKey();
+                List<String> bloques = entry.getValue();
 
                 for (int i = 0; i < bloques.size(); i++) {
-                    if (bloques.get(i).isEmpty() && horasAsignadas < asignatura.horas) {  // Si el bloque está vacío y no se han asignado todas las horas
-                        propuesta.add(dia + "-" + (i + 1));  // Se agrega el bloque a la propuesta
-                        horasAsignadas++;  // Se incrementa el contador de horas asignadas
-                    }
-
-                    if (horasAsignadas == asignatura.horas) {  // Si se han asignado todas las horas
-                        return propuesta;   // Se retorna la propuesta
+                    if (bloques.get(i).isEmpty()) {
+                        return dia + "," + (i + 1);
                     }
                 }
             }
-
-            // Si no se pudo asignar todas las horas, retornar una lista vacía
-            return new ArrayList<>();
+            return "";
         }
     }
 
     private class EsperarRespuestaBehaviour extends Behaviour {
-        private boolean received = false;  // Se inicializa la bandera de recepción
-        private MessageTemplate mt;  // Se inicializa la plantilla de mensaje
-        private List<String> propuesta;  // Se inicializa la propuesta
+        private boolean received = false;
+        private MessageTemplate mt;
+        private String propuesta;
 
-        public EsperarRespuestaBehaviour(Agent a, jade.core.AID sender, List<String> propuesta) {
-            super(a);  // Se llama al constructor de la clase padre
-            this.mt = MessageTemplate.and(  // Se crea una plantilla de mensaje
-                    MessageTemplate.MatchSender(sender),  // Se espera un mensaje del profesor
-                    MessageTemplate.or(  // Se espera un mensaje de aceptación o rechazo
-                            MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL),  // Se espera un mensaje de aceptación
-                            MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL)  // Se espera un mensaje de rechazo
+        public EsperarRespuestaBehaviour(Agent a, jade.core.AID sender, String propuesta) {
+            super(a);
+            this.mt = MessageTemplate.and(
+                    MessageTemplate.MatchSender(sender),
+                    MessageTemplate.or(
+                            MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL),
+                            MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL)
                     )
             );
-            this.propuesta = propuesta;  // Se asigna la propuesta
+            this.propuesta = propuesta;
         }
 
         public void action() {
-            ACLMessage msg = myAgent.receive(mt);  // Se recibe un mensaje que cumpla con la plantilla
-            if (msg != null) {  // Si se recibe un mensaje
-                if (msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {  // Si el mensaje es de aceptación
-                    // Actualizar el horario de la sala 
-                    for (String bloque : propuesta) {       // Para cada bloque de la propuesta
-                        String[] partes = bloque.split("-");   // Se separan las partes del bloque
-                        String dia = partes[0];  // Se obtiene el día  
-                        int hora = Integer.parseInt(partes[1]) - 1;  // Se obtiene la hora
-                        horario.get(dia).set(hora, msg.getSender().getLocalName());  // Se actualiza el horario
-                    }
-                    System.out.println("Sala " + codigo + " ha actualizado su horario: " + horario);   // Se imprime el horario actualizado
+            ACLMessage msg = myAgent.receive(mt);
+            if (msg != null) {
+                if (msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {
+                    // Actualizar el horario de la sala
+                    String[] partes = propuesta.split(",");
+                    String dia = partes[0];
+                    int bloque = Integer.parseInt(partes[1]);
+                    horario.get(dia).set(bloque - 1, msg.getSender().getLocalName());
+                    System.out.println("Sala " + codigo + " ha actualizado su horario: " + horario);
                 }
-                received = true;  // Se marca la bandera de recepción
+                received = true;
             } else {
-                block();  // Se bloquea el comportamiento si no se recibe un mensaje
+                block();
             }
         }
 
-        public boolean done() {  // Se define si el comportamiento ha finalizado
-            return received;  // Se retorna la bandera de recepción
+        public boolean done() {
+            return received;
         }
     }
 }
