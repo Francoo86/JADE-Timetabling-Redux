@@ -14,26 +14,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Aplicacion extends Agent {
+
     protected void setup() {
         System.out.println("Agente Aplicacion iniciado");
 
         try {
-            // Create the main container
-            Runtime rt = Runtime.instance();
-            rt.setCloseVM(true);
-            Profile profile = new ProfileImpl(null, 1200, null);
-            profile.setParameter(Profile.GUI, "true");
-            AgentContainer container = rt.createMainContainer(profile);
-
             // Load professor and classroom data
             JSONArray profesoresJson = loadJsonArray("profesores.json");
             JSONArray salasJson = loadJsonArray("salas.json");
 
             // Create professor agents
-            Map<String, JSONObject> profesoresMap = createProfesorAgents(container, profesoresJson);
+            Map<String, JSONObject> profesoresMap = createProfesorAgents(getContainerController(), profesoresJson);
 
             // Create classroom agents
-            Map<String, AgentController> salasControllers = createSalaAgents(container, salasJson);
+            Map<String, AgentController> salasControllers = createSalaAgents(getContainerController(), salasJson);
 
             // Wait for agents to initialize
             Thread.sleep(2000);
@@ -44,11 +38,13 @@ public class Aplicacion extends Agent {
 
             // Wait for agents to complete their work
             System.out.println("Esperando a que los agentes completen su trabajo...");
-            Thread.sleep(60000);
+            Thread.sleep(60000);  // Adjust this time as needed
 
-            // Generate CSV file
-            System.out.println("Iniciando generación de archivo CSV...");
-            HorarioExcelGenerator.getInstance().generarArchivoCSV("horarios.csv");
+            // Generate JSON files
+            System.out.println("Iniciando generación de archivos JSON...");
+            ProfesorHorarioJSON.getInstance().generarArchivoJSON();
+            SalaHorarioJSON.getInstance().generarArchivoJSON();
+            System.out.println("Archivos JSON generados exitosamente.");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,14 +135,21 @@ public class Aplicacion extends Agent {
     }
 
     public static void main(String[] args) {
-        jade.core.Runtime rt = jade.core.Runtime.instance();
-        Profile p = new ProfileImpl();
-        AgentContainer container = rt.createMainContainer(p);
+        // Start the JADE runtime
+        Runtime rt = Runtime.instance();
+
+        // Create a default profile
+        Profile profile = new ProfileImpl();
+        profile.setParameter(Profile.MAIN_HOST, "localhost");
+        profile.setParameter(Profile.GUI, "true");
+
+        // Create a main container
+        AgentContainer mainContainer = rt.createMainContainer(profile);
 
         try {
-            AgentController ac = container.createNewAgent("Aplicacion", "Aplicacion", new Object[]{});
-            ac.start();
-        } catch (Exception e) {
+            // Create and start the Aplicacion agent
+            mainContainer.createNewAgent("Aplicacion", "Aplicacion", new Object[]{}).start();
+        } catch (StaleProxyException e) {
             e.printStackTrace();
         }
     }

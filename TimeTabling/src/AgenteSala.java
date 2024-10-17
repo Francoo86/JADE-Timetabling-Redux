@@ -104,7 +104,7 @@ public class AgenteSala extends Agent implements SalaInterface {
                     reply.setContent(propuesta);
                     myAgent.send(reply);
 
-                    addBehaviour(new EsperarRespuestaBehaviour(myAgent, msg.getSender(), propuesta));
+                    addBehaviour(new EsperarRespuestaBehaviour(myAgent, msg.getSender(), propuesta, asignatura.getNombre()));
                 }
             } else {
                 block();
@@ -112,31 +112,32 @@ public class AgenteSala extends Agent implements SalaInterface {
         }
     }
 
-        // Recorre el mapa horario para encontrar un bloque vacío. Si encuentra un bloque vacío, retorna el día y el número del bloque. Si no retorna una cadena vacía.
-        private String generarPropuesta(Asignatura asignatura) {
-            if (asignatura.getVacantes() > this.capacidad) {
-                return ""; // La sala no tiene capacidad suficiente
-            }
-            for (Map.Entry<String, List<String>> entry : horario.entrySet()) {
-                String dia = entry.getKey();
-                List<String> bloques = entry.getValue();
-
-                for (int i = 0; i < bloques.size(); i++) {
-                    if (bloques.get(i).isEmpty()) {
-                        return dia + "," + (i + 1);
-                    }
-                }
-            }
+    // Recorre el mapa horario para encontrar un bloque vacío. Si encuentra un bloque vacío, retorna el día y el número del bloque. Si no retorna una cadena vacía.
+    private String generarPropuesta(Asignatura asignatura) {
+        if (asignatura.getVacantes() > this.capacidad) {
             return "";
         }
+        for (Map.Entry<String, List<String>> entry : horario.entrySet()) {
+            String dia = entry.getKey();
+            List<String> bloques = entry.getValue();
+
+            for (int i = 0; i < bloques.size(); i++) {
+                if (bloques.get(i).isEmpty()) {
+                    return dia + "," + (i + 1) + "," + codigo;
+                }
+            }
+        }
+        return "";
+    }
 
 
     private class EsperarRespuestaBehaviour extends Behaviour {
         private boolean received = false;
         private MessageTemplate mt;
         private String propuesta;
+        private String nombreAsignatura;
 
-        public EsperarRespuestaBehaviour(Agent a, jade.core.AID sender, String propuesta) {
+        public EsperarRespuestaBehaviour(Agent a, jade.core.AID sender, String propuesta, String nombreAsignatura) {
             super(a);
             this.mt = MessageTemplate.and(
                     MessageTemplate.MatchSender(sender),
@@ -146,6 +147,7 @@ public class AgenteSala extends Agent implements SalaInterface {
                     )
             );
             this.propuesta = propuesta;
+            this.nombreAsignatura = nombreAsignatura;
         }
 
         public void action() {
@@ -155,7 +157,7 @@ public class AgenteSala extends Agent implements SalaInterface {
                     String[] partes = propuesta.split(",");
                     String dia = partes[0];
                     int bloque = Integer.parseInt(partes[1]);
-                    horario.get(dia).set(bloque - 1, msg.getSender().getLocalName());
+                    horario.get(dia).set(bloque - 1, nombreAsignatura);
                     System.out.println("Sala " + codigo + " ha actualizado su horario: " + horario);
                 }
                 received = true;
@@ -170,16 +172,26 @@ public class AgenteSala extends Agent implements SalaInterface {
     }
 
     private class VerificarFinalizacionBehaviour extends TickerBehaviour {
+        private int ultimasSolicitudesProcesadas = 0;
+        private int contadorSinCambios = 0;
+        private static final int MAX_SIN_CAMBIOS = 10;
+
         public VerificarFinalizacionBehaviour(Agent a, long period) {
             super(a, period);
         }
 
         protected void onTick() {
             System.out.println("Verificando finalización para sala " + codigo + ". Procesadas: " + solicitudesProcesadas + " de " + totalSolicitudes);
-            if (solicitudesProcesadas >= totalSolicitudes) {
-                HorarioExcelGenerator.getInstance().agregarHorarioSala(codigo, horario);
+
+            if (solicitudesProcesadas >= totalSolicitudes ||
+                    (solicitudesProcesadas == ultimasSolicitudesProcesadas && ++contadorSinCambios >= MAX_SIN_CAMBIOS)) {
+                SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, horario);
                 System.out.println("Sala " + codigo + " ha finalizado su asignación de horarios y enviado los datos.");
                 stop();
+                myAgent.doDelete();
+            } else if (solicitudesProcesadas != ultimasSolicitudesProcesadas) {
+                ultimasSolicitudesProcesadas = solicitudesProcesadas;
+                contadorSinCambios = 0;
             }
         }
     }

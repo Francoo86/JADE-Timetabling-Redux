@@ -11,12 +11,15 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.util.*;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 public class AgenteProfesor extends Agent {
     private String nombre;
     private String rut;
-    private List<Asignatura> asignaturas;  // Se crea una lista de asignaturas
-    private Map<String, List<String>> horario;  // Se crea un mapa para almacenar el horario, donde las claves son los días de la semana y los valores son listas de bloques horarios
+    private List<Asignatura> asignaturas;
+    private JSONObject horarioJSON;
+    private int solicitudesProcesadas = 0;
 
     protected void setup() {
         // Obtiene los argumentos pasados al agente y carga los datos del profesor desde un JSON.
@@ -26,12 +29,8 @@ public class AgenteProfesor extends Agent {
             loadFromJsonString(jsonString);
         }
 
-        // Inicializa el horario del profesor con bloques vacíos para cada día de la semana.
-        horario = new HashMap<>();
-        String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
-        for (String dia : dias) {
-            horario.put(dia, new ArrayList<>(Arrays.asList("", "", "", "", "")));
-        }
+        horarioJSON = new JSONObject();
+        horarioJSON.put("Asignaturas", new JSONArray());
 
         System.out.println("Agente Profesor " + nombre + " iniciado. Asignaturas: " + asignaturas.size());
 
@@ -130,23 +129,21 @@ public class AgenteProfesor extends Agent {
                     }
                     break;
                 case 1:
-                    // Recibir y evaluar propuestas
                     ACLMessage reply = myAgent.receive(mt);
                     if (reply != null) {
+                        solicitudesProcesadas++;
                         String propuesta = reply.getContent();
                         if (evaluarPropuesta(propuesta)) {
-                            // Aceptar la propuesta
                             ACLMessage accept = reply.createReply();
                             accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
                             accept.setContent("Propuesta aceptada");
                             myAgent.send(accept);
-                            actualizarHorario(propuesta, asignaturas.get(asignaturaActual).getNombre());
+                            actualizarHorario(propuesta, asignaturas.get(asignaturaActual));
                             System.out.println("Profesor " + nombre + " ha aceptado el horario para " + asignaturas.get(asignaturaActual).getNombre() + ": " + propuesta);
                             asignaturaActual++;
                             intentos = 0;
                             step = asignaturaActual < asignaturas.size() ? 0 : 2;
                         } else {
-                            // Rechazar la propuesta
                             ACLMessage reject = reply.createReply();
                             reject.setPerformative(ACLMessage.REJECT_PROPOSAL);
                             reject.setContent("Propuesta rechazada");
@@ -165,26 +162,58 @@ public class AgenteProfesor extends Agent {
                         block();
                     }
                     break;
+                case 2:
+                    ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(nombre, horarioJSON, solicitudesProcesadas);
+                    myAgent.doDelete();
+                    break;
             }
         }
 
         private boolean evaluarPropuesta(String propuesta) {
             String[] partes = propuesta.split(",");
             String dia = partes[0];
-            int bloque = Integer.parseInt(partes[1]);  // Divide la propuesta en día y bloque horario.
-            return horario.get(dia).get(bloque - 1).isEmpty();  // Verifica si el bloque horario está disponible en el horario del profesor.
+            int bloque = Integer.parseInt(partes[1]);
+
+            JSONArray asignaturasArray = (JSONArray) horarioJSON.get("Asignaturas");
+            for (Object obj : asignaturasArray) {
+                JSONObject asignaturaJSON = (JSONObject) obj;
+                String asignaturaDia = (String) asignaturaJSON.get("Dia");
+                int asignaturaBloque;
+                Object bloqueObj = asignaturaJSON.get("Bloque");
+                if (bloqueObj instanceof Long) {
+                    asignaturaBloque = ((Long) bloqueObj).intValue();
+                } else if (bloqueObj instanceof Integer) {
+                    asignaturaBloque = (Integer) bloqueObj;
+                } else {
+                    // Handle unexpected type or log an error
+                    continue;
+                }
+
+                if (asignaturaDia.equals(dia) && asignaturaBloque == bloque) {
+                    return false; // El bloque ya está ocupado
+                }
+            }
+            return true; // El bloque está disponible
         }
 
-        private void actualizarHorario(String propuesta, String nombreAsignatura) {
+        private void actualizarHorario(String propuesta, Asignatura asignatura) {
             String[] partes = propuesta.split(",");
             String dia = partes[0];
-            int bloque = Integer.parseInt(partes[1]);  // Divide la propuesta en día y bloque horario.
-            horario.get(dia).set(bloque - 1, nombreAsignatura);  // Actualiza el horario del profesor con la asignatura asignada.
+            int bloque = Integer.parseInt(partes[1]);
+            String sala = partes[2];
+
+            JSONObject asignaturaJSON = new JSONObject();
+            asignaturaJSON.put("Nombre", asignatura.getNombre());
+            asignaturaJSON.put("Sala", sala);
+            asignaturaJSON.put("Bloque", bloque);
+            asignaturaJSON.put("Dia", dia);
+
+            JSONArray asignaturasArray = (JSONArray) horarioJSON.get("Asignaturas");
+            asignaturasArray.add(asignaturaJSON);
         }
-        
-        // TODO: Actualizar a cuando todas las asignaturas han sido asignadas.
+
         public boolean done() {
-            return step == 2;   // El comportamiento está completo cuando se han procesado todas las asignaturas.
+            return step == 2;
         }
     }
 }
