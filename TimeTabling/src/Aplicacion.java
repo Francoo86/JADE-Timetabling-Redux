@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 
+// Configura y lanza agentes basados en datos leídos de archivos JSON.
 public class Aplicacion extends Agent {
     protected void setup() {
         System.out.println("Agente Aplicacion iniciado");

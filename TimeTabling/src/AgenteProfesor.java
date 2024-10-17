@@ -15,25 +15,27 @@ import java.util.*;
 public class AgenteProfesor extends Agent {
     private String nombre;
     private String rut;
-    private List<Asignatura> asignaturas;
-    private Map<String, List<String>> horario;
+    private List<Asignatura> asignaturas;  // Se crea una lista de asignaturas
+    private Map<String, List<String>> horario;  // Se crea un mapa para almacenar el horario, donde las claves son los días de la semana y los valores son listas de bloques horarios
 
     protected void setup() {
+        // Obtiene los argumentos pasados al agente y carga los datos del profesor desde un JSON.
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
             String jsonString = (String) args[0];
             loadFromJsonString(jsonString);
         }
 
+        // Inicializa el horario del profesor con bloques vacíos para cada día de la semana.
         horario = new HashMap<>();
-        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
+        String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
         for (String dia : dias) {
             horario.put(dia, new ArrayList<>(Arrays.asList("", "", "", "", "")));
         }
 
         System.out.println("Agente Profesor " + nombre + " iniciado. Asignaturas: " + asignaturas.size());
 
-        // Registrar el agente en el DF
+        // Registra el agente en el DF para que otros agentes puedan encontrarlo.
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
@@ -75,15 +77,27 @@ public class AgenteProfesor extends Agent {
         }
     }
 
+    /*Búsqueda de Salas: El agente busca otros agentes de tipo "sala" en el Directorio de Facilitadores (DF).
+    1.Solicitud de Horario: Envía una solicitud de horario a todas las salas encontradas para la asignatura actual.
+    2.Recepción de Propuestas: Recibe propuestas de horario de las salas.
+    3.Evaluación de Propuestas: Evalúa si la propuesta es aceptable verificando si el bloque horario propuesto está disponible en su horario.
+    4.Aceptación o Rechazo:
+    Si la propuesta es aceptable, acepta la propuesta, actualiza su horario y pasa a la siguiente asignatura.
+    Si la propuesta no es aceptable, rechaza la propuesta y espera otra. */
+
+    /*TODO: Solo se esta preocupando de su horario, no de las asignaturas. Asegurar que todas las sus asignaturas han sido asignadas.
+    Verificar Disponibilidad de la Sala: Además de verificar si el bloque horario está libre en el horario del profesor, también se debe verificar si la sala está disponible para ese bloque horario.
+    Asignar Diferentes Bloques Horarios: Asegurarse de que cada asignatura se asigne a un bloque horario diferente.*/
+
     private class SolicitarHorarioBehaviour extends Behaviour {
-        private int step = 0;
-        private MessageTemplate mt;
-        private int asignaturaActual = 0;
+        private int step = 0;  // Paso actual del comportamiento
+        private MessageTemplate mt;  // Plantilla de mensajes para filtrar mensajes entrantes.
+        private int asignaturaActual = 0;  // Índice de la asignatura actual en la lista de asignaturas.
 
         public void action() {
             switch (step) {
                 case 0:
-                    // Buscar agentes Sala
+                    // Busca agentes de tipo "sala" y envía una solicitud de horario a todas las salas encontradas.
                     DFAgentDescription template = new DFAgentDescription();
                     ServiceDescription sd = new ServiceDescription();
                     sd.setType("sala");
@@ -110,7 +124,7 @@ public class AgenteProfesor extends Agent {
                     }
                     break;
                 case 1:
-                    // Recibir propuestas de horario
+                    // Recibe propuestas de horario de las salas y evalúa si la propuesta es aceptable. Si es aceptable, acepta la propuesta y actualiza el horario del profesor. Si no, rechaza la propuesta.
                     ACLMessage reply = myAgent.receive(mt);
                     if (reply != null) {
                         String propuesta = reply.getContent();
@@ -141,19 +155,20 @@ public class AgenteProfesor extends Agent {
         private boolean evaluarPropuesta(String propuesta) {
             String[] partes = propuesta.split(",");
             String dia = partes[0];
-            int bloque = Integer.parseInt(partes[1]);
-            return horario.get(dia).get(bloque - 1).isEmpty();
+            int bloque = Integer.parseInt(partes[1]);  // Divide la propuesta en día y bloque horario.
+            return horario.get(dia).get(bloque - 1).isEmpty();  // Verifica si el bloque horario está disponible en el horario del profesor.
         }
 
         private void actualizarHorario(String propuesta, String nombreAsignatura) {
             String[] partes = propuesta.split(",");
             String dia = partes[0];
-            int bloque = Integer.parseInt(partes[1]);
-            horario.get(dia).set(bloque - 1, nombreAsignatura);
+            int bloque = Integer.parseInt(partes[1]);  // Divide la propuesta en día y bloque horario.
+            horario.get(dia).set(bloque - 1, nombreAsignatura);  // Actualiza el horario del profesor con la asignatura asignada.
         }
-
+        
+        // TODO: Actualizar a cuando todas las asignaturas han sido asignadas.
         public boolean done() {
-            return step == 2;
+            return step == 2;   // El comportamiento está completo cuando se han procesado todas las asignaturas.
         }
     }
 }

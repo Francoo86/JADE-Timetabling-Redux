@@ -25,15 +25,16 @@ public class AgenteSala extends Agent implements SalaInterface {
             loadFromJsonString(jsonString);
         }
 
+        // Inicializa el horario con días de la semana y bloques vacíos
         horario = new HashMap<>();
-        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes"};
+        String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
         for (String dia : dias) {
             horario.put(dia, new ArrayList<>(Arrays.asList("", "", "", "", "")));
         }
 
         System.out.println("Agente Sala " + codigo + " iniciado. Capacidad: " + capacidad);
 
-        // Registrar el agente en el DF
+        // Registra el agente en el Directorio de Facilitadores (DF).
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
@@ -76,21 +77,33 @@ public class AgenteSala extends Agent implements SalaInterface {
     }
 
     private class VerificarFinalizacionBehaviour extends TickerBehaviour {
+        // Se ejecuta periódicamente.
         public VerificarFinalizacionBehaviour(Agent a, long period) {
             super(a, period);
         }
 
+        // Verificar si se han procesado todas las solicitudes
         protected void onTick() {
             System.out.println("Verificando finalización para sala " + codigo + ". Procesadas: " + solicitudesProcesadas + " de " + totalSolicitudes);
             if (solicitudesProcesadas >= totalSolicitudes) {
+                // Genera un archivo Excel con el horario y detiene el comportamiento.
                 HorarioExcelGenerator.getInstance().agregarHorarioSala(codigo, horario);
                 System.out.println("Sala " + codigo + " ha finalizado su asignación de horarios y enviado los datos.");
-                stop();
+                stop();  
             }
         }
     }
 
+    /* 
+    1. Recepción de Solicitudes: Continuamente recibe solicitudes de asignación de horarios.
+    2. Generación de Propuestas: Genera propuestas de horarios basadas en la disponibilidad.
+    3. Esperar Respuesta: Espera la aceptación o rechazo de la propuesta.
+    4. Actualización de Horario: Si la propuesta es aceptada, actualiza el horario.
+    5. Verificación de Finalización: Periódicamente verifica si se han procesado todas las solicitudes y genera un archivo Excel con el horario final.
+    */
+
     private class RecibirSolicitudBehaviour extends CyclicBehaviour {
+        // Se ejecuta continuamente.
         public void action() {
             MessageTemplate mt = MessageTemplate.and(
                     MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
@@ -99,13 +112,15 @@ public class AgenteSala extends Agent implements SalaInterface {
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 solicitudesProcesadas++;
+
                 // Procesar solicitud de horario
                 String solicitud = msg.getContent();
-                Asignatura asignatura = Asignatura.fromString(solicitud);
+                Asignatura asignatura = Asignatura.fromString(solicitud);   // Convertir JSON a objeto Asignatura
 
                 // Generar propuesta de horario
                 String propuesta = generarPropuesta(asignatura);
 
+                // Si la propuesta no está vacía, enviarla al profesor
                 if (!propuesta.isEmpty()) {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.PROPOSE);
@@ -116,10 +131,12 @@ public class AgenteSala extends Agent implements SalaInterface {
                     addBehaviour(new EsperarRespuestaBehaviour(myAgent, msg.getSender(), propuesta));
                 }
             } else {
+                // Si no hay mensajes, bloquear el comportamiento
                 block();
             }
         }
 
+        // Recorre el mapa horario para encontrar un bloque vacío. Si encuentra un bloque vacío, retorna el día y el número del bloque. Si no retorna una cadena vacía.
         private String generarPropuesta(Asignatura asignatura) {
             for (Map.Entry<String, List<String>> entry : horario.entrySet()) {
                 String dia = entry.getKey();
@@ -134,6 +151,7 @@ public class AgenteSala extends Agent implements SalaInterface {
             return "";
         }
     }
+
 
     private class EsperarRespuestaBehaviour extends Behaviour {
         private boolean received = false;
@@ -169,6 +187,7 @@ public class AgenteSala extends Agent implements SalaInterface {
             }
         }
 
+        // Indica que el comportamiento ha terminado cuando se ha recibido una respuesta.
         public boolean done() {
             return received;
         }
