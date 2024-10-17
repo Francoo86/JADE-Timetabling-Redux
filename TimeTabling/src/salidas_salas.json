@@ -3,79 +3,54 @@
     "Nombre": "A-1",
     "Asignatura": [
       {
-        "Nombre": "Calculo",
-        "Bloque": 1,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Matemáticas Avanzadas",
-        "Bloque": 2,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Java",
-        "Bloque": 3,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Java",
-        "Bloque": 4,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Java",
-        "Bloque": 5,
-        "Dia": "Miercoles"
-      },
-      {
         "Nombre": "Matemáticas Avanzadas",
         "Bloque": 1,
-        "Dia": "Martes"
-      },
-      {
-        "Nombre": "Matemáticas Avanzadas",
-        "Bloque": 2,
-        "Dia": "Martes"
-      },
-      {
-        "Nombre": "Calculo",
-        "Bloque": 3,
-        "Dia": "Martes"
+        "Dia": "Miercoles"
       },
       {
         "Nombre": "Programación en C",
-        "Bloque": 4,
-        "Dia": "Martes"
+        "Bloque": 2,
+        "Dia": "Miercoles"
       },
       {
-        "Nombre": "Programación en JADE",
+        "Nombre": "Programación en C",
+        "Bloque": 3,
+        "Dia": "Miercoles"
+      },
+      {
+        "Nombre": "Programación en Java",
+        "Bloque": 4,
+        "Dia": "Miercoles"
+      },
+      {
+        "Nombre": "Programación Basica",
         "Bloque": 5,
+        "Dia": "Miercoles"
+      },
+      {
+        "Nombre": "Programación Basica",
+        "Bloque": 1,
         "Dia": "Martes"
       },
       {
         "Nombre": "Calculo 2",
-        "Bloque": 1,
-        "Dia": "Viernes"
+        "Bloque": 2,
+        "Dia": "Martes"
       },
       {
-        "Nombre": "Programación Basica",
-        "Bloque": 2,
-        "Dia": "Viernes"
+        "Nombre": "Calculo 2",
+        "Bloque": 3,
+        "Dia": "Martes"
       },
       {
         "Nombre": "Programación en Python",
-        "Bloque": 3,
-        "Dia": "Viernes"
-      },
-      {
-        "Nombre": "Programación en JADE",
         "Bloque": 4,
-        "Dia": "Viernes"
+        "Dia": "Martes"
       },
       {
-        "Nombre": "Codigo Binario",
+        "Nombre": "Calculo 3",
         "Bloque": 5,
-        "Dia": "Viernes"
+        "Dia": "Martes"
       }
     ]
   },
@@ -83,12 +58,12 @@
     "Nombre": "B-2",
     "Asignatura": [
       {
-        "Nombre": "Programación en C",
+        "Nombre": "Programación en Java",
         "Bloque": 1,
         "Dia": "Miercoles"
       },
       {
-        "Nombre": "Bases de Datos",
+        "Nombre": "Programación en C",
         "Bloque": 2,
         "Dia": "Miercoles"
       },
@@ -96,6 +71,21 @@
         "Nombre": "Programación en C",
         "Bloque": 3,
         "Dia": "Miercoles"
+      },
+      {
+        "Nombre": "Bases de Datos",
+        "Bloque": 4,
+        "Dia": "Miercoles"
+      },
+      {
+        "Nombre": "Programación en Java",
+        "Bloque": 5,
+        "Dia": "Miercoles"
+      },
+      {
+        "Nombre": "Programación en JADE",
+        "Bloque": 1,
+        "Dia": "Martes"
       }
     ]
   }

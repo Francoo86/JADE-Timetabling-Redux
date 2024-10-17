@@ -166,6 +166,7 @@ public class AgenteProfesor extends Agent {
                     ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(nombre, horarioJSON, solicitudesProcesadas);
                     myAgent.doDelete();
                     break;
+
             }
         }
 
@@ -213,7 +214,12 @@ public class AgenteProfesor extends Agent {
         }
 
         public boolean done() {
-            return step == 2;
+            if (asignaturaActual >= asignaturas.size()) {
+                ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(nombre, horarioJSON, solicitudesProcesadas);
+                myAgent.doDelete();
+                return true;
+            }
+            return false;
         }
     }
 }

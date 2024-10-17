@@ -30,7 +30,7 @@ public class Aplicacion extends Agent {
             Map<String, AgentController> salasControllers = createSalaAgents(getContainerController(), salasJson);
 
             // Wait for agents to initialize
-            Thread.sleep(2000);
+            Thread.sleep(120000);
 
             // Set total requests for each classroom
             int totalAsignaturas = calculateTotalAsignaturas(profesoresMap);

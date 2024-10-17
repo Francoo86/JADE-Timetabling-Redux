@@ -48,7 +48,7 @@ public class SalaHorarioJSON {
         JSONArray jsonArray = new JSONArray();
         jsonArray.addAll(salasHorarios.values());
 
-        try (FileWriter file = new FileWriter("salidas_salas.json")) {
+        try (FileWriter file = new FileWriter("Salidas_salas.json")) {
             file.write(formatJSONString(jsonArray.toJSONString()));
             System.out.println("Archivo salidas_salas.json generado exitosamente.");
         } catch (IOException e) {
