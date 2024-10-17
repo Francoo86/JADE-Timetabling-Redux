@@ -47,6 +47,7 @@ public class Aplicacion extends Agent {
             System.out.println("Archivos JSON generados exitosamente.");
 
         } catch (Exception e) {
+            System.out.println("Test");
             e.printStackTrace();
         }
     }
