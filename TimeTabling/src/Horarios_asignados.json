@@ -5,20 +5,20 @@
     "Asignaturas": [
       {
         "Nombre": "Programación en Java",
-        "Sala": "A-1",
-        "Bloque": 4,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Python",
         "Sala": "B-2",
         "Bloque": 5,
         "Dia": "Miercoles"
       },
       {
-        "Nombre": "Programación en C++",
+        "Nombre": "Programación en Python",
         "Sala": "A-1",
         "Bloque": 4,
+        "Dia": "Miercoles"
+      },
+      {
+        "Nombre": "Programación en C++",
+        "Sala": "B-2",
+        "Bloque": 1,
         "Dia": "Martes"
       }
     ]
@@ -41,9 +41,9 @@
       },
       {
         "Nombre": "Programación en Kotlin",
-        "Sala": "B-2",
-        "Bloque": 1,
-        "Dia": "Martes"
+        "Sala": "A-1",
+        "Bloque": 4,
+        "Dia": "Miercoles"
       }
     ]
   },
@@ -60,8 +60,8 @@
       {
         "Nombre": "Programación Basica",
         "Sala": "A-1",
-        "Bloque": 5,
-        "Dia": "Miercoles"
+        "Bloque": 1,
+        "Dia": "Martes"
       },
       {
         "Nombre": "Codigo Binario",
@@ -78,7 +78,7 @@
       {
         "Nombre": "Bases de Datos",
         "Sala": "B-2",
-        "Bloque": 4,
+        "Bloque": 1,
         "Dia": "Miercoles"
       }
     ]

@@ -13,7 +13,7 @@
         "Dia": "Miercoles"
       },
       {
-        "Nombre": "Programación en C",
+        "Nombre": "Calculo",
         "Bloque": 3,
         "Dia": "Miercoles"
       },
@@ -43,7 +43,7 @@
         "Dia": "Martes"
       },
       {
-        "Nombre": "Programación en Python",
+        "Nombre": "Codigo Binario",
         "Bloque": 4,
         "Dia": "Martes"
       },
@@ -58,12 +58,12 @@
     "Nombre": "B-2",
     "Asignatura": [
       {
-        "Nombre": "Programación en Java",
+        "Nombre": "Programación en C",
         "Bloque": 1,
         "Dia": "Miercoles"
       },
       {
-        "Nombre": "Programación en C",
+        "Nombre": "Programación en Java",
         "Bloque": 2,
         "Dia": "Miercoles"
       },
@@ -73,7 +73,7 @@
         "Dia": "Miercoles"
       },
       {
-        "Nombre": "Bases de Datos",
+        "Nombre": "Programación en Java",
         "Bloque": 4,
         "Dia": "Miercoles"
       },
@@ -83,7 +83,7 @@
         "Dia": "Miercoles"
       },
       {
-        "Nombre": "Programación en JADE",
+        "Nombre": "Programación en Python",
         "Bloque": 1,
         "Dia": "Martes"
       }
