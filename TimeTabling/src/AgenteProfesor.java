@@ -82,8 +82,9 @@ public class AgenteProfesor extends Agent {
         }
         return defaultValue;
     }
-    
-    /* Búsqueda de Salas: El agente busca otros agentes de tipo "sala" en el Directorio de Facilitadores (DF).
+
+    /* 
+    Búsqueda de Salas: El agente busca otros agentes de tipo "sala" en el Directorio de Facilitadores (DF).
     1. Solicitud de Horario: Envía una solicitud de horario a todas las salas encontradas para la asignatura actual.
     2. Recepción de Propuestas: Recibe propuestas de horario de las salas.
     3. Evaluación de Propuestas: Evalúa si la propuesta es aceptable verificando:
@@ -93,7 +94,8 @@ public class AgenteProfesor extends Agent {
         a. Si la propuesta es aceptable, acepta la propuesta, actualiza su horario y pasa a la siguiente asignatura.
         b. Si la propuesta no es aceptable, rechaza la propuesta y espera otra.
     5. Verificación de Asignación Completa: Asegura que todas las asignaturas han sido asignadas.
-    6. Asignación de Diferentes Bloques Horarios: Asegura que cada asignatura se asigne a un bloque horario diferente. */
+    6. Asignación de Diferentes Bloques Horarios: Asegura que cada asignatura se asigne a un bloque horario diferente. 
+    */
 
     private class SolicitarHorarioBehaviour extends Behaviour {
         private int step = 0;
@@ -101,7 +103,7 @@ public class AgenteProfesor extends Agent {
         private int asignaturaActual = 0;
         private int intentos = 0;
         private static final int MAX_INTENTOS = 10;     // Número máximo de intentos para asignar un horario
-        // Buena o mala práctica?
+        //TODO: Buena o mala práctica?
 
         public void action() {
             switch (step) {
