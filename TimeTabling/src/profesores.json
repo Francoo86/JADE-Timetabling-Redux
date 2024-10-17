@@ -4,8 +4,6 @@
       "RUT": "12345678-9",
       "Asignatura": {
         "Nombre": "Matemáticas Avanzadas",
-        "Nivel": 3,
-        "Semestre": 1,
         "Horas": 2,
         "Vacantes": 30
       }
@@ -15,8 +13,6 @@
       "RUT": "98765432-1",
       "Asignatura": {
         "Nombre": "Programación en Java",
-        "Nivel": 2,
-        "Semestre": 2,
         "Horas": 2,
         "Vacantes": 15
       }
@@ -26,8 +22,6 @@
       "RUT": "45678901-2",
       "Asignatura": {
         "Nombre": "Bases de Datos",
-        "Nivel": 4,
-        "Semestre": 1,
         "Horas": 2,
         "Vacantes": 20
       }
@@ -37,8 +31,6 @@
     "RUT": "9888432-1",
     "Asignatura": {
       "Nombre": "Programación en C",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 25
     }
@@ -48,8 +40,6 @@
     "RUT": "98765432-1",
     "Asignatura": {
       "Nombre": "Programación en Python",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 25
     }
@@ -59,8 +49,6 @@
     "RUT": "98765432-1",
     "Asignatura": {
       "Nombre": "Programación en C++",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 30
     }
@@ -70,8 +58,6 @@
     "RUT": "9888432-1",
     "Asignatura": {
       "Nombre": "Programación en JADE",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 25
     }
@@ -81,9 +67,7 @@
     "RUT": "9888432-1",
     "Asignatura": {
       "Nombre": "Programación en Kotlin",
-      "Nivel": 2,
-      "Semestre": 2,
-      "Horas": 2,
+      "Horas": 1,
       "Vacantes": 25
     }
   },
@@ -92,8 +76,6 @@
     "RUT": "12345678-9",
     "Asignatura": {
       "Nombre": "Programación Basica",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 30
     }
@@ -103,8 +85,6 @@
     "RUT": "12345678-9",
     "Asignatura": {
       "Nombre": "Codigo Binario",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 25
     }
@@ -114,8 +94,6 @@
     "RUT": "12388888-9",
     "Asignatura": {
       "Nombre": "Calculo",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 30
     }
@@ -125,8 +103,6 @@
     "RUT": "12388888-9",
     "Asignatura": {
       "Nombre": "Calculo 2",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 30
     }
@@ -136,8 +112,6 @@
     "RUT": "12388888-9",
     "Asignatura": {
       "Nombre": "Calculo 3",
-      "Nivel": 2,
-      "Semestre": 2,
       "Horas": 2,
       "Vacantes": 20
     }

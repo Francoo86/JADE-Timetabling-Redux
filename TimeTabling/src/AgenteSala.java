@@ -49,7 +49,6 @@ public class AgenteSala extends Agent implements SalaInterface {
 
         // Habilitar O2A
         setEnabledO2ACommunication(true, 0);
-
         // Registrar la interfaz O2A
         registerO2AInterface(SalaInterface.class, this);
 
@@ -76,24 +75,6 @@ public class AgenteSala extends Agent implements SalaInterface {
         addBehaviour(new VerificarFinalizacionBehaviour(this, 1000));
     }
 
-    private class VerificarFinalizacionBehaviour extends TickerBehaviour {
-        // Se ejecuta periódicamente.
-        public VerificarFinalizacionBehaviour(Agent a, long period) {
-            super(a, period);
-        }
-
-        // Verificar si se han procesado todas las solicitudes
-        protected void onTick() {
-            System.out.println("Verificando finalización para sala " + codigo + ". Procesadas: " + solicitudesProcesadas + " de " + totalSolicitudes);
-            if (solicitudesProcesadas >= totalSolicitudes) {
-                // Genera un archivo Excel con el horario y detiene el comportamiento.
-                HorarioExcelGenerator.getInstance().agregarHorarioSala(codigo, horario);
-                System.out.println("Sala " + codigo + " ha finalizado su asignación de horarios y enviado los datos.");
-                stop();  
-            }
-        }
-    }
-
     /* 
     1. Recepción de Solicitudes: Continuamente recibe solicitudes de asignación de horarios.
     2. Generación de Propuestas: Genera propuestas de horarios basadas en la disponibilidad.
@@ -103,7 +84,6 @@ public class AgenteSala extends Agent implements SalaInterface {
     */
 
     private class RecibirSolicitudBehaviour extends CyclicBehaviour {
-        // Se ejecuta continuamente.
         public void action() {
             MessageTemplate mt = MessageTemplate.and(
                     MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
@@ -113,31 +93,30 @@ public class AgenteSala extends Agent implements SalaInterface {
             if (msg != null) {
                 solicitudesProcesadas++;
 
-                // Procesar solicitud de horario
                 String solicitud = msg.getContent();
-                Asignatura asignatura = Asignatura.fromString(solicitud);   // Convertir JSON a objeto Asignatura
+                Asignatura asignatura = Asignatura.fromString(solicitud);
 
-                // Generar propuesta de horario
                 String propuesta = generarPropuesta(asignatura);
 
-                // Si la propuesta no está vacía, enviarla al profesor
                 if (!propuesta.isEmpty()) {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.PROPOSE);
                     reply.setContent(propuesta);
                     myAgent.send(reply);
 
-                    // Esperar respuesta del profesor
                     addBehaviour(new EsperarRespuestaBehaviour(myAgent, msg.getSender(), propuesta));
                 }
             } else {
-                // Si no hay mensajes, bloquear el comportamiento
                 block();
             }
         }
+    }
 
         // Recorre el mapa horario para encontrar un bloque vacío. Si encuentra un bloque vacío, retorna el día y el número del bloque. Si no retorna una cadena vacía.
         private String generarPropuesta(Asignatura asignatura) {
+            if (asignatura.getVacantes() > this.capacidad) {
+                return ""; // La sala no tiene capacidad suficiente
+            }
             for (Map.Entry<String, List<String>> entry : horario.entrySet()) {
                 String dia = entry.getKey();
                 List<String> bloques = entry.getValue();
@@ -150,7 +129,6 @@ public class AgenteSala extends Agent implements SalaInterface {
             }
             return "";
         }
-    }
 
 
     private class EsperarRespuestaBehaviour extends Behaviour {
@@ -174,7 +152,6 @@ public class AgenteSala extends Agent implements SalaInterface {
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 if (msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {
-                    // Actualizar el horario de la sala
                     String[] partes = propuesta.split(",");
                     String dia = partes[0];
                     int bloque = Integer.parseInt(partes[1]);
@@ -187,9 +164,23 @@ public class AgenteSala extends Agent implements SalaInterface {
             }
         }
 
-        // Indica que el comportamiento ha terminado cuando se ha recibido una respuesta.
         public boolean done() {
             return received;
+        }
+    }
+
+    private class VerificarFinalizacionBehaviour extends TickerBehaviour {
+        public VerificarFinalizacionBehaviour(Agent a, long period) {
+            super(a, period);
+        }
+
+        protected void onTick() {
+            System.out.println("Verificando finalización para sala " + codigo + ". Procesadas: " + solicitudesProcesadas + " de " + totalSolicitudes);
+            if (solicitudesProcesadas >= totalSolicitudes) {
+                HorarioExcelGenerator.getInstance().agregarHorarioSala(codigo, horario);
+                System.out.println("Sala " + codigo + " ha finalizado su asignación de horarios y enviado los datos.");
+                stop();
+            }
         }
     }
 }

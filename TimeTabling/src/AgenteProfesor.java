@@ -64,17 +64,22 @@ public class AgenteProfesor extends Agent {
             JSONArray asignaturasJson = (JSONArray) jsonObject.get("Asignaturas");
             for (Object asignaturaObj : asignaturasJson) {
                 JSONObject asignaturaJson = (JSONObject) asignaturaObj;
-                asignaturas.add(new Asignatura(
-                        (String) asignaturaJson.get("Nombre"),
-                        ((Number) asignaturaJson.get("Nivel")).intValue(),
-                        ((Number) asignaturaJson.get("Semestre")).intValue(),
-                        ((Number) asignaturaJson.get("Horas")).intValue(),
-                        ((Number) asignaturaJson.get("Vacantes")).intValue()
-                ));
+                String nombreAsignatura = (String) asignaturaJson.get("Nombre");
+                int horas = getIntValue(asignaturaJson, "Horas", 0);
+                int vacantes = getIntValue(asignaturaJson, "Vacantes", 0);
+                asignaturas.add(new Asignatura(nombreAsignatura, 0, 0, horas, vacantes));
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    private int getIntValue(JSONObject json, String key, int defaultValue) {
+        Object value = json.get(key);
+        if (value instanceof Number) {
+            return ((Number) value).intValue();
+        }
+        return defaultValue;
     }
 
     /*Búsqueda de Salas: El agente busca otros agentes de tipo "sala" en el Directorio de Facilitadores (DF).
@@ -90,14 +95,16 @@ public class AgenteProfesor extends Agent {
     Asignar Diferentes Bloques Horarios: Asegurarse de que cada asignatura se asigne a un bloque horario diferente.*/
 
     private class SolicitarHorarioBehaviour extends Behaviour {
-        private int step = 0;  // Paso actual del comportamiento
-        private MessageTemplate mt;  // Plantilla de mensajes para filtrar mensajes entrantes.
-        private int asignaturaActual = 0;  // Índice de la asignatura actual en la lista de asignaturas.
+        private int step = 0;
+        private MessageTemplate mt;
+        private int asignaturaActual = 0;
+        private int intentos = 0;
+        private static final int MAX_INTENTOS = 3;
 
         public void action() {
             switch (step) {
                 case 0:
-                    // Busca agentes de tipo "sala" y envía una solicitud de horario a todas las salas encontradas.
+                    // Buscar salas y enviar solicitud
                     DFAgentDescription template = new DFAgentDescription();
                     ServiceDescription sd = new ServiceDescription();
                     sd.setType("sala");
@@ -105,7 +112,6 @@ public class AgenteProfesor extends Agent {
                     try {
                         DFAgentDescription[] result = DFService.search(myAgent, template);
                         if (result.length > 0) {
-                            // Enviar solicitud de horario a todas las salas
                             ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
                             for (DFAgentDescription agenteS : result) {
                                 msg.addReceiver(agenteS.getName());
@@ -124,7 +130,7 @@ public class AgenteProfesor extends Agent {
                     }
                     break;
                 case 1:
-                    // Recibe propuestas de horario de las salas y evalúa si la propuesta es aceptable. Si es aceptable, acepta la propuesta y actualiza el horario del profesor. Si no, rechaza la propuesta.
+                    // Recibir y evaluar propuestas
                     ACLMessage reply = myAgent.receive(mt);
                     if (reply != null) {
                         String propuesta = reply.getContent();
@@ -137,6 +143,7 @@ public class AgenteProfesor extends Agent {
                             actualizarHorario(propuesta, asignaturas.get(asignaturaActual).getNombre());
                             System.out.println("Profesor " + nombre + " ha aceptado el horario para " + asignaturas.get(asignaturaActual).getNombre() + ": " + propuesta);
                             asignaturaActual++;
+                            intentos = 0;
                             step = asignaturaActual < asignaturas.size() ? 0 : 2;
                         } else {
                             // Rechazar la propuesta
@@ -144,6 +151,15 @@ public class AgenteProfesor extends Agent {
                             reject.setPerformative(ACLMessage.REJECT_PROPOSAL);
                             reject.setContent("Propuesta rechazada");
                             myAgent.send(reject);
+                            intentos++;
+                            if (intentos >= MAX_INTENTOS) {
+                                System.out.println("No se pudo asignar horario para " + asignaturas.get(asignaturaActual).getNombre() + " después de " + MAX_INTENTOS + " intentos.");
+                                asignaturaActual++;
+                                intentos = 0;
+                                step = asignaturaActual < asignaturas.size() ? 0 : 2;
+                            } else {
+                                step = 0;
+                            }
                         }
                     } else {
                         block();
