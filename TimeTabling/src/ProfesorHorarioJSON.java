@@ -20,12 +20,29 @@ public class ProfesorHorarioJSON {
         return instance;
     }
 
-    public void agregarHorarioProfesor(String nombre, JSONObject horario, int solicitudes) {
+    public synchronized void agregarHorarioProfesor(String nombre, JSONObject horario, int solicitudes) {
+        System.out.println("Agregando horario para profesor: " + nombre);
+
         JSONObject profesorJSON = new JSONObject();
         profesorJSON.put("Nombre", nombre);
-        profesorJSON.put("Asignaturas", horario.get("Asignaturas"));
+
+        // Ensure asignaturas array exists
+        JSONArray asignaturas = (JSONArray) horario.get("Asignaturas");
+        if (asignaturas == null) {
+            asignaturas = new JSONArray();
+        }
+
+        profesorJSON.put("Asignaturas", asignaturas);
         profesorJSON.put("Solicitudes", solicitudes);
+        profesorJSON.put("AsignaturasCompletadas", asignaturas.size());
+
+        System.out.println("Profesor " + nombre + ": " + asignaturas.size() +
+                "/" + solicitudes + " asignaturas procesadas");
+
         profesoresHorarios.put(nombre, profesorJSON);
+
+        // Generate JSON file after each professor to ensure data is saved
+        generarArchivoJSON();
     }
 
     public void generarArchivoJSON() {
@@ -34,7 +51,18 @@ public class ProfesorHorarioJSON {
 
         try (FileWriter file = new FileWriter("Horarios_asignados.json")) {
             file.write(formatJSONString(jsonArray.toJSONString()));
-            System.out.println("Archivo Horarios_asignados.json generado exitosamente.");
+            System.out.println("Archivo Horarios_asignados.json generado con " +
+                    profesoresHorarios.size() + " profesores");
+
+            // Imprimir resumen de asignaciones
+            for (JSONObject profesor : profesoresHorarios.values()) {
+                String nombreProf = (String) profesor.get("Nombre");
+                JSONArray asignaturasProf = (JSONArray) profesor.get("Asignaturas");
+                int solicitudes = ((Number) profesor.get("Solicitudes")).intValue();
+                System.out.println("Profesor " + nombreProf + ": " +
+                        asignaturasProf.size() + "/" + solicitudes +
+                        " asignaturas asignadas");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

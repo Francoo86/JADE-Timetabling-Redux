@@ -1,92 +1,31 @@
 [
   {
-    "Nombre": "A-1",
-    "Asignatura": [
+    "Codigo": "A-1",
+    "Asignaturas": [
       {
         "Nombre": "Matemáticas Avanzadas",
+        "Valoracion": 10,
         "Bloque": 1,
         "Dia": "Miercoles"
       },
       {
-        "Nombre": "Programación en C",
-        "Bloque": 2,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Calculo",
+        "Nombre": "Programación Basica",
+        "Valoracion": 10,
         "Bloque": 3,
         "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Java",
-        "Bloque": 4,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación Basica",
-        "Bloque": 5,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación Basica",
-        "Bloque": 1,
-        "Dia": "Martes"
-      },
-      {
-        "Nombre": "Calculo 2",
-        "Bloque": 2,
-        "Dia": "Martes"
-      },
-      {
-        "Nombre": "Calculo 2",
-        "Bloque": 3,
-        "Dia": "Martes"
       },
       {
         "Nombre": "Codigo Binario",
-        "Bloque": 4,
-        "Dia": "Martes"
-      },
-      {
-        "Nombre": "Calculo 3",
+        "Valoracion": 5,
         "Bloque": 5,
-        "Dia": "Martes"
+        "Dia": "Miercoles"
       }
     ]
   },
   {
-    "Nombre": "B-2",
-    "Asignatura": [
-      {
-        "Nombre": "Programación en C",
-        "Bloque": 1,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Java",
-        "Bloque": 2,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en C",
-        "Bloque": 3,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Java",
-        "Bloque": 4,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Java",
-        "Bloque": 5,
-        "Dia": "Miercoles"
-      },
-      {
-        "Nombre": "Programación en Python",
-        "Bloque": 1,
-        "Dia": "Martes"
-      }
+    "Codigo": "B-2",
+    "Asignaturas": [
+      
     ]
   }
 ]

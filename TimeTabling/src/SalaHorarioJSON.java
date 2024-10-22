@@ -21,27 +21,28 @@ public class SalaHorarioJSON {
         return instance;
     }
 
-    public void agregarHorarioSala(String nombre, Map<String, List<String>> horario) {
+    public void agregarHorarioSala(String codigo, Map<String, List<AsignacionSala>> horario) {
         JSONObject salaJSON = new JSONObject();
-        salaJSON.put("Nombre", nombre);
+        salaJSON.put("Codigo", codigo);
 
         JSONArray asignaturasJSON = new JSONArray();
-        for (Map.Entry<String, List<String>> entry : horario.entrySet()) {
+        for (Map.Entry<String, List<AsignacionSala>> entry : horario.entrySet()) {
             String dia = entry.getKey();
-            List<String> bloques = entry.getValue();
-            for (int i = 0; i < bloques.size(); i++) {
-                String asignatura = bloques.get(i);
-                if (!asignatura.isEmpty()) {
+            List<AsignacionSala> asignaciones = entry.getValue();
+            for (int i = 0; i < asignaciones.size(); i++) {
+                AsignacionSala asignacion = asignaciones.get(i);
+                if (asignacion != null) {
                     JSONObject asignaturaJSON = new JSONObject();
-                    asignaturaJSON.put("Nombre", asignatura);
+                    asignaturaJSON.put("Nombre", asignacion.getNombreAsignatura());
                     asignaturaJSON.put("Bloque", i + 1);
                     asignaturaJSON.put("Dia", dia);
+                    asignaturaJSON.put("Valoracion", asignacion.getValoracion());
                     asignaturasJSON.add(asignaturaJSON);
                 }
             }
         }
-        salaJSON.put("Asignatura", asignaturasJSON);
-        salasHorarios.put(nombre, salaJSON);
+        salaJSON.put("Asignaturas", asignaturasJSON);
+        salasHorarios.put(codigo, salaJSON);
     }
 
     public void generarArchivoJSON() {
@@ -101,5 +102,23 @@ public class SalaHorarioJSON {
         for (int i = 0; i < indentLevel; i++) {
             sb.append("  ");
         }
+    }
+}
+
+class AsignacionSala {
+    private String nombreAsignatura;
+    private int valoracion;
+
+    public AsignacionSala(String nombreAsignatura, int valoracion) {
+        this.nombreAsignatura = nombreAsignatura;
+        this.valoracion = valoracion;
+    }
+
+    public String getNombreAsignatura() {
+        return nombreAsignatura;
+    }
+
+    public int getValoracion() {
+        return valoracion;
     }
 }
