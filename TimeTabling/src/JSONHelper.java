@@ -12,8 +12,8 @@ import java.io.IOException;
  * Clase para trabajar con archivos JSON.
  */
 public class JSONHelper {
-    private static String RESOURCES_PATH = System.getProperty("user.dir") + "/resources/";
-    private static String OUTPUT_PATH = System.getProperty("user.dir") + "/agent_output/";
+    private static final String RESOURCES_PATH = System.getProperty("user.dir") + "/agent_input/";
+    private static final String OUTPUT_PATH = System.getProperty("user.dir") + "/agent_output/";
 
     private static String formatJsonString(String crudeJson) {
         ObjectMapper mapper = new ObjectMapper();

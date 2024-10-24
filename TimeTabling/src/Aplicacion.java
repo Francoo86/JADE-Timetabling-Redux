@@ -6,13 +6,11 @@ import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import jade.core.behaviours.*;
-import jade.wrapper.State;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.util.*;
-import jade.wrapper.State;
 
 public class Aplicacion extends Agent {
     private int profesorActual = 0;
@@ -28,13 +26,9 @@ public class Aplicacion extends Agent {
             // Aumentar límite de resultados del DF
             System.setProperty("jade_domain_df_maxresult", "-1");
 
-            // get current directory and go to resources folder
-            String currentDirectory = System.getProperty("user.dir");
-            String resourcesPath = currentDirectory + "/resources/";
-
             // Cargar archivos JSON
-            JSONArray profesoresJson = loadJsonArray("profesores.json");
-            JSONArray salasJson = loadJsonArray("salas.json");
+            JSONArray profesoresJson = JSONHelper.parseAsArray("profesores.json");
+            JSONArray salasJson = JSONHelper.parseAsArray("salas.json");
 
             // Crear e iniciar agentes sala primero
             System.out.println("Iniciando creación de agentes sala...");
