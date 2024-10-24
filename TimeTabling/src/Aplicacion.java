@@ -28,6 +28,10 @@ public class Aplicacion extends Agent {
             // Aumentar límite de resultados del DF
             System.setProperty("jade_domain_df_maxresult", "-1");
 
+            // get current directory and go to resources folder
+            String currentDirectory = System.getProperty("user.dir");
+            String resourcesPath = currentDirectory + "/resources/";
+
             // Cargar archivos JSON
             JSONArray profesoresJson = loadJsonArray("profesores.json");
             JSONArray salasJson = loadJsonArray("salas.json");
