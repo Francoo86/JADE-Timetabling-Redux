@@ -56,8 +56,7 @@ public class JSONHelper {
         }
     }
 
-    public static void writeJsonFile(String fileName, String jsonString) {
-        //check if output directory exists
+    private static void internalJsonWrite(String fileName, String jsonString) {
         if (!new java.io.File(OUTPUT_PATH).exists()) {
             new java.io.File(OUTPUT_PATH).mkdir();
         }
@@ -68,5 +67,13 @@ public class JSONHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void writeJsonFile(String fileName, JSONArray jsonArray) {
+        internalJsonWrite(fileName, jsonArray.toJSONString());
+    }
+
+    public static void writeJsonFile(String fileName, String jsonString) {
+        internalJsonWrite(fileName, jsonString);
     }
 }

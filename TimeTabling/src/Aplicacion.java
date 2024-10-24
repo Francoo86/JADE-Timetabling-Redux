@@ -62,13 +62,6 @@ public class Aplicacion extends Agent {
         }
     }
 
-    private JSONArray loadJsonArray(String filename) throws Exception {
-        JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(filename)) {
-            return (JSONArray) parser.parse(reader);
-        }
-    }
-
     private Map<String, AgentController> createSalaAgents(AgentContainer container, JSONArray salasJson)
             throws StaleProxyException {
         Map<String, AgentController> controllers = new HashMap<>();
