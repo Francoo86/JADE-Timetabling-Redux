@@ -79,7 +79,10 @@ public class AgenteSala extends Agent implements SalaInterface {
         public void action() {
             MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
             ACLMessage msg = myAgent.receive(mt);
-            if (msg != null && bloquesDisponibles > 0) {
+            if (msg != null) {
+                if (bloquesDisponibles <= 0) {
+                    return;
+                }
                 solicitudesProcesadas++;
                 String solicitud = msg.getContent();
                 Asignatura asignatura = Asignatura.fromString(solicitud);
