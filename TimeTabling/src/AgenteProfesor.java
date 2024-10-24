@@ -1,426 +1,398 @@
 import jade.core.Agent;
 import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import java.util.*;
 
 public class AgenteProfesor extends Agent {
     private String nombre;
     private String rut;
     private List<Asignatura> asignaturas;
-    private JSONObject horarioJSON;
     private int asignaturaActual = 0;
-    private Map<String, Set<String>> horarioOcupado;
+    private Map<String, Set<Integer>> horarioOcupado; // dia -> bloques
     private int orden;
-    private static final long TIMEOUT_RESPUESTA = 300000; // 5 minutos
+    private JSONObject horarioJSON;
+    private static final long TIMEOUT_PROPUESTA = 5000; // 5 segundos para recibir propuestas
+    private boolean isRegistered = false;
+    private boolean isCleaningUp = false;
+    private boolean negociacionIniciada = false;
 
+    @Override
     protected void setup() {
         Object[] args = getArguments();
         if (args != null && args.length > 1) {
             String jsonString = (String) args[0];
             orden = (Integer) args[1];
-            loadFromJsonString(jsonString);
+            cargarDatos(jsonString);
         }
 
+        horarioOcupado = new HashMap<>();
         horarioJSON = new JSONObject();
         horarioJSON.put("Asignaturas", new JSONArray());
-        horarioOcupado = new HashMap<>();
-
-        System.out.println("Agente Profesor " + nombre + " creado. Orden: " + orden +
-                ". Asignaturas totales: " + asignaturas.size());
-
-        // Registrar en páginas amarillas con el orden como parte del servicio
-        DFAgentDescription dfd = new DFAgentDescription();
-        dfd.setName(getAID());
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType("profesor");
-        sd.setName("Profesor" + orden);
-        dfd.addServices(sd);
-        try {
-            DFService.register(this, dfd);
-        } catch (FIPAException fe) {
-            fe.printStackTrace();
-        }
+        registrarEnDF();
 
         if (orden == 0) {
-            iniciarNegociaciones();
+            // Primer profesor, comenzar inmediatamente
+            iniciarNegociacion();
         } else {
-            esperarTurno();
+            // Esperar señal del profesor anterior
+            addBehaviour(new EsperarTurnoBehaviour());
+        }
+
+        System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciado");
+    }
+
+    private void iniciarNegociacion() {
+        if (!negociacionIniciada) {
+            negociacionIniciada = true;
+            System.out.println("Profesor " + nombre + " iniciando proceso de negociación");
+            addBehaviour(new NegociarAsignaturasBehaviour());
         }
     }
 
-    private void loadFromJsonString(String jsonString) {
-        JSONParser parser = new JSONParser();
+    private void registrarEnDF() {
         try {
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(getAID());
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType("profesor");
+            sd.setName("Profesor" + orden);
+            dfd.addServices(sd);
+            DFService.register(this, dfd);
+            isRegistered = true;
+            System.out.println("Profesor " + nombre + " registrado en DF");
+        } catch (FIPAException fe) {
+            System.err.println("Error registrando profesor " + nombre + " en DF: " + fe.getMessage());
+            fe.printStackTrace();
+        }
+    }
+
+    private void cargarDatos(String jsonString) {
+        try {
+            JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
             nombre = (String) jsonObject.get("Nombre");
             rut = (String) jsonObject.get("RUT");
 
             asignaturas = new ArrayList<>();
             JSONArray asignaturasJson = (JSONArray) jsonObject.get("Asignaturas");
-
-            if (asignaturasJson != null) {
-                for (Object asignaturaObj : asignaturasJson) {
-                    JSONObject asignaturaJson = (JSONObject) asignaturaObj;
-                    if (asignaturaJson != null) {
-                        String nombreAsignatura = (String) asignaturaJson.get("Nombre");
-                        int horas = getIntValue(asignaturaJson, "Horas", 0);
-                        int vacantes = getIntValue(asignaturaJson, "Vacantes", 0);
-                        asignaturas.add(new Asignatura(nombreAsignatura, 0, 0, horas, vacantes));
-                    }
-                }
+            for (Object obj : asignaturasJson) {
+                JSONObject asignaturaJson = (JSONObject) obj;
+                asignaturas.add(new Asignatura(
+                        (String) asignaturaJson.get("Nombre"),
+                        0, 0,
+                        ((Number) asignaturaJson.get("Horas")).intValue(),
+                        ((Number) asignaturaJson.get("Vacantes")).intValue()
+                ));
             }
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private int getIntValue(JSONObject json, String key, int defaultValue) {
-        Object value = json.get(key);
-        if (value instanceof Number) {
-            return ((Number) value).intValue();
+    private class EsperarTurnoBehaviour extends CyclicBehaviour {
+        public void action() {
+            MessageTemplate mt = MessageTemplate.and(
+                    MessageTemplate.MatchPerformative(ACLMessage.INFORM),
+                    MessageTemplate.MatchContent("START")
+            );
+
+            ACLMessage msg = myAgent.receive(mt);
+            if (msg != null) {
+                System.out.println("Profesor " + nombre + " recibió señal START");
+                iniciarNegociacion();
+                myAgent.removeBehaviour(this);
+            } else {
+                block(100);
+            }
         }
-        return defaultValue;
-    }
-
-    private void esperarTurno() {
-        addBehaviour(new CyclicBehaviour(this) {
-            public void action() {
-                MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
-                ACLMessage msg = myAgent.receive(mt);
-                if (msg != null && msg.getContent().equals("START")) {
-                    System.out.println("Profesor " + nombre + " (orden " + orden + ") recibió señal de inicio");
-                    iniciarNegociaciones();
-                    myAgent.removeBehaviour(this);
-                } else {
-                    block();
-                }
-            }
-        });
-    }
-
-    private void iniciarNegociaciones() {
-        System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciando negociaciones para " +
-                asignaturas.size() + " asignaturas");
-
-        // Asegurar que estamos empezando desde el principio
-        asignaturaActual = 0;
-        horarioOcupado.clear();
-
-        // Agregar el comportamiento de negociación
-        addBehaviour(new NegociarAsignaturasBehaviour());
-
-        // Agregar un comportamiento de timeout por si algo sale mal
-        addBehaviour(new WakerBehaviour(this, TIMEOUT_RESPUESTA) {
-            protected void onWake() {
-                if (asignaturaActual < asignaturas.size()) {
-                    System.out.println("Timeout en negociaciones para profesor " + nombre +
-                            ". Forzando finalización...");
-                    finalizarNegociaciones();
-                }
-            }
-        });
     }
 
     private class NegociarAsignaturasBehaviour extends Behaviour {
         private int step = 0;
-        private MessageTemplate mt;
-        private List<ACLMessage> propuestas = new ArrayList<>();
-        private int respuestasEsperadas = 0;
+        private List<ACLMessage> propuestas;
+        private boolean finished = false;
         private long tiempoInicio;
+        private int intentos = 0;
+        private static final int MAX_INTENTOS = 3;
 
         public void action() {
             switch (step) {
-                case 0:
-                    solicitarPropuestas();
+                case 0: // Solicitar propuestas
+                    if (asignaturaActual < asignaturas.size()) {
+                        System.out.println("Profesor " + nombre + " solicitando propuestas para " +
+                                asignaturas.get(asignaturaActual).getNombre());
+                        solicitarPropuestas();
+                        propuestas = new ArrayList<>();
+                        tiempoInicio = System.currentTimeMillis();
+                        step = 1;
+                    } else {
+                        finished = true;
+                    }
                     break;
-                case 1:
-                    recibirPropuestas();
+
+                case 1: // Recolectar propuestas
+                    // Usar un template que identifique claramente las propuestas
+                    MessageTemplate mt = MessageTemplate.or(
+                            MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
+                            MessageTemplate.MatchPerformative(ACLMessage.REFUSE)
+                    );
+
+                    ACLMessage reply = myAgent.receive(mt);
+                    if (reply != null) {
+                        if (reply.getPerformative() == ACLMessage.PROPOSE) {
+                            propuestas.add(reply);
+                            System.out.println("Profesor " + nombre + " recibió propuesta para " +
+                                    asignaturas.get(asignaturaActual).getNombre());
+                        }
+                    }
+
+                    // Verificar si hemos esperado suficiente por propuestas
+                    if (System.currentTimeMillis() - tiempoInicio > TIMEOUT_PROPUESTA) {
+                        step = 2;
+                    } else {
+                        block(100);
+                    }
                     break;
-                case 2:
-                    evaluarPropuestas();
-                    break;
-                case 3:
-                    finalizarNegociaciones();
+
+                case 2: // Evaluar propuestas
+                    if (!propuestas.isEmpty()) {
+                        if (evaluarPropuestas()) {
+                            // Asignación exitosa
+                            intentos = 0;
+                            asignaturaActual++;
+                        } else {
+                            intentos++;
+                            if (intentos >= MAX_INTENTOS) {
+                                System.out.println("Profesor " + nombre + " no pudo asignar " +
+                                        asignaturas.get(asignaturaActual).getNombre() +
+                                        " después de " + MAX_INTENTOS + " intentos");
+                                asignaturaActual++;
+                                intentos = 0;
+                            }
+                        }
+                    } else {
+                        System.out.println("Profesor " + nombre + " no recibió propuestas para " +
+                                asignaturas.get(asignaturaActual).getNombre());
+                        intentos++;
+                        if (intentos >= MAX_INTENTOS) {
+                            asignaturaActual++;
+                            intentos = 0;
+                        }
+                    }
+                    step = 0;
                     break;
             }
         }
 
+        public boolean done() {
+            if (finished) {
+                System.out.println("Profesor " + nombre + " completó proceso de negociación");
+                finalizarNegociaciones();
+            }
+            return finished;
+        }
+
         private void solicitarPropuestas() {
-            System.out.println("Profesor " + nombre + " (orden " + orden + ") solicitando propuestas para: " +
-                    asignaturas.get(asignaturaActual).getNombre());
-
-            DFAgentDescription template = new DFAgentDescription();
-            ServiceDescription sd = new ServiceDescription();
-            sd.setType("sala");
-            template.addServices(sd);
-
             try {
+                DFAgentDescription template = new DFAgentDescription();
+                ServiceDescription sd = new ServiceDescription();
+                sd.setType("sala");
+                template.addServices(sd);
                 DFAgentDescription[] result = DFService.search(myAgent, template);
+
                 if (result.length > 0) {
-                    ACLMessage msg = new ACLMessage(ACLMessage.CFP);
-                    for (DFAgentDescription agenteS : result) {
-                        msg.addReceiver(agenteS.getName());
+                    ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
+                    for (DFAgentDescription dfd : result) {
+                        cfp.addReceiver(dfd.getName());
                     }
-                    msg.setContent(asignaturas.get(asignaturaActual).toString());
-                    msg.setConversationId("solicitud-propuesta");
-                    msg.setReplyByDate(new Date(System.currentTimeMillis() + TIMEOUT_RESPUESTA));
-                    myAgent.send(msg);
-                    respuestasEsperadas = result.length;
-                    tiempoInicio = System.currentTimeMillis();
-                    step = 1;
-                    mt = MessageTemplate.and(
-                            MessageTemplate.MatchConversationId("solicitud-propuesta"),
-                            MessageTemplate.MatchPerformative(ACLMessage.PROPOSE)
-                    );
+
+                    Asignatura asignatura = asignaturas.get(asignaturaActual);
+                    cfp.setContent(asignatura.getNombre() + "," + asignatura.getVacantes());
+                    cfp.setConversationId("neg-" + nombre + "-" + asignaturaActual);
+                    myAgent.send(cfp);
                 }
             } catch (FIPAException fe) {
                 fe.printStackTrace();
             }
         }
 
-        private void recibirPropuestas() {
-            ACLMessage reply = myAgent.receive(mt);
-            if (reply != null) {
-                propuestas.add(reply);
-                System.out.println("Profesor " + nombre + " recibió propuesta " + propuestas.size() +
-                        " de " + respuestasEsperadas + " para " +
+        private boolean evaluarPropuestas() {
+            if (propuestas.isEmpty()) {
+                System.out.println("Profesor " + nombre + ": No hay propuestas para " +
                         asignaturas.get(asignaturaActual).getNombre());
-                if (--respuestasEsperadas == 0 ||
-                        (System.currentTimeMillis() - tiempoInicio) >= TIMEOUT_RESPUESTA) {
-                    step = 2;
-                }
-            } else {
-                block(1000);
+                return false;
             }
-        }
 
-        private void evaluarPropuestas() {
-            if (!propuestas.isEmpty()) {
-                ACLMessage mejorPropuesta = null;
-                int mejorValoracion = -1;
+            try {
+                // Ordenar propuestas por satisfacción
+                propuestas.sort((p1, p2) -> {
+                    String[] data1 = p1.getContent().split(",");
+                    String[] data2 = p2.getContent().split(",");
+                    return Integer.parseInt(data2[4]) - Integer.parseInt(data1[4]);
+                });
 
-                // Primera pasada: buscar valoración 10 (coincidencia exacta)
+                // Intentar cada propuesta en orden de satisfacción
                 for (ACLMessage propuesta : propuestas) {
-                    int valoracion = evaluarPropuesta(propuesta);
-                    if (valoracion == 10) {
-                        mejorPropuesta = propuesta;
-                        mejorValoracion = valoracion;
-                        break;
-                    }
-                }
+                    String[] datos = propuesta.getContent().split(",");
+                    String dia = datos[0];
+                    int bloque = Integer.parseInt(datos[1]);
+                    String sala = datos[2];
+                    int satisfaccion = Integer.parseInt(datos[4]);
 
-                // Si no hay valoración 10, buscar la mejor disponible
-                if (mejorPropuesta == null) {
-                    for (ACLMessage propuesta : propuestas) {
-                        int valoracion = evaluarPropuesta(propuesta);
-                        if (valoracion > mejorValoracion) {
-                            mejorPropuesta = propuesta;
-                            mejorValoracion = valoracion;
+                    Set<Integer> bloquesOcupados = horarioOcupado.getOrDefault(dia, new HashSet<>());
+
+                    // Verificar si el bloque está disponible para el profesor
+                    if (!bloquesOcupados.contains(bloque)) {
+                        // Aceptar propuesta
+                        ACLMessage accept = propuesta.createReply();
+                        accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                        accept.setContent(String.format("%s,%d,%s,%d,%s",
+                                dia, bloque, asignaturas.get(asignaturaActual).getNombre(),
+                                satisfaccion, sala));
+                        myAgent.send(accept);
+
+                        // Esperar confirmación
+                        MessageTemplate mt = MessageTemplate.and(
+                                MessageTemplate.MatchSender(propuesta.getSender()),
+                                MessageTemplate.MatchPerformative(ACLMessage.INFORM)
+                        );
+                        ACLMessage confirm = myAgent.blockingReceive(mt, 5000);
+
+                        if (confirm != null) {
+                            // Actualizar horario
+                            horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
+                            actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
+                            System.out.println("Profesor " + nombre + ": Asignación exitosa de " +
+                                    asignaturas.get(asignaturaActual).getNombre() +
+                                    " en sala " + sala + ", día " + dia + ", bloque " + bloque +
+                                    ", satisfacción " + satisfaccion);
+                            return true;
                         }
                     }
                 }
 
-                if (mejorPropuesta != null) {
-                    aceptarPropuesta(mejorPropuesta, mejorValoracion);
-                    rechazarOtrasPropuestas(mejorPropuesta);
-                    System.out.println("Profesor " + nombre + " aceptó propuesta para " +
-                            asignaturas.get(asignaturaActual).getNombre() +
-                            " con valoración " + mejorValoracion);
-                }
+                System.out.println("Profesor " + nombre + ": No se encontró horario disponible para " +
+                        asignaturas.get(asignaturaActual).getNombre() +
+                        " entre " + propuestas.size() + " propuestas");
+                return false;
+
+            } catch (Exception e) {
+                System.err.println("Profesor " + nombre + ": Error evaluando propuestas: " + e.getMessage());
+                e.printStackTrace();
+                return false;
             }
-
-            // Preparar siguiente asignatura o finalizar
-            asignaturaActual++;
-            if (asignaturaActual < asignaturas.size()) {
-                step = 0;
-                propuestas.clear();
-                System.out.println("Profesor " + nombre + " pasando a siguiente asignatura (" +
-                        asignaturaActual + "/" + asignaturas.size() + ")");
-            } else {
-                step = 3;
-                System.out.println("Profesor " + nombre + " completó todas sus asignaturas");
-            }
-        }
-
-        private int evaluarPropuesta(ACLMessage propuesta) {
-            String[] partes = propuesta.getContent().split(",");
-            String dia = partes[0];
-            int bloque = Integer.parseInt(partes[1]);
-            int capacidad = Integer.parseInt(partes[3]);
-            int vacantes = asignaturas.get(asignaturaActual).getVacantes();
-
-            // Verificar si el horario ya está ocupado
-            String key = dia + "-" + bloque;
-            if (horarioOcupado.containsKey(key)) {
-                return -1;
-            }
-
-            // Evaluar según capacidad
-            if (capacidad == vacantes) return 10;
-            if (capacidad > vacantes) return 5;
-            return -1;
-        }
-
-        private void aceptarPropuesta(ACLMessage propuesta, int valoracion) {
-            ACLMessage accept = propuesta.createReply();
-            accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-            accept.setContent(propuesta.getContent() + "," + valoracion);
-            myAgent.send(accept);
-            actualizarHorario(propuesta.getContent(), asignaturas.get(asignaturaActual), valoracion);
-        }
-
-        private void rechazarOtrasPropuestas(ACLMessage propuestaAceptada) {
-            for (ACLMessage propuesta : propuestas) {
-                if (!propuesta.equals(propuestaAceptada)) {
-                    ACLMessage reject = propuesta.createReply();
-                    reject.setPerformative(ACLMessage.REJECT_PROPOSAL);
-                    myAgent.send(reject);
-                }
-            }
-        }
-
-        public boolean done() {
-            return step == 3;
         }
     }
 
-    private void actualizarHorario(String propuesta, Asignatura asignatura, int valoracion) {
-        String[] partes = propuesta.split(",");
-        String dia = partes[0];
-        int bloque = Integer.parseInt(partes[1]);
-        String sala = partes[2];
+    private void actualizarHorarioJSON(String dia, String sala, int bloque, int satisfaccion) {
+        JSONObject asignatura = new JSONObject();
+        asignatura.put("Nombre", asignaturas.get(asignaturaActual).getNombre());
+        asignatura.put("Sala", sala);
+        asignatura.put("Bloque", bloque);
+        asignatura.put("Dia", dia);
+        asignatura.put("Satisfaccion", satisfaccion);
+        ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
 
-        // Crear objeto JSON para la asignatura
-        JSONObject asignaturaJSON = new JSONObject();
-        asignaturaJSON.put("Nombre", asignatura.getNombre());
-        asignaturaJSON.put("Sala", sala);
-        asignaturaJSON.put("Bloque", bloque);
-        asignaturaJSON.put("Dia", dia);
-        asignaturaJSON.put("Satisfaccion", valoracion);
-
-        // Asegurar que el array de asignaturas existe
-        if (!horarioJSON.containsKey("Asignaturas")) {
-            horarioJSON.put("Asignaturas", new JSONArray());
-        }
-
-        // Agregar la asignatura al array
-        ((JSONArray) horarioJSON.get("Asignaturas")).add(asignaturaJSON);
-
-        // Actualizar horario ocupado
-        String key = dia + "-" + bloque;
-        horarioOcupado.computeIfAbsent(key, k -> new HashSet<>()).add(sala);
-
-        System.out.println("Horario actualizado para " + nombre + ": " + asignatura.getNombre() +
-                " en sala " + sala + ", día " + dia + ", bloque " + bloque +
-                ", satisfacción " + valoracion);
+        System.out.println("Profesor " + nombre + ": Asignada " +
+                asignaturas.get(asignaturaActual).getNombre() +
+                " en sala " + sala + ", día " + dia +
+                ", bloque " + bloque);
     }
 
     private void finalizarNegociaciones() {
-        System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciando finalización...");
-
-        // Ensure horarioJSON is properly initialized
-        if (horarioJSON == null) {
-            horarioJSON = new JSONObject();
-            horarioJSON.put("Asignaturas", new JSONArray());
-        }
-
-        // Add missing fields if any asignatura wasn't processed
-        for (int i = asignaturaActual; i < asignaturas.size(); i++) {
-            Asignatura asignatura = asignaturas.get(i);
-            JSONObject asignaturaJSON = new JSONObject();
-            asignaturaJSON.put("Nombre", asignatura.getNombre());
-            asignaturaJSON.put("Estado", "No asignada");
-            ((JSONArray) horarioJSON.get("Asignaturas")).add(asignaturaJSON);
-        }
-
-        // Ensure ProfesorHorarioJSON is updated
-        ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(nombre, horarioJSON, asignaturas.size());
-        System.out.println("Profesor " + nombre + " guardó su horario con " +
-                ((JSONArray)horarioJSON.get("Asignaturas")).size() + " asignaturas");
-
-        // Notify next professor with delay
-        notificarSiguienteProfesor();
-
         try {
-            Thread.sleep(2000); // Wait for JSON processing
-            DFService.deregister(this);
+            if (isCleaningUp) {
+                return; // Evitar múltiples llamadas
+            }
+            isCleaningUp = true;
+
+            // Guardar horario final
+            ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(
+                    nombre, horarioJSON, asignaturas.size());
+
+            // Notificar al siguiente profesor antes de hacer cleanup
+            notificarSiguienteProfesor();
+
+            // Realizar cleanup y terminar
+            cleanup();
+
         } catch (Exception e) {
+            System.err.println("Error finalizando negociaciones para profesor " + nombre + ": " + e.getMessage());
             e.printStackTrace();
         }
-
-        doDelete();
     }
 
     private void notificarSiguienteProfesor() {
-        // Add delay to ensure proper agent registration
         try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            DFAgentDescription template = new DFAgentDescription();
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType("profesor");
+            template.addServices(sd);
 
-        DFAgentDescription template = new DFAgentDescription();
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType("profesor");
-        template.addServices(sd);
-
-        try {
             DFAgentDescription[] result = DFService.search(this, template);
-            boolean nextFound = false;
+            int siguienteOrden = orden + 1;
+            boolean siguienteEncontrado = false;
 
-            for (DFAgentDescription agente : result) {
-                String nombreAgente = agente.getName().getLocalName();
-                int ordenAgente = extraerOrden(nombreAgente);
-                if (ordenAgente == orden + 1) {
+            for (DFAgentDescription dfd : result) {
+                String nombreAgente = dfd.getName().getLocalName();
+                if (nombreAgente.equals("Profesor" + siguienteOrden)) {
                     ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                    msg.addReceiver(agente.getName());
+                    msg.addReceiver(dfd.getName());
                     msg.setContent("START");
                     send(msg);
-                    System.out.println("Profesor " + nombre + " notificó exitosamente al siguiente profesor: " + nombreAgente);
-                    nextFound = true;
+                    System.out.println("Profesor " + nombre + " notificó al siguiente profesor: " + nombreAgente);
+                    siguienteEncontrado = true;
                     break;
                 }
             }
 
-            if (!nextFound) {
-                System.out.println("Profesor " + nombre + " es el último o no encontró siguiente profesor.");
+            if (!siguienteEncontrado) {
+                System.out.println("No hay más profesores después de " + nombre + ". Finalizando proceso.");
             }
-        } catch (FIPAException fe) {
-            fe.printStackTrace();
+
+        } catch (Exception e) {
+            System.err.println("Error notificando siguiente profesor: " + e.getMessage());
         }
     }
 
-    private int extraerOrden(String nombreAgente) {
+    private synchronized void cleanup() {
         try {
-            if (nombreAgente.startsWith("Profesor")) {
-                return Integer.parseInt(nombreAgente.substring(8));
+            if (isRegistered) {
+                // Verificar si aún estamos registrados antes de hacer deregister
+                DFAgentDescription dfd = new DFAgentDescription();
+                dfd.setName(getAID());
+                DFAgentDescription[] result = DFService.search(this, dfd);
+
+                if (result != null && result.length > 0) {
+                    DFService.deregister(this);
+                    System.out.println("Profesor " + nombre + " eliminado del DF");
+                }
+                isRegistered = false;
             }
-        } catch (NumberFormatException e) {
+
+            // Esperar un momento para asegurar que la notificación se envió
+            Thread.sleep(1000);
+            doDelete();
+
+        } catch (Exception e) {
+            System.err.println("Error durante cleanup de profesor " + nombre + ": " + e.getMessage());
             e.printStackTrace();
         }
-        return Integer.MAX_VALUE;
     }
 
+    @Override
     protected void takeDown() {
-        try {
-            DFService.deregister(this);
-        } catch (FIPAException fe) {
-            fe.printStackTrace();
-        }
-        System.out.println("Profesor " + nombre + " terminando...");
-
-        // Asegurar que el horario se guarde antes de terminar
-        if (horarioJSON != null && !((JSONArray)horarioJSON.get("Asignaturas")).isEmpty()) {
-            ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(nombre, horarioJSON, asignaturas.size());
-        }
+        // Mostrar resumen final
+        int asignadas = ((JSONArray) horarioJSON.get("Asignaturas")).size();
+        System.out.println("Profesor " + nombre + " finalizado con " +
+                asignadas + "/" + asignaturas.size() + " asignaturas asignadas");
     }
 }

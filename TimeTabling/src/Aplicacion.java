@@ -1,4 +1,5 @@
 import jade.core.Agent;
+import jade.core.AgentState;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -6,18 +7,20 @@ import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import jade.core.behaviours.*;
+import jade.wrapper.State;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.util.*;
+import jade.wrapper.State;
 
 public class Aplicacion extends Agent {
     private int profesorActual = 0;
     private List<AgentController> profesoresControllers = new ArrayList<>();
     private Map<String, AgentController> salasControllers = new HashMap<>();
-    private static final long TIEMPO_ESPERA = 360000; // 6 minutos
-    private static final long TIEMPO_ENTRE_PROFESORES = 3000; // 3 segundos
+    //private static final long TIEMPO_ESPERA = 360000; // 6 minutos
+    //private static final long TIEMPO_ENTRE_PROFESORES = 3000; // 3 segundos
 
     protected void setup() {
         System.out.println("Agente Aplicacion iniciado");
@@ -26,16 +29,14 @@ public class Aplicacion extends Agent {
             // Aumentar límite de resultados del DF
             System.setProperty("jade_domain_df_maxresult", "-1");
 
-            // Cargar archivos JSON
+            // Carga datos desde archivos JSON
             JSONArray profesoresJson = JSONHelper.parseAsArray("profesores.json");
             JSONArray salasJson = JSONHelper.parseAsArray("salas.json");
 
             // Crear e iniciar agentes sala primero
             System.out.println("Iniciando creación de agentes sala...");
             salasControllers = createSalaAgents(getContainerController(), salasJson);
-
-            // Esperar a que las salas estén inicializadas
-            Thread.sleep(2000);
+            Thread.sleep(2000);     // Esperar a que las salas estén inicializadas
 
             // Configurar total de solicitudes para las salas
             int totalAsignaturas = calculateTotalAsignaturas(profesoresJson);
@@ -44,9 +45,7 @@ public class Aplicacion extends Agent {
             // Crear agentes profesor (sin iniciarlos)
             System.out.println("Creando agentes profesor...");
             profesoresControllers = createProfesorAgents(getContainerController(), profesoresJson);
-
-            // Esperar un momento para asegurar la creación
-            Thread.sleep(2000);
+            Thread.sleep(2000);   // Esperar un momento para asegurar la creación
 
             // Iniciar solo el primer profesor
             if (!profesoresControllers.isEmpty()) {
@@ -64,8 +63,9 @@ public class Aplicacion extends Agent {
 
     private Map<String, AgentController> createSalaAgents(AgentContainer container, JSONArray salasJson)
             throws StaleProxyException {
-        Map<String, AgentController> controllers = new HashMap<>();
+        Map<String, AgentController> controllers = new HashMap<>(); // Código de sala -> Agente Sala
 
+        // Crear agentes sala.
         for (Object obj : salasJson) {
             JSONObject salaJson = (JSONObject) obj;
             String codigo = (String) salaJson.get("Codigo");
@@ -78,6 +78,7 @@ public class Aplicacion extends Agent {
                     salaArgs
             );
             sala.start();
+            // Agregar a mapa de controladores
             controllers.put(codigo, sala);
             System.out.println("Agente Sala " + codigo + " creado e iniciado con JSON: " + jsonString);
         }
@@ -87,9 +88,10 @@ public class Aplicacion extends Agent {
 
     private List<AgentController> createProfesorAgents(AgentContainer container, JSONArray profesoresJson)
             throws StaleProxyException {
-        List<AgentController> controllers = new ArrayList<>();
-        int profesorCount = 0;
+        List<AgentController> controllers = new ArrayList<>();  // Lista de controladores de agentes profesor.
+        int profesorCount = 0;      // Contador de agentes profesor.
 
+        // Crea un objeto JSON con los datos del profesor (nombre, RUT, asignaturas).
         for (Object obj : profesoresJson) {
             JSONObject profesorJson = (JSONObject) obj;
             String nombre = (String) profesorJson.get("Nombre");
@@ -107,7 +109,7 @@ public class Aplicacion extends Agent {
                     "AgenteProfesor",
                     profesorArgs
             );
-            controllers.add(profesor);
+            controllers.add(profesor);  // Agrega el controlador a la lista.
             System.out.println("Agente Profesor " + nombre + " creado (no iniciado) con JSON: " + jsonString);
         }
 
@@ -141,15 +143,15 @@ public class Aplicacion extends Agent {
     }
 
     private class MonitorearProgresoComportamiento extends TickerBehaviour {
-        private int contadorSinCambios = 0;
-        private static final int MAX_SIN_CAMBIOS = 30; // Increased timeout
-        private Map<Integer, Boolean> profesoresFinalizados = new HashMap<>();
-        private long ultimoCambio = System.currentTimeMillis();
+        private static final int MAX_INACTIVITY = 60;
+        private int inactivityCounter = 0;
+        private boolean esperandoTransicion = false;
+        private int intentosTransicion = 0;
+        private static final int MAX_INTENTOS_TRANSICION = 10;
+        private static final long TIEMPO_ESPERA_TRANSICION = 2000; // 2 segundos
 
         public MonitorearProgresoComportamiento(Agent a, long period) {
             super(a, period);
-            this.ultimoCambio = System.currentTimeMillis();
-            this.profesoresFinalizados = new HashMap<>();
         }
 
         protected void onTick() {
@@ -158,60 +160,103 @@ public class Aplicacion extends Agent {
                     AgentController currentProfesor = profesoresControllers.get(profesorActual);
 
                     try {
-                        int agentState = currentProfesor.getState().getCode();
-                        // Check if agent is killed/terminated (State.AGENT_KILLED)
-                        if (agentState == 4) { // 4 is the code for AGENT_KILLED
-                            if (!profesoresFinalizados.getOrDefault(profesorActual, false)) {
-                                System.out.println("Profesor " + profesorActual + " terminó correctamente");
-                                profesoresFinalizados.put(profesorActual, true);
-                                profesorActual++;
-                                ultimoCambio = System.currentTimeMillis();
-                                contadorSinCambios = 0;
+                        // Intentar obtener el estado del profesor actual
+                        int state = currentProfesor.getState().getCode();
 
-                                if (profesorActual < profesoresControllers.size()) {
-                                    Thread.sleep(TIEMPO_ENTRE_PROFESORES);
-                                    profesoresControllers.get(profesorActual).start();
-                                    System.out.println("Iniciando profesor " + profesorActual);
-                                }
+                        if (state == 3) { // ACTIVE
+                            esperandoTransicion = false;
+                            intentosTransicion = 0;
+                            inactivityCounter++;
+
+                            if (inactivityCounter >= MAX_INACTIVITY) {
+                                System.out.println("Profesor " + profesorActual +
+                                        " inactivo. Forzando avance...");
+                                avanzarSiguienteProfesor();
                             }
+                        } else if (state == 4) { // TERMINATED
+                            avanzarSiguienteProfesor();
                         }
-                    } catch (Exception e) {
-                        System.out.println("Error verificando estado del profesor " + profesorActual);
-                        contadorSinCambios++;
+                    } catch (StaleProxyException e) {
+                        // El profesor ya no existe, intentar avanzar
+                        if (!esperandoTransicion) {
+                            System.out.println("Profesor terminado, iniciando transición...");
+                            avanzarSiguienteProfesor();
+                        } else {
+                            manejarTransicionEnProceso();
+                        }
                     }
-                }
-
-                // Check for timeout or completion
-                if (System.currentTimeMillis() - ultimoCambio > TIEMPO_ESPERA ||
-                        contadorSinCambios >= MAX_SIN_CAMBIOS ||
-                        profesorActual >= profesoresControllers.size()) {
-                    System.out.println("Iniciando finalización del proceso...");
+                } else {
                     finalizarProceso();
+                    stop();
                 }
             } catch (Exception e) {
+                System.err.println("Error en monitoreo: " + e.getMessage());
                 e.printStackTrace();
+            }
+        }
+
+        private void avanzarSiguienteProfesor() {
+            try {
+                if (profesorActual + 1 < profesoresControllers.size()) {
+                    esperandoTransicion = true;
+                    intentosTransicion = 0;
+
+                    // Forzar inicio del siguiente profesor
+                    AgentController nextProfesor = profesoresControllers.get(profesorActual + 1);
+                    nextProfesor.start();
+
+                    System.out.println("Iniciando profesor " + (profesorActual + 1));
+                    Thread.sleep(TIEMPO_ESPERA_TRANSICION);
+
+                    // Actualizar índice después de confirmar inicio
+                    profesorActual++;
+                    inactivityCounter = 0;
+                    esperandoTransicion = false;
+                } else {
+                    System.out.println("No hay más profesores para procesar");
+                    finalizarProceso();
+                    stop();
+                }
+            } catch (Exception e) {
+                System.err.println("Error avanzando al siguiente profesor: " + e.getMessage());
+                manejarTransicionEnProceso();
+            }
+        }
+
+        private void manejarTransicionEnProceso() {
+            intentosTransicion++;
+            if (intentosTransicion >= MAX_INTENTOS_TRANSICION) {
+                System.out.println("Máximo de intentos de transición alcanzado. Forzando avance.");
+                profesorActual++;
+                intentosTransicion = 0;
+                esperandoTransicion = false;
+            } else {
+                try {
+                    Thread.sleep(TIEMPO_ESPERA_TRANSICION);
+                    System.out.println("Esperando transición... Intento " + intentosTransicion);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
 
         private void finalizarProceso() {
             try {
-                // Force remaining professors to finish
-                for (int i = profesorActual; i < profesoresControllers.size(); i++) {
-                    try {
-                        profesoresControllers.get(i).kill();
-                        System.out.println("Profesor " + i + " terminado forzosamente");
-                    } catch (Exception e) {
-                        System.out.println("Error al terminar profesor " + i);
-                    }
-                }
-
-                // Generate final JSON files with delay
+                System.out.println("Finalizando proceso de asignación...");
                 Thread.sleep(2000);
-                System.out.println("Generando archivos JSON finales...");
+                System.out.println("Generando archivos JSON finales");
                 ProfesorHorarioJSON.getInstance().generarArchivoJSON();
                 SalaHorarioJSON.getInstance().generarArchivoJSON();
 
-                stop();
+                // Terminar todos los profesores pendientes
+                for (int i = profesorActual; i < profesoresControllers.size(); i++) {
+                    try {
+                        profesoresControllers.get(i).kill();
+                    } catch (Exception e) {
+                        // Ignorar errores al terminar profesores
+                    }
+                }
+
                 myAgent.doDelete();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -223,6 +268,7 @@ public class Aplicacion extends Agent {
         System.out.println("Aplicación finalizada. Archivos JSON generados.");
     }
 
+    // Metodo principal para iniciar la aplicación.
     public static void main(String[] args) {
         // Establecer el límite de resultados del DF antes de crear el contenedor
         System.setProperty("jade_domain_df_maxresult", "-1");
