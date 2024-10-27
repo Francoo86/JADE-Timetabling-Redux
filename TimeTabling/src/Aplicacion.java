@@ -24,6 +24,7 @@ public class Aplicacion extends Agent {
 
     protected void setup() {
         System.out.println("Agente Aplicacion iniciado");
+        System.out.println(AgenteSala.class);
 
         try {
             // Aumentar límite de resultados del DF
@@ -35,6 +36,8 @@ public class Aplicacion extends Agent {
 
             // Crear e iniciar agentes sala primero
             System.out.println("Iniciando creación de agentes sala...");
+            System.out.println(profesoresJson.toJSONString());
+
             salasControllers = createSalaAgents(getContainerController(), salasJson);
             Thread.sleep(2000);     // Esperar a que las salas estén inicializadas
 
@@ -100,6 +103,8 @@ public class Aplicacion extends Agent {
             profesorCompleto.put("Nombre", nombre);
             profesorCompleto.put("RUT", profesorJson.get("RUT"));
             profesorCompleto.put("Asignaturas", profesorJson.get("Asignaturas"));
+
+            System.out.println("Creando agente profesor con JSON: " + profesorJson.get("Asignaturas").toString());
 
             String jsonString = profesorCompleto.toJSONString();
             Object[] profesorArgs = {jsonString, profesorCount};
