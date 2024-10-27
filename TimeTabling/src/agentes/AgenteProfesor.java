@@ -1,6 +1,11 @@
+package agentes;
+
+import constants.Messages;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.Property;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -14,6 +19,7 @@ import org.json.simple.parser.JSONParser;
 import java.util.*;
 
 public class AgenteProfesor extends Agent {
+    public static final String AGENT_NAME = "Profesor";
     private String nombre;
     private String rut;
     private List<Asignatura> asignaturas;
@@ -40,15 +46,36 @@ public class AgenteProfesor extends Agent {
         horarioJSON.put("Asignaturas", new JSONArray());
         registrarEnDF();
 
+        // Add periodic state verification
+        addBehaviour(new TickerBehaviour(this, 5000) { // Every 5 seconds
+            protected void onTick() {
+                addBehaviour(new MessageQueueDebugBehaviour());
+            }
+        });
+
         if (orden == 0) {
-            // Primer profesor, comenzar inmediatamente
             iniciarNegociacion();
         } else {
-            // Esperar señal del profesor anterior
             addBehaviour(new EsperarTurnoBehaviour());
         }
 
         System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciado");
+    }
+
+    private void verificarEstado() {
+        try {
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(getAID());
+            DFAgentDescription[] result = DFService.search(this, dfd);
+
+            if (result == null || result.length == 0) {
+                System.out.println("[WARN] Agente no encontrado en DF, reregistrando...");
+                registrarEnDF();
+            }
+
+        } catch (Exception e) {
+            System.err.println("[ERROR] Error verificando estado: " + e.getMessage());
+        }
     }
 
     private void iniciarNegociacion() {
@@ -65,7 +92,9 @@ public class AgenteProfesor extends Agent {
             dfd.setName(getAID());
             ServiceDescription sd = new ServiceDescription();
             sd.setType("profesor");
-            sd.setName("Profesor" + orden);
+            sd.setName(AGENT_NAME + orden);
+            sd.addProperties(new Property("orden", orden));
+
             dfd.addServices(sd);
             DFService.register(this, dfd);
             isRegistered = true;
@@ -87,7 +116,6 @@ public class AgenteProfesor extends Agent {
             JSONArray asignaturasJson = (JSONArray) jsonObject.get("Asignaturas");
             for (Object obj : asignaturasJson) {
                 JSONObject asignaturaJson = (JSONObject) obj;
-                System.out.println("FIXME: PROFESOR " + nombre + " cargando asignatura: " + asignaturaJson.toJSONString());
                 asignaturas.add(new Asignatura(
                         (String) asignaturaJson.get("Nombre"),
                         0, 0,
@@ -100,20 +128,36 @@ public class AgenteProfesor extends Agent {
         }
     }
 
+    //FIXME: Si el agente tiene orden mayor a 0, el comportamiento de block se ejecuta indefinidamente
     private class EsperarTurnoBehaviour extends CyclicBehaviour {
         public void action() {
+            // Match any INFORM message with START content
             MessageTemplate mt = MessageTemplate.and(
                     MessageTemplate.MatchPerformative(ACLMessage.INFORM),
-                    MessageTemplate.MatchContent("START")
+                    MessageTemplate.MatchContent(Messages.START)
             );
 
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
-                System.out.println("Profesor " + nombre + " recibió señal START");
-                iniciarNegociacion();
-                myAgent.removeBehaviour(this);
+                String nextOrdenStr = msg.getUserDefinedParameter("nextOrden");
+                int nextOrden = Integer.parseInt(nextOrdenStr);
+
+                System.out.println("[DEBUG] " + nombre + " received START message. My orden=" +
+                        orden + ", nextOrden=" + nextOrden);
+
+                // Only act if this is the target profesor
+                if (nextOrden == orden) {
+                    System.out.println("Profesor " + nombre + " (orden " + orden +
+                            ") activating on START signal");
+                    iniciarNegociacion();
+                    myAgent.removeBehaviour(this);
+                } else {
+                    System.out.println("[DEBUG] Ignoring START message (not for me)");
+                }
             } else {
-                block(100);
+                block(500); // Short block to avoid CPU spinning
+                System.out.println("[DEBUG] " + nombre + " (orden=" + orden +
+                        ") waiting for START signal");
             }
         }
     }
@@ -151,7 +195,7 @@ public class AgenteProfesor extends Agent {
                     ACLMessage reply = myAgent.receive(mt);
                     if (reply != null) {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
-                            System.out.println("BUG:!!!!!!Profesor " + nombre + " recibió propuesta: " + reply.getContent());
+                            //System.out.println("BUG:!!!!!!Profesor " + nombre + " recibió propuesta: " + reply.getContent());
                             Propuesta propuesta = Propuesta.parse(reply.getContent());
 
                             propuestas.add(propuesta);
@@ -343,26 +387,29 @@ public class AgenteProfesor extends Agent {
 
             DFAgentDescription[] result = DFService.search(this, template);
 
-            int siguienteOrden = orden + 1;
-            boolean siguienteEncontrado = false;
+            System.out.println("[DEBUG] Current profesor: orden=" + orden +
+                    ", localName=" + getAID().getLocalName());
 
+            // Look for next professor
             for (DFAgentDescription dfd : result) {
-                String nombreAgente = dfd.getName().getLocalName();
-                if (nombreAgente.equals("Profesor" + siguienteOrden)) {
+                String targetName = dfd.getName().getLocalName();
+                System.out.println("[DEBUG] Found professor: " + targetName);
+
+                //print all services
+                for (jade.util.leap.Iterator it = dfd.getAllServices(); it.hasNext(); ) {
+                    ServiceDescription service = (ServiceDescription) it.next();
+                    System.out.println("[DEBUG] Service: " + service.getName());
+                }
+
+                // Send message to ALL other professors (they'll filter by orden)
+                if (!targetName.equals(getAID().getLocalName())) {
                     ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                     msg.addReceiver(dfd.getName());
-                    msg.setContent("START");
+                    msg.setContent(Messages.START);
                     send(msg);
-                    System.out.println("Profesor " + nombre + " notificó al siguiente profesor: " + nombreAgente);
-                    siguienteEncontrado = true;
-                    break;
+                    System.out.println("[DEBUG] Sent START message to: " + targetName);
                 }
             }
-
-            if (!siguienteEncontrado) {
-                System.out.println("No hay más profesores después de " + nombre + ". Finalizando proceso.");
-            }
-
         } catch (Exception e) {
             System.err.println("Error notificando siguiente profesor: " + e.getMessage());
         }
@@ -400,4 +447,61 @@ public class AgenteProfesor extends Agent {
         System.out.println("Profesor " + nombre + " finalizado con " +
                 asignadas + "/" + asignaturas.size() + " asignaturas asignadas");
     }
+
+    private class MessageQueueDebugBehaviour extends OneShotBehaviour {
+        @Override
+        public void action() {
+            System.out.println("\n=== DEBUG: Message Queue Status for " + myAgent.getLocalName() + " ===");
+            System.out.println("Queue Size: " + myAgent.getCurQueueSize());
+
+            // Create a template that matches ALL messages
+            MessageTemplate mt = MessageTemplate.MatchAll();
+
+            // Store messages to put them back later
+            List<ACLMessage> messages = new ArrayList<>();
+
+            // Retrieve and inspect all messages
+            ACLMessage msg;
+            int msgCount = 0;
+            while ((msg = myAgent.receive(mt)) != null) {
+                msgCount++;
+                System.out.println("\nMessage #" + msgCount + ":");
+                System.out.println("  Performative: " + ACLMessage.getPerformative(msg.getPerformative()));
+                System.out.println("  Sender: " + (msg.getSender() != null ? msg.getSender().getLocalName() : "null"));
+                System.out.println("  Receiver(s):");
+                for (jade.util.leap.Iterator it = msg.getAllReceiver(); it.hasNext(); ) {
+                    AID receiver = (AID) it.next();
+                    System.out.println("    - " + receiver.getLocalName());
+                }
+                System.out.println("  Content: " + msg.getContent());
+                System.out.println("  Conversation ID: " + msg.getConversationId());
+                System.out.println("  Protocol: " + msg.getProtocol());
+                System.out.println("  Reply-To:");
+                Iterator<?> replyTo = msg.getAllReplyTo();
+                while (replyTo.hasNext()) {
+                    AID aid = (AID) replyTo.next();
+                    System.out.println("    - " + aid.getLocalName());
+                }
+                System.out.println("  Reply-By: " + msg.getReplyByDate());
+                System.out.println("  Language: " + msg.getLanguage());
+                System.out.println("  Ontology: " + msg.getOntology());
+                System.out.println("  User-Defined Parameters:");
+                for (Object param : msg.getAllUserDefinedParameters().keySet()) {
+                    System.out.println("    - " + param + ": " + msg.getUserDefinedParameter((String) param));
+                }
+
+                // Store the message to put it back in queue
+                messages.add(msg);
+            }
+
+            // Put all messages back in the queue
+            for (ACLMessage m : messages) {
+                myAgent.postMessage(m);
+            }
+
+            System.out.println("\nTotal messages inspected: " + msgCount);
+            System.out.println("=== End Message Queue Debug ===\n");
+        }
+    }
+
 }

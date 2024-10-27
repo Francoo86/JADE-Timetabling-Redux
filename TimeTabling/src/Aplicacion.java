@@ -1,3 +1,5 @@
+import agentes.AgenteProfesor;
+import agentes.AgenteSala;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -21,7 +23,6 @@ public class Aplicacion {
         System.setProperty("jade_domain_df_maxresult", "-1");
 
         try {
-            // Initialize JADE runtime
             Runtime rt = Runtime.instance();
             Profile profile = new ProfileImpl();
             profile.setParameter(Profile.MAIN_HOST, "localhost");
@@ -33,29 +34,23 @@ public class Aplicacion {
             JSONArray profesoresJson = JSONHelper.parseAsArray("profesores.json");
             JSONArray salasJson = JSONHelper.parseAsArray("salas.json");
 
-            // Initialize room agents first
             System.out.println("Creating room agents...");
             initializeSalas(mainContainer, salasJson);
-            Thread.sleep(2000); // Wait for rooms to initialize
+            Thread.sleep(2000);
 
-            // Configure total requests for rooms
             int totalSubjects = calculateTotalSubjects(profesoresJson);
             configureSalasRequests(totalSubjects);
 
-            // Create professor agents
             System.out.println("Creating professor agents...");
             initializeProfesores(mainContainer, profesoresJson);
             Thread.sleep(2000);
 
-            // Start first professor only
             if (!profesoresControllers.isEmpty()) {
                 profesoresControllers.get(0).start();
                 System.out.println("First professor started");
             }
 
-            // Create monitor agent to ensure system stability
             createMonitorAgent(mainContainer);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
