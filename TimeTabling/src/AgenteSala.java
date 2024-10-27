@@ -1,211 +1,237 @@
 import jade.core.Agent;
 import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import java.util.*;
 
-public class AgenteSala extends Agent implements SalaInterface {
+public class AgenteSala extends Agent {
+    private boolean isRegistered = false;
     private String codigo;
     private int capacidad;
-    private Map<String, List<AsignacionSala>> horario;
-    private int solicitudesProcesadas = 0;
-    private int totalSolicitudes;
-    private int bloquesDisponibles;
+    private Map<String, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
+    private static final String[] DIAS = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
 
+    @Override
     protected void setup() {
-        Object[] args = getArguments();
-        if (args != null && args.length > 0) {
-            String jsonString = (String) args[0];
-            loadFromJsonString(jsonString);
-        }
-
-        horario = new HashMap<>();
-        String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
-        for (String dia : dias) {
-            List<AsignacionSala> bloques = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                bloques.add(null); // Inicialmente todos los bloques están vacíos
+        // Inicializar estructuras
+        initializeSchedule();
+        horarioOcupado = new HashMap<>();
+        for (String dia : DIAS) {
+            List<AsignacionSala> asignaciones = new ArrayList<>();
+            for (int i = 0; i < 5; i++) { // 5 bloques por día
+                asignaciones.add(null);
             }
-            horario.put(dia, bloques);
-        }
-        bloquesDisponibles = 25; // 5 días x 5 bloques
-
-        System.out.println("Agente Sala " + codigo + " iniciado. Capacidad: " + capacidad);
-
-        DFAgentDescription dfd = new DFAgentDescription();
-        dfd.setName(getAID());
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType("sala");
-        sd.setName(getName());
-        dfd.addServices(sd);
-        try {
-            DFService.register(this, dfd);
-        } catch (FIPAException fe) {
-            fe.printStackTrace();
+            horarioOcupado.put(dia, asignaciones);
         }
 
-        setEnabledO2ACommunication(true, 0);
-        registerO2AInterface(SalaInterface.class, this);
+        // Cargar datos de la sala desde JSON
+        Object[] args = getArguments();  // Corregido: usando getArguments() en lugar de getAgents()
+        if (args != null && args.length > 0) {
+            parseJSON((String)args[0]);
+        }
 
-        addBehaviour(new RecibirSolicitudBehaviour());
+        // Registrar en el DF
+        registrarEnDF();
+
+        // Agregar comportamiento principal
+        addBehaviour(new ResponderSolicitudesBehaviour());
+
+        System.out.println("Sala " + codigo + " iniciada. Capacidad: " + capacidad);
     }
 
-    private void loadFromJsonString(String jsonString) {
-        JSONParser parser = new JSONParser();
+    private void parseJSON(String jsonString) {
         try {
-            JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
-            codigo = (String) jsonObject.get("Codigo");
-            capacidad = ((Number) jsonObject.get("Capacidad")).intValue();
-        } catch (ParseException e) {
+            JSONParser parser = new JSONParser();
+            JSONObject salaJson = (JSONObject) parser.parse(jsonString);
+            codigo = (String) salaJson.get("Codigo");
+            capacidad = ((Number) salaJson.get("Capacidad")).intValue();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initializeSchedule() {
+        horarioOcupado = new HashMap<>();
+        for (String dia : DIAS) {
+            List<AsignacionSala> asignaciones = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                asignaciones.add(null);
+            }
+            horarioOcupado.put(dia, asignaciones);
+        }
+    }
+
+    private void registrarEnDF() {
+        try {
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(getAID());
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType("sala");
+            sd.setName(codigo);
+            dfd.addServices(sd);
+            DFService.register(this, dfd);
+            isRegistered = true;
+            System.out.println("Sala " + codigo + " registrada en DF");
+        } catch (FIPAException fe) {
+            System.err.println("Error registrando sala " + codigo + " en DF: " + fe.getMessage());
+            fe.printStackTrace();
+        }
+    }
+
+    private class ResponderSolicitudesBehaviour extends CyclicBehaviour {
+        public void action() {
+            MessageTemplate mt = MessageTemplate.or(
+                    MessageTemplate.MatchPerformative(ACLMessage.CFP),
+                    MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL)
+            );
+
+            ACLMessage msg = receive(mt);
+            if (msg != null) {
+                switch (msg.getPerformative()) {
+                    case ACLMessage.CFP:
+                        procesarSolicitud(msg);
+                        break;
+                    case ACLMessage.ACCEPT_PROPOSAL:
+                        confirmarAsignacion(msg);
+                        break;
+                }
+            } else {
+                block();
+            }
+        }
+
+        private void procesarSolicitud(ACLMessage msg) {
+            try {
+                String[] solicitudData = msg.getContent().split(",");
+                String nombreAsignatura = solicitudData[0];
+                int vacantes = Integer.parseInt(solicitudData[1]);
+
+                // Calcular satisfacción basada en capacidad vs vacantes
+                int satisfaccion;
+                if (capacidad == vacantes) satisfaccion = 10;
+                else if (capacidad > vacantes) satisfaccion = 5;
+                else satisfaccion = 3;
+
+                // Verificar disponibilidad y enviar todas las propuestas posibles
+                boolean propuestaEnviada = false;
+
+                // Revisar todos los días y todos los bloques
+                for (String dia : DIAS) {
+                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+                    for (int bloque = 0; bloque < 5; bloque++) {
+                        if (asignaciones.get(bloque) == null) {
+                            ACLMessage reply = msg.createReply();
+                            reply.setPerformative(ACLMessage.PROPOSE);
+                            reply.setContent(String.format("%s,%d,%s,%d,%d",
+                                    dia, bloque + 1, codigo, capacidad, satisfaccion));
+                            send(reply);
+                            propuestaEnviada = true;
+                            System.out.println("Sala " + codigo + " propone para " + nombreAsignatura +
+                                    ": día " + dia + ", bloque " + (bloque + 1) +
+                                    ", satisfacción " + satisfaccion);
+                        }
+                    }
+                }
+
+                if (!propuestaEnviada) {
+                    ACLMessage reply = msg.createReply();
+                    reply.setPerformative(ACLMessage.REFUSE);
+                    send(reply);
+                    System.out.println("Sala " + codigo + " no tiene bloques disponibles para " +
+                            nombreAsignatura);
+                }
+            } catch (Exception e) {
+                System.err.println("Error procesando solicitud en sala " + codigo + ": " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        private void confirmarAsignacion(ACLMessage msg) {
+            try {
+                String[] datos = msg.getContent().split(",");
+                // Validar que tengamos todos los datos necesarios
+                if (datos.length < 5) {
+                    System.err.println("Error: Formato de mensaje inválido en confirmación para sala " + codigo);
+                    return;
+                }
+
+                String dia = datos[0];
+                int bloque = Integer.parseInt(datos[1]) - 1; // Convertir a índice base 0
+                String nombreAsignatura = datos[2];
+                int satisfaccion = Integer.parseInt(datos[3]);
+                String salaConfirmada = datos[4];
+
+                // Verificar que la confirmación sea para esta sala
+                if (!salaConfirmada.equals(codigo)) {
+                    System.err.println("Error: Confirmación recibida para sala incorrecta");
+                    return;
+                }
+
+                List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+                if (asignaciones != null && bloque >= 0 && bloque < asignaciones.size() &&
+                        asignaciones.get(bloque) == null) {
+
+                    // Crear nueva asignación
+                    AsignacionSala nuevaAsignacion = new AsignacionSala(
+                            nombreAsignatura,
+                            satisfaccion
+                    );
+                    asignaciones.set(bloque, nuevaAsignacion);
+
+                    // Registrar en el JSON de salida
+                    SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, horarioOcupado);
+
+                    // Confirmar al profesor
+                    ACLMessage confirm = msg.createReply();
+                    confirm.setPerformative(ACLMessage.INFORM);
+                    confirm.setContent("CONFIRMADO");
+                    send(confirm);
+
+                    System.out.println(String.format("Sala %s: Asignada %s en %s, bloque %d, satisfacción %d",
+                            codigo, nombreAsignatura, dia, (bloque + 1), satisfaccion));
+                } else {
+                    System.err.println(String.format("Error: Bloque %d no disponible en sala %s para día %s",
+                            (bloque + 1), codigo, dia));
+                }
+            } catch (Exception e) {
+                System.err.println("Error procesando confirmación en sala " + codigo + ": " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private synchronized void cleanup() {
+        try {
+            if (isRegistered) {
+                DFAgentDescription dfd = new DFAgentDescription();
+                dfd.setName(getAID());
+                DFAgentDescription[] result = DFService.search(this, dfd);
+
+                if (result != null && result.length > 0) {
+                    DFService.deregister(this);
+                    System.out.println("Sala " + codigo + " eliminada del DF");
+                }
+                isRegistered = false;
+            }
+
+            // Guardar estado final en JSON
+            SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, horarioOcupado);
+
+        } catch (Exception e) {
+            System.err.println("Error durante cleanup de sala " + codigo + ": " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     @Override
-    public void setTotalSolicitudes(int total) {
-        this.totalSolicitudes = total;
-        System.out.println("Total de solicitudes establecido para sala " + codigo + ": " + total);
-        addBehaviour(new VerificarFinalizacionBehaviour(this, 1000));
-    }
-
-    private class RecibirSolicitudBehaviour extends CyclicBehaviour {
-        public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
-            ACLMessage msg = myAgent.receive(mt);
-            if (msg != null) {
-                if (bloquesDisponibles <= 0) {
-                    return;
-                }
-                solicitudesProcesadas++;
-                String solicitud = msg.getContent();
-                Asignatura asignatura = Asignatura.fromString(solicitud);
-
-                // Generar propuestas solo para bloques disponibles
-                List<String> propuestas = generarPropuestas(asignatura);
-
-                // Agregar delay aleatorio para evitar congestión (entre 100ms y 1s)
-                try {
-                    Thread.sleep((long) (Math.random() * 900 + 100));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                // Enviar propuestas
-                for (String propuesta : propuestas) {
-                    ACLMessage reply = msg.createReply();
-                    reply.setPerformative(ACLMessage.PROPOSE);
-                    reply.setContent(propuesta + "," + capacidad);
-                    myAgent.send(reply);
-                }
-
-                addBehaviour(new EsperarRespuestaBehaviour(myAgent, msg.getSender(), propuestas, asignatura.getNombre()));
-            } else {
-                block();
-            }
-        }
-    }
-
-    private List<String> generarPropuestas(Asignatura asignatura) {
-        List<String> propuestas = new ArrayList<>();
-        for (Map.Entry<String, List<AsignacionSala>> entry : horario.entrySet()) {
-            String dia = entry.getKey();
-            List<AsignacionSala> bloques = entry.getValue();
-
-            for (int i = 0; i < bloques.size(); i++) {
-                if (bloques.get(i) == null) {  // Si el bloque está disponible
-                    propuestas.add(dia + "," + (i + 1) + "," + codigo);
-                }
-            }
-        }
-        return propuestas;
-    }
-
-    private class EsperarRespuestaBehaviour extends Behaviour {
-        private boolean received = false;
-        private MessageTemplate mt;
-        private List<String> propuestas;
-        private String nombreAsignatura;
-
-        public EsperarRespuestaBehaviour(Agent a, jade.core.AID sender, List<String> propuestas, String nombreAsignatura) {
-            super(a);
-            this.mt = MessageTemplate.and(
-                    MessageTemplate.MatchSender(sender),
-                    MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL)
-            );
-            this.propuestas = propuestas;
-            this.nombreAsignatura = nombreAsignatura;
-        }
-
-        public void action() {
-            ACLMessage msg = myAgent.receive(mt);
-            if (msg != null) {
-                String propuestaAceptada = msg.getContent();
-                String[] partes = propuestaAceptada.split(",");
-                String dia = partes[0];
-                int bloque = Integer.parseInt(partes[1]);
-
-                // Crear una nueva AsignacionSala con el nombre de la asignatura y valoración
-                int valoracion = Integer.parseInt(partes[partes.length - 1]); // La valoración viene al final
-                AsignacionSala asignacion = new AsignacionSala(nombreAsignatura, valoracion);
-
-                // Actualizar el horario con la nueva asignación
-                horario.get(dia).set(bloque - 1, asignacion);
-                bloquesDisponibles--;
-
-                System.out.println("Sala " + codigo + " ha sido asignada para " + nombreAsignatura +
-                        " en " + dia + ", bloque " + bloque + " con valoración " + valoracion);
-                received = true;
-
-                if (bloquesDisponibles == 0) {
-                    try {
-                        DFService.deregister(myAgent);
-                    } catch (FIPAException fe) {
-                        fe.printStackTrace();
-                    }
-                }
-            } else {
-                block();
-            }
-        }
-
-        public boolean done() {
-            return received;
-        }
-    }
-
-    private class VerificarFinalizacionBehaviour extends TickerBehaviour {
-        private int ultimasSolicitudesProcesadas = 0;
-        private int contadorSinCambios = 0;
-        private static final int MAX_SIN_CAMBIOS = 10;
-
-        public VerificarFinalizacionBehaviour(Agent a, long period) {
-            super(a, period);
-        }
-
-        protected void onTick() {
-            System.out.println("Verificando finalización para sala " + codigo +
-                    ". Procesadas: " + solicitudesProcesadas +
-                    " de " + totalSolicitudes +
-                    ". Bloques disponibles: " + bloquesDisponibles);
-
-            if (bloquesDisponibles == 0 || solicitudesProcesadas >= totalSolicitudes ||
-                    (solicitudesProcesadas == ultimasSolicitudesProcesadas && ++contadorSinCambios >= MAX_SIN_CAMBIOS)) {
-                // Ahora el horario es del tipo correcto (Map<String, List<AsignacionSala>>)
-                SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, horario);
-                System.out.println("Sala " + codigo + " ha finalizado su asignación de horarios y enviado los datos.");
-                stop();
-                myAgent.doDelete();
-            } else if (solicitudesProcesadas != ultimasSolicitudesProcesadas) {
-                ultimasSolicitudesProcesadas = solicitudesProcesadas;
-                contadorSinCambios = 0;
-            }
-        }
+    protected void takeDown() {
+        cleanup();
+        System.out.println("Sala " + codigo + " finalizada");
     }
 }

@@ -6,6 +6,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import objetos.Asignatura;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -85,6 +86,7 @@ public class AgenteProfesor extends Agent {
             JSONArray asignaturasJson = (JSONArray) jsonObject.get("Asignaturas");
             for (Object obj : asignaturasJson) {
                 JSONObject asignaturaJson = (JSONObject) obj;
+                System.out.println("FIXME: PROFESOR " + nombre + " cargando asignatura: " + asignaturaJson.toJSONString());
                 asignaturas.add(new Asignatura(
                         (String) asignaturaJson.get("Nombre"),
                         0, 0,
@@ -148,6 +150,7 @@ public class AgenteProfesor extends Agent {
                     ACLMessage reply = myAgent.receive(mt);
                     if (reply != null) {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
+                            System.out.println("BUG:!!!!!!Profesor " + nombre + " recibió propuesta: " + reply.getContent());
                             propuestas.add(reply);
                             System.out.println("Profesor " + nombre + " recibió propuesta para " +
                                     asignaturas.get(asignaturaActual).getNombre());
@@ -229,6 +232,10 @@ public class AgenteProfesor extends Agent {
                 System.out.println("Profesor " + nombre + ": No hay propuestas para " +
                         asignaturas.get(asignaturaActual).getNombre());
                 return false;
+            }
+
+            for (ACLMessage propuesta : propuestas) {
+                System.out.println("TODO-FIXME: Profesor " + nombre + ": Propuesta recibida: " + propuesta.getContent());
             }
 
             try {
@@ -338,6 +345,7 @@ public class AgenteProfesor extends Agent {
             template.addServices(sd);
 
             DFAgentDescription[] result = DFService.search(this, template);
+
             int siguienteOrden = orden + 1;
             boolean siguienteEncontrado = false;
 
