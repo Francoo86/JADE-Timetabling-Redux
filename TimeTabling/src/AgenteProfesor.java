@@ -7,6 +7,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import objetos.Asignatura;
+import objetos.Propuesta;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -119,7 +120,7 @@ public class AgenteProfesor extends Agent {
 
     private class NegociarAsignaturasBehaviour extends Behaviour {
         private int step = 0;
-        private List<ACLMessage> propuestas;
+        private List<Propuesta> propuestas;
         private boolean finished = false;
         private long tiempoInicio;
         private int intentos = 0;
@@ -151,7 +152,11 @@ public class AgenteProfesor extends Agent {
                     if (reply != null) {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
                             System.out.println("BUG:!!!!!!Profesor " + nombre + " recibió propuesta: " + reply.getContent());
-                            propuestas.add(reply);
+                            Propuesta propuesta = Propuesta.parse(reply.getContent());
+
+                            propuestas.add(propuesta);
+                            propuesta.setMensaje(reply);
+
                             System.out.println("Profesor " + nombre + " recibió propuesta para " +
                                     asignaturas.get(asignaturaActual).getNombre());
                         }
@@ -234,32 +239,24 @@ public class AgenteProfesor extends Agent {
                 return false;
             }
 
-            for (ACLMessage propuesta : propuestas) {
-                System.out.println("TODO-FIXME: Profesor " + nombre + ": Propuesta recibida: " + propuesta.getContent());
-            }
-
             try {
                 // Ordenar propuestas por satisfacción
-                propuestas.sort((p1, p2) -> {
-                    String[] data1 = p1.getContent().split(",");
-                    String[] data2 = p2.getContent().split(",");
-                    return Integer.parseInt(data2[4]) - Integer.parseInt(data1[4]);
-                });
+                propuestas.sort((p1, p2) -> p2.getSatisfaccion() - p1.getSatisfaccion());
 
                 // Intentar cada propuesta en orden de satisfacción
-                for (ACLMessage propuesta : propuestas) {
-                    String[] datos = propuesta.getContent().split(",");
-                    String dia = datos[0];
-                    int bloque = Integer.parseInt(datos[1]);
-                    String sala = datos[2];
-                    int satisfaccion = Integer.parseInt(datos[4]);
+                for (Propuesta propuesta : propuestas) {
+                    String dia = propuesta.getDia();
+                    int bloque = propuesta.getBloque();
+                    String sala = propuesta.getCodigo();
+                    int satisfaccion = propuesta.getSatisfaccion();
 
                     Set<Integer> bloquesOcupados = horarioOcupado.getOrDefault(dia, new HashSet<>());
 
                     // Verificar si el bloque está disponible para el profesor
                     if (!bloquesOcupados.contains(bloque)) {
+                        ACLMessage original = propuesta.getMensaje();
                         // Aceptar propuesta
-                        ACLMessage accept = propuesta.createReply();
+                        ACLMessage accept = original.createReply();
                         accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
                         accept.setContent(String.format("%s,%d,%s,%d,%s",
                                 dia, bloque, asignaturas.get(asignaturaActual).getNombre(),
@@ -268,7 +265,7 @@ public class AgenteProfesor extends Agent {
 
                         // Esperar confirmación
                         MessageTemplate mt = MessageTemplate.and(
-                                MessageTemplate.MatchSender(propuesta.getSender()),
+                                MessageTemplate.MatchSender(original.getSender()),
                                 MessageTemplate.MatchPerformative(ACLMessage.INFORM)
                         );
                         ACLMessage confirm = myAgent.blockingReceive(mt, 5000);
