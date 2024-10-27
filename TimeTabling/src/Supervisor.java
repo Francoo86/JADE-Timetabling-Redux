@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MonitorAgent extends Agent {
+public class Supervisor extends Agent {
     private List<AgentController> profesoresControllers;
     private boolean isSystemActive = true;
 
