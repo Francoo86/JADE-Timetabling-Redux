@@ -180,7 +180,6 @@ public class AgenteProfesor extends Agent {
                     ACLMessage reply = myAgent.receive(mt);
                     if (reply != null) {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
-                            //System.out.println("BUG:!!!!!!Profesor " + nombre + " recibió propuesta: " + reply.getContent());
                             Propuesta propuesta = Propuesta.parse(reply.getContent());
 
                             propuestas.add(propuesta);
@@ -391,6 +390,7 @@ public class AgenteProfesor extends Agent {
                     ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                     msg.addReceiver(dfd.getName());
                     msg.setContent(Messages.START);
+                    msg.addUserDefinedParameter("nextOrden", Integer.toString(orden + 1));
                     send(msg);
                     System.out.println("[DEBUG] Sent START message to: " + targetName);
                 }

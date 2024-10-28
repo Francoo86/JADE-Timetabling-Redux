@@ -1,5 +1,6 @@
 package agentes;
 
+import constants.Messages;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
@@ -194,7 +195,7 @@ public class AgenteSala extends Agent {
                     // Confirmar al profesor
                     ACLMessage confirm = msg.createReply();
                     confirm.setPerformative(ACLMessage.INFORM);
-                    confirm.setContent("CONFIRMADO");
+                    confirm.setContent(Messages.CONFIRM);
                     send(confirm);
 
                     System.out.println(String.format("Sala %s: Asignada %s en %s, bloque %d, satisfacción %d",
