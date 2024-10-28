@@ -3,6 +3,8 @@ import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+import json_stuff.ProfesorHorarioJSON;
+import json_stuff.SalaHorarioJSON;
 
 import java.util.HashMap;
 import java.util.List;

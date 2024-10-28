@@ -1,7 +1,9 @@
+package json_stuff;
+
+import objetos.AsignacionSala;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.Map;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -53,20 +55,3 @@ public class SalaHorarioJSON {
     }
 }
 
-class AsignacionSala {
-    private String nombreAsignatura;
-    private int valoracion;
-
-    public AsignacionSala(String nombreAsignatura, int valoracion) {
-        this.nombreAsignatura = nombreAsignatura;
-        this.valoracion = valoracion;
-    }
-
-    public String getNombreAsignatura() {
-        return nombreAsignatura;
-    }
-
-    public int getValoracion() {
-        return valoracion;
-    }
-}

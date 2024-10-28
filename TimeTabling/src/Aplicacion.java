@@ -6,6 +6,7 @@ import jade.core.Runtime;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+import json_stuff.JSONHelper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

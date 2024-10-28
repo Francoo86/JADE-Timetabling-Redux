@@ -11,6 +11,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import json_stuff.ProfesorHorarioJSON;
 import objetos.Asignatura;
 import objetos.Propuesta;
 import org.json.simple.JSONObject;
