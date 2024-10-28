@@ -96,6 +96,7 @@ public class Aplicacion {
                     profesorArgs
             );
             profesoresControllers.add(profesor);
+            profesor.start();
             System.out.println("Professor agent created: " + agentName + ", order=" + i + ", name=" + nombre);
         }
     }
