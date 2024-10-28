@@ -1,0 +1,9 @@
+[ {
+  "Codigo" : "A-1",
+  "Asignaturas" : [ {
+    "Nombre" : "Matemáticas Avanzadas",
+    "Valoracion" : 10,
+    "Bloque" : 1,
+    "Dia" : "Lunes"
+  } ]
+} ]

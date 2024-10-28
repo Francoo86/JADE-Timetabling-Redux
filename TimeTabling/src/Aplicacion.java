@@ -1,5 +1,6 @@
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
+import agentes.Supervisor;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -88,7 +89,7 @@ public class Aplicacion {
             String jsonString = profesorCompleto.toJSONString();
             Object[] profesorArgs = {jsonString, i};
 
-            String agentName = "Profesor" + i;
+            String agentName = AgenteProfesor.AGENT_NAME + i;
             AgentController profesor = container.createNewAgent(
                     agentName,
                     AgenteProfesor.class.getName(),
@@ -127,7 +128,7 @@ public class Aplicacion {
     private static void createMonitorAgent(AgentContainer container) throws StaleProxyException {
         Object[] monitorArgs = {profesoresControllers};
         container.createNewAgent(
-                "Supervisor",
+                "agentes.Supervisor",
                 Supervisor.class.getName(),
                 monitorArgs
         ).start();

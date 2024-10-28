@@ -63,22 +63,6 @@ public class AgenteProfesor extends Agent {
         System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciado");
     }
 
-    private void verificarEstado() {
-        try {
-            DFAgentDescription dfd = new DFAgentDescription();
-            dfd.setName(getAID());
-            DFAgentDescription[] result = DFService.search(this, dfd);
-
-            if (result == null || result.length == 0) {
-                System.out.println("[WARN] Agente no encontrado en DF, reregistrando...");
-                registrarEnDF();
-            }
-
-        } catch (Exception e) {
-            System.err.println("[ERROR] Error verificando estado: " + e.getMessage());
-        }
-    }
-
     private void iniciarNegociacion() {
         if (!negociacionIniciada) {
             negociacionIniciada = true;
@@ -359,7 +343,7 @@ public class AgenteProfesor extends Agent {
     private void finalizarNegociaciones() {
         try {
             if (isCleaningUp) {
-                return; // Evitar múltiples llamadas
+                return;
             }
             isCleaningUp = true;
 
@@ -439,6 +423,8 @@ public class AgenteProfesor extends Agent {
             System.err.println("Error durante cleanup de profesor " + nombre + ": " + e.getMessage());
             e.printStackTrace();
         }
+
+        isCleaningUp = false;
     }
 
     @Override
