@@ -6,6 +6,10 @@ from bs4 import BeautifulSoup
 from dataclasses import dataclass
 from typing import Dict, List
 
+import requests
+
+IQQ_CAMPUS_CLASSROOMS = "http://portal.unap.cl/kb/academica-web/comun/interfaz-gene_4.php?camp=CC&aleatorio=0.5410163762177149"
+
 @dataclass
 class ClassBlock:
     time: str
@@ -16,6 +20,41 @@ class ClassBlock:
     professor: str
     capacity: int
     color: str
+    
+class ScheduleScraper:
+    def __init__(self):
+        # speed up requests by reusing the same session
+        self.unap_req = requests.Session()
+        self.classrooms = {}
+        
+        self.__fetch_classrooms()
+    
+    def __fetch_classrooms(self):
+        print("[INFO] Obteniendo salas...")
+        self.classrooms = {}
+        
+        resp = self.unap_req.get(IQQ_CAMPUS_CLASSROOMS)
+
+        if resp.status_code != 200:
+            print("[ERROR] No se pudieron obtener las salas")
+            raise Exception("No se pudieron obtener las salas")
+        
+        soup = BeautifulSoup(resp.text, 'lxml')
+        selector = soup.find('select', {'id': 'sala'})
+        
+        for option in selector.find_all('option'):
+            sala_id = option['value']
+            if sala_id == '':
+                continue
+            
+            sala_name = option.text
+            
+            self.classrooms[sala_name] = sala_id
+            
+
+        
+ss = ScheduleScraper()
+        
 
 def parse_schedule(html_content: str) -> Dict[str, List[ClassBlock]]:
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -69,13 +108,18 @@ def parse_schedule(html_content: str) -> Dict[str, List[ClassBlock]]:
                 code_section, block_type = course_info.split('(')
                 code, section = code_section.split('-')
                 
+                # for professor we will get the after the latest br tag
+                # we will split the text by new line and get the last element
+                prof_content = cell.get_text(separator=" ", strip=True)
+                professor = prof_content.split()[-2] + " " + prof_content.split()[-1]
+                
                 class_block = ClassBlock(
                     time=time_str.strip(),
                     course_name=cell['title'].strip(),
                     course_code=code.strip(),
                     section=section.strip(),
                     block_type=block_type.replace(')', '').strip(),
-                    professor=cell.get_text().strip().split('\n')[-1],
+                    professor=professor,
                     capacity=capacity,
                     color=block_cell['bgcolor']
                 )
@@ -133,9 +177,7 @@ def analyze_schedule(html_content: str):
     
     return schedule
 
-                
-import requests
-
+            
 
 TIPO = "a60e60a5"
 POST_URL = "http://portal.unap.cl/kb/academica-web/horarios/horarios_PROD/presentacion/interfaz.php"
