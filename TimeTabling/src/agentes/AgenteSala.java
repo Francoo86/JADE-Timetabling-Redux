@@ -1,6 +1,7 @@
 package agentes;
 
 import constants.Messages;
+import constants.SatisfaccionHandler;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
@@ -116,17 +117,10 @@ public class AgenteSala extends Agent {
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = solicitudData[0];
                 int vacantes = Integer.parseInt(solicitudData[1]);
+                int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
 
-                // Calcular satisfacción basada en capacidad vs vacantes
-                int satisfaccion;
-                if (capacidad == vacantes) satisfaccion = 10;
-                else if (capacidad > vacantes) satisfaccion = 5;
-                else satisfaccion = 3;
-
-                // Verificar disponibilidad y enviar todas las propuestas posibles
                 boolean propuestaEnviada = false;
 
-                // Revisar todos los días y todos los bloques
                 for (String dia : DIAS) {
                     List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
                     for (int bloque = 0; bloque < 5; bloque++) {
