@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'make an ontology with AgenteProfesor and AgenteSala'
+entity Profesor {
+}
+
+entity ActividadesCurriculares {
+}
+
+'profesor has a relationship with ActividadesCurriculares'
+Profesor "1" --> "1..*" ActividadesCurriculares
+
+
+
+entity Horario{
+}
+
+entity Sala {
+}
+
+'Activity has a relationship with Horario'
+ActividadesCurriculares "1" --> "1..*" Horario
+'Sala has a relationship with Horario'
+Sala "1" --> "1..*" Horario
+@enduml
