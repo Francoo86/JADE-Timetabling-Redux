@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 import requests
+import threading
 
 IQQ_CAMPUS_CLASSROOMS = "http://portal.unap.cl/kb/academica-web/comun/interfaz-gene_4.php?camp=CC&aleatorio=0.5410163762177149"
 SCHEDULE_POST_URL = "http://portal.unap.cl/kb/academica-web/horarios/horarios_PROD/presentacion/interfaz.php"
@@ -23,11 +24,14 @@ class ClassBlock:
     color: str
     
 class ScheduleScraper:
-    def __init__(self):
+    def __init__(self, selected_classrooms : List[str] = None):
         # speed up requests by reusing the same session
         self.unap_req = requests.Session()
         self.classrooms = {}
         self.classroom_data = {}
+        
+        # this is a filter to only get the schedules for the selected classrooms
+        self.selected_classrooms = selected_classrooms
         
         self.__fetch_classrooms()
     
@@ -50,6 +54,9 @@ class ScheduleScraper:
                 continue
             
             sala_name = option.text
+            
+            if self.selected_classrooms and sala_name not in self.selected_classrooms:
+                continue
             
             self.classrooms[sala_name] = sala_id
             
@@ -227,8 +234,8 @@ def get_professor_schedule(schedule: Dict[str, List[ClassBlock]], professor_name
     return prof_schedule
 
 
-ss = ScheduleScraper()
+ss = ScheduleScraper(selected_classrooms=["LC6"])
 ss.get_schedules_per_classroom()
 
 # Print the schedule for a specific classroom
-ss.print_schedule_for_classroom("TBD")
+ss.print_schedule_for_classroom("LC6")

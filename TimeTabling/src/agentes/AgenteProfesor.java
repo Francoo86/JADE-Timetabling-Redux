@@ -113,7 +113,6 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-    //FIXME: Si el agente tiene orden mayor a 0, el comportamiento de block se ejecuta indefinidamente
     private class EsperarTurnoBehaviour extends CyclicBehaviour {
         public void action() {
             // Match any INFORM message with START content
