@@ -1,71 +1,64 @@
-import jade.core.Agent;
+import agentes.AgenteProfesor;
+import agentes.AgenteSala;
+import agentes.Supervisor;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
-import jade.core.behaviours.*;
+import json_stuff.JSONHelper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.io.FileReader;
-import java.util.*;
 
-public class Aplicacion extends Agent {
-    private int profesorActual = 0;
-    private List<AgentController> profesoresControllers = new ArrayList<>();
-    private Map<String, AgentController> salasControllers = new HashMap<>();
-    private static final long TIEMPO_ESPERA = 360000; // 6 minutos
-    private static final long TIEMPO_ENTRE_PROFESORES = 3000; // 3 segundos
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    protected void setup() {
-        System.out.println("Agente Aplicacion iniciado");
+public class Aplicacion {
+    private static Map<String, AgentController> salasControllers = new HashMap<>();
+    private static List<AgentController> profesoresControllers = new ArrayList<>();
+
+    public static void main(String[] args) {
+        // Set DF max results before container creation
+        System.setProperty("jade_domain_df_maxresult", "-1");
 
         try {
-            // Aumentar límite de resultados del DF
-            System.setProperty("jade_domain_df_maxresult", "-1");
+            Runtime rt = Runtime.instance();
+            Profile profile = new ProfileImpl();
+            profile.setParameter(Profile.MAIN_HOST, "localhost");
+            profile.setParameter(Profile.GUI, "true");
 
-            // Cargar archivos JSON
+            AgentContainer mainContainer = rt.createMainContainer(profile);
+
+            // Load data from JSON files
             JSONArray profesoresJson = JSONHelper.parseAsArray("profesores.json");
             JSONArray salasJson = JSONHelper.parseAsArray("salas.json");
 
-            // Crear e iniciar agentes sala primero
-            System.out.println("Iniciando creación de agentes sala...");
-            salasControllers = createSalaAgents(getContainerController(), salasJson);
-
-            // Esperar a que las salas estén inicializadas
+            System.out.println("Creating room agents...");
+            initializeSalas(mainContainer, salasJson);
             Thread.sleep(2000);
 
-            // Configurar total de solicitudes para las salas
-            int totalAsignaturas = calculateTotalAsignaturas(profesoresJson);
-            setTotalSolicitudesForSalas(totalAsignaturas);
+            int totalSubjects = calculateTotalSubjects(profesoresJson);
+            configureSalasRequests(totalSubjects);
 
-            // Crear agentes profesor (sin iniciarlos)
-            System.out.println("Creando agentes profesor...");
-            profesoresControllers = createProfesorAgents(getContainerController(), profesoresJson);
-
-            // Esperar un momento para asegurar la creación
+            System.out.println("Creating professor agents...");
+            initializeProfesores(mainContainer, profesoresJson);
             Thread.sleep(2000);
 
-            // Iniciar solo el primer profesor
             if (!profesoresControllers.isEmpty()) {
                 profesoresControllers.get(0).start();
-                System.out.println("Primer profesor iniciado");
+                System.out.println("First professor started");
             }
 
-            // Agregar comportamiento para monitorear el progreso
-            addBehaviour(new MonitorearProgresoComportamiento(this, 5000));
-
+            createMonitorAgent(mainContainer);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private Map<String, AgentController> createSalaAgents(AgentContainer container, JSONArray salasJson)
-            throws StaleProxyException {
-        Map<String, AgentController> controllers = new HashMap<>();
-
+    private static void initializeSalas(AgentContainer container, JSONArray salasJson) throws StaleProxyException {
         for (Object obj : salasJson) {
             JSONObject salaJson = (JSONObject) obj;
             String codigo = (String) salaJson.get("Codigo");
@@ -74,24 +67,18 @@ public class Aplicacion extends Agent {
             Object[] salaArgs = {jsonString};
             AgentController sala = container.createNewAgent(
                     "Sala" + codigo,
-                    "AgenteSala",
+                    AgenteSala.class.getName(),
                     salaArgs
             );
             sala.start();
-            controllers.put(codigo, sala);
-            System.out.println("Agente Sala " + codigo + " creado e iniciado con JSON: " + jsonString);
+            salasControllers.put(codigo, sala);
+            System.out.println("Room agent " + codigo + " created and started with JSON: " + jsonString);
         }
-
-        return controllers;
     }
 
-    private List<AgentController> createProfesorAgents(AgentContainer container, JSONArray profesoresJson)
-            throws StaleProxyException {
-        List<AgentController> controllers = new ArrayList<>();
-        int profesorCount = 0;
-
-        for (Object obj : profesoresJson) {
-            JSONObject profesorJson = (JSONObject) obj;
+    private static void initializeProfesores(AgentContainer container, JSONArray profesoresJson) throws StaleProxyException {
+        for (int i = 0; i < profesoresJson.size(); i++) {
+            JSONObject profesorJson = (JSONObject) profesoresJson.get(i);
             String nombre = (String) profesorJson.get("Nombre");
 
             JSONObject profesorCompleto = new JSONObject();
@@ -100,144 +87,51 @@ public class Aplicacion extends Agent {
             profesorCompleto.put("Asignaturas", profesorJson.get("Asignaturas"));
 
             String jsonString = profesorCompleto.toJSONString();
-            Object[] profesorArgs = {jsonString, profesorCount};
+            Object[] profesorArgs = {jsonString, i};
 
+            String agentName = AgenteProfesor.AGENT_NAME + i;
             AgentController profesor = container.createNewAgent(
-                    "Profesor" + (++profesorCount),
-                    "AgenteProfesor",
+                    agentName,
+                    AgenteProfesor.class.getName(),
                     profesorArgs
             );
-            controllers.add(profesor);
-            System.out.println("Agente Profesor " + nombre + " creado (no iniciado) con JSON: " + jsonString);
+            profesoresControllers.add(profesor);
+            profesor.start();
+            System.out.println("Professor agent created: " + agentName + ", order=" + i + ", name=" + nombre);
         }
-
-        return controllers;
     }
 
-    private int calculateTotalAsignaturas(JSONArray profesoresJson) {
+    private static int calculateTotalSubjects(JSONArray profesoresJson) {
         int total = 0;
         for (Object obj : profesoresJson) {
             JSONObject profesor = (JSONObject) obj;
             JSONArray asignaturas = (JSONArray) profesor.get("Asignaturas");
             total += asignaturas.size();
         }
-        System.out.println("Total de asignaturas a asignar: " + total);
+        System.out.println("Total subjects to assign: " + total);
         return total;
     }
 
-    private void setTotalSolicitudesForSalas(int totalAsignaturas) {
+    private static void configureSalasRequests(int totalSubjects) {
         for (Map.Entry<String, AgentController> entry : salasControllers.entrySet()) {
             try {
                 SalaInterface salaInterface = entry.getValue().getO2AInterface(SalaInterface.class);
                 if (salaInterface != null) {
-                    salaInterface.setTotalSolicitudes(totalAsignaturas);
-                    System.out.println("Total de solicitudes establecido para sala: " + entry.getKey());
+                    salaInterface.setTotalSolicitudes(totalSubjects);
                 }
             } catch (StaleProxyException e) {
-                System.out.println("Error al configurar solicitudes para sala: " + entry.getKey());
+                System.out.println("Error configuring requests for room: " + entry.getKey());
                 e.printStackTrace();
             }
         }
     }
 
-    private class MonitorearProgresoComportamiento extends TickerBehaviour {
-        private int contadorSinCambios = 0;
-        private static final int MAX_SIN_CAMBIOS = 30; // Increased timeout
-        private Map<Integer, Boolean> profesoresFinalizados = new HashMap<>();
-        private long ultimoCambio = System.currentTimeMillis();
-
-        public MonitorearProgresoComportamiento(Agent a, long period) {
-            super(a, period);
-            this.ultimoCambio = System.currentTimeMillis();
-            this.profesoresFinalizados = new HashMap<>();
-        }
-
-        protected void onTick() {
-            try {
-                if (profesorActual < profesoresControllers.size()) {
-                    AgentController currentProfesor = profesoresControllers.get(profesorActual);
-
-                    try {
-                        int agentState = currentProfesor.getState().getCode();
-                        // Check if agent is killed/terminated (State.AGENT_KILLED)
-                        if (agentState == 4) { // 4 is the code for AGENT_KILLED
-                            if (!profesoresFinalizados.getOrDefault(profesorActual, false)) {
-                                System.out.println("Profesor " + profesorActual + " terminó correctamente");
-                                profesoresFinalizados.put(profesorActual, true);
-                                profesorActual++;
-                                ultimoCambio = System.currentTimeMillis();
-                                contadorSinCambios = 0;
-
-                                if (profesorActual < profesoresControllers.size()) {
-                                    Thread.sleep(TIEMPO_ENTRE_PROFESORES);
-                                    profesoresControllers.get(profesorActual).start();
-                                    System.out.println("Iniciando profesor " + profesorActual);
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Error verificando estado del profesor " + profesorActual);
-                        contadorSinCambios++;
-                    }
-                }
-
-                // Check for timeout or completion
-                if (System.currentTimeMillis() - ultimoCambio > TIEMPO_ESPERA ||
-                        contadorSinCambios >= MAX_SIN_CAMBIOS ||
-                        profesorActual >= profesoresControllers.size()) {
-                    System.out.println("Iniciando finalización del proceso...");
-                    finalizarProceso();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        private void finalizarProceso() {
-            try {
-                // Force remaining professors to finish
-                for (int i = profesorActual; i < profesoresControllers.size(); i++) {
-                    try {
-                        profesoresControllers.get(i).kill();
-                        System.out.println("Profesor " + i + " terminado forzosamente");
-                    } catch (Exception e) {
-                        System.out.println("Error al terminar profesor " + i);
-                    }
-                }
-
-                // Generate final JSON files with delay
-                Thread.sleep(2000);
-                System.out.println("Generando archivos JSON finales...");
-                ProfesorHorarioJSON.getInstance().generarArchivoJSON();
-                SalaHorarioJSON.getInstance().generarArchivoJSON();
-
-                stop();
-                myAgent.doDelete();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    protected void takeDown() {
-        System.out.println("Aplicación finalizada. Archivos JSON generados.");
-    }
-
-    public static void main(String[] args) {
-        // Establecer el límite de resultados del DF antes de crear el contenedor
-        System.setProperty("jade_domain_df_maxresult", "-1");
-
-        Runtime rt = Runtime.instance();
-        Profile profile = new ProfileImpl();
-        profile.setParameter(Profile.MAIN_HOST, "localhost");
-        profile.setParameter(Profile.GUI, "true");
-
-        AgentContainer mainContainer = rt.createMainContainer(profile);
-
-        try {
-            mainContainer.createNewAgent("Aplicacion", "Aplicacion", new Object[]{}).start();
-        } catch (StaleProxyException e) {
-            e.printStackTrace();
-        }
+    private static void createMonitorAgent(AgentContainer container) throws StaleProxyException {
+        Object[] monitorArgs = {profesoresControllers};
+        container.createNewAgent(
+                "agentes.Supervisor",
+                Supervisor.class.getName(),
+                monitorArgs
+        ).start();
     }
 }
