@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import json
 
 def create_weekly_schedule_pandas(data):
     """
@@ -24,7 +25,7 @@ def create_weekly_schedule_pandas(data):
     # Create empty DataFrame
     schedule_df = pd.DataFrame(
         index=time_blocks.values(),
-        columns=days
+        columns=days,
     )
     
     # Fill schedule
@@ -115,58 +116,27 @@ def analyze_schedule(schedule_df, data):
     
     return analysis
 
-# Example usage with expanded test data
-schedule_data = [
-    {
-        "Nombre": "María Gonzalez",
-        "AsignaturasCompletadas": 3,
-        "Solicitudes": 3,
-        "Asignaturas": [{
-            "Nombre": "Programación en Java",
-            "Sala": "A-1",
-            "Bloque": 3,
-            "Dia": "Lunes",
-            "Satisfaccion": 5
-        }, {
-            "Nombre": "Programación en Python",
-            "Sala": "B-2",
-            "Bloque": 1,
-            "Dia": "Martes",
-            "Satisfaccion": 10
-        }]
-    },
-    {
-        "Nombre": "Carlos Rodriguez",
-        "AsignaturasCompletadas": 2,
-        "Solicitudes": 2,
-        "Asignaturas": [{
-            "Nombre": "Bases de Datos",
-            "Sala": "A-1",
-            "Bloque": 2,
-            "Dia": "Miércoles",
-            "Satisfaccion": 8
-        }, {
-            "Nombre": "Algoritmos",
-            "Sala": "B-2",
-            "Bloque": 4,
-            "Dia": "Jueves",
-            "Satisfaccion": 9
-        }]
-    }
-]
 
-# Create and display schedule
-schedule_df = create_weekly_schedule_pandas(schedule_data)
 
-# Print to console (for quick view)
-print("\nWeekly Schedule (console view):")
-print(schedule_df)
+def read_json_schedule(filename='schedule.json'):
+    """
+    Reads schedule data from a JSON file
+    """
+    
+    with open(filename, 'r', encoding="utf-8") as file:
+        schedule_data = json.load(file)
+        json_df = create_weekly_schedule_pandas(schedule_data)
+        
+        print("\nWeekly Schedule (JSON view):")
+        print(json_df)
+        
+        save_styled_schedule(json_df, 'weekly_schedule_json.xlsx')
+        
+        analysis_results = analyze_schedule(json_df, schedule_data)
+        
+        print("\nSchedule Analysis (JSON view):")
+        for metric, value in analysis_results.items():
+            print(f"{metric}: {value}")
 
-# Save as styled Excel file
-save_styled_schedule(schedule_df)
-
-# Run analysis
-analysis_results = analyze_schedule(schedule_df, schedule_data)
-print("\nSchedule Analysis:")
-for metric, value in analysis_results.items():
-    print(f"{metric}: {value}")
+if __name__ == '__main__':
+    read_json_schedule("Horarios_asignados.json")
