@@ -1,8 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "d:\\CodigosJava\\LibreriaJADE\\jade\\lib\\jade.jar",
-        "LibreriaJson/javax.json-api-1.1-javadoc.jar",
-        "LibreriaJson/json-simple-1.1.1.jar"
-    ]
-}
