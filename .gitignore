@@ -5,3 +5,4 @@ out/
 *.pyc
 __pycache__/
 python-venv/
+.env
