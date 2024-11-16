@@ -9,3 +9,4 @@ python-venv/
 APDescription.txt
 MTPs-Main-Container.txt
 *.iml
+.vscode/
