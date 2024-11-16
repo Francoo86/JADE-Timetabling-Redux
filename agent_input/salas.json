@@ -1,0 +1,14 @@
+[
+    {
+      "Turno": 1,
+      "Codigo": "A-1",
+      "Capacidad": 30,
+      "Campus": "Playa Brava"
+    },
+    {
+      "Turno": 2,
+      "Codigo": "B-2",
+      "Capacidad": 25,
+      "Campus": "Huayquique"
+    }
+]

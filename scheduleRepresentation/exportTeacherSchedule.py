@@ -54,24 +54,24 @@ def apply_excel_styling(worksheet):
 
 def save_schedules(data, filename='teacher_schedules.xlsx'):
     """Saves each teacher's schedule to a separate worksheet in scheduleRepresentation folder"""
-    # Create scheduleRepresentation directory if it doesn't exist
     output_dir = 'scheduleRepresentation'
     os.makedirs(output_dir, exist_ok=True)
-    
-    # Construct full file path
     filepath = os.path.join(output_dir, filename)
     
     with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
-        # Rest of the function remains the same
         for teacher_data in data:
             teacher_name = teacher_data['Nombre']
+            turno = teacher_data.get('Turno', 0)  # Get turno or default to 0
             schedule_df = create_teacher_schedule(teacher_data)
             
-            sheet_name = teacher_name[:31]
+            sheet_name = f"{teacher_name}_{turno}"[:31]  # Include turno in sheet name
             schedule_df.to_excel(writer, sheet_name=sheet_name, index=True)
             
             worksheet = writer.sheets[sheet_name]
             apply_excel_styling(worksheet)
+            
+            # Add turno information to the worksheet
+            worksheet.cell(row=1, column=1, value=f"Profesor: {teacher_name} (Turno: {turno})")
             
             for idx, col in enumerate(schedule_df.columns):
                 worksheet.column_dimensions[chr(66 + idx)].width = 30

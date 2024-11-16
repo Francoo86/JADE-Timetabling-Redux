@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 import json
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
@@ -26,12 +25,13 @@ def create_room_schedule(room_data):
     )
     
     # Fill schedule with room's subjects
-    for subject in room_data['Asignaturas']:
-        time_slot = time_blocks[subject['Bloque']]
-        day = subject['Dia']
-        content = (f"Asignatura: {subject['Nombre']}\n"
-                  f"Satisfacción: {subject['Satisfaccion']}/10")
-        schedule_df.at[time_slot, day] = content
+    for subject in room_data.get('Asignaturas', []):
+        time_slot = time_blocks.get(subject.get('Bloque'))
+        if time_slot and subject.get('Dia') in days:
+            content = (f"Asignatura: {subject.get('Nombre', 'Sin nombre')}\n"
+                      f"Satisfacción: {subject.get('Satisfaccion', 'N/A')}/10\n"
+                      f"Capacidad: {subject.get('Capacidad', 0):.0%}")  # Mostrar capacidad como porcentaje
+            schedule_df.at[time_slot, subject['Dia']] = content
     
     return schedule_df.fillna('')
 
@@ -52,53 +52,78 @@ def apply_excel_styling(worksheet):
 
 def save_room_schedules(data, filename='room_schedules.xlsx'):
     """Saves each room's schedule to a separate worksheet"""
-
-    # Create scheduleRepresentation directory if it doesn't exist
     output_dir = 'scheduleRepresentation'
     os.makedirs(output_dir, exist_ok=True)
-    
-    # Construct full file path
     filepath = os.path.join(output_dir, filename)
-
-    with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
-        for room_data in data:
-            room_code = room_data['Codigo']
-            capacity = room_data['Capacidad']
-            schedule_df = create_room_schedule(room_data)
-            
-            # Write DataFrame to Excel
-            sheet_name = f"Sala {room_code}"[:31]  # Excel sheet names limited to 31 chars
-            schedule_df.to_excel(writer, sheet_name=sheet_name, index=True)
-            
-            # Apply styling
-            worksheet = writer.sheets[sheet_name]
-            apply_excel_styling(worksheet)
-            
-            # Add room capacity info
-            capacity_cell = worksheet.cell(row=1, column=1)
-            capacity_cell.value = f"Capacidad: {capacity} estudiantes"
-            
-            # Adjust column widths
-            for idx, col in enumerate(schedule_df.columns):
-                worksheet.column_dimensions[chr(66 + idx)].width = 30  # B, C, D, E, F
-            worksheet.column_dimensions['A'].width = 15  # Time column
-            
-            # Set row heights
-            for row in range(1, len(schedule_df) + 2):
-                worksheet.row_dimensions[row].height = 60
+    
+    workbook = Workbook()
+    first_sheet = True
+    
+    for room_data in data:
+        room_code = room_data.get('Codigo', 'Sin código')
+        campus = room_data.get('Campus', 'Sin campus')
+        schedule_df = create_room_schedule(room_data)
+        
+        if first_sheet:
+            sheet = workbook.active
+            sheet.title = f"Sala {room_code}"[:31]
+            first_sheet = False
+        else:
+            sheet = workbook.create_sheet(f"Sala {room_code}"[:31])
+        
+        # Write headers and info
+        campus_cell = sheet.cell(row=1, column=1)
+        campus_cell.value = f"Campus: {campus}"
+        
+        for col, day in enumerate(schedule_df.columns, start=2):
+            sheet.cell(row=1, column=col, value=day)
+        
+        for row, time in enumerate(schedule_df.index, start=2):
+            sheet.cell(row=row, column=1, value=time)
+            for col, day in enumerate(schedule_df.columns, start=2):
+                content = schedule_df.at[time, day]
+                sheet.cell(row=row, column=col, value=content)
+        
+        apply_excel_styling(sheet)
+        
+        for col in range(1, len(schedule_df.columns) + 2):
+            sheet.column_dimensions[chr(64 + col)].width = 30
+        for row in range(1, len(schedule_df) + 2):
+            sheet.row_dimensions[row].height = 80
+    
+    try:
+        workbook.save(filepath)
+        print(f"Excel file saved successfully at: {filepath}")
+    except Exception as e:
+        print(f"Error saving Excel file: {str(e)}")
 
 def main():
     try:
-        with open("agent_output/Horarios_salas.json", 'r', encoding="utf-8") as file:
+        # Read the JSON file from the correct location
+        json_path = os.path.join("agent_output", "Horarios_salas.json")
+        
+        if not os.path.exists(json_path):
+            print(f"Error: File not found at {json_path}")
+            return
+            
+        with open(json_path, 'r', encoding="utf-8") as file:
             schedule_data = json.load(file)
+            
+            if not schedule_data:
+                print("Error: No data found in JSON file")
+                return
+                
             save_room_schedules(schedule_data)
             print(f"Schedules generated successfully for {len(schedule_data)} rooms")
             
             # Print summary
             for room in schedule_data:
-                print(f"\nRoom: {room['Codigo']}")
-                print(f"Capacity: {room['Capacidad']} students")
-                print(f"Subjects assigned: {len(room['Asignaturas'])}")
+                print(f"\nRoom: {room.get('Codigo', 'Sin código')}")
+                print(f"Capacity: {room.get('Capacidad', 'N/A')} students")
+                print(f"Subjects assigned: {len(room.get('Asignaturas', []))}")
+                
+    except json.JSONDecodeError:
+        print("Error: Invalid JSON format in the file")
     except Exception as e:
         print(f"Error processing schedules: {str(e)}")
 
