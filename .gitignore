@@ -1,6 +1,7 @@
 *.class
 .idea/
 out/
+*.xlsx
 *.pyc
 __pycache__/
 python-venv/
