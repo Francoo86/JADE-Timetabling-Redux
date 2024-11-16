@@ -15,7 +15,7 @@ import os
 load_dotenv()
 
 IQQ_CAMPUS_CLASSROOMS = os.getenv("IQQ_CAMPUS")
-SCHEDULE_POST_URL = os.getenv("SCHEDULE_POST_URL")
+SCHEDULE_POST_URL = os.getenv("SCHEDULE_INFO_URL")
 
 @dataclass
 class ClassBlock:
@@ -242,5 +242,4 @@ def get_professor_schedule(schedule: Dict[str, List[ClassBlock]], professor_name
 ss = ScheduleScraper(selected_classrooms=["LC6"])
 ss.get_schedules_per_classroom()
 
-# Print the schedule for a specific classroom
 ss.print_schedule_for_classroom("LC6")
