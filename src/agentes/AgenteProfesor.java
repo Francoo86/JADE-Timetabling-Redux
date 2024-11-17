@@ -98,21 +98,13 @@ public class AgenteProfesor extends Agent {
             rut = (String) jsonObject.get("RUT");
             nombre = (String) jsonObject.get("Nombre");
             turno = ((Number) jsonObject.get("Turno")).intValue();
-            
 
             asignaturas = new ArrayList<>();
             JSONArray asignaturasJson = (JSONArray) jsonObject.get("Asignaturas");
             for (Object obj : asignaturasJson) {
                 JSONObject asignaturaJson = (JSONObject) obj;
-                asignaturas.add(new Asignatura(
-                    (String) asignaturaJson.get("Nombre"),
-                    ((Number) asignaturaJson.get("Nivel")).intValue(),
-                    ((String) asignaturaJson.get("Paralelo")),
-                    ((Number) asignaturaJson.get("Horas")).intValue(),
-                    ((Number) asignaturaJson.get("Vacantes")).intValue(),
-                    (String) asignaturaJson.get("Campus"),
-                    (String) asignaturaJson.get("CodigoAsignatura")
-            ));
+                Asignatura parsedSubject = Asignatura.fromJson(asignaturaJson);
+                asignaturas.add(parsedSubject);
             }
         } catch (Exception e) {
             e.printStackTrace();

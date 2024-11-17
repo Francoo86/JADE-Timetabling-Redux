@@ -1,5 +1,7 @@
 package objetos;
 
+import org.json.simple.JSONObject;
+
 import java.util.Arrays;
 
 public class Asignatura {
@@ -34,6 +36,18 @@ public class Asignatura {
     public String toString() {
         return String.format("%s,%d,%s,%d,%d,%s,%s", 
             nombre, nivel, paralelo, horas, vacantes, campus, codigoAsignatura);
+    }
+
+    public static Asignatura fromJson(JSONObject obj) {
+        return new Asignatura(
+            (String) obj.get("Nombre"),
+            ((Number) obj.get("Nivel")).intValue(),
+            (String) obj.get("Paralelo"),
+            ((Number) obj.get("Horas")).intValue(),
+            ((Number) obj.get("Vacantes")).intValue(),
+            (String) obj.get("Campus"),
+            (String) obj.get("CodigoAsignatura")
+        );
     }
 
     public static Asignatura fromString(String str) {
