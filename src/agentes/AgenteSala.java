@@ -56,6 +56,7 @@ public class AgenteSala extends Agent {
     }
 
     private void parseJSON(String jsonString) {
+        // Parsear JSON y asignar valores
         try {
             JSONParser parser = new JSONParser();
             JSONObject salaJson = (JSONObject) parser.parse(jsonString);
@@ -69,6 +70,7 @@ public class AgenteSala extends Agent {
     }
 
     private void initializeSchedule() {
+        // Inicializar horario con bloques vacíos
         horarioOcupado = new HashMap<>();
         for (String dia : DIAS) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
@@ -122,19 +124,21 @@ public class AgenteSala extends Agent {
         }
 
         private void procesarSolicitud(ACLMessage msg) {
+            // Formato del mensaje: "nombreAsignatura,vacantes"
             try {
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = solicitudData[0];
                 int vacantes = Integer.parseInt(solicitudData[1]);
                 int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
 
-                boolean propuestaEnviada = false;
+                boolean propuestaEnviada = false; 
 
+                // Iterar sobre los bloques disponibles
                 for (String dia : DIAS) {
-                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-                    for (int bloque = 0; bloque < bloquesDiarios; bloque++) {
-                        if (asignaciones.get(bloque) == null) {
-                            ACLMessage reply = msg.createReply();
+                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);    // Lista de asignaciones por día 
+                    for (int bloque = 0; bloque < bloquesDiarios; bloque++) {   // Iterar sobre los bloques del día
+                        if (asignaciones.get(bloque) == null) {     // Si el bloque está disponible
+                            ACLMessage reply = msg.createReply();          // Crear mensaje de respuesta
                             reply.setPerformative(ACLMessage.PROPOSE);
                             reply.setContent(String.format("%s,%d,%s,%d,%d",
                                     dia, bloque + 1, codigo, capacidad, satisfaccion));
@@ -147,6 +151,7 @@ public class AgenteSala extends Agent {
                     }
                 }
 
+                // Si no se envió ninguna propuesta, rechazar la solicitud
                 if (!propuestaEnviada) {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
@@ -161,6 +166,7 @@ public class AgenteSala extends Agent {
         }
 
         private void confirmarAsignacion(ACLMessage msg) {
+            // Formato del mensaje: "dia,bloque,nombreAsignatura,satisfaccion,salaConfirmada,vacantesAsignatura"
             try {
                 String[] datos = msg.getContent().split(",");
                 if (datos.length < 6) { // Ahora necesitamos un parámetro adicional para vacantes
@@ -180,13 +186,15 @@ public class AgenteSala extends Agent {
                     return;
                 }
 
+                // Verificar si el bloque está disponible
                 List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
                 if (asignaciones != null && bloque >= 0 && bloque < asignaciones.size() &&
                         asignaciones.get(bloque) == null) {
 
                     // Calcular la capacidad como fracción
                     float capacidadFraccion = (float) vacantesAsignatura / capacidad;
-
+                    
+                    // Crear nueva asignación y actualizar horario
                     AsignacionSala nuevaAsignacion = new AsignacionSala(
                             nombreAsignatura,
                             satisfaccion,
@@ -195,7 +203,8 @@ public class AgenteSala extends Agent {
                     asignaciones.set(bloque, nuevaAsignacion);
 
                     SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
-
+                    
+                    // Enviar confirmación al profesor
                     ACLMessage confirm = msg.createReply();
                     confirm.setPerformative(ACLMessage.INFORM);
                     confirm.setContent(Messages.CONFIRM);

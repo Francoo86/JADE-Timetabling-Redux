@@ -299,28 +299,21 @@ public class AgenteProfesor extends Agent {
             final String subjectName = currentSubject.getNombre();
             
             propuestas.sort((p1, p2) -> {
-                // Primera prioridad: Verificar el límite de bloques por día
+                // Prioridad combinada: Límite de bloques por día y consecutividad
                 int bloquesP1 = contarBloquesPorDia(p1.getDia(), subjectName);
                 int bloquesP2 = contarBloquesPorDia(p2.getDia(), subjectName);
-                
-                if (bloquesP1 < 2 && bloquesP2 >= 2) return -1;
-                if (bloquesP1 >= 2 && bloquesP2 < 2) return 1;
-                
-                // Segunda prioridad: Asegurar bloques consecutivos para asignaturas de 2+ horas
-                if (bloquesPendientes >= 2) {
-                    boolean p1TieneConsecutivo = tieneBloquesConsecutivosDisponibles(p1, subjectName);
-                    boolean p2TieneConsecutivo = tieneBloquesConsecutivosDisponibles(p2, subjectName);
-                    
-                    // Si es bloque 9, solo considerarlo si las horas restantes son impares
-                    boolean p1EsBloque9 = p1.getBloque() == 9;
-                    boolean p2EsBloque9 = p2.getBloque() == 9;
-                    
-                    if (p1EsBloque9 && bloquesPendientes % 2 == 0) p1TieneConsecutivo = false;
-                    if (p2EsBloque9 && bloquesPendientes % 2 == 0) p2TieneConsecutivo = false;
-                    
-                    if (p1TieneConsecutivo && !p2TieneConsecutivo) return -1;
-                    if (!p1TieneConsecutivo && p2TieneConsecutivo) return 1;
-                }
+
+                boolean p1TieneConsecutivo = bloquesPendientes >= 2 ? 
+                    tieneBloquesConsecutivosDisponibles(p1, subjectName) : true;
+                boolean p2TieneConsecutivo = bloquesPendientes >= 2 ? 
+                    tieneBloquesConsecutivosDisponibles(p2, subjectName) : true;
+
+                // Propuesta válida: menos de 2 bloques y tiene consecutivo (si se necesita)
+                boolean p1Valida = bloquesP1 < 2 && p1TieneConsecutivo;
+                boolean p2Valida = bloquesP2 < 2 && p2TieneConsecutivo;
+
+                if (p1Valida && !p2Valida) return -1;
+                if (!p1Valida && p2Valida) return 1;
                 
                 // Tercera prioridad: Satisfacción del profesor
                 return p2.getSatisfaccion() - p1.getSatisfaccion();
@@ -332,40 +325,62 @@ public class AgenteProfesor extends Agent {
             int bloque = propuesta.getBloque();
             
             // Si es el bloque 9 y quedan horas pares, no es válido para consecutividad
-            if (bloque == 9 && bloquesPendientes % 2 == 0) {
+            if (bloque == 9 && bloquesPendientes > 1) {
                 return false;
             }
-            
-            // Verificar bloque anterior
-            boolean bloqueAnteriorDisponible = bloque > 1 && 
-                (!horarioOcupado.containsKey(dia) || 
-                 !horarioOcupado.get(dia).contains(bloque - 1));
-            
-            // Verificar bloque siguiente (solo si no es el bloque 9)
-            boolean bloqueSiguienteDisponible = false;
-            if (bloque < 9) {
-                bloqueSiguienteDisponible = !horarioOcupado.containsKey(dia) || 
-                                          !horarioOcupado.get(dia).contains(bloque + 1);
-            }
-            
-            // Verificar si ya hay bloques asignados en este día
+        
+            // Obtener los bloques ya asignados para esta asignatura en este día
             Map<String, List<Integer>> asignaturasEnDia = bloquesAsignadosPorDia.getOrDefault(dia, new HashMap<>());
-            List<Integer> bloquesAsignados = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
-            
-            // Verificar consecutividad con bloques ya asignados
-            boolean esConsecutivoConAsignados = false;
-            for (Integer bloqueAsignado : bloquesAsignados) {
-                if (Math.abs(bloqueAsignado - bloque) == 1) {
-                    esConsecutivoConAsignados = true;
-                    break;
+            List<Integer> bloquesDeEstaAsignatura = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
+        
+            // Verificar si el bloque anterior está disponible o es de la misma asignatura
+            boolean bloqueAnteriorDisponible = false;
+            if (bloque > 1) {
+                if (bloquesDeEstaAsignatura.contains(bloque - 1)) {
+                    // El bloque anterior ya está asignado a esta misma asignatura
+                    bloqueAnteriorDisponible = true;
+                } else {
+                    // Verificar si el bloque anterior está ocupado por otra asignatura
+                    boolean ocupadoPorOtra = false;
+                    for (Map.Entry<String, List<Integer>> entry : asignaturasEnDia.entrySet()) {
+                        if (!entry.getKey().equals(nombreAsignatura) && 
+                            entry.getValue().contains(bloque - 1)) {
+                            ocupadoPorOtra = true;
+                            break;
+                        }
+                    }
+                    bloqueAnteriorDisponible = !ocupadoPorOtra;
                 }
             }
+        
+            // Verificar si el bloque siguiente está disponible o es de la misma asignatura
+            boolean bloqueSiguienteDisponible = false;
+            if (bloque < 9) {
+                if (bloquesDeEstaAsignatura.contains(bloque + 1)) {
+                    // El bloque siguiente ya está asignado a esta misma asignatura
+                    bloqueSiguienteDisponible = true;
+                } else {
+                    // Verificar si el bloque siguiente está ocupado por otra asignatura
+                    boolean ocupadoPorOtra = false;
+                    for (Map.Entry<String, List<Integer>> entry : asignaturasEnDia.entrySet()) {
+                        if (!entry.getKey().equals(nombreAsignatura) && 
+                            entry.getValue().contains(bloque + 1)) {
+                            ocupadoPorOtra = true;
+                            break;
+                        }
+                    }
+                    bloqueSiguienteDisponible = !ocupadoPorOtra;
+                }
+            }
+        
+            // Verificar límite de bloques por día para esta asignatura
+            int bloquesEnDia = bloquesDeEstaAsignatura.size();
             
-            // Verificar límite de bloques por día
-            int bloquesEnDia = bloquesAsignados.size();
-            
-            return ((bloqueAnteriorDisponible || bloqueSiguienteDisponible || esConsecutivoConAsignados) && 
-                   bloquesEnDia < 2);
+            // Un bloque está disponible para consecutividad si:
+            // 1. Tiene un bloque adyacente disponible o ya asignado a la misma asignatura
+            // 2. No excede el límite de bloques por día
+            return (bloqueAnteriorDisponible || bloqueSiguienteDisponible) && 
+                   bloquesEnDia < 2;
         }
 
         private int contarBloquesPorDia(String dia, String nombreAsignatura) {
@@ -378,11 +393,6 @@ public class AgenteProfesor extends Agent {
         private boolean intentarAsignarPropuesta(Propuesta propuesta) {
             String dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
-
-            // CHAPUZA: Si es bloque 9 y quedan horas pares, rechazar
-            if (bloque == 9 && bloquesPendientes % 2 == 0) {
-                return false;
-            }
             
             // Verificar si el bloque está libre
             if (!horarioOcupado.containsKey(dia) || 

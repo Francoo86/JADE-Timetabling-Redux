@@ -8,20 +8,14 @@
     "Dia" : "Miercoles",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
     "Nombre" : "Calculo 3",
-    "Bloque" : 3,
+    "Bloque" : 2,
     "Capacidad" : 0.6666667,
     "Dia" : "Miercoles",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Bloque" : 4,
+    "Bloque" : 3,
     "Capacidad" : 0.6666667,
     "Dia" : "Miercoles",
     "Satisfaccion" : 5
@@ -92,11 +86,11 @@
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Bases de Datos",
+    "Nombre" : "Calculo",
     "Bloque" : 7,
-    "Capacidad" : 0.6666667,
+    "Capacidad" : 1.0,
     "Dia" : "Lunes",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 10
   }, {
     "Nombre" : "Calculo",
     "Bloque" : 8,
@@ -104,7 +98,7 @@
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Calculo",
+    "Nombre" : "Calculo 2",
     "Bloque" : 9,
     "Capacidad" : 1.0,
     "Dia" : "Lunes",
@@ -126,8 +120,14 @@
     "Dia" : "Martes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación en Kotlin",
+    "Nombre" : "Programación en JADE",
     "Bloque" : 2,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Programación en Kotlin",
+    "Bloque" : 3,
     "Capacidad" : 1.0,
     "Dia" : "Martes",
     "Satisfaccion" : 10
@@ -168,11 +168,11 @@
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación en C",
+    "Nombre" : "Bases de Datos",
     "Bloque" : 7,
-    "Capacidad" : 1.0,
+    "Capacidad" : 0.8,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
     "Nombre" : "Programación en C",
     "Bloque" : 8,
@@ -180,7 +180,7 @@
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación en JADE",
+    "Nombre" : "Programación en C",
     "Bloque" : 9,
     "Capacidad" : 1.0,
     "Dia" : "Lunes",
