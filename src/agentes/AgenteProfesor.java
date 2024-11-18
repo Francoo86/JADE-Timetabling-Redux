@@ -281,7 +281,7 @@ public class AgenteProfesor extends Agent {
             // Verificar si hay propuestas válidas
             if (propuestas.isEmpty()) return false;
 
-            ordenarPropuestas();    // Ordenar propuestas priorizando la continuidad y la satisfacción
+            ordenarPropuestas();    // Ordenar propuestas priorizando
 
             for (Propuesta propuesta : propuestas) {    // Iterar sobre las propuestas
                 if (intentarAsignarPropuesta(propuesta)) {  // Intentar asignar la propuesta
@@ -294,115 +294,77 @@ public class AgenteProfesor extends Agent {
 
         //TODO: Implementar las directrices de asignación de bloques y sortearlas aqui.
         private void ordenarPropuestas() {
+            final int currentSubjectIndex = AgenteProfesor.this.asignaturaActual;  // Referencia correcta al campo de la clase externa
+            final Asignatura currentSubject = asignaturas.get(currentSubjectIndex);
+            final String subjectName = currentSubject.getNombre();
+            
             propuestas.sort((p1, p2) -> {
-                // Si ya tenemos bloques asignados en un día, priorizar completar ese día
-                if (ultimoDiaAsignado != null) {
-                    boolean p1MismoDia = p1.getDia().equals(ultimoDiaAsignado);
-                    boolean p2MismoDia = p2.getDia().equals(ultimoDiaAsignado);
+                // Primera prioridad: Verificar el límite de bloques por día
+                int bloquesP1 = contarBloquesPorDia(p1.getDia(), subjectName);
+                int bloquesP2 = contarBloquesPorDia(p2.getDia(), subjectName);
+                
+                if (bloquesP1 < 2 && bloquesP2 >= 2) return -1;
+                if (bloquesP1 >= 2 && bloquesP2 < 2) return 1;
+                
+                // Segunda prioridad: Asegurar bloques consecutivos para asignaturas de 2+ horas
+                if (bloquesPendientes >= 2) {
+                    boolean p1TieneConsecutivo = tieneBloquesConsecutivosDisponibles(p1, subjectName);
+                    boolean p2TieneConsecutivo = tieneBloquesConsecutivosDisponibles(p2, subjectName);
                     
-                    if (p1MismoDia && !p2MismoDia) return -1;
-                    if (!p1MismoDia && p2MismoDia) return 1;
-                    
-                    // Si ambas son del mismo día, priorizar bloques consecutivos
-                    if (p1MismoDia && p2MismoDia) {
-                        boolean p1Consecutivo = esConsecutivo(p1);
-                        boolean p2Consecutivo = esConsecutivo(p2);
-                        if (p1Consecutivo && !p2Consecutivo) return -1;
-                        if (!p1Consecutivo && p2Consecutivo) return 1;
-                    }
+                    if (p1TieneConsecutivo && !p2TieneConsecutivo) return -1;
+                    if (!p1TieneConsecutivo && p2TieneConsecutivo) return 1;
                 }
-
-                // Si no hay día previo, priorizar días con más bloques disponibles consecutivos
-                if (ultimoDiaAsignado == null) {
-                    int bloquesConsecutivosP1 = contarBloquesConsecutivosDisponibles(p1);
-                    int bloquesConsecutivosP2 = contarBloquesConsecutivosDisponibles(p2);
-                    if (bloquesConsecutivosP1 != bloquesConsecutivosP2) {
-                        return bloquesConsecutivosP2 - bloquesConsecutivosP1;
-                    }
-                }
-
-                // Si todo lo demás es igual, ordenar por satisfacción
+                
+                // Tercera prioridad: Satisfacción del profesor
                 return p2.getSatisfaccion() - p1.getSatisfaccion();
             });
         }
 
-        private int contarBloquesConsecutivosDisponibles(Propuesta propuesta) {
-            // Contar bloques consecutivos disponibles en el día de la propuesta hacia adelante y hacia atrás
-            String dia = propuesta.getDia();
-            int bloqueInicial = propuesta.getBloque();
-            int count = 1;
-            
-            // Contar bloques consecutivos disponibles hacia adelante
-            int bloque = bloqueInicial + 1;
-            while (bloque <= 9 && esDisponible(dia, bloque) && count < bloquesPendientes) {
-                count++;
-                bloque++;
-            }
-            
-            // Contar bloques consecutivos disponibles hacia atrás
-            bloque = bloqueInicial - 1;
-            while (bloque >= 1 && esDisponible(dia, bloque) && count < bloquesPendientes) {
-                count++;
-                bloque--;
-            }
-            
-            return count;
-        }
-
-        private boolean esDisponible(String dia, int bloque) {
-            // Verificar si el bloque está disponible para asignar
-            if (horarioOcupado.containsKey(dia) && horarioOcupado.get(dia).contains(bloque)) {
-                return false;
-            }
-            
-            String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();    // Obtener nombre de la asignatura
-            Map<String, List<Integer>> asignaturasEnDia = bloquesAsignadosPorDia.get(dia);  // Obtener asignaturas en el día
-            List<Integer> bloquesEnDia = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());  //Obtener bloques en el día
-            
-            return bloquesEnDia.size() < 2; // Permitir máximo 2 bloques por asignatura por día
-        }
-
-        private boolean esConsecutivo(Propuesta propuesta) {
-            // Verificar si la propuesta es consecutiva al último bloque asignado en el mismo día
-            if (!propuesta.getDia().equals(ultimoDiaAsignado)) return false;    // Si no es el mismo día, no es consecutivo
-            int bloque = propuesta.getBloque(); // Obtener bloque de la propuesta
-            return Math.abs(bloque - ultimoBloqueAsignado) == 1;    // Verificar si es consecutivo
-        }
-
-        //TODO: Revisar/Sacar estas restricciones
-        private boolean intentarAsignarPropuesta(Propuesta propuesta) {
-            // Intentar asignar la propuesta si cumple con las restricciones
+        private boolean tieneBloquesConsecutivosDisponibles(Propuesta propuesta, String nombreAsignatura) {
             String dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
-            String sala = propuesta.getCodigo();
-            String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
             
-            // Verificar el número total de días utilizados para esta asignatura
-            Set<String> diasUtilizados = new HashSet<>();
-            for (Map.Entry<String, Map<String, List<Integer>>> entry : bloquesAsignadosPorDia.entrySet()) {
-                if (entry.getValue().containsKey(nombreAsignatura)) {
-                    diasUtilizados.add(entry.getKey());
-                }
-            }
+            // Verificar bloque anterior
+            boolean bloqueAnteriorDisponible = bloque > 1 && 
+                (!horarioOcupado.containsKey(dia) || 
+                 !horarioOcupado.get(dia).contains(bloque - 1));
             
-            /*/ Si estamos intentando usar un nuevo día y ya usamos 2 días, rechazar
-            if (!diasUtilizados.contains(dia) && diasUtilizados.size() >= 2) {
-                return false;
-            }*/
+            // Verificar bloque siguiente
+            boolean bloqueSiguienteDisponible = bloque < 9 && 
+                (!horarioOcupado.containsKey(dia) || 
+                 !horarioOcupado.get(dia).contains(bloque + 1));
+            
+            // Verificar límite de bloques por día
+            int bloquesEnDia = contarBloquesPorDia(dia, nombreAsignatura);
+            
+            return (bloqueAnteriorDisponible || bloqueSiguienteDisponible) && 
+                   bloquesEnDia < 2;
+        }
 
-            /*/ Si es un nuevo día y quedan más de 2 bloques, verificar si hay suficientes bloques consecutivos
-            if (!diasUtilizados.contains(dia) && bloquesPendientes > 1) {
-                int bloquesConsecutivos = contarBloquesConsecutivosDisponibles(propuesta);
-                if (bloquesConsecutivos < Math.min(2, bloquesPendientes)) {
-                    return false;
-                }
-            }*/
+        private int contarBloquesPorDia(String dia, String nombreAsignatura) {
+            Map<String, List<Integer>> asignaturasEnDia = bloquesAsignadosPorDia.getOrDefault(dia, new HashMap<>());
+            List<Integer> bloques = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
+            return bloques.size();
+        }
 
-            // Verificar si el bloque está disponible y cumple con las restricciones
-            if (esDisponible(dia, bloque)) {
+        //TODO: Mantener simple
+        private boolean intentarAsignarPropuesta(Propuesta propuesta) {
+            String dia = propuesta.getDia();
+            int bloque = propuesta.getBloque();
+            
+            // Verificar si el bloque está libre
+            if (!horarioOcupado.containsKey(dia) || 
+                !horarioOcupado.get(dia).contains(bloque)) {
+                
+                // Intentar enviar la aceptación
                 if (enviarAceptacionPropuesta(propuesta)) {
-                    // Actualizar registros como antes
-                    actualizarRegistrosAsignacion(dia, bloque, sala, propuesta.getSatisfaccion());
+                    // Si se acepta, actualizar los registros
+                    actualizarRegistrosAsignacion(
+                        dia, 
+                        bloque, 
+                        propuesta.getCodigo(), 
+                        propuesta.getSatisfaccion()
+                    );
                     return true;
                 }
             }
@@ -434,7 +396,6 @@ public class AgenteProfesor extends Agent {
             System.out.println(String.format("Profesor %s: Asignado bloque %d del día %s en sala %s para %s " +
                     "(quedan %d horas)", nombre, bloque, dia, sala, nombreAsignatura, bloquesPendientes));
         }
-
 
         private boolean enviarAceptacionPropuesta(Propuesta propuesta) {
             try {
