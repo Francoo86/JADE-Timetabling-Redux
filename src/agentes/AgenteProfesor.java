@@ -378,6 +378,11 @@ public class AgenteProfesor extends Agent {
         private boolean intentarAsignarPropuesta(Propuesta propuesta) {
             String dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
+
+            // CHAPUZA: Si es bloque 9 y quedan horas pares, rechazar
+            if (bloque == 9 && bloquesPendientes % 2 == 0) {
+                return false;
+            }
             
             // Verificar si el bloque está libre
             if (!horarioOcupado.containsKey(dia) || 

@@ -4,7 +4,7 @@
   "Solicitudes" : 1,
   "Asignaturas" : [ {
     "Nombre" : "Bases de Datos",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 7,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
@@ -16,13 +16,13 @@
   "Asignaturas" : [ {
     "Nombre" : "Programación en C",
     "Sala" : "B-2",
-    "Bloque" : 8,
+    "Bloque" : 7,
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Programación en C",
     "Sala" : "B-2",
-    "Bloque" : 9,
+    "Bloque" : 8,
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
@@ -34,13 +34,13 @@
   }, {
     "Nombre" : "Programación en JADE",
     "Sala" : "B-2",
-    "Bloque" : 2,
-    "Dia" : "Martes",
+    "Bloque" : 9,
+    "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Programación en Kotlin",
     "Sala" : "B-2",
-    "Bloque" : 3,
+    "Bloque" : 2,
     "Dia" : "Martes",
     "Satisfaccion" : 10
   } ]
@@ -133,12 +133,6 @@
   "Asignaturas" : [ {
     "Nombre" : "Calculo",
     "Sala" : "A-1",
-    "Bloque" : 7,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Sala" : "A-1",
     "Bloque" : 8,
     "Dia" : "Lunes",
     "Satisfaccion" : 10
@@ -149,6 +143,12 @@
     "Dia" : "Martes",
     "Satisfaccion" : 10
   }, {
+    "Nombre" : "Calculo",
+    "Sala" : "A-1",
+    "Bloque" : 9,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
     "Nombre" : "Calculo 2",
     "Sala" : "A-1",
     "Bloque" : 2,
@@ -169,36 +169,36 @@
   }, {
     "Nombre" : "Calculo 2",
     "Sala" : "A-1",
-    "Bloque" : 9,
-    "Dia" : "Lunes",
+    "Bloque" : 2,
+    "Dia" : "Miercoles",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 4,
     "Dia" : "Martes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 5,
     "Dia" : "Martes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
-    "Bloque" : 2,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 3,
     "Dia" : "Miercoles",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
+    "Bloque" : 4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "A-1",
     "Bloque" : 1,
     "Dia" : "Jueves",
     "Satisfaccion" : 5
