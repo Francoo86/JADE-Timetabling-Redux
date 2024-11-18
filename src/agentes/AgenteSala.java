@@ -23,6 +23,7 @@ public class AgenteSala extends Agent {
     private String campus;
     private int capacidad;
     private int turno;
+    private int bloquesDiarios = 9;
     private Map<String, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
     private static final String[] DIAS = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
 
@@ -33,7 +34,7 @@ public class AgenteSala extends Agent {
         horarioOcupado = new HashMap<>();
         for (String dia : DIAS) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
-            for (int i = 0; i < 5; i++) { // 5 bloques por día
+            for (int i = 0; i < bloquesDiarios; i++) { // 5 bloques por día
                 asignaciones.add(null);
             }
             horarioOcupado.put(dia, asignaciones);
@@ -71,7 +72,7 @@ public class AgenteSala extends Agent {
         horarioOcupado = new HashMap<>();
         for (String dia : DIAS) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < bloquesDiarios; i++) {
                 asignaciones.add(null);
             }
             horarioOcupado.put(dia, asignaciones);
@@ -131,7 +132,7 @@ public class AgenteSala extends Agent {
 
                 for (String dia : DIAS) {
                     List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-                    for (int bloque = 0; bloque < 5; bloque++) {
+                    for (int bloque = 0; bloque < bloquesDiarios; bloque++) {
                         if (asignaciones.get(bloque) == null) {
                             ACLMessage reply = msg.createReply();
                             reply.setPerformative(ACLMessage.PROPOSE);

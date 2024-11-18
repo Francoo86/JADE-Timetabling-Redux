@@ -33,6 +33,7 @@ public class AgenteProfesor extends Agent {
     private boolean isRegistered = false;
     private boolean isCleaningUp = false;
     private boolean negociacionIniciada = false;
+    private Map<String, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
 
     @Override
     protected void setup() {
@@ -59,6 +60,11 @@ public class AgenteProfesor extends Agent {
             iniciarNegociacion();
         } else {
             addBehaviour(new EsperarTurnoBehaviour());
+        }
+
+        bloquesAsignadosPorDia = new HashMap<>();
+        for (String dia : new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"}) {
+            bloquesAsignadosPorDia.put(dia, new HashMap<>());
         }
 
         System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciado");
@@ -152,17 +158,25 @@ public class AgenteProfesor extends Agent {
         private int intentos = 0;
         private static final int MAX_INTENTOS = 3;
         private int bloquesPendientes = 0;
-        private List<String> bloquesProgramados = new ArrayList<>();
+        private Set<String> bloquesProgramados;
+        private String ultimoDiaAsignado = null;
+        private int ultimoBloqueAsignado = -1;
+        private String salaAsignada = null;
 
         public void action() {
             switch (step) {
-                case 0: // Iniciar negociación de asignatura
+                case 0: // Iniciar negociación
                     if (asignaturaActual < asignaturas.size()) {
                         Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);
                         bloquesPendientes = asignaturaActualObj.getHoras();
-                        bloquesProgramados.clear();
+                        bloquesProgramados = new HashSet<>();
+                        salaAsignada = null;
+                        ultimoDiaAsignado = null;
+                        ultimoBloqueAsignado = -1;
+                        
                         System.out.println("Profesor " + nombre + " iniciando negociación para " +
                                 asignaturaActualObj.getNombre() + " (" + bloquesPendientes + " horas)");
+                        
                         solicitarPropuestas();
                         propuestas = new ArrayList<>();
                         tiempoInicio = System.currentTimeMillis();
@@ -182,13 +196,8 @@ public class AgenteProfesor extends Agent {
                     if (reply != null) {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
                             Propuesta propuesta = Propuesta.parse(reply.getContent());
-                            String bloqueKey = propuesta.getDia() + "-" + propuesta.getBloque();
-                            
-                            // Verificar que el bloque no esté ya programado
-                            if (!bloquesProgramados.contains(bloqueKey)) {
-                                propuesta.setMensaje(reply);
-                                propuestas.add(propuesta);
-                            }
+                            propuesta.setMensaje(reply);
+                            propuestas.add(propuesta);
                         }
                     }
 
@@ -196,59 +205,33 @@ public class AgenteProfesor extends Agent {
                         if (!propuestas.isEmpty()) {
                             step = 2;
                         } else {
-                            intentos++;
-                            if (intentos >= MAX_INTENTOS) {
-                                System.out.println("Profesor " + nombre + " no pudo asignar " +
-                                        asignaturas.get(asignaturaActual).getNombre() +
-                                        " después de " + MAX_INTENTOS + " intentos");
-                                asignaturaActual++;
-                                intentos = 0;
-                            }
-                            step = 0;
+                            manejarTimeoutPropuestas();
                         }
+                    } else {
+                        block(100);
                     }
                     break;
 
                 case 2: // Evaluar propuestas
-                    if (evaluarPropuestas()) {
-                        bloquesPendientes--;
-                        if (bloquesPendientes > 0) {
-                            // Aún quedan bloques por asignar
-                            propuestas.clear();
-                            solicitarPropuestas();
-                            tiempoInicio = System.currentTimeMillis();
-                            step = 1;
-                        } else {
+                    boolean asignacionExitosa = procesarPropuestas();
+                    if (asignacionExitosa) {
+                        if (bloquesPendientes == 0) {
                             // Asignatura completamente programada
                             intentos = 0;
                             asignaturaActual++;
                             step = 0;
-                        }
-                    } else {
-                        intentos++;
-                        if (intentos >= MAX_INTENTOS) {
-                            System.out.println("Profesor " + nombre + " no pudo completar la asignación de " +
-                                    asignaturas.get(asignaturaActual).getNombre());
-                            asignaturaActual++;
-                            intentos = 0;
-                            step = 0;
                         } else {
+                            // Continuar con los bloques restantes
                             propuestas.clear();
                             solicitarPropuestas();
                             tiempoInicio = System.currentTimeMillis();
                             step = 1;
                         }
+                    } else {
+                        manejarFalloPropuesta();
                     }
                     break;
             }
-        }
-
-        public boolean done() {
-            if (finished) {
-                System.out.println("Profesor " + nombre + " completó proceso de negociación");
-                finalizarNegociaciones();
-            }
-            return finished;
         }
 
         private void solicitarPropuestas() {
@@ -266,61 +249,259 @@ public class AgenteProfesor extends Agent {
                     }
 
                     Asignatura asignatura = asignaturas.get(asignaturaActual);
-                    cfp.setContent(asignatura.getNombre() + "," + asignatura.getVacantes());
-                    cfp.setConversationId("neg-" + nombre + "-" + asignaturaActual);
+                    String solicitudInfo = String.format("%s,%d,%s,%s,%d",
+                            asignatura.getNombre(),
+                            asignatura.getVacantes(),
+                            salaAsignada != null ? salaAsignada : "",
+                            ultimoDiaAsignado != null ? ultimoDiaAsignado : "",
+                            ultimoBloqueAsignado);
+
+                    cfp.setContent(solicitudInfo);
+                    cfp.setConversationId("neg-" + nombre + "-" + asignaturaActual + "-" + bloquesPendientes);
                     myAgent.send(cfp);
+
+                    System.out.println("Profesor " + nombre + " solicitando propuestas para " +
+                            asignatura.getNombre() + " (bloques pendientes: " + bloquesPendientes +
+                            ", sala previa: " + salaAsignada + ")");
                 }
             } catch (FIPAException fe) {
                 fe.printStackTrace();
             }
         }
 
-        private boolean evaluarPropuestas() {
-            if (propuestas.isEmpty()) {
-                return false;
+        private boolean procesarPropuestas() {
+            if (propuestas.isEmpty()) return false;
+
+            // Ordenar propuestas priorizando la continuidad
+            ordenarPropuestas();
+
+            for (Propuesta propuesta : propuestas) {
+                if (intentarAsignarPropuesta(propuesta)) {
+                    return true;
+                }
             }
 
-            try {
-                propuestas.sort((p1, p2) -> p2.getSatisfaccion() - p1.getSatisfaccion());
+            return false;
+        }
 
-                for (Propuesta propuesta : propuestas) {
-                    String dia = propuesta.getDia();
-                    int bloque = propuesta.getBloque();
-                    String sala = propuesta.getCodigo();
-                    int satisfaccion = propuesta.getSatisfaccion();
-                    String bloqueKey = dia + "-" + bloque;
-
-                    // Verificar si el bloque ya está ocupado
-                    Set<Integer> bloquesOcupados = horarioOcupado.getOrDefault(dia, new HashSet<>());
-                    if (!bloquesOcupados.contains(bloque) && !bloquesProgramados.contains(bloqueKey)) {
-                        ACLMessage accept = propuesta.getMensaje().createReply();
-                        accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-                        accept.setContent(String.format("%s,%d,%s,%d,%s,%d",
-                                dia, bloque, asignaturas.get(asignaturaActual).getNombre(),
-                                satisfaccion, sala, asignaturas.get(asignaturaActual).getVacantes()));
-                        myAgent.send(accept);
-
-                        MessageTemplate mt = MessageTemplate.and(
-                                MessageTemplate.MatchSender(propuesta.getMensaje().getSender()),
-                                MessageTemplate.MatchPerformative(ACLMessage.INFORM)
-                        );
-                        ACLMessage confirm = myAgent.blockingReceive(mt, 5000);
-
-                        if (confirm != null) {
-                            horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
-                            bloquesProgramados.add(bloqueKey);
-                            actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
-                            return true;
-                        }
+        private void ordenarPropuestas() {
+            propuestas.sort((p1, p2) -> {
+                // Si ya tenemos bloques asignados en un día, priorizar completar ese día
+                if (ultimoDiaAsignado != null) {
+                    boolean p1MismoDia = p1.getDia().equals(ultimoDiaAsignado);
+                    boolean p2MismoDia = p2.getDia().equals(ultimoDiaAsignado);
+                    
+                    if (p1MismoDia && !p2MismoDia) return -1;
+                    if (!p1MismoDia && p2MismoDia) return 1;
+                    
+                    // Si ambas son del mismo día, priorizar bloques consecutivos
+                    if (p1MismoDia && p2MismoDia) {
+                        boolean p1Consecutivo = esConsecutivo(p1);
+                        boolean p2Consecutivo = esConsecutivo(p2);
+                        if (p1Consecutivo && !p2Consecutivo) return -1;
+                        if (!p1Consecutivo && p2Consecutivo) return 1;
                     }
                 }
-                return false;
 
-            } catch (Exception e) {
-                System.err.println("Error evaluando propuestas: " + e.getMessage());
-                e.printStackTrace();
+                // Si no hay día previo, priorizar días con más bloques disponibles consecutivos
+                if (ultimoDiaAsignado == null) {
+                    int bloquesConsecutivosP1 = contarBloquesConsecutivosDisponibles(p1);
+                    int bloquesConsecutivosP2 = contarBloquesConsecutivosDisponibles(p2);
+                    if (bloquesConsecutivosP1 != bloquesConsecutivosP2) {
+                        return bloquesConsecutivosP2 - bloquesConsecutivosP1;
+                    }
+                }
+
+                // Si todo lo demás es igual, ordenar por satisfacción
+                return p2.getSatisfaccion() - p1.getSatisfaccion();
+            });
+        }
+
+        private int contarBloquesConsecutivosDisponibles(Propuesta propuesta) {
+            String dia = propuesta.getDia();
+            int bloqueInicial = propuesta.getBloque();
+            int count = 1;
+            
+            // Contar bloques consecutivos disponibles hacia adelante
+            int bloque = bloqueInicial + 1;
+            while (bloque <= 9 && esDisponible(dia, bloque) && count < bloquesPendientes) {
+                count++;
+                bloque++;
+            }
+            
+            // Contar bloques consecutivos disponibles hacia atrás
+            bloque = bloqueInicial - 1;
+            while (bloque >= 1 && esDisponible(dia, bloque) && count < bloquesPendientes) {
+                count++;
+                bloque--;
+            }
+            
+            return count;
+        }
+
+        private boolean esDisponible(String dia, int bloque) {
+            if (horarioOcupado.containsKey(dia) && horarioOcupado.get(dia).contains(bloque)) {
                 return false;
             }
+            
+            String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
+            Map<String, List<Integer>> asignaturasEnDia = bloquesAsignadosPorDia.get(dia);
+            List<Integer> bloquesEnDia = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
+            
+            return bloquesEnDia.size() < 2;
+        }
+
+        private boolean esConsecutivo(Propuesta propuesta) {
+            if (!propuesta.getDia().equals(ultimoDiaAsignado)) return false;
+            int bloque = propuesta.getBloque();
+            return Math.abs(bloque - ultimoBloqueAsignado) == 1;
+        }
+
+        private boolean intentarAsignarPropuesta(Propuesta propuesta) {
+            String dia = propuesta.getDia();
+            int bloque = propuesta.getBloque();
+            String sala = propuesta.getCodigo();
+            String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
+            
+            // Verificar el número total de días utilizados para esta asignatura
+            Set<String> diasUtilizados = new HashSet<>();
+            for (Map.Entry<String, Map<String, List<Integer>>> entry : bloquesAsignadosPorDia.entrySet()) {
+                if (entry.getValue().containsKey(nombreAsignatura)) {
+                    diasUtilizados.add(entry.getKey());
+                }
+            }
+            
+            // Si estamos intentando usar un nuevo día y ya usamos 2 días, rechazar
+            if (!diasUtilizados.contains(dia) && diasUtilizados.size() >= 2) {
+                return false;
+            }
+
+            // Si es un nuevo día y quedan más de 2 bloques, verificar si hay suficientes bloques consecutivos
+            if (!diasUtilizados.contains(dia) && bloquesPendientes > 1) {
+                int bloquesConsecutivos = contarBloquesConsecutivosDisponibles(propuesta);
+                if (bloquesConsecutivos < Math.min(2, bloquesPendientes)) {
+                    return false;
+                }
+            }
+
+            // Verificar si el bloque está disponible y cumple con las restricciones
+            if (esDisponible(dia, bloque)) {
+                if (enviarAceptacionPropuesta(propuesta)) {
+                    // Actualizar registros como antes
+                    actualizarRegistrosAsignacion(dia, bloque, sala, propuesta.getSatisfaccion());
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        private void actualizarRegistrosAsignacion(String dia, int bloque, String sala, int satisfaccion) {
+            String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
+            
+            // Actualizar horario ocupado
+            horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
+            
+            // Actualizar bloques por día
+            bloquesAsignadosPorDia.computeIfAbsent(dia, k -> new HashMap<>())
+                .computeIfAbsent(nombreAsignatura, k -> new ArrayList<>())
+                .add(bloque);
+            
+            // Actualizar estado de negociación
+            bloquesPendientes--;
+            ultimoDiaAsignado = dia;
+            ultimoBloqueAsignado = bloque;
+            salaAsignada = sala;
+            
+            // Actualizar JSON
+            actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
+            
+            System.out.println(String.format("Profesor %s: Asignado bloque %d del día %s en sala %s para %s " +
+                    "(quedan %d horas)", nombre, bloque, dia, sala, nombreAsignatura, bloquesPendientes));
+        }
+
+
+        private boolean enviarAceptacionPropuesta(Propuesta propuesta) {
+            try {
+                ACLMessage accept = propuesta.getMensaje().createReply();
+                accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                accept.setContent(String.format("%s,%d,%s,%d,%s,%d",
+                        propuesta.getDia(),
+                        propuesta.getBloque(),
+                        asignaturas.get(asignaturaActual).getNombre(),
+                        propuesta.getSatisfaccion(),
+                        propuesta.getCodigo(),
+                        asignaturas.get(asignaturaActual).getVacantes()));
+                myAgent.send(accept);
+
+                MessageTemplate mt = MessageTemplate.and(
+                        MessageTemplate.MatchSender(propuesta.getMensaje().getSender()),
+                        MessageTemplate.MatchPerformative(ACLMessage.INFORM)
+                );
+                ACLMessage confirm = myAgent.blockingReceive(mt, 5000);
+                return confirm != null;
+            } catch (Exception e) {
+                System.err.println("Error enviando aceptación: " + e.getMessage());
+                return false;
+            }
+        }
+
+        private void manejarTimeoutPropuestas() {
+            intentos++;
+            if (intentos >= MAX_INTENTOS) {
+                if (bloquesPendientes == asignaturas.get(asignaturaActual).getHoras()) {
+                    // Si no hemos podido asignar ningún bloque, pasar a la siguiente asignatura
+                    System.out.println("Profesor " + nombre + " no pudo obtener propuestas para " +
+                            asignaturas.get(asignaturaActual).getNombre() +
+                            " después de " + MAX_INTENTOS + " intentos");
+                    asignaturaActual++;
+                    intentos = 0;
+                } else {
+                    // Si ya asignamos algunos bloques pero no todos, intentar con otra sala
+                    System.out.println("Profesor " + nombre + " buscando nueva sala para bloques restantes de " +
+                            asignaturas.get(asignaturaActual).getNombre());
+                    salaAsignada = null;
+                    intentos = 0;
+                }
+                step = 0;
+            } else {
+                System.out.println("Profesor " + nombre + ": Reintentando solicitud de propuestas. " +
+                        "Intento " + (intentos + 1) + " de " + MAX_INTENTOS);
+                solicitarPropuestas();
+                tiempoInicio = System.currentTimeMillis();
+            }
+        }
+
+        private void manejarFalloPropuesta() {
+            intentos++;
+            if (intentos >= MAX_INTENTOS) {
+                if (salaAsignada != null) {
+                    // Intentar con otra sala si la actual no tiene más espacios disponibles
+                    System.out.println("Profesor " + nombre + ": Buscando otra sala para los bloques restantes");
+                    salaAsignada = null;
+                    intentos = 0;
+                } else {
+                    // Si ya probamos con todas las salas, pasar a la siguiente asignatura
+                    System.out.println("Profesor " + nombre + " no pudo completar la asignación de " +
+                            asignaturas.get(asignaturaActual).getNombre());
+                    asignaturaActual++;
+                    intentos = 0;
+                }
+                step = 0;
+            } else {
+                propuestas.clear();
+                solicitarPropuestas();
+                tiempoInicio = System.currentTimeMillis();
+                step = 1;
+            }
+        }
+
+        public boolean done() {
+            if (finished) {
+                System.out.println("Profesor " + nombre + " completó proceso de negociación");
+                finalizarNegociaciones();
+            }
+            return finished;
         }
     }
 
