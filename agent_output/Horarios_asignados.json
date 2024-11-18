@@ -5,36 +5,48 @@
   "Asignaturas" : [ {
     "Nombre" : "Bases de Datos",
     "Sala" : "B-2",
-    "Bloque" : 4,
+    "Bloque" : 3,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   } ]
 }, {
   "Nombre" : "Carlos Jose",
-  "AsignaturasCompletadas" : 3,
+  "AsignaturasCompletadas" : 5,
   "Solicitudes" : 3,
   "Asignaturas" : [ {
     "Nombre" : "Programación en C",
     "Sala" : "B-2",
-    "Bloque" : 5,
+    "Bloque" : 4,
     "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Programación en C",
+    "Sala" : "B-2",
+    "Bloque" : 2,
+    "Dia" : "Martes",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Programación en JADE",
     "Sala" : "B-2",
-    "Bloque" : 1,
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Programación en JADE",
+    "Sala" : "B-2",
+    "Bloque" : 4,
     "Dia" : "Martes",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Programación en Kotlin",
     "Sala" : "B-2",
-    "Bloque" : 2,
+    "Bloque" : 5,
     "Dia" : "Martes",
     "Satisfaccion" : 10
   } ]
 }, {
   "Nombre" : "Juan Perez",
-  "AsignaturasCompletadas" : 3,
+  "AsignaturasCompletadas" : 6,
   "Solicitudes" : 3,
   "Asignaturas" : [ {
     "Nombre" : "Matemáticas Avanzadas",
@@ -43,28 +55,58 @@
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación Basica",
+    "Nombre" : "Matemáticas Avanzadas",
     "Sala" : "A-1",
     "Bloque" : 2,
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Codigo Binario",
-    "Sala" : "B-2",
+    "Nombre" : "Programación Basica",
+    "Sala" : "A-1",
     "Bloque" : 3,
     "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Programación Basica",
+    "Sala" : "A-1",
+    "Bloque" : 4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Codigo Binario",
+    "Sala" : "B-2",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Codigo Binario",
+    "Sala" : "B-2",
+    "Bloque" : 1,
+    "Dia" : "Martes",
     "Satisfaccion" : 10
   } ]
 }, {
   "Nombre" : "María Gonzalez",
-  "AsignaturasCompletadas" : 3,
+  "AsignaturasCompletadas" : 6,
   "Solicitudes" : 3,
   "Asignaturas" : [ {
     "Nombre" : "Programación en Java",
+    "Sala" : "A-1",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Programación en Java",
+    "Sala" : "A-1",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Programación en Python",
     "Sala" : "B-2",
     "Bloque" : 1,
     "Dia" : "Lunes",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 10
   }, {
     "Nombre" : "Programación en Python",
     "Sala" : "B-2",
@@ -74,31 +116,91 @@
   }, {
     "Nombre" : "Programación en C++",
     "Sala" : "A-1",
+    "Bloque" : 2,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Programación en C++",
+    "Sala" : "A-1",
     "Bloque" : 3,
-    "Dia" : "Lunes",
+    "Dia" : "Martes",
     "Satisfaccion" : 10
   } ]
 }, {
   "Nombre" : "Rodrigo Tejada",
-  "AsignaturasCompletadas" : 3,
+  "AsignaturasCompletadas" : 12,
   "Solicitudes" : 3,
   "Asignaturas" : [ {
     "Nombre" : "Calculo",
     "Sala" : "A-1",
     "Bloque" : 4,
-    "Dia" : "Lunes",
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo",
+    "Sala" : "A-1",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo",
+    "Sala" : "A-1",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo 2",
+    "Sala" : "A-1",
+    "Bloque" : 2,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo 2",
+    "Sala" : "A-1",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo 2",
+    "Sala" : "A-1",
+    "Bloque" : 4,
+    "Dia" : "Miercoles",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Calculo 2",
     "Sala" : "A-1",
     "Bloque" : 5,
-    "Dia" : "Lunes",
+    "Dia" : "Miercoles",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "A-1",
+    "Bloque" : 2,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "A-1",
     "Bloque" : 3,
-    "Dia" : "Martes",
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "A-1",
+    "Bloque" : 4,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "A-1",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
     "Satisfaccion" : 5
   } ]
 } ]

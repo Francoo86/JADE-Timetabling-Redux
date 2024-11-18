@@ -151,13 +151,18 @@ public class AgenteProfesor extends Agent {
         private long tiempoInicio;
         private int intentos = 0;
         private static final int MAX_INTENTOS = 3;
+        private int bloquesPendientes = 0;
+        private List<String> bloquesProgramados = new ArrayList<>();
 
         public void action() {
             switch (step) {
-                case 0: // Solicitar propuestas
+                case 0: // Iniciar negociación de asignatura
                     if (asignaturaActual < asignaturas.size()) {
-                        System.out.println("Profesor " + nombre + " solicitando propuestas para " +
-                                asignaturas.get(asignaturaActual).getNombre());
+                        Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);
+                        bloquesPendientes = asignaturaActualObj.getHoras();
+                        bloquesProgramados.clear();
+                        System.out.println("Profesor " + nombre + " iniciando negociación para " +
+                                asignaturaActualObj.getNombre() + " (" + bloquesPendientes + " horas)");
                         solicitarPropuestas();
                         propuestas = new ArrayList<>();
                         tiempoInicio = System.currentTimeMillis();
@@ -168,7 +173,6 @@ public class AgenteProfesor extends Agent {
                     break;
 
                 case 1: // Recolectar propuestas
-                    // Usar un template que identifique claramente las propuestas
                     MessageTemplate mt = MessageTemplate.or(
                             MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
                             MessageTemplate.MatchPerformative(ACLMessage.REFUSE)
@@ -178,29 +182,19 @@ public class AgenteProfesor extends Agent {
                     if (reply != null) {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
                             Propuesta propuesta = Propuesta.parse(reply.getContent());
-
-                            propuestas.add(propuesta);
-                            propuesta.setMensaje(reply);
-
-                            System.out.println("Profesor " + nombre + " recibió propuesta para " +
-                                    asignaturas.get(asignaturaActual).getNombre());
+                            String bloqueKey = propuesta.getDia() + "-" + propuesta.getBloque();
+                            
+                            // Verificar que el bloque no esté ya programado
+                            if (!bloquesProgramados.contains(bloqueKey)) {
+                                propuesta.setMensaje(reply);
+                                propuestas.add(propuesta);
+                            }
                         }
                     }
 
-                    // Verificar si hemos esperado suficiente por propuestas
                     if (System.currentTimeMillis() - tiempoInicio > TIMEOUT_PROPUESTA) {
-                        step = 2;
-                    } else {
-                        block(100);
-                    }
-                    break;
-
-                case 2: // Evaluar propuestas
-                    if (!propuestas.isEmpty()) {
-                        if (evaluarPropuestas()) {
-                            // Asignación exitosa
-                            intentos = 0;
-                            asignaturaActual++;
+                        if (!propuestas.isEmpty()) {
+                            step = 2;
                         } else {
                             intentos++;
                             if (intentos >= MAX_INTENTOS) {
@@ -210,17 +204,41 @@ public class AgenteProfesor extends Agent {
                                 asignaturaActual++;
                                 intentos = 0;
                             }
-                        }
-                    } else {
-                        System.out.println("Profesor " + nombre + " no recibió propuestas para " +
-                                asignaturas.get(asignaturaActual).getNombre());
-                        intentos++;
-                        if (intentos >= MAX_INTENTOS) {
-                            asignaturaActual++;
-                            intentos = 0;
+                            step = 0;
                         }
                     }
-                    step = 0;
+                    break;
+
+                case 2: // Evaluar propuestas
+                    if (evaluarPropuestas()) {
+                        bloquesPendientes--;
+                        if (bloquesPendientes > 0) {
+                            // Aún quedan bloques por asignar
+                            propuestas.clear();
+                            solicitarPropuestas();
+                            tiempoInicio = System.currentTimeMillis();
+                            step = 1;
+                        } else {
+                            // Asignatura completamente programada
+                            intentos = 0;
+                            asignaturaActual++;
+                            step = 0;
+                        }
+                    } else {
+                        intentos++;
+                        if (intentos >= MAX_INTENTOS) {
+                            System.out.println("Profesor " + nombre + " no pudo completar la asignación de " +
+                                    asignaturas.get(asignaturaActual).getNombre());
+                            asignaturaActual++;
+                            intentos = 0;
+                            step = 0;
+                        } else {
+                            propuestas.clear();
+                            solicitarPropuestas();
+                            tiempoInicio = System.currentTimeMillis();
+                            step = 1;
+                        }
+                    }
                     break;
             }
         }
@@ -259,50 +277,47 @@ public class AgenteProfesor extends Agent {
 
         private boolean evaluarPropuestas() {
             if (propuestas.isEmpty()) {
-                System.out.println("Profesor " + nombre + ": No hay propuestas para " +
-                        asignaturas.get(asignaturaActual).getNombre());
                 return false;
             }
 
             try {
                 propuestas.sort((p1, p2) -> p2.getSatisfaccion() - p1.getSatisfaccion());
-        
+
                 for (Propuesta propuesta : propuestas) {
                     String dia = propuesta.getDia();
                     int bloque = propuesta.getBloque();
                     String sala = propuesta.getCodigo();
                     int satisfaccion = propuesta.getSatisfaccion();
-        
+                    String bloqueKey = dia + "-" + bloque;
+
+                    // Verificar si el bloque ya está ocupado
                     Set<Integer> bloquesOcupados = horarioOcupado.getOrDefault(dia, new HashSet<>());
-        
-                    if (!bloquesOcupados.contains(bloque)) {
+                    if (!bloquesOcupados.contains(bloque) && !bloquesProgramados.contains(bloqueKey)) {
                         ACLMessage accept = propuesta.getMensaje().createReply();
                         accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
                         accept.setContent(String.format("%s,%d,%s,%d,%s,%d",
                                 dia, bloque, asignaturas.get(asignaturaActual).getNombre(),
                                 satisfaccion, sala, asignaturas.get(asignaturaActual).getVacantes()));
                         myAgent.send(accept);
-        
+
                         MessageTemplate mt = MessageTemplate.and(
                                 MessageTemplate.MatchSender(propuesta.getMensaje().getSender()),
                                 MessageTemplate.MatchPerformative(ACLMessage.INFORM)
                         );
                         ACLMessage confirm = myAgent.blockingReceive(mt, 5000);
-        
+
                         if (confirm != null) {
                             horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
+                            bloquesProgramados.add(bloqueKey);
                             actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
                             return true;
                         }
                     }
                 }
-                System.out.println("Profesor " + nombre + ": No se encontró horario disponible para " +
-                asignaturas.get(asignaturaActual).getNombre() +
-                " entre " + propuestas.size() + " propuestas");
                 return false;
 
             } catch (Exception e) {
-                System.err.println("Profesor " + nombre + ": Error evaluando propuestas: " + e.getMessage());
+                System.err.println("Error evaluando propuestas: " + e.getMessage());
                 e.printStackTrace();
                 return false;
             }
