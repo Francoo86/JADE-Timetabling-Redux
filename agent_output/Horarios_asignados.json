@@ -50,28 +50,28 @@
   "Solicitudes" : 3,
   "Asignaturas" : [ {
     "Nombre" : "Matemáticas Avanzadas",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 1,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 3
   }, {
     "Nombre" : "Matemáticas Avanzadas",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 2,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 3
   }, {
     "Nombre" : "Programación Basica",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 3,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 3
   }, {
     "Nombre" : "Programación Basica",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 4,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 3
   }, {
     "Nombre" : "Codigo Binario",
     "Sala" : "B-2",
@@ -91,28 +91,28 @@
   "Solicitudes" : 3,
   "Asignaturas" : [ {
     "Nombre" : "Programación en Java",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 1,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Programación en Java",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 2,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Programación en Python",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 3,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
     "Nombre" : "Programación en Python",
-    "Sala" : "B-2",
+    "Sala" : "A-1",
     "Bloque" : 4,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
     "Nombre" : "Programación en C++",
     "Sala" : "A-1",
@@ -132,68 +132,62 @@
   "Solicitudes" : 3,
   "Asignaturas" : [ {
     "Nombre" : "Calculo",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
+    "Bloque" : 4,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Calculo",
+    "Sala" : "B-2",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Calculo",
+    "Sala" : "B-2",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Calculo 2",
+    "Sala" : "B-2",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Calculo 2",
+    "Sala" : "B-2",
     "Bloque" : 7,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Sala" : "A-1",
-    "Bloque" : 8,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Sala" : "A-1",
-    "Bloque" : 1,
     "Dia" : "Martes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 3
   }, {
     "Nombre" : "Calculo 2",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 2,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
   }, {
     "Nombre" : "Calculo 2",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "B-2",
+    "Bloque" : 8,
     "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Sala" : "A-1",
-    "Bloque" : 1,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Sala" : "A-1",
-    "Bloque" : 2,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
     "Sala" : "B-2",
     "Bloque" : 4,
-    "Dia" : "Martes",
+    "Dia" : "Miercoles",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
     "Sala" : "B-2",
     "Bloque" : 5,
-    "Dia" : "Martes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
-    "Bloque" : 3,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "B-2",
-    "Bloque" : 4,
     "Dia" : "Miercoles",
     "Satisfaccion" : 5
   }, {
@@ -201,6 +195,12 @@
     "Sala" : "B-2",
     "Bloque" : 1,
     "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "B-2",
+    "Bloque" : 9,
+    "Dia" : "Martes",
     "Satisfaccion" : 5
   } ]
 } ]

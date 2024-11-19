@@ -14,6 +14,7 @@ import jade.lang.acl.MessageTemplate;
 import json_stuff.ProfesorHorarioJSON;
 import objetos.Asignatura;
 import objetos.Propuesta;
+import objetos.BloqueInfo;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -297,6 +298,7 @@ public class AgenteProfesor extends Agent {
             final int currentSubjectIndex = AgenteProfesor.this.asignaturaActual;
             final Asignatura currentSubject = asignaturas.get(currentSubjectIndex);
             final String subjectName = currentSubject.getNombre();
+            final String currentCampus = currentSubject.getCampus();
             
             // Filtrar propuestas inválidas antes de ordenar
             propuestas.removeIf(p -> !esPropuestaValida(p, subjectName));
@@ -315,12 +317,21 @@ public class AgenteProfesor extends Agent {
                 
                 if (p1Consecutiva && !p2Consecutiva) return -1;
                 if (!p1Consecutiva && p2Consecutiva) return 1;
+
+                // Tercera prioridad: Gestión de traslados entre campus
+                int valorTraslado1 = evaluarTraslado(p1, currentCampus);
+                int valorTraslado2 = evaluarTraslado(p2, currentCampus);
                 
-                // Tercera prioridad: Satisfacción del profesor
+                if (valorTraslado1 != valorTraslado2) {
+                    return valorTraslado1 - valorTraslado2;
+                }
+                
+                // Cuarta prioridad: Satisfacción del profesor
                 return p2.getSatisfaccion() - p1.getSatisfaccion();
             });
         }
 
+        // Directriz N2 ---------------------------------------------------------------------------------------------
         private boolean esPropuestaValida(Propuesta propuesta, String nombreAsignatura) {
             // Validar el bloque 9 - solo permitir para horas impares restantes
             if (propuesta.getBloque() == 9 && bloquesPendientes % 2 == 0) {
@@ -380,7 +391,100 @@ public class AgenteProfesor extends Agent {
             List<Integer> bloques = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
             return bloques.size();
         }
+        //------------------------------------------------------------------------------------------------------------
 
+        // Directriz N3 ----------------------------------------------------------------------------------------------
+        private int evaluarTraslado(Propuesta propuesta, String campusAsignaturaActual) {
+            String dia = propuesta.getDia();
+            int bloque = propuesta.getBloque();
+            String campusPropuesta = getCampusSala(propuesta.getCodigo());
+            
+            if (campusPropuesta.equals(campusAsignaturaActual)) {
+                return 100;
+            }
+            
+            if (hayTrasladoEnDia(dia)) {
+                return 0;
+            }
+            
+            BloqueInfo bloqueAnterior = getBloqueInfo(dia, bloque - 1);
+            BloqueInfo bloqueSiguiente = getBloqueInfo(dia, bloque + 1);
+            
+            if (bloqueAnterior != null && 
+                !bloqueAnterior.getCampus().equals(campusPropuesta) && 
+                Math.abs(bloqueAnterior.getBloque() - bloque) == 1) {
+                return 25;
+            }
+            
+            if (bloqueSiguiente != null && 
+                !bloqueSiguiente.getCampus().equals(campusPropuesta) && 
+                Math.abs(bloqueSiguiente.getBloque() - bloque) == 1) {
+                return 25;
+            }
+            
+            return 75;
+        }
+        
+        private boolean hayTrasladoEnDia(String dia) {
+            String campusAnterior = null;
+            
+            Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
+            if (clasesDelDia == null || clasesDelDia.isEmpty()) {
+                return false;
+            }
+            
+            List<BloqueInfo> bloques = new ArrayList<>();
+            for (Map.Entry<String, List<Integer>> entry : clasesDelDia.entrySet()) {
+                for (Integer bloque : entry.getValue()) {
+                    BloqueInfo info = getBloqueInfo(dia, bloque);
+                    if (info != null) {
+                        bloques.add(info);
+                    }
+                }
+            }
+            
+            Collections.sort(bloques, (b1, b2) -> b1.getBloque() - b2.getBloque());
+            
+            int traslados = 0;
+            for (BloqueInfo bloque : bloques) {
+                if (campusAnterior != null && !campusAnterior.equals(bloque.getCampus())) {
+                    traslados++;
+                }
+                campusAnterior = bloque.getCampus();
+            }
+            
+            return traslados > 0;
+        }
+        
+        private BloqueInfo getBloqueInfo(String dia, int bloque) {
+            Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
+            if (clasesDelDia != null) {
+                for (Map.Entry<String, List<Integer>> entry : clasesDelDia.entrySet()) {
+                    if (entry.getValue().contains(bloque)) {
+                        // Buscar el campus de la asignatura
+                        for (Asignatura asig : asignaturas) {
+                            if (asig.getNombre().equals(entry.getKey())) {
+                                return new BloqueInfo(asig.getCampus(), bloque);
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        
+        private String getCampusSala(String codigoSala) {
+            // Esta información debería venir del sistema, por ahora la hardcodeamos según los datos
+            // Se podría mejorar manteniendo un mapa de salas-campus
+            if (codigoSala.startsWith("A")) {
+                return "Playa Brava";
+            } else if (codigoSala.startsWith("B")) {
+                return "Huayquique";
+            }
+            return "";
+        }
+        //------------------------------------------------------------------------------------------------------------
+        
         //TODO: Mantener simple
         private boolean intentarAsignarPropuesta(Propuesta propuesta) {
             String dia = propuesta.getDia();
