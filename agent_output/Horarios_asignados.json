@@ -169,36 +169,36 @@
   }, {
     "Nombre" : "Calculo 2",
     "Sala" : "A-1",
-    "Bloque" : 9,
-    "Dia" : "Lunes",
+    "Bloque" : 2,
+    "Dia" : "Miercoles",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 4,
     "Dia" : "Martes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 5,
     "Dia" : "Martes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
-    "Bloque" : 2,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
     "Bloque" : 3,
     "Dia" : "Miercoles",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
+    "Sala" : "B-2",
+    "Bloque" : 4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Sala" : "B-2",
     "Bloque" : 1,
     "Dia" : "Jueves",
     "Satisfaccion" : 5
