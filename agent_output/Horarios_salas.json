@@ -106,18 +106,24 @@
   }, {
     "Nombre" : "Bases de Datos",
     "Bloque" : 5,
-    "Capacidad" : 0.6666667,
+    "Capacidad" : 1.1666666,
     "Dia" : "Lunes",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Bases de Datos",
+    "Bloque" : 6,
+    "Capacidad" : 1.1666666,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
   }, {
     "Nombre" : "Programación en C",
-    "Bloque" : 6,
+    "Bloque" : 7,
     "Capacidad" : 0.8333333,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Programación en C",
-    "Bloque" : 7,
+    "Bloque" : 8,
     "Capacidad" : 0.8333333,
     "Dia" : "Lunes",
     "Satisfaccion" : 5

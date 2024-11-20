@@ -1,13 +1,19 @@
 [ {
   "Nombre" : "Carlos Rodríguez",
-  "AsignaturasCompletadas" : 1,
-  "Solicitudes" : 1,
+  "AsignaturasCompletadas" : 2,
+  "Solicitudes" : 2,
   "Asignaturas" : [ {
     "Nombre" : "Bases de Datos",
     "Sala" : "A-1",
     "Bloque" : 5,
     "Dia" : "Lunes",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Bases de Datos",
+    "Sala" : "A-1",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
   } ]
 }, {
   "Nombre" : "Carlos Jose",
@@ -22,7 +28,7 @@
   }, {
     "Nombre" : "Programación en C",
     "Sala" : "A-1",
-    "Bloque" : 6,
+    "Bloque" : 8,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
