@@ -1,5 +1,7 @@
 package agentes;
 
+import constants.BlockOptimization;
+import constants.BlockScore;
 import constants.Messages;
 import jade.core.AID;
 import jade.core.Agent;
@@ -299,9 +301,20 @@ public class AgenteProfesor extends Agent {
             final Asignatura currentSubject = asignaturas.get(currentSubjectIndex);
             final String subjectName = currentSubject.getNombre();
             final String currentCampus = currentSubject.getCampus();
+            final int currentNivel = currentSubject.getNivel();
             
             // Filtrar propuestas inválidas antes de ordenar
             propuestas.removeIf(p -> !esPropuestaValida(p, subjectName));
+
+            // Obtener bloques ya asignados para la asignatura actual
+            Map<String, List<Integer>> bloquesAsignados = new HashMap<>();
+            for (Map.Entry<String, Map<String, List<Integer>>> entry : bloquesAsignadosPorDia.entrySet()) {
+                String dia = entry.getKey();
+                List<Integer> bloques = entry.getValue().getOrDefault(subjectName, new ArrayList<>());
+                if (!bloques.isEmpty()) {
+                    bloquesAsignados.put(dia, new ArrayList<>(bloques));
+                }
+            }
             
             propuestas.sort((p1, p2) -> {
                 // Primera prioridad: Verificar el límite de bloques por día
@@ -310,20 +323,25 @@ public class AgenteProfesor extends Agent {
                 
                 if (bloquesP1 < 2 && bloquesP2 >= 2) return -1;
                 if (bloquesP1 >= 2 && bloquesP2 < 2) return 1;
+
+                // Segunda prioridad: Optimización de bloques
+                BlockScore score1 = BlockOptimization.getInstance().evaluateBlock(
+                    currentCampus, currentNivel, p1.getBloque(), p1.getDia(), bloquesAsignados
+                );
+                BlockScore score2 = BlockOptimization.getInstance().evaluateBlock(
+                    currentCampus, currentNivel, p2.getBloque(), p2.getDia(), bloquesAsignados
+                );
                 
-                // Segunda prioridad: Consecutividad para bloques pendientes
-                boolean p1Consecutiva = evaluarConsecutividad(p1, subjectName);
-                boolean p2Consecutiva = evaluarConsecutividad(p2, subjectName);
-                
-                if (p1Consecutiva && !p2Consecutiva) return -1;
-                if (!p1Consecutiva && p2Consecutiva) return 1;
+                if (score1.getScore() != score2.getScore()) {
+                    return score2.getScore() - score1.getScore();
+                }
 
                 // Tercera prioridad: Gestión de traslados entre campus
                 int valorTraslado1 = evaluarTraslado(p1, currentCampus);
                 int valorTraslado2 = evaluarTraslado(p2, currentCampus);
                 
                 if (valorTraslado1 != valorTraslado2) {
-                    return valorTraslado1 - valorTraslado2;
+                    return valorTraslado2 - valorTraslado1;
                 }
                 
                 // Cuarta prioridad: Satisfacción del profesor
