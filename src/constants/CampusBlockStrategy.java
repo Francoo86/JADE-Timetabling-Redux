@@ -5,21 +5,16 @@ import org.json.simple.JSONArray;
 import java.util.*;
 
 class CampusBlockStrategy {
-    private final List<Integer> primaryMorningBlocks;   // Bloques 1 y 3
-    private final List<Integer> secondaryMorningBlocks; // Bloques 2 y 4
-    private final List<Integer> primaryAfternoonBlocks; // Bloques 5 y 7
-    private final List<Integer> secondaryAfternoonBlocks; // Bloques 6, 8 y 9
+    // Inicializar listas de bloques priorizados
+    private final List<Integer> PRIMARY_MORNING_BLOCKS = Arrays.asList(1, 3);   // Bloques 1 y 3
+    private final List<Integer> SECONDARY_MORNING_BLOCKS = Arrays.asList(2, 4); // Bloques 2 y 4
+    private final List<Integer> PRIMARY_AFTERNOON_BLOCKS = Arrays.asList(5, 7); // Bloques 5 y 7
+    private final List<Integer> SECONDARY_AFTERNOON_BLOCKS = Arrays.asList(6, 8, 9); // Bloques 6, 8 y 9
     private final Set<Integer> morningYears;
     private final Set<Integer> afternoonYears;
 
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public CampusBlockStrategy(JSONObject config) {
-        // Inicializar listas de bloques priorizados
-        primaryMorningBlocks = Arrays.asList(1, 3);
-        secondaryMorningBlocks = Arrays.asList(2, 4);
-        primaryAfternoonBlocks = Arrays.asList(5, 7);
-        secondaryAfternoonBlocks = Arrays.asList(6, 8, 9);
-
         morningYears = new HashSet<>();
         afternoonYears = new HashSet<>();
 
@@ -48,26 +43,26 @@ class CampusBlockStrategy {
                 baseScore += 100; // Incrementar el puntaje para dar mayor peso a la consecutividad
                 reasons.add("Bloque consecutivo");
             }
-        } else if ((prefersMorning && primaryMorningBlocks.contains(bloque)) ||
-                (prefersAfternoon && primaryAfternoonBlocks.contains(bloque))) {
+        } else if ((prefersMorning && PRIMARY_MORNING_BLOCKS.contains(bloque)) ||
+                (prefersAfternoon && PRIMARY_AFTERNOON_BLOCKS.contains(bloque))) {
             baseScore += 30;
             reasons.add("Primer bloque óptimo del día");
         }
 
         // Evaluar preferencia de horario
         if (prefersMorning) {
-            if (primaryMorningBlocks.contains(bloque)) {
+            if (PRIMARY_MORNING_BLOCKS.contains(bloque)) {
                 baseScore += 50; // Reducir el puntaje para dar menor peso a la preferencia de horario
                 reasons.add("Bloque primario mañana");
-            } else if (secondaryMorningBlocks.contains(bloque)) {
+            } else if (SECONDARY_MORNING_BLOCKS.contains(bloque)) {
                 baseScore += 30; // Reducir el puntaje para dar menor peso a la preferencia de horario
                 reasons.add("Bloque secundario mañana");
             }
         } else if (prefersAfternoon) {
-            if (primaryAfternoonBlocks.contains(bloque)) {
+            if (PRIMARY_AFTERNOON_BLOCKS.contains(bloque)) {
                 baseScore += 50; // Reducir el puntaje para dar menor peso a la preferencia de horario
                 reasons.add("Bloque primario tarde");
-            } else if (secondaryAfternoonBlocks.contains(bloque)) {
+            } else if (SECONDARY_AFTERNOON_BLOCKS.contains(bloque)) {
                 baseScore += 30; // Reducir el puntaje para dar menor peso a la preferencia de horario
                 reasons.add("Bloque secundario tarde");
             }
