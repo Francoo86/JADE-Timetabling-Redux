@@ -476,18 +476,24 @@ public class AgenteProfesor extends Agent {
         
         private BloqueInfo getBloqueInfo(String dia, int bloque) {
             Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
-            if (clasesDelDia != null) {
-                for (Map.Entry<String, List<Integer>> entry : clasesDelDia.entrySet()) {
-                    if (entry.getValue().contains(bloque)) {
-                        // Buscar el campus de la asignatura
-                        for (Asignatura asig : asignaturas) {
-                            if (asig.getNombre().equals(entry.getKey())) {
-                                return new BloqueInfo(asig.getCampus(), bloque);
-                            }
-                        }
+            if(clasesDelDia == null) {
+                return null;
+            }
+
+            for (Map.Entry<String, List<Integer>> entry : clasesDelDia.entrySet()) {
+                //si no hay bloque asociado a la asignatura, pasar de largo
+                if(!entry.getValue().contains(bloque)) {
+                    continue;
+                }
+                // Buscar el campus de la asignatura
+                for (Asignatura asig : asignaturas) {
+                    if (asig.getNombre().equals(entry.getKey())) {
+                        return new BloqueInfo(asig.getCampus(), bloque);
                     }
                 }
             }
+
+            //agregar esto mientras refactorizo lo otro
             return null;
         }
         
