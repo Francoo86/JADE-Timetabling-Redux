@@ -177,6 +177,7 @@ public class AgenteProfesor extends Agent {
         //TODO: Cambiar a un nombre más descriptivo
         private final AssignationData assignationData = new AssignationData();
 
+        //Iniciar las negociaciones para la asignatura actual a las salas.
         private void setupNegotiation() {
             Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);
             bloquesPendientes = asignaturaActualObj.getHoras();
@@ -189,6 +190,8 @@ public class AgenteProfesor extends Agent {
             step = 1;
         }
 
+        //Colecciona las propuestas.
+        //FIXME: De momento solo considera las PROPOSE.
         private void collectProposals() {
             MessageTemplate mt = MessageTemplate.or(
                 MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
@@ -266,9 +269,10 @@ public class AgenteProfesor extends Agent {
                     return;
                 }
 
-                ACLMessage cfp = new ACLMessage(ACLMessage.CFP);    // Crear mensaje de solicitud de propuestas
-                for (DFAgentDescription dfd : result) {   // Iterar sobre los agentes encontrados
-                    cfp.addReceiver(dfd.getName());     // Añadir agente como receptor
+                //Enviar un CFP para todos los agentes de sala
+                ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
+                for (DFAgentDescription dfd : result) {
+                    cfp.addReceiver(dfd.getName());
                 }
 
                 // Preparar información de la solicitud
@@ -281,8 +285,7 @@ public class AgenteProfesor extends Agent {
                         assignationData.getUltimoDiaAsignado(),
                         assignationData.getUltimoBloqueAsignado());
 
-                // Configuracion del mensaje
-                cfp.setContent(solicitudInfo);  // Añadir información de la solicitud al mensaje
+                cfp.setContent(solicitudInfo);
                 cfp.setConversationId("neg-" + nombre + "-" + asignaturaActual + "-" + bloquesPendientes);
                 myAgent.send(cfp);
 
@@ -680,7 +683,6 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-    //SIENTO QUE ESTO NO FUNCIONA ADECUADAMENTE!!!!
     private void notificarSiguienteProfesor() {
         // Notificar al siguiente profesor para que inicie su proceso de negociación
         try {
@@ -745,12 +747,13 @@ public class AgenteProfesor extends Agent {
 
     @Override
     protected void takeDown() {
-        // Mostrar resumen final
+        //mostrar resumen final por profesor...
         int asignadas = ((JSONArray) horarioJSON.get("Asignaturas")).size();
         System.out.println("Profesor " + nombre + " finalizado con " +
                 asignadas + "/" + asignaturas.size() + " asignaturas asignadas");
     }
 
+    //FINES DE DEBUG!!!
     private class MessageQueueDebugBehaviour extends OneShotBehaviour {
         @Override
         public void action() {

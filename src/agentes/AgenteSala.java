@@ -1,5 +1,6 @@
 package agentes;
 
+import constants.Commons;
 import constants.Messages;
 import service.SatisfaccionHandler;
 import jade.core.Agent;
@@ -23,18 +24,15 @@ public class AgenteSala extends Agent {
     private String campus;
     private int capacidad;
     private int turno;
-    private int bloquesDiarios = 9;
     private Map<String, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
-    private static final String[] DIAS = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
-
     @Override
     protected void setup() {
         // Inicializar estructuras
         initializeSchedule();
         horarioOcupado = new HashMap<>();
-        for (String dia : DIAS) {
+        for (String dia : Commons.DAYS) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
-            for (int i = 0; i < bloquesDiarios; i++) { // 5 bloques por día
+            for (int i = 0; i < Commons.MAX_BLOQUE_DIURNO; i++) { // 5 bloques por día
                 asignaciones.add(null);
             }
             horarioOcupado.put(dia, asignaciones);
@@ -72,9 +70,9 @@ public class AgenteSala extends Agent {
     private void initializeSchedule() {
         // Inicializar horario con bloques vacíos
         horarioOcupado = new HashMap<>();
-        for (String dia : DIAS) {
+        for (String dia : Commons.DAYS) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
-            for (int i = 0; i < bloquesDiarios; i++) {
+            for (int i = 0; i < Commons.MAX_BLOQUE_DIURNO; i++) {
                 asignaciones.add(null);
             }
             horarioOcupado.put(dia, asignaciones);
@@ -134,9 +132,9 @@ public class AgenteSala extends Agent {
                 boolean propuestaEnviada = false; 
 
                 // Iterar sobre los bloques disponibles
-                for (String dia : DIAS) {
+                for (String dia : Commons.DAYS) {    // Iterar sobre los días de la semana
                     List<AsignacionSala> asignaciones = horarioOcupado.get(dia);    // Lista de asignaciones por día 
-                    for (int bloque = 0; bloque < bloquesDiarios; bloque++) {   // Iterar sobre los bloques del día
+                    for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {   // Iterar sobre los bloques del día
                         if (asignaciones.get(bloque) == null) {     // Si el bloque está disponible
                             ACLMessage reply = msg.createReply();          // Crear mensaje de respuesta
                             reply.setPerformative(ACLMessage.PROPOSE);
