@@ -210,8 +210,8 @@ public class AgenteSala extends Agent {
                     confirm.setContent(Messages.CONFIRM);
                     send(confirm);
 
-                    System.out.println(String.format("Sala %s (%s): Asignada %s en %s, bloque %d, satisfacción %d, capacidad %.2f",
-                            codigo, campus, nombreAsignatura, dia, (bloque + 1), satisfaccion, capacidadFraccion));
+                    System.out.printf("Sala %s (%s): Asignada %s en %s, bloque %d, satisfacción %d, capacidad %.2f",
+                            codigo, campus, nombreAsignatura, dia, (bloque + 1), satisfaccion, capacidadFraccion);
                 }
             } catch (Exception e) {
                 System.err.println("Error procesando confirmación en sala " + codigo + ": " + e.getMessage());

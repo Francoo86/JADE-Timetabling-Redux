@@ -9,6 +9,7 @@ public class BlockConfigLoader {
     public static JSONObject loadConfig() {
         try {
             JSONObject blockData = JSONHelper.parseJsonFile("blocks.json");
+            System.out.println("Configuración de bloques cargada exitosamente");
             return blockData;
         } catch (Exception e) {
             System.err.println("Error loading block configuration: " + e.getMessage());

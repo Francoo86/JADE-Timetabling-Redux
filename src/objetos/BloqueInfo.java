@@ -1,5 +1,7 @@
 package objetos;
 
+import java.util.Objects;
+
 public class BloqueInfo {
     private String campus;
     private int bloque;
@@ -40,7 +42,7 @@ public class BloqueInfo {
         BloqueInfo that = (BloqueInfo) o;
         
         if (bloque != that.bloque) return false;
-        return campus != null ? campus.equals(that.campus) : that.campus == null;
+        return Objects.equals(campus, that.campus);
     }
     
     @Override
