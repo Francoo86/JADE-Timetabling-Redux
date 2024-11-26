@@ -2,6 +2,7 @@ package agentes;
 
 import constants.BlockOptimization;
 import constants.BlockScore;
+import constants.Commons;
 import constants.Messages;
 import jade.core.AID;
 import jade.core.Agent;
@@ -39,6 +40,7 @@ public class AgenteProfesor extends Agent {
     private boolean isCleaningUp = false;
     private boolean negociacionIniciada = false;
     //TODO: Cambiar el mapeo de string a int porque los días son del 0-6 (asumiendo que el lunes es 0).
+    //TODO-2: Pienso que puede ser mejor tener un objeto que contenga la información de los bloques asignados.
     private Map<String, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
 
     @Override
@@ -72,8 +74,9 @@ public class AgenteProfesor extends Agent {
             addBehaviour(new EsperarTurnoBehaviour());
         }
 
+        //TODO: Debería haber algo más elegante para esto.
         bloquesAsignadosPorDia = new HashMap<>();   // Inicializar bloques asignados por día
-        for (String dia : new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"}) {  // Inicializar días
+        for (String dia : Commons.DAYS) {  // Inicializar días
             bloquesAsignadosPorDia.put(dia, new HashMap<>());   // Inicializar asignaturas por día
         }
         System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciado");
@@ -96,7 +99,6 @@ public class AgenteProfesor extends Agent {
             sd.setType("profesor");    // Tipo de servicio
             sd.setName(AGENT_NAME + orden);                // Nombre del servicio
             sd.addProperties(new Property("orden", orden));     // Propiedad "orden"
-
             dfd.addServices(sd);        // Añadir servicio a la descripción
             DFService.register(this, dfd);      // Registrar agente en DF
             isRegistered = true;        // Marcar como registrado   
@@ -364,7 +366,7 @@ public class AgenteProfesor extends Agent {
         // Directriz N2 ---------------------------------------------------------------------------------------------
         private boolean esPropuestaValida(Propuesta propuesta, String nombreAsignatura) {
             // Validar el bloque 9 - solo permitir para horas impares restantes
-            if (propuesta.getBloque() == 9 && bloquesPendientes % 2 == 0) {
+            if (propuesta.getBloque() == Commons.MAX_BLOQUE_DIURNO && bloquesPendientes % 2 == 0) {
                 return false;
             }
 
@@ -390,7 +392,7 @@ public class AgenteProfesor extends Agent {
                 (!horarioOcupado.containsKey(dia) || !horarioOcupado.get(dia).contains(bloque - 1));
 
             // Verificar bloque siguiente
-            boolean bloqueSiguienteDisponible = bloque < 9 &&
+            boolean bloqueSiguienteDisponible = bloque < Commons.MAX_BLOQUE_DIURNO &&
                 (!horarioOcupado.containsKey(dia) || !horarioOcupado.get(dia).contains(bloque + 1));
 
             return bloqueAnteriorDisponible || bloqueSiguienteDisponible;
