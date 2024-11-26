@@ -15,14 +15,13 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import json_stuff.ProfesorHorarioJSON;
 import objetos.Asignatura;
+import objetos.AssignationData;
 import objetos.Propuesta;
 import objetos.BloqueInfo;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.util.*;
 
 public class AgenteProfesor extends Agent {
@@ -161,6 +160,7 @@ public class AgenteProfesor extends Agent {
         }
     }
 
+    //why is this a god object?
     private class NegociarAsignaturasBehaviour extends Behaviour {
         private int step = 0;
         private List<Propuesta> propuestas;
@@ -169,9 +169,11 @@ public class AgenteProfesor extends Agent {
         private int intentos = 0;
         private static final int MAX_INTENTOS = 3;
         private int bloquesPendientes = 0;
-        private String ultimoDiaAsignado = null;
-        private int ultimoBloqueAsignado = -1;
-        private String salaAsignada = null;
+        //TODO: Cambiar a un nombre más descriptivo
+        private AssignationData assignationData = new AssignationData();
+        //private String ultimoDiaAsignado = null;
+        //private int ultimoBloqueAsignado = -1;
+        //private String salaAsignada = null;
 
         public void action() {
             switch (step) {
@@ -179,9 +181,8 @@ public class AgenteProfesor extends Agent {
                     if (asignaturaActual < asignaturas.size()) {    // Si hay asignaturas por asignar aún 
                         Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);   // Obtener asignatura actual
                         bloquesPendientes = asignaturaActualObj.getHoras();  // Obtener horas de la asignatura
-                        salaAsignada = null;   // Inicializar sala asignada
-                        ultimoDiaAsignado = null;  // Inicializar último día asignado
-                        ultimoBloqueAsignado = -1; // Inicializar último bloque asignado
+                        //Reiniciar información de los datos de los ultimos datos de asignacion.
+                        assignationData.clear();
                         
                         System.out.println("Profesor " + nombre + " iniciando negociación para " + 
                                 asignaturaActualObj.getNombre() + " (" + bloquesPendientes + " horas)");
@@ -263,9 +264,10 @@ public class AgenteProfesor extends Agent {
                     String solicitudInfo = String.format("%s,%d,%s,%s,%d",  // Información de la solicitud de propuestas 
                             asignatura.getNombre(),
                             asignatura.getVacantes(),
-                            salaAsignada != null ? salaAsignada : "",
-                            ultimoDiaAsignado != null ? ultimoDiaAsignado : "",
-                            ultimoBloqueAsignado);
+                            //Enviar información acerca de la ultima propuesta asignada
+                            assignationData.getSalaAsignada(),
+                            assignationData.getUltimoDiaAsignado(),
+                            assignationData.getUltimoBloqueAsignado());
 
                     // Configuracion del mensaje
                     cfp.setContent(solicitudInfo);  // Añadir información de la solicitud al mensaje
@@ -274,7 +276,7 @@ public class AgenteProfesor extends Agent {
 
                     System.out.println("Profesor " + nombre + " solicitando propuestas para " +
                             asignatura.getNombre() + " (bloques pendientes: " + bloquesPendientes +
-                            ", sala previa: " + salaAsignada + ")");
+                            ", sala previa: " + assignationData.getSalaAsignada() + ")");
                 }
             } catch (FIPAException fe) {
                 fe.printStackTrace();
@@ -363,14 +365,14 @@ public class AgenteProfesor extends Agent {
             }
             
             // Si quedan bloques pares, asegurar que haya consecutividad disponible
-            if (bloquesPendientes >= 2 && !hayConsecutividadDisponible(propuesta, nombreAsignatura)) {
+            if (bloquesPendientes >= 2 && !hayConsecutividadDisponible(propuesta)) {
                 return false;
             }
             
             return true;
         }
         
-        private boolean hayConsecutividadDisponible(Propuesta propuesta, String nombreAsignatura) {
+        private boolean hayConsecutividadDisponible(Propuesta propuesta) {
             String dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
             
@@ -442,7 +444,7 @@ public class AgenteProfesor extends Agent {
                 }
             }
             
-            Collections.sort(bloques, (b1, b2) -> b1.getBloque() - b2.getBloque());
+            Collections.sort(bloques, Comparator.comparingInt(BloqueInfo::getBloque));
             
             int traslados = 0;
             for (BloqueInfo bloque : bloques) {
@@ -529,9 +531,11 @@ public class AgenteProfesor extends Agent {
             
             // Actualizar estado de negociación
             bloquesPendientes--;
-            ultimoDiaAsignado = dia;
-            ultimoBloqueAsignado = bloque;
-            salaAsignada = sala;
+
+            assignationData.assign(dia, sala, bloque);
+            //ultimoDiaAsignado = dia;
+            //ultimoBloqueAsignado = bloque;
+            //salaAsignada = sala;
             
             // Actualizar JSON
             actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
@@ -582,7 +586,7 @@ public class AgenteProfesor extends Agent {
                     // Si ya asignamos algunos bloques pero no todos, intentar con otra sala
                     System.out.println("Profesor " + nombre + " buscando nueva sala para bloques restantes de " +
                             asignaturas.get(asignaturaActual).getNombre());
-                    salaAsignada = null;
+                    assignationData.setSalaAsignada(null);
                     intentos = 0;
                 }
                 step = 0;
@@ -598,10 +602,10 @@ public class AgenteProfesor extends Agent {
             // En caso de no poder asignar ninguna propuesta, reintentar o pasar a la siguiente asignatura
             intentos++;
             if (intentos >= MAX_INTENTOS) {
-                if (salaAsignada != null) {
+                if (assignationData.hasSalaAsignada()) {
                     // Intentar con otra sala si la actual no tiene más espacios disponibles
                     System.out.println("Profesor " + nombre + ": Buscando otra sala para los bloques restantes");
-                    salaAsignada = null;
+                    assignationData.setSalaAsignada(null);
                     intentos = 0;
                 } else {
                     // Si ya probamos con todas las salas, pasar a la siguiente asignatura

@@ -4,12 +4,12 @@ package objetos;
  * Clase que representa la información del último bloque de un campus.
  * Usado por el behaviour de NegociarAsignaturaBehaviour.
  */
-public class LastBloqueInfo {
+public class AssignationData {
     private String ultimoDiaAsignado;
     private String salaAsignada;
     private int ultimoBloqueAsignado;
 
-    public LastBloqueInfo(){
+    public AssignationData(){
         this.clear();
     }
 
