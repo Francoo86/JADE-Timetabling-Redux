@@ -19,6 +19,7 @@ import org.json.simple.parser.JSONParser;
 import java.util.*;
 
 public class AgenteSala extends Agent {
+    public static final String SERVICE_NAME = "sala";
     private boolean isRegistered = false;
     private String codigo;
     private String campus;
@@ -39,7 +40,7 @@ public class AgenteSala extends Agent {
         }
 
         // Cargar datos de la sala desde JSON
-        Object[] args = getArguments();  // Corregido: usando getArguments() en lugar de getAgents()
+        Object[] args = getArguments();
         if (args != null && args.length > 0) {
             parseJSON((String)args[0]);
         }
@@ -84,7 +85,7 @@ public class AgenteSala extends Agent {
             DFAgentDescription dfd = new DFAgentDescription();
             dfd.setName(getAID());
             ServiceDescription sd = new ServiceDescription();
-            sd.setType("sala");
+            sd.setType(SERVICE_NAME);
             sd.setName(codigo);
             // Agregar propiedades adicionales
             sd.addProperties(new Property("campus", campus));

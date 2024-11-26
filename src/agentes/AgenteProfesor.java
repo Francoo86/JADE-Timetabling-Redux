@@ -27,6 +27,7 @@ import java.util.*;
 
 public class AgenteProfesor extends Agent {
     public static final String AGENT_NAME = "Profesor";
+    public static final String SERVICE_NAME = AGENT_NAME.toLowerCase(Locale.ROOT);
     private String nombre;
     //private String rut;
     private int turno;
@@ -74,7 +75,6 @@ public class AgenteProfesor extends Agent {
             addBehaviour(new EsperarTurnoBehaviour());
         }
 
-        //TODO: Debería haber algo más elegante para esto.
         bloquesAsignadosPorDia = new HashMap<>();   // Inicializar bloques asignados por día
         for (String dia : Commons.DAYS) {  // Inicializar días
             bloquesAsignadosPorDia.put(dia, new HashMap<>());   // Inicializar asignaturas por día
@@ -93,14 +93,16 @@ public class AgenteProfesor extends Agent {
 
     private void registrarEnDF() {
         try {
-            DFAgentDescription dfd = new DFAgentDescription();      // Descripción del agente
+            DFAgentDescription dfd = new DFAgentDescription();
             dfd.setName(getAID());      // AID del agente
-            ServiceDescription sd = new ServiceDescription();       // Descripción del servicio
-            sd.setType("profesor");    // Tipo de servicio
-            sd.setName(AGENT_NAME + orden);                // Nombre del servicio
-            sd.addProperties(new Property("orden", orden));     // Propiedad "orden"
-            dfd.addServices(sd);        // Añadir servicio a la descripción
-            DFService.register(this, dfd);      // Registrar agente en DF
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType(SERVICE_NAME);   // Tipo de servicio
+            sd.setName(AGENT_NAME + orden);
+            //Esto se pasa en el mensaje del CFP.
+            //Confirmar bien...
+            sd.addProperties(new Property("orden", orden));
+            dfd.addServices(sd);
+            DFService.register(this, dfd);
             isRegistered = true;        // Marcar como registrado   
             System.out.println("Profesor " + nombre + " registrado en DF"); 
         } catch (FIPAException fe) {
@@ -238,8 +240,8 @@ public class AgenteProfesor extends Agent {
 
         public void action() {
             switch (step) {
-                case 0: // Iniciar negociación
-                    if (asignaturaActual < asignaturas.size()) {    // Si hay asignaturas por asignar aún
+                case 0: // Iniciar negociación, verificar si hay más asignaturas, si no ya damos por terminado.
+                    if (asignaturaActual < asignaturas.size()) {
                         setupNegotiation();
                     } else {
                         finished = true;
@@ -258,11 +260,12 @@ public class AgenteProfesor extends Agent {
         private void solicitarPropuestas() {
             // Solicitar propuestas para la asignatura actual a los agentes de sala
             try {
-                DFAgentDescription template = new DFAgentDescription(); // Descripción del agente
-                ServiceDescription sd = new ServiceDescription();   // Descripción del servicio
-                sd.setType("sala"); // Tipo de servicio
-                template.addServices(sd);   // Añadir servicio a la descripción
-                DFAgentDescription[] result = DFService.search(myAgent, template);  // Buscar agentes que coincidan con la descripción
+                DFAgentDescription template = new DFAgentDescription();
+                ServiceDescription sd = new ServiceDescription();
+                //Nos interesa que el servicio sea de tipo sala.
+                sd.setType(AgenteSala.SERVICE_NAME);
+                template.addServices(sd);
+                DFAgentDescription[] result = DFService.search(myAgent, template);
 
                 if(result.length == 0) {
                     System.out.println("No se encontraron salas para la asignatura " + asignaturas.get(asignaturaActual).getNombre());
@@ -342,6 +345,7 @@ public class AgenteProfesor extends Agent {
                 if (bloquesP1 >= 2 && bloquesP2 < 2) return 1;
 
                 // Segunda prioridad: Optimización de bloques
+                //FIXME: Realmente esto tiene que ser tan rebuscado?
                 BlockScore score1 = BlockOptimization.getInstance().evaluateBlock(
                     currentCampus, currentNivel, p1.getBloque(), p1.getDia(), bloquesAsignados
                 );
@@ -688,7 +692,7 @@ public class AgenteProfesor extends Agent {
         try {
             DFAgentDescription template = new DFAgentDescription();
             ServiceDescription sd = new ServiceDescription();
-            sd.setType("profesor");
+            sd.setType(SERVICE_NAME);
             template.addServices(sd);
 
             DFAgentDescription[] result = DFService.search(this, template); // Buscar profesores
