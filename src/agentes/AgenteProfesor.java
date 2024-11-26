@@ -20,6 +20,9 @@ import objetos.BloqueInfo;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 public class AgenteProfesor extends Agent {
@@ -152,7 +155,7 @@ public class AgenteProfesor extends Agent {
                     System.out.println("[DEBUG] Ignoring START message (not for me)");
                 }
             } else {
-                block(500); // Short block to avoid CPU spinning
+                block(); // Short block to avoid CPU spinning
                 System.out.println("[DEBUG] " + nombre + " (orden=" + orden + ") waiting for START signal");
             }
         }
@@ -166,7 +169,6 @@ public class AgenteProfesor extends Agent {
         private int intentos = 0;
         private static final int MAX_INTENTOS = 3;
         private int bloquesPendientes = 0;
-        private Set<String> bloquesProgramados;
         private String ultimoDiaAsignado = null;
         private int ultimoBloqueAsignado = -1;
         private String salaAsignada = null;
@@ -177,7 +179,6 @@ public class AgenteProfesor extends Agent {
                     if (asignaturaActual < asignaturas.size()) {    // Si hay asignaturas por asignar aún 
                         Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);   // Obtener asignatura actual
                         bloquesPendientes = asignaturaActualObj.getHoras();  // Obtener horas de la asignatura
-                        bloquesProgramados = new HashSet<>();  // Inicializar bloques programados
                         salaAsignada = null;   // Inicializar sala asignada
                         ultimoDiaAsignado = null;  // Inicializar último día asignado
                         ultimoBloqueAsignado = -1; // Inicializar último bloque asignado
@@ -216,7 +217,7 @@ public class AgenteProfesor extends Agent {
                             manejarTimeoutPropuestas(); // Manejar timeout de propuestas
                         }
                     } else {
-                        block(100); 
+                        block();
                     }
                     break;
 
@@ -364,26 +365,6 @@ public class AgenteProfesor extends Agent {
             // Si quedan bloques pares, asegurar que haya consecutividad disponible
             if (bloquesPendientes >= 2 && !hayConsecutividadDisponible(propuesta, nombreAsignatura)) {
                 return false;
-            }
-            
-            return true;
-        }
-        
-        private boolean evaluarConsecutividad(Propuesta propuesta, String nombreAsignatura) {
-            String dia = propuesta.getDia();
-            int bloque = propuesta.getBloque();
-            
-            // Obtener bloques ya asignados para esta asignatura
-            Map<String, List<Integer>> asignaturasEnDia = bloquesAsignadosPorDia.getOrDefault(dia, new HashMap<>());
-            List<Integer> bloquesAsignados = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
-            
-            // Verificar si hay un bloque consecutivo ya asignado
-            boolean tieneConsecutivoAsignado = bloquesAsignados.stream()
-                .anyMatch(b -> Math.abs(b - bloque) == 1);
-                
-            // Si no hay bloque consecutivo asignado, verificar si hay uno disponible
-            if (!tieneConsecutivoAsignado) {
-                return hayConsecutividadDisponible(propuesta, nombreAsignatura);
             }
             
             return true;
@@ -687,6 +668,7 @@ public class AgenteProfesor extends Agent {
         }
     }
 
+    //SIENTO QUE ESTO NO FUNCIONA ADECUADAMENTE!!!!
     private void notificarSiguienteProfesor() {
         // Notificar al siguiente profesor para que inicie su proceso de negociación
         try {
@@ -703,13 +685,7 @@ public class AgenteProfesor extends Agent {
             // Buscar el siguiente profesor en la lista
             for (DFAgentDescription dfd : result) {     // Iterar sobre los profesores
                 String targetName = dfd.getName().getLocalName();   // Nombre del profesor
-                System.out.println("[DEBUG] Found professor: " + targetName);   
-
-                //Impresión de servicios
-                for (jade.util.leap.Iterator it = dfd.getAllServices(); it.hasNext(); ) {
-                    ServiceDescription service = (ServiceDescription) it.next();
-                    System.out.println("[DEBUG] Service: " + service.getName());
-                }
+                System.out.println("[DEBUG] Found professor: " + targetName);
 
                 // Enviar mensaje de inicio al siguiente profesor en la lista (si no es este mismo)
                 if (!targetName.equals(getAID().getLocalName())) {
