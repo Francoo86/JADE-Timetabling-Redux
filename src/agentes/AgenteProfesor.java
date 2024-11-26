@@ -514,12 +514,7 @@ public class AgenteProfesor extends Agent {
                 // Intentar enviar la aceptación
                 if (enviarAceptacionPropuesta(propuesta)) {
                     // Si se acepta, actualizar los registros
-                    actualizarRegistrosAsignacion(
-                        dia,
-                        bloque,
-                        propuesta.getCodigo(),
-                        propuesta.getSatisfaccion()
-                    );
+                    actualizarRegistrosAsignacion(propuesta);
                     return true;
                 }
             }
@@ -527,9 +522,15 @@ public class AgenteProfesor extends Agent {
             return false;
         }
 
-        private void actualizarRegistrosAsignacion(String dia, int bloque, String sala, int satisfaccion) {
+        private void actualizarRegistrosAsignacion(Propuesta prop) {
             // Actualizar registros de asignación de bloques y salas en el horario y JSON
             String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
+
+            //obtener los datos de la propuesta
+            String dia = prop.getDia();
+            int bloque = prop.getBloque();
+            String sala = prop.getCodigo();
+            int satisfaccion = prop.getSatisfaccion();
 
             // Actualizar horario ocupado
             horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
