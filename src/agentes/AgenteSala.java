@@ -1,7 +1,7 @@
 package agentes;
 
 import constants.Messages;
-import constants.SatisfaccionHandler;
+import service.SatisfaccionHandler;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;

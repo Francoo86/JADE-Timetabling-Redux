@@ -1,4 +1,4 @@
-package constants;
+package service;
 
 public class SatisfaccionHandler {
     public static int getSatisfaccion(int capacidad, int vacantes) {
