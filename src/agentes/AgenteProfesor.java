@@ -134,9 +134,10 @@ public class AgenteProfesor extends Agent {
     private class EsperarTurnoBehaviour extends CyclicBehaviour {
         public void action() {
             // Coincidir con el profesor anterior para iniciar negociación
-            MessageTemplate mt = MessageTemplate.and(   // Plantilla de mensaje
-                    MessageTemplate.MatchPerformative(ACLMessage.INFORM),   // Tipo de mensaje
-                    MessageTemplate.MatchContent(Messages.START)    // Contenido del mensaje
+            // En este caso verificamos si el mensaje empieza con "START"
+            MessageTemplate mt = MessageTemplate.and(
+                    MessageTemplate.MatchPerformative(ACLMessage.INFORM),
+                    MessageTemplate.MatchContent(Messages.START)
             );
 
             ACLMessage msg = myAgent.receive(mt);   // Recibir mensaje que coincida con la plantilla
@@ -156,7 +157,7 @@ public class AgenteProfesor extends Agent {
                     System.out.println("[DEBUG] Ignoring START message (not for me)");
                 }
             } else {
-                block(); // Short block to avoid CPU spinning
+                block();
                 System.out.println("[DEBUG] " + nombre + " (orden=" + orden + ") waiting for START signal");
             }
         }
@@ -174,70 +175,77 @@ public class AgenteProfesor extends Agent {
         //TODO: Cambiar a un nombre más descriptivo
         private final AssignationData assignationData = new AssignationData();
 
+        private void setupNegotiation() {
+            Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);
+            bloquesPendientes = asignaturaActualObj.getHoras();
+            assignationData.clear();
+            System.out.println("Profesor " + nombre + " iniciando negociación para " +
+                    asignaturaActualObj.getNombre() + " (" + bloquesPendientes + " horas)");
+            solicitarPropuestas();
+            propuestas = new ArrayList<>();
+            tiempoInicio = System.currentTimeMillis();
+            step = 1;
+        }
+
+        private void collectProposals() {
+            MessageTemplate mt = MessageTemplate.or(
+                MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
+                MessageTemplate.MatchPerformative(ACLMessage.REFUSE)
+            );
+
+            ACLMessage reply = myAgent.receive(mt);
+            if (reply != null) {
+                if (reply.getPerformative() == ACLMessage.PROPOSE) {
+                    Propuesta propuesta = Propuesta.parse(reply.getContent());
+                    propuesta.setMensaje(reply);
+                    propuestas.add(propuesta);
+                }
+            }
+
+            if (System.currentTimeMillis() - tiempoInicio > TIMEOUT_PROPUESTA) {
+                if (!propuestas.isEmpty()) {
+                    step = 2;
+                } else {
+                    manejarTimeoutPropuestas();
+                }
+            } else {
+                block();
+            }
+        }
+
+        private void evaluateProposals() {
+            boolean asignacionExitosa = procesarPropuestas();
+            if (asignacionExitosa) {
+                if (bloquesPendientes == 0) {
+                    intentos = 0;
+                    asignaturaActual++;
+                    step = 0;
+                } else {
+                    propuestas.clear();
+                    solicitarPropuestas();
+                    tiempoInicio = System.currentTimeMillis();
+                    step = 1;
+                }
+            } else {
+                manejarFalloPropuesta();
+            }
+        }
+
         public void action() {
             switch (step) {
                 case 0: // Iniciar negociación
-                    if (asignaturaActual < asignaturas.size()) {    // Si hay asignaturas por asignar aún 
-                        Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);   // Obtener asignatura actual
-                        bloquesPendientes = asignaturaActualObj.getHoras();  // Obtener horas de la asignatura
-                        //Reiniciar información de los datos de los ultimos datos de asignacion.
-                        assignationData.clear();
-                        
-                        System.out.println("Profesor " + nombre + " iniciando negociación para " + 
-                                asignaturaActualObj.getNombre() + " (" + bloquesPendientes + " horas)");
-                        
-                        solicitarPropuestas(); // Solicitar propuestas para la asignatura actual
-                        propuestas = new ArrayList<>();   // Inicializar lista de propuestas
-                        tiempoInicio = System.currentTimeMillis(); // Obtener tiempo actual
-                        step = 1;
+                    if (asignaturaActual < asignaturas.size()) {    // Si hay asignaturas por asignar aún
+                        setupNegotiation();
                     } else {
                         finished = true;
                     }
                     break;
-                case 1: // Recolectar propuestas
-                    MessageTemplate mt = MessageTemplate.or(    // Plantilla de mensaje
-                            MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
-                            MessageTemplate.MatchPerformative(ACLMessage.REFUSE)
-                    );
-
-                    ACLMessage reply = myAgent.receive(mt); // Recibir mensaje que coincida con la plantilla
-                    if (reply != null) {
-                        if (reply.getPerformative() == ACLMessage.PROPOSE) {    // Si es una propuesta válida
-                            Propuesta propuesta = Propuesta.parse(reply.getContent());  // Parsear propuesta desde el mensaje
-                            propuesta.setMensaje(reply);    // Guardar mensaje
-                            propuestas.add(propuesta);      // Añadir propuesta a la lista
-                        }
-                    }
-
-                    if (System.currentTimeMillis() - tiempoInicio > TIMEOUT_PROPUESTA) {    // Si se excede el tiempo de espera para propuestas
-                        if (!propuestas.isEmpty()) {    // Si hay propuestas recibidas 
-                            step = 2;   // Pasar a evaluar propuestas
-                        } else {
-                            manejarTimeoutPropuestas(); // Manejar timeout de propuestas
-                        }
-                    } else {
-                        block();
-                    }
+                case 1: // Recolectar propuestas (si es propone o rechaza)
+                    collectProposals();
                     break;
 
                 case 2: // Evaluar propuestas
-                    boolean asignacionExitosa = procesarPropuestas();   // Procesar propuestas y asignar si es posible
-                    if (asignacionExitosa) {    // Si la asignación fue exitosa 
-                        if (bloquesPendientes == 0) {   // Si no quedan bloques pendientes
-                            // Asignatura completamente programada
-                            intentos = 0;
-                            asignaturaActual++;
-                            step = 0;
-                        } else {
-                            // Continuar con los bloques restantes
-                            propuestas.clear(); // Limpiar propuestas
-                            solicitarPropuestas();  // Solicitar propuestas para los bloques restantes
-                            tiempoInicio = System.currentTimeMillis();  
-                            step = 1;   // Volver a recolectar propuestas
-                        }
-                    } else {
-                        manejarFalloPropuesta();    
-                    }
+                    evaluateProposals();
                     break;
             }
         }
@@ -301,12 +309,12 @@ public class AgenteProfesor extends Agent {
 
         //TODO: Implementar las directrices de asignación de bloques y sortearlas aqui.
         private void ordenarPropuestas() {
-            final int currentSubjectIndex = AgenteProfesor.this.asignaturaActual;
+            final int currentSubjectIndex = ((AgenteProfesor) myAgent).asignaturaActual;
             final Asignatura currentSubject = asignaturas.get(currentSubjectIndex);
             final String subjectName = currentSubject.getNombre();
             final String currentCampus = currentSubject.getCampus();
             final int currentNivel = currentSubject.getNivel();
-            
+
             // Filtrar propuestas inválidas antes de ordenar
             propuestas.removeIf(p -> !esPropuestaValida(p, subjectName));
 
@@ -319,12 +327,12 @@ public class AgenteProfesor extends Agent {
                     bloquesAsignados.put(dia, new ArrayList<>(bloques));
                 }
             }
-            
+
             propuestas.sort((p1, p2) -> {
                 // Primera prioridad: Verificar el límite de bloques por día
                 int bloquesP1 = contarBloquesPorDia(p1.getDia(), subjectName);
                 int bloquesP2 = contarBloquesPorDia(p2.getDia(), subjectName);
-                
+
                 if (bloquesP1 < 2 && bloquesP2 >= 2) return -1;
                 if (bloquesP1 >= 2 && bloquesP2 < 2) return 1;
 
@@ -335,7 +343,7 @@ public class AgenteProfesor extends Agent {
                 BlockScore score2 = BlockOptimization.getInstance().evaluateBlock(
                     currentCampus, currentNivel, p2.getBloque(), p2.getDia(), bloquesAsignados
                 );
-                
+
                 if (score1.getScore() != score2.getScore()) {
                     return score2.getScore() - score1.getScore();
                 }
@@ -343,11 +351,11 @@ public class AgenteProfesor extends Agent {
                 // Tercera prioridad: Gestión de traslados entre campus
                 int valorTraslado1 = evaluarTraslado(p1, currentCampus);
                 int valorTraslado2 = evaluarTraslado(p2, currentCampus);
-                
+
                 if (valorTraslado1 != valorTraslado2) {
                     return valorTraslado2 - valorTraslado1;
                 }
-                
+
                 // Cuarta prioridad: Satisfacción del profesor
                 return p2.getSatisfaccion() - p1.getSatisfaccion();
             });
@@ -359,32 +367,32 @@ public class AgenteProfesor extends Agent {
             if (propuesta.getBloque() == 9 && bloquesPendientes % 2 == 0) {
                 return false;
             }
-            
+
             // Validar límite de bloques por día
             if (contarBloquesPorDia(propuesta.getDia(), nombreAsignatura) >= 2) {
                 return false;
             }
-            
+
             // Si quedan bloques pares, asegurar que haya consecutividad disponible
             if (bloquesPendientes >= 2 && !hayConsecutividadDisponible(propuesta)) {
                 return false;
             }
-            
+
             return true;
         }
-        
+
         private boolean hayConsecutividadDisponible(Propuesta propuesta) {
             String dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
-            
+
             // Verificar bloque anterior
-            boolean bloqueAnteriorDisponible = bloque > 1 && 
+            boolean bloqueAnteriorDisponible = bloque > 1 &&
                 (!horarioOcupado.containsKey(dia) || !horarioOcupado.get(dia).contains(bloque - 1));
-                
+
             // Verificar bloque siguiente
-            boolean bloqueSiguienteDisponible = bloque < 9 && 
+            boolean bloqueSiguienteDisponible = bloque < 9 &&
                 (!horarioOcupado.containsKey(dia) || !horarioOcupado.get(dia).contains(bloque + 1));
-                
+
             return bloqueAnteriorDisponible || bloqueSiguienteDisponible;
         }
 
@@ -400,41 +408,41 @@ public class AgenteProfesor extends Agent {
             String dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
             String campusPropuesta = getCampusSala(propuesta.getCodigo());
-            
+
             if (campusPropuesta.equals(campusAsignaturaActual)) {
                 return 100;
             }
-            
+
             if (hayTrasladoEnDia(dia)) {
                 return 0;
             }
-            
+
             BloqueInfo bloqueAnterior = getBloqueInfo(dia, bloque - 1);
             BloqueInfo bloqueSiguiente = getBloqueInfo(dia, bloque + 1);
-            
-            if (bloqueAnterior != null && 
-                !bloqueAnterior.getCampus().equals(campusPropuesta) && 
+
+            if (bloqueAnterior != null &&
+                !bloqueAnterior.getCampus().equals(campusPropuesta) &&
                 Math.abs(bloqueAnterior.getBloque() - bloque) == 1) {
                 return 25;
             }
-            
-            if (bloqueSiguiente != null && 
-                !bloqueSiguiente.getCampus().equals(campusPropuesta) && 
+
+            if (bloqueSiguiente != null &&
+                !bloqueSiguiente.getCampus().equals(campusPropuesta) &&
                 Math.abs(bloqueSiguiente.getBloque() - bloque) == 1) {
                 return 25;
             }
-            
+
             return 75;
         }
-        
+
         private boolean hayTrasladoEnDia(String dia) {
             String campusAnterior = null;
-            
+
             Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
             if (clasesDelDia == null || clasesDelDia.isEmpty()) {
                 return false;
             }
-            
+
             List<BloqueInfo> bloques = new ArrayList<>();
             for (Map.Entry<String, List<Integer>> entry : clasesDelDia.entrySet()) {
                 for (Integer bloque : entry.getValue()) {
@@ -444,9 +452,9 @@ public class AgenteProfesor extends Agent {
                     }
                 }
             }
-            
+
             Collections.sort(bloques, Comparator.comparingInt(BloqueInfo::getBloque));
-            
+
             int traslados = 0;
             for (BloqueInfo bloque : bloques) {
                 if (campusAnterior != null && !campusAnterior.equals(bloque.getCampus())) {
@@ -454,10 +462,10 @@ public class AgenteProfesor extends Agent {
                 }
                 campusAnterior = bloque.getCampus();
             }
-            
+
             return traslados > 0;
         }
-        
+
         private BloqueInfo getBloqueInfo(String dia, int bloque) {
             Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
             if(clasesDelDia == null) {
@@ -480,7 +488,7 @@ public class AgenteProfesor extends Agent {
             //agregar esto mientras refactorizo lo otro
             return null;
         }
-        
+
         private String getCampusSala(String codigoSala) {
             // Esta información debería venir del sistema, por ahora la hardcodeamos según los datos
             // Se podría mejorar manteniendo un mapa de salas-campus
@@ -493,44 +501,44 @@ public class AgenteProfesor extends Agent {
             return "";
         }
         //------------------------------------------------------------------------------------------------------------
-        
+
         //TODO: Mantener simple
         private boolean intentarAsignarPropuesta(Propuesta propuesta) {
             String dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
-            
+
             // Verificar si el bloque está libre
-            if (!horarioOcupado.containsKey(dia) || 
+            if (!horarioOcupado.containsKey(dia) ||
                 !horarioOcupado.get(dia).contains(bloque)) {
-                
+
                 // Intentar enviar la aceptación
                 if (enviarAceptacionPropuesta(propuesta)) {
                     // Si se acepta, actualizar los registros
                     actualizarRegistrosAsignacion(
-                        dia, 
-                        bloque, 
-                        propuesta.getCodigo(), 
+                        dia,
+                        bloque,
+                        propuesta.getCodigo(),
                         propuesta.getSatisfaccion()
                     );
                     return true;
                 }
             }
-            
+
             return false;
         }
 
         private void actualizarRegistrosAsignacion(String dia, int bloque, String sala, int satisfaccion) {
             // Actualizar registros de asignación de bloques y salas en el horario y JSON
             String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
-            
+
             // Actualizar horario ocupado
             horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
-            
+
             // Actualizar bloques por día
             bloquesAsignadosPorDia.computeIfAbsent(dia, k -> new HashMap<>())
                 .computeIfAbsent(nombreAsignatura, k -> new ArrayList<>())
                 .add(bloque);
-            
+
             // Actualizar estado de negociación
             bloquesPendientes--;
 
@@ -538,7 +546,7 @@ public class AgenteProfesor extends Agent {
 
             // Actualizar JSON
             actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
-            
+
             System.out.printf("Profesor %s: Asignado bloque %d del día %s en sala %s para %s " +
                     "(quedan %d horas)%n", nombre, bloque, dia, sala, nombreAsignatura, bloquesPendientes);
         }
