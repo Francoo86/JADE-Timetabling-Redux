@@ -27,7 +27,7 @@ import java.util.*;
 public class AgenteProfesor extends Agent {
     public static final String AGENT_NAME = "Profesor";
     private String nombre;
-    private String rut;
+    //private String rut;
     private int turno;
     private List<Asignatura> asignaturas;
     private int asignaturaActual = 0;
@@ -113,8 +113,9 @@ public class AgenteProfesor extends Agent {
             // Cargar datos del profesor
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
-            rut = (String) jsonObject.get("RUT");
+            //rut = (String) jsonObject.get("RUT");
             nombre = (String) jsonObject.get("Nombre");
+            //quiero creer que este es el orden (?)
             turno = ((Number) jsonObject.get("Turno")).intValue();
 
             // Cargar asignaturas
@@ -538,8 +539,8 @@ public class AgenteProfesor extends Agent {
             // Actualizar JSON
             actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
             
-            System.out.println(String.format("Profesor %s: Asignado bloque %d del día %s en sala %s para %s " +
-                    "(quedan %d horas)", nombre, bloque, dia, sala, nombreAsignatura, bloquesPendientes));
+            System.out.printf("Profesor %s: Asignado bloque %d del día %s en sala %s para %s " +
+                    "(quedan %d horas)%n", nombre, bloque, dia, sala, nombreAsignatura, bloquesPendientes);
         }
 
         private boolean enviarAceptacionPropuesta(Propuesta propuesta) {
@@ -579,14 +580,13 @@ public class AgenteProfesor extends Agent {
                             asignaturas.get(asignaturaActual).getNombre() +
                             " después de " + MAX_INTENTOS + " intentos");
                     asignaturaActual++;
-                    intentos = 0;
                 } else {
                     // Si ya asignamos algunos bloques pero no todos, intentar con otra sala
                     System.out.println("Profesor " + nombre + " buscando nueva sala para bloques restantes de " +
                             asignaturas.get(asignaturaActual).getNombre());
                     assignationData.setSalaAsignada(null);
-                    intentos = 0;
                 }
+                intentos = 0;
                 step = 0;
             } else {
                 System.out.println("Profesor " + nombre + ": Reintentando solicitud de propuestas. " +
@@ -689,14 +689,16 @@ public class AgenteProfesor extends Agent {
                 System.out.println("[DEBUG] Found professor: " + targetName);
 
                 // Enviar mensaje de inicio al siguiente profesor en la lista (si no es este mismo)
-                if (!targetName.equals(getAID().getLocalName())) {
-                    ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                    msg.addReceiver(dfd.getName());
-                    msg.setContent(Messages.START);
-                    msg.addUserDefinedParameter("nextOrden", Integer.toString(orden + 1));
-                    send(msg);
-                    System.out.println("[DEBUG] Sent START message to: " + targetName);
+                if(targetName.equals(getAID().getLocalName())) {
+                    continue;
                 }
+
+                ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                msg.addReceiver(dfd.getName());
+                msg.setContent(Messages.START);
+                msg.addUserDefinedParameter("nextOrden", Integer.toString(orden + 1));
+                send(msg);
+                System.out.println("[DEBUG] Sent START message to: " + targetName);
             }
         } catch (Exception e) {
             System.err.println("Error notificando siguiente profesor: " + e.getMessage());
