@@ -38,6 +38,7 @@ public class AgenteProfesor extends Agent {
     private boolean isRegistered = false;
     private boolean isCleaningUp = false;
     private boolean negociacionIniciada = false;
+    //TODO: Cambiar el mapeo de string a int porque los días son del 0-6 (asumiendo que el lunes es 0).
     private Map<String, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
 
     @Override
@@ -603,14 +604,14 @@ public class AgenteProfesor extends Agent {
                     // Intentar con otra sala si la actual no tiene más espacios disponibles
                     System.out.println("Profesor " + nombre + ": Buscando otra sala para los bloques restantes");
                     assignationData.setSalaAsignada(null);
-                    intentos = 0;
                 } else {
                     // Si ya probamos con todas las salas, pasar a la siguiente asignatura
                     System.out.println("Profesor " + nombre + " no pudo completar la asignación de " +
                             asignaturas.get(asignaturaActual).getNombre());
                     asignaturaActual++;
-                    intentos = 0;
                 }
+                //resetear los intentos, ya que se intentará con otra sala
+                intentos = 0;
                 step = 0;
             } else {
                 propuestas.clear();
@@ -662,7 +663,6 @@ public class AgenteProfesor extends Agent {
 
             // Realizar cleanup y terminar
             cleanup();
-
         } catch (Exception e) {
             System.err.println("Error finalizando negociaciones para profesor " + nombre + ": " + e.getMessage());
             e.printStackTrace();
@@ -722,7 +722,6 @@ public class AgenteProfesor extends Agent {
             // Esperar un momento para asegurar que la notificación se envio
             Thread.sleep(1000);
             doDelete();
-
         } catch (Exception e) {
             System.err.println("Error durante cleanup de profesor " + nombre + ": " + e.getMessage());
             e.printStackTrace();
