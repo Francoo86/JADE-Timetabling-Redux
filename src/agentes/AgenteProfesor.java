@@ -170,10 +170,7 @@ public class AgenteProfesor extends Agent {
         private static final int MAX_INTENTOS = 3;
         private int bloquesPendientes = 0;
         //TODO: Cambiar a un nombre más descriptivo
-        private AssignationData assignationData = new AssignationData();
-        //private String ultimoDiaAsignado = null;
-        //private int ultimoBloqueAsignado = -1;
-        //private String salaAsignada = null;
+        private final AssignationData assignationData = new AssignationData();
 
         public void action() {
             switch (step) {
@@ -195,7 +192,6 @@ public class AgenteProfesor extends Agent {
                         finished = true;
                     }
                     break;
-
                 case 1: // Recolectar propuestas
                     MessageTemplate mt = MessageTemplate.or(    // Plantilla de mensaje
                             MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
@@ -253,31 +249,34 @@ public class AgenteProfesor extends Agent {
                 template.addServices(sd);   // Añadir servicio a la descripción
                 DFAgentDescription[] result = DFService.search(myAgent, template);  // Buscar agentes que coincidan con la descripción
 
-                if (result.length > 0) {    // Si se encontraron agentes
-                    ACLMessage cfp = new ACLMessage(ACLMessage.CFP);    // Crear mensaje de solicitud de propuestas
-                    for (DFAgentDescription dfd : result) {   // Iterar sobre los agentes encontrados
-                        cfp.addReceiver(dfd.getName());     // Añadir agente como receptor
-                    }
-
-                    // Preparar información de la solicitud
-                    Asignatura asignatura = asignaturas.get(asignaturaActual);  // Obtener asignatura actual
-                    String solicitudInfo = String.format("%s,%d,%s,%s,%d",  // Información de la solicitud de propuestas 
-                            asignatura.getNombre(),
-                            asignatura.getVacantes(),
-                            //Enviar información acerca de la ultima propuesta asignada
-                            assignationData.getSalaAsignada(),
-                            assignationData.getUltimoDiaAsignado(),
-                            assignationData.getUltimoBloqueAsignado());
-
-                    // Configuracion del mensaje
-                    cfp.setContent(solicitudInfo);  // Añadir información de la solicitud al mensaje
-                    cfp.setConversationId("neg-" + nombre + "-" + asignaturaActual + "-" + bloquesPendientes);
-                    myAgent.send(cfp);
-
-                    System.out.println("Profesor " + nombre + " solicitando propuestas para " +
-                            asignatura.getNombre() + " (bloques pendientes: " + bloquesPendientes +
-                            ", sala previa: " + assignationData.getSalaAsignada() + ")");
+                if(result.length == 0) {
+                    System.out.println("No se encontraron salas para la asignatura " + asignaturas.get(asignaturaActual).getNombre());
+                    return;
                 }
+
+                ACLMessage cfp = new ACLMessage(ACLMessage.CFP);    // Crear mensaje de solicitud de propuestas
+                for (DFAgentDescription dfd : result) {   // Iterar sobre los agentes encontrados
+                    cfp.addReceiver(dfd.getName());     // Añadir agente como receptor
+                }
+
+                // Preparar información de la solicitud
+                Asignatura asignatura = asignaturas.get(asignaturaActual);  // Obtener asignatura actual
+                String solicitudInfo = String.format("%s,%d,%s,%s,%d",  // Información de la solicitud de propuestas
+                        asignatura.getNombre(),
+                        asignatura.getVacantes(),
+                        //Enviar información acerca de la ultima propuesta asignada
+                        assignationData.getSalaAsignada(),
+                        assignationData.getUltimoDiaAsignado(),
+                        assignationData.getUltimoBloqueAsignado());
+
+                // Configuracion del mensaje
+                cfp.setContent(solicitudInfo);  // Añadir información de la solicitud al mensaje
+                cfp.setConversationId("neg-" + nombre + "-" + asignaturaActual + "-" + bloquesPendientes);
+                myAgent.send(cfp);
+
+                System.out.println("Profesor " + nombre + " solicitando propuestas para " +
+                        asignatura.getNombre() + " (bloques pendientes: " + bloquesPendientes +
+                        ", sala previa: " + assignationData.getSalaAsignada() + ")");
             } catch (FIPAException fe) {
                 fe.printStackTrace();
             }
@@ -483,6 +482,7 @@ public class AgenteProfesor extends Agent {
         private String getCampusSala(String codigoSala) {
             // Esta información debería venir del sistema, por ahora la hardcodeamos según los datos
             // Se podría mejorar manteniendo un mapa de salas-campus
+            // FIXME: Esto se hace con los datos de la guía academica.
             if (codigoSala.startsWith("A")) {
                 return "Playa Brava";
             } else if (codigoSala.startsWith("B")) {
@@ -533,10 +533,7 @@ public class AgenteProfesor extends Agent {
             bloquesPendientes--;
 
             assignationData.assign(dia, sala, bloque);
-            //ultimoDiaAsignado = dia;
-            //ultimoBloqueAsignado = bloque;
-            //salaAsignada = sala;
-            
+
             // Actualizar JSON
             actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
             
