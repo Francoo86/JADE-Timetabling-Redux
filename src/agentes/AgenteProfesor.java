@@ -309,7 +309,7 @@ public class AgenteProfesor extends Agent {
 
         //TODO: Implementar las directrices de asignación de bloques y sortearlas aqui.
         private void ordenarPropuestas() {
-            final int currentSubjectIndex = ((AgenteProfesor) myAgent).asignaturaActual;
+            final int currentSubjectIndex = AgenteProfesor.this.asignaturaActual;
             final Asignatura currentSubject = asignaturas.get(currentSubjectIndex);
             final String subjectName = currentSubject.getNombre();
             final String currentCampus = currentSubject.getCampus();

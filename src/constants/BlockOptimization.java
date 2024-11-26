@@ -12,6 +12,7 @@ public class BlockOptimization {
         loadStrategies();
     }
 
+    //FIXME: Quitar singleton porque no es necesario.
     public static synchronized BlockOptimization getInstance() {
         if (instance == null) {
             instance = new BlockOptimization();
@@ -38,8 +39,13 @@ public class BlockOptimization {
     public BlockScore evaluateBlock(String campus, int nivel, int bloque, String dia, 
                                   Map<String, List<Integer>> asignaturasBloques) {
         CampusBlockStrategy strategy = campusStrategies.get(campus);
-        return strategy != null ? 
-               strategy.evaluateBlock(nivel, bloque, dia, asignaturasBloques) : 
-               new BlockScore(0, "No campus strategy found");
+
+        //en este caso no se podría evaluar un campus.
+        if(strategy == null) {
+            return new BlockScore(0, "No campus strategy found");
+        }
+
+        //evaluar el bloque con la estrategia del campus.
+        return strategy.evaluateBlock(nivel, bloque, dia, asignaturasBloques);
     }
 }
