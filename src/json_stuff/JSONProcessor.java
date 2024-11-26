@@ -10,37 +10,40 @@ public class JSONProcessor {
         for (int i = 0; i < profesoresJson.size(); i++) {
             JSONObject profesor = (JSONObject) profesoresJson.get(i);
             JSONArray asignaturas = (JSONArray) profesor.get("Asignaturas");
-            
-            if (asignaturas != null) {
-                JSONArray processedAsignaturas = new JSONArray();
-                
-                for (Object asigObj : asignaturas) {
-                    JSONObject asignatura = (JSONObject) asigObj;
-                    Long vacantes = (Long) asignatura.get("Vacantes");
-                    
-                    if (vacantes != null && vacantes >= 70) {
-                        System.out.println("Procesando asignatura con 70+ vacantes: " + 
-                                         asignatura.get("CodigoAsignatura") + 
-                                         " - Vacantes originales: " + vacantes);
 
-                        int mitadVacantes = vacantes.intValue() / 2;
-
-                        // Create two parallel sections
-                        JSONObject paraleloA = createParalelo(asignatura, "A", mitadVacantes);
-                        JSONObject paraleloB = createParalelo(asignatura, "B", mitadVacantes);
-                        
-                        processedAsignaturas.add(paraleloA);
-                        processedAsignaturas.add(paraleloB);
-                        
-                        System.out.println("Creados paralelos A y B con 35 vacantes cada uno");
-                    } else {
-                        processedAsignaturas.add(asignatura);
-                    }
-                }
-                
-                // Actualizar directamente el objeto profesor original
-                profesor.put("Asignaturas", processedAsignaturas);
+            if(asignaturas == null) {
+                System.out.println("Profesor sin asignaturas: " + profesor.get("Nombre"));
+                continue;
             }
+
+            JSONArray processedAsignaturas = new JSONArray();
+
+            for (Object asigObj : asignaturas) {
+                JSONObject asignatura = (JSONObject) asigObj;
+                Long vacantes = (Long) asignatura.get("Vacantes");
+
+                if (vacantes != null && vacantes >= 70) {
+                    System.out.println("Procesando asignatura con 70+ vacantes: " +
+                                     asignatura.get("CodigoAsignatura") +
+                                     " - Vacantes originales: " + vacantes);
+
+                    int mitadVacantes = vacantes.intValue() / 2;
+
+                    // Create two parallel sections
+                    JSONObject paraleloA = createParalelo(asignatura, "A", mitadVacantes);
+                    JSONObject paraleloB = createParalelo(asignatura, "B", mitadVacantes);
+
+                    processedAsignaturas.add(paraleloA);
+                    processedAsignaturas.add(paraleloB);
+
+                    System.out.println("Creados paralelos A y B con 35 vacantes cada uno");
+                } else {
+                    processedAsignaturas.add(asignatura);
+                }
+            }
+
+            // Actualizar directamente el objeto profesor original
+            profesor.put("Asignaturas", processedAsignaturas);
         }
         
         System.out.println("Procesamiento de paralelos completado\n");
