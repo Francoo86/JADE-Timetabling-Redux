@@ -15,10 +15,11 @@ Implementación de una resolución de un problema de timetabling (prototipo) bas
 
     6.1. Luego si la instalación lo pide, reiniciar el computador.
 
-7. Abrir CMD/Powershell y ejecutar el siguiente comando:
+7. Dentro de la carpeta raíz del proyecto ejecutar el comando: `python -m venv venv`
+8. Esperar a que se cree la carpeta y ejecutamos el siguiente comando en Powershell: `venv\Scripts\Activate`
+9. Ejecutar el siguiente comando:
 `pip install -r requeriments.txt`
-8. Finalizado todo
-
+10. Ya con todos esos pasos ya estaremos finalizando la instalación.
 
 # Empezando
 Los archivos de entrada son los que están en la carpeta de agent_input. Los cuales poseen los JSONs mencionados a continuación.
@@ -98,7 +99,13 @@ Al momento de finalizar todas las negociaciones este soltara 2 archivos en la ca
 
 `Horarios_salas.json`: Contiene la información de todos los horarios asignados a las salas correspondientes.
 
-Ya finalizado eso, nos vamos a la carpeta de `scheduleRepresentation` y ejecutamos los 2 scripts de python y soltarán 2 archivos excel, que contienen los datos de los JSONs mencionados anteriormente. 
+Ya finalizado eso, cargamos el entorno virtual de python con:  
+`venv\Scripts\Activate.ps1`
 
+Nos vamos a la carpeta de `scheduleRepresentation` y ejecutamos los 2 scripts de python y soltarán 2 archivos excel, que contienen los datos de los JSONs mencionados anteriormente. 
+
+Ejecutar con:
+* `py exportClassroomScheule.py` para las salas.
+* `py exportTeacherSchedule.py` para los profesores.
 # Issues / Observaciones
 La aplicación no va a finalizar debido a que la GUI de JADE está abierta.
