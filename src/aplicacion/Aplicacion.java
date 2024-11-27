@@ -11,6 +11,8 @@ import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import json_stuff.JSONHelper;
+import json_stuff.JSONProcessor;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -35,9 +37,15 @@ public class Aplicacion {
 
             AgentContainer mainContainer = rt.createMainContainer(profile);
 
+            // TODO: Preparar paralelos en archivo, si es que son muchos
+
             // Load data from JSON files
             JSONArray profesoresJson = JSONHelper.parseAsArray("profesores.json");
             JSONArray salasJson = JSONHelper.parseAsArray("salas.json");
+
+            // Preparar paralelos, actualizando su contenido en memoria.
+            profesoresJson = JSONProcessor.prepararParalelos(profesoresJson);
+            System.out.println("\nJSON procesado:");
 
             System.out.println("Creating room agents...");
             initializeSalas(mainContainer, salasJson);
@@ -62,6 +70,7 @@ public class Aplicacion {
     }
 
     private static void initializeSalas(AgentContainer container, JSONArray salasJson) throws StaleProxyException {
+        
         for (Object obj : salasJson) {
             JSONObject salaJson = (JSONObject) obj;
             String codigo = (String) salaJson.get("Codigo");

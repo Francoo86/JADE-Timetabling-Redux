@@ -1,7 +1,8 @@
 package agentes;
 
+import constants.Commons;
 import constants.Messages;
-import constants.SatisfaccionHandler;
+import service.SatisfaccionHandler;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
@@ -18,29 +19,28 @@ import org.json.simple.parser.JSONParser;
 import java.util.*;
 
 public class AgenteSala extends Agent {
+    public static final String SERVICE_NAME = "sala";
     private boolean isRegistered = false;
     private String codigo;
     private String campus;
     private int capacidad;
     private int turno;
     private Map<String, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
-    private static final String[] DIAS = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
-
     @Override
     protected void setup() {
         // Inicializar estructuras
         initializeSchedule();
         horarioOcupado = new HashMap<>();
-        for (String dia : DIAS) {
+        for (String dia : Commons.DAYS) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
-            for (int i = 0; i < 5; i++) { // 5 bloques por día
+            for (int i = 0; i < Commons.MAX_BLOQUE_DIURNO; i++) { // 5 bloques por día
                 asignaciones.add(null);
             }
             horarioOcupado.put(dia, asignaciones);
         }
 
         // Cargar datos de la sala desde JSON
-        Object[] args = getArguments();  // Corregido: usando getArguments() en lugar de getAgents()
+        Object[] args = getArguments();
         if (args != null && args.length > 0) {
             parseJSON((String)args[0]);
         }
@@ -55,6 +55,7 @@ public class AgenteSala extends Agent {
     }
 
     private void parseJSON(String jsonString) {
+        // Parsear JSON y asignar valores
         try {
             JSONParser parser = new JSONParser();
             JSONObject salaJson = (JSONObject) parser.parse(jsonString);
@@ -68,10 +69,11 @@ public class AgenteSala extends Agent {
     }
 
     private void initializeSchedule() {
+        // Inicializar horario con bloques vacíos
         horarioOcupado = new HashMap<>();
-        for (String dia : DIAS) {
+        for (String dia : Commons.DAYS) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Commons.MAX_BLOQUE_DIURNO; i++) {
                 asignaciones.add(null);
             }
             horarioOcupado.put(dia, asignaciones);
@@ -83,7 +85,7 @@ public class AgenteSala extends Agent {
             DFAgentDescription dfd = new DFAgentDescription();
             dfd.setName(getAID());
             ServiceDescription sd = new ServiceDescription();
-            sd.setType("sala");
+            sd.setType(SERVICE_NAME);
             sd.setName(codigo);
             // Agregar propiedades adicionales
             sd.addProperties(new Property("campus", campus));
@@ -121,19 +123,21 @@ public class AgenteSala extends Agent {
         }
 
         private void procesarSolicitud(ACLMessage msg) {
+            // Formato del mensaje: "nombreAsignatura,vacantes"
             try {
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = solicitudData[0];
                 int vacantes = Integer.parseInt(solicitudData[1]);
                 int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
 
-                boolean propuestaEnviada = false;
+                boolean propuestaEnviada = false; 
 
-                for (String dia : DIAS) {
-                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-                    for (int bloque = 0; bloque < 5; bloque++) {
-                        if (asignaciones.get(bloque) == null) {
-                            ACLMessage reply = msg.createReply();
+                // Iterar sobre los bloques disponibles
+                for (String dia : Commons.DAYS) {    // Iterar sobre los días de la semana
+                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);    // Lista de asignaciones por día 
+                    for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {   // Iterar sobre los bloques del día
+                        if (asignaciones.get(bloque) == null) {     // Si el bloque está disponible
+                            ACLMessage reply = msg.createReply();          // Crear mensaje de respuesta
                             reply.setPerformative(ACLMessage.PROPOSE);
                             reply.setContent(String.format("%s,%d,%s,%d,%d",
                                     dia, bloque + 1, codigo, capacidad, satisfaccion));
@@ -146,6 +150,7 @@ public class AgenteSala extends Agent {
                     }
                 }
 
+                // Si no se envió ninguna propuesta, rechazar la solicitud
                 if (!propuestaEnviada) {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
@@ -160,6 +165,7 @@ public class AgenteSala extends Agent {
         }
 
         private void confirmarAsignacion(ACLMessage msg) {
+            // Formato del mensaje: "dia,bloque,nombreAsignatura,satisfaccion,salaConfirmada,vacantesAsignatura"
             try {
                 String[] datos = msg.getContent().split(",");
                 if (datos.length < 6) { // Ahora necesitamos un parámetro adicional para vacantes
@@ -179,13 +185,15 @@ public class AgenteSala extends Agent {
                     return;
                 }
 
+                // Verificar si el bloque está disponible
                 List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
                 if (asignaciones != null && bloque >= 0 && bloque < asignaciones.size() &&
                         asignaciones.get(bloque) == null) {
 
                     // Calcular la capacidad como fracción
                     float capacidadFraccion = (float) vacantesAsignatura / capacidad;
-
+                    
+                    // Crear nueva asignación y actualizar horario
                     AsignacionSala nuevaAsignacion = new AsignacionSala(
                             nombreAsignatura,
                             satisfaccion,
@@ -194,14 +202,15 @@ public class AgenteSala extends Agent {
                     asignaciones.set(bloque, nuevaAsignacion);
 
                     SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
-
+                    
+                    // Enviar confirmación al profesor
                     ACLMessage confirm = msg.createReply();
                     confirm.setPerformative(ACLMessage.INFORM);
                     confirm.setContent(Messages.CONFIRM);
                     send(confirm);
 
-                    System.out.println(String.format("Sala %s (%s): Asignada %s en %s, bloque %d, satisfacción %d, capacidad %.2f",
-                            codigo, campus, nombreAsignatura, dia, (bloque + 1), satisfaccion, capacidadFraccion));
+                    System.out.printf("Sala %s (%s): Asignada %s en %s, bloque %d, satisfacción %d, capacidad %.2f",
+                            codigo, campus, nombreAsignatura, dia, (bloque + 1), satisfaccion, capacidadFraccion);
                 }
             } catch (Exception e) {
                 System.err.println("Error procesando confirmación en sala " + codigo + ": " + e.getMessage());

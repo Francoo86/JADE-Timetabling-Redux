@@ -7,7 +7,7 @@
       {
         "CodigoAsignatura": "INF-123",
         "Nombre": "Matemáticas Avanzadas",
-        "Nivel": 3,
+        "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
         "Vacantes": 30,
@@ -25,7 +25,7 @@
       {
         "CodigoAsignatura": "INF-125",
         "Nombre": "Codigo Binario",
-        "Nivel": 2,
+        "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
         "Vacantes": 25,
@@ -41,7 +41,7 @@
       {
         "CodigoAsignatura": "INF-126",
         "Nombre": "Programación en Java",
-        "Nivel": 6,
+        "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
         "Vacantes": 15,
@@ -50,7 +50,7 @@
       {
         "CodigoAsignatura": "INF-127",
         "Nombre": "Programación en Python",
-        "Nivel": 4,
+        "Nivel": 3,
         "Paralelo": "A",
         "Horas": 2,
         "Vacantes": 25,
@@ -75,10 +75,10 @@
       {
         "CodigoAsignatura": "INF-129",
         "Nombre": "Bases de Datos",
-        "Nivel": 2,
+        "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 20,
+        "Vacantes": 70,
         "Campus": "Playa Brava"
       }
     ]
@@ -91,7 +91,7 @@
       {
         "CodigoAsignatura": "INF-130",
         "Nombre": "Programación en C",
-        "Nivel": 3,
+        "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
         "Vacantes": 25,
@@ -100,7 +100,7 @@
       {
         "CodigoAsignatura": "INF-131",
         "Nombre": "Programación en JADE",
-        "Nivel": 3,
+        "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
         "Vacantes": 25,
@@ -109,7 +109,7 @@
       {
         "CodigoAsignatura": "INF-132",
         "Nombre": "Programación en Kotlin",
-        "Nivel": 2,
+        "Nivel": 1,
         "Paralelo": "A",
         "Horas": 1,
         "Vacantes": 25,
@@ -134,7 +134,7 @@
       {
         "CodigoAsignatura": "INF-134",
         "Nombre": "Calculo 2",
-        "Nivel": 2,
+        "Nivel": 3,
         "Paralelo": "A",
         "Horas": 4,
         "Vacantes": 30,
@@ -143,7 +143,7 @@
       {
         "CodigoAsignatura": "INF-135",
         "Nombre": "Calculo 3",
-        "Nivel": 3,
+        "Nivel": 6,
         "Paralelo": "A",
         "Horas": 5,
         "Vacantes": 20,

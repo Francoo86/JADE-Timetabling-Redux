@@ -1,6 +1,5 @@
 package agentes;
 
-import constants.MTAgentStatus;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 import jade.wrapper.AgentController;
