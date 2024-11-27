@@ -29,7 +29,7 @@ def create_room_schedule(room_data):
         time_slot = time_blocks.get(subject.get('Bloque'))
         if time_slot and subject.get('Dia') in days:
             content = (f"Asignatura: {subject.get('Nombre', 'Sin nombre')}\n"
-                      f"Satisfacción: {subject.get('Satisfaccion', 'N/A')}/10\n"
+                      # f"Satisfacción: {subject.get('Satisfaccion', 'N/A')}/10\n"
                       f"Capacidad: {subject.get('Capacidad', 0):.0%}")  # Mostrar capacidad como porcentaje
             schedule_df.at[time_slot, subject['Dia']] = content
     

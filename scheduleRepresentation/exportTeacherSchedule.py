@@ -32,7 +32,7 @@ def create_teacher_schedule(teacher_data):
         day = subject['Dia']
         content = (f"{subject['Nombre']}\n"
                   f"Sala: {subject['Sala']}\n"
-                  f"Satisfacción: {subject['Satisfaccion']}/10")
+                  )#f"Satisfacción: {subject['Satisfaccion']}/10")
         schedule_df.at[time_slot, day] = content
     
     return schedule_df.fillna('')
