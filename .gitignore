@@ -10,3 +10,4 @@ APDescription.txt
 MTPs-Main-Container.txt
 *.iml
 .vscode/
+venv/
