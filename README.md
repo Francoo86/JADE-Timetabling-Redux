@@ -100,7 +100,7 @@ Al momento de finalizar todas las negociaciones este soltara 2 archivos en la ca
 `Horarios_salas.json`: Contiene la información de todos los horarios asignados a las salas correspondientes.
 
 Ya finalizado eso, cargamos el entorno virtual de python con:  
-`venv\Scripts\Activate.ps1`
+`venv\Scripts\Activate`
 
 Nos vamos a la carpeta de `scheduleRepresentation` y ejecutamos los 2 scripts de python y soltarán 2 archivos excel, que contienen los datos de los JSONs mencionados anteriormente. 
 
