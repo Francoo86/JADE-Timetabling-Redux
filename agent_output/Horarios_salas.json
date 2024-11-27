@@ -2,162 +2,174 @@
   "Campus" : "Playa Brava",
   "Codigo" : "A-1",
   "Asignaturas" : [ {
-    "Nombre" : "Programación en JADE",
-    "Bloque" : 1,
-    "Capacidad" : 0.8333333,
+    "Nombre" : "Calculo 3",
+    "Bloque" : 5,
+    "Capacidad" : 0.6666667,
     "Dia" : "Miercoles",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación en JADE",
-    "Bloque" : 2,
-    "Capacidad" : 0.8333333,
+    "Nombre" : "Calculo 3",
+    "Bloque" : 6,
+    "Capacidad" : 0.6666667,
     "Dia" : "Miercoles",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo",
+    "Bloque" : 2,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo 2",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
   }, {
     "Nombre" : "Programación en Kotlin",
+    "Bloque" : 1,
+    "Capacidad" : 0.8333333,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Programación en JADE",
     "Bloque" : 3,
     "Capacidad" : 0.8333333,
-    "Dia" : "Miercoles",
+    "Dia" : "Viernes",
     "Satisfaccion" : 5
   }, {
     "Nombre" : "Calculo 3",
-    "Bloque" : 5,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 3",
     "Bloque" : 6,
     "Capacidad" : 0.6666667,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 1,
-    "Capacidad" : 1.0,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 3",
-    "Bloque" : 5,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 3",
-    "Bloque" : 6,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 1,
-    "Capacidad" : 1.0,
     "Dia" : "Viernes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación Basica",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Programación Basica",
-    "Bloque" : 3,
-    "Capacidad" : 1.0,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Matemáticas Avanzadas",
-    "Bloque" : 1,
-    "Capacidad" : 1.0,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Matemáticas Avanzadas",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Bloque" : 3,
-    "Capacidad" : 1.0,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Bases de Datos",
-    "Bloque" : 4,
-    "Capacidad" : 1.1666666,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 3
-  }, {
-    "Nombre" : "Bases de Datos",
-    "Bloque" : 5,
-    "Capacidad" : 1.1666666,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 3
-  }, {
-    "Nombre" : "Programación en C",
-    "Bloque" : 6,
-    "Capacidad" : 0.8333333,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Programación en C",
+    "Nombre" : "Calculo 3",
     "Bloque" : 7,
+    "Capacidad" : 0.6666667,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Matemáticas Avanzadas",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Matemáticas Avanzadas",
+    "Bloque" : 2,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Codigo Binario",
+    "Bloque" : 3,
+    "Capacidad" : 0.8333333,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Codigo Binario",
+    "Bloque" : 4,
     "Capacidad" : 0.8333333,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
-    "Nombre" : "Calculo",
+    "Nombre" : "Bases de Datos",
+    "Bloque" : 5,
+    "Capacidad" : 1.1666666,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Programación en C",
+    "Bloque" : 6,
+    "Capacidad" : 0.8333333,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Calculo 3",
+    "Bloque" : 7,
+    "Capacidad" : 0.6666667,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Programación Basica",
     "Bloque" : 1,
     "Capacidad" : 1.0,
     "Dia" : "Jueves",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Codigo Binario",
+    "Nombre" : "Programación Basica",
     "Bloque" : 2,
-    "Capacidad" : 0.8333333,
-    "Dia" : "Jueves",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Codigo Binario",
-    "Bloque" : 3,
-    "Capacidad" : 0.8333333,
+    "Capacidad" : 1.0,
     "Dia" : "Jueves",
     "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Calculo",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Bases de Datos",
+    "Bloque" : 7,
+    "Capacidad" : 1.1666666,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
   } ]
 }, {
   "Campus" : "Huayquique",
   "Codigo" : "B-2",
   "Asignaturas" : [ {
-    "Nombre" : "Programación en Python",
+    "Nombre" : "Programación en C++",
     "Bloque" : 1,
-    "Capacidad" : 1.0,
+    "Capacidad" : 1.2,
     "Dia" : "Miercoles",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación en C++",
-    "Bloque" : 1,
+    "Nombre" : "Calculo 2",
+    "Bloque" : 2,
     "Capacidad" : 1.2,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Calculo 2",
+    "Bloque" : 3,
+    "Capacidad" : 1.2,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "Programación en Python",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "Programación en Python",
+    "Bloque" : 2,
+    "Capacidad" : 1.0,
     "Dia" : "Martes",
     "Satisfaccion" : 10
   }, {
     "Nombre" : "Programación en C++",
-    "Bloque" : 2,
+    "Bloque" : 1,
     "Capacidad" : 1.2,
-    "Dia" : "Martes",
-    "Satisfaccion" : 3
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "Programación en JADE",
+    "Bloque" : 2,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
   }, {
     "Nombre" : "Calculo 2",
-    "Bloque" : 2,
+    "Bloque" : 3,
     "Capacidad" : 1.2,
     "Dia" : "Viernes",
     "Satisfaccion" : 3
@@ -174,22 +186,10 @@
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
-    "Nombre" : "Programación en Python",
-    "Bloque" : 3,
+    "Nombre" : "Programación en C",
+    "Bloque" : 5,
     "Capacidad" : 1.0,
     "Dia" : "Lunes",
     "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Bloque" : 4,
-    "Capacidad" : 1.2,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 3
-  }, {
-    "Nombre" : "Calculo 3",
-    "Bloque" : 5,
-    "Capacidad" : 0.8,
-    "Dia" : "Jueves",
-    "Satisfaccion" : 3
   } ]
 } ]

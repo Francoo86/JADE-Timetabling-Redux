@@ -26,6 +26,8 @@ public class AgenteSala extends Agent {
     private int capacidad;
     private int turno;
     private Map<String, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
+    private boolean hasInitialized = false;
+
     @Override
     protected void setup() {
         // Inicializar estructuras
@@ -42,7 +44,7 @@ public class AgenteSala extends Agent {
         // Cargar datos de la sala desde JSON
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
-            parseJSON((String)args[0]);
+            parseJSON((String) args[0]);
         }
 
         // Registrar en el DF
@@ -50,6 +52,10 @@ public class AgenteSala extends Agent {
 
         // Agregar comportamiento principal
         addBehaviour(new ResponderSolicitudesBehaviour());
+
+        // Agregar comportamiento para revisar si los profesores han terminado
+        addBehaviour(new RevisarProfesoresBehaviour(this));
+        //hasInitialized = true;
 
         System.out.println("Sala " + codigo + " iniciada. Capacidad: " + capacidad);
     }
@@ -97,6 +103,52 @@ public class AgenteSala extends Agent {
         } catch (FIPAException fe) {
             System.err.println("Error registrando sala " + codigo + " en DF: " + fe.getMessage());
             fe.printStackTrace();
+        }
+    }
+
+    private boolean allDone = false;
+
+    private void checkIfProfessorsAreDone() {
+        if(!hasInitialized) {
+            hasInitialized = true;
+            return;
+        }
+
+        DFAgentDescription template = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType(AgenteProfesor.SERVICE_NAME);
+        template.addServices(sd);
+
+        try {
+            DFAgentDescription[] result = DFService.search(this, template);
+            if (result != null && result.length < 1) {
+                allDone = true;
+            }
+
+            //HACK: Es la forma más sencilla de hacer que el agente se elimine.
+            if (allDone) {
+                System.out.println("[SALA] Todos los profesores han terminado");
+
+                //Debe hacerse el deregistro del agente
+                DFService.deregister(this);
+                doDelete();
+            }
+        } catch (FIPAException fe) {
+            System.err.println("Error buscando agentes profesor: " + fe.getMessage());
+            fe.printStackTrace();
+        }
+    }
+
+    private class RevisarProfesoresBehaviour extends TickerBehaviour {
+        private static final int INTERVAL = 5000; // 5 segundos
+
+        public RevisarProfesoresBehaviour(Agent a) {
+            super(a, INTERVAL);
+        }
+
+        @Override
+        protected void onTick() {
+            checkIfProfessorsAreDone();
         }
     }
 
