@@ -5,6 +5,9 @@ import json
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
 
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_PATH = os.path.join(SCRIPT_PATH, "..")
+
 def create_teacher_schedule(teacher_data):
     """Creates a schedule DataFrame for a single teacher"""
     time_blocks = {
@@ -32,7 +35,7 @@ def create_teacher_schedule(teacher_data):
         day = subject['Dia']
         content = (f"{subject['Nombre']}\n"
                   f"Sala: {subject['Sala']}\n"
-                  f"Satisfacción: {subject['Satisfaccion']}/10")
+                  )#f"Satisfacción: {subject['Satisfaccion']}/10")
         schedule_df.at[time_slot, day] = content
     
     return schedule_df.fillna('')
@@ -82,7 +85,7 @@ def save_schedules(data, filename='teacher_schedules.xlsx'):
 
 def main():
     try:
-        with open("agent_output/Horarios_asignados.json", 'r', encoding="utf-8") as file:
+        with open(os.path.join(PROJECT_PATH, "agent_output/Horarios_asignados.json", 'r', encoding="utf-8")) as file:
             schedule_data = json.load(file)
             save_schedules(schedule_data)
             print(f"Schedules generated successfully for {len(schedule_data)} teachers")
