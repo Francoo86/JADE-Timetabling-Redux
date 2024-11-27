@@ -4,6 +4,9 @@ import json
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
 
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_PATH = os.path.join(SCRIPT_PATH, "..")
+
 def create_room_schedule(room_data):
     """Creates a schedule DataFrame for a single room"""
     time_blocks = {
@@ -100,7 +103,7 @@ def save_room_schedules(data, filename='room_schedules.xlsx'):
 def main():
     try:
         # Read the JSON file from the correct location
-        json_path = os.path.join("agent_output", "Horarios_salas.json")
+        json_path = os.path.join(PROJECT_PATH, "agent_output", "Horarios_salas.json")
         
         if not os.path.exists(json_path):
             print(f"Error: File not found at {json_path}")
