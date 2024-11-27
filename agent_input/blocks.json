@@ -38,5 +38,15 @@
           "9": "18:45 - 19:45"
         }
       }
+    },
+    "BlocksInfo": {
+      "Morning": {
+        "Primary": [1, 3],
+        "Secondary": [2, 4]
+      },
+      "Afternoon": {
+          "Primary": [5, 7],
+          "Secondary": [6, 8, 9]
+      }
     }
   }
