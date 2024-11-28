@@ -4,6 +4,7 @@ import constants.BlockOptimization;
 import constants.BlockScore;
 import constants.Commons;
 import constants.Messages;
+import constants.enums.Day;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
@@ -42,7 +43,7 @@ public class AgenteProfesor extends Agent {
     private boolean negociacionIniciada = false;
     //TODO: Cambiar el mapeo de string a int porque los días son del 0-6 (asumiendo que el lunes es 0).
     //TODO-2: Pienso que puede ser mejor tener un objeto que contenga la información de los bloques asignados.
-    private Map<String, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
+    private Map<Day, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
 
     @Override
     protected void setup() {
