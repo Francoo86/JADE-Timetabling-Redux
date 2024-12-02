@@ -1,16 +1,33 @@
 package constants.enums;
 
-import constants.Commons;
-
-//TODO: Implementar y cambiar las llaves de String a Days.
 public enum Day {
-    LUNES,
-    MARTES,
-    MIERCOLES,
-    JUEVES,
-    VIERNES;
+    LUNES("Lunes"),
+    MARTES("Martes"),
+    MIERCOLES("Miercoles"),
+    JUEVES("Jueves"),
+    VIERNES("Viernes");
 
-    public String getDayName() {
-        return Commons.DAYS[this.ordinal()];
+    private final String displayName;
+
+    Day(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public static Day fromString(String day) {
+        try {
+            return valueOf(day.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            // Handle display names
+            for (Day d : values()) {
+                if (d.displayName.equalsIgnoreCase(day)) {
+                    return d;
+                }
+            }
+            throw new IllegalArgumentException("No matching day found for: " + day);
+        }
     }
 }
