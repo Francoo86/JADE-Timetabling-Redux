@@ -2,6 +2,7 @@ package agentes;
 
 import constants.Commons;
 import constants.Messages;
+import constants.enums.Day;
 import service.SatisfaccionHandler;
 import jade.core.Agent;
 import jade.core.behaviours.*;
@@ -25,7 +26,7 @@ public class AgenteSala extends Agent {
     private String campus;
     private int capacidad;
     private int turno;
-    private Map<String, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
+    private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
     private boolean hasInitialized = false;
 
     @Override
@@ -33,7 +34,7 @@ public class AgenteSala extends Agent {
         // Inicializar estructuras
         initializeSchedule();
         horarioOcupado = new HashMap<>();
-        for (String dia : Commons.DAYS) {
+        for (Day dia : Day.values()) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
             for (int i = 0; i < Commons.MAX_BLOQUE_DIURNO; i++) { // 5 bloques por día
                 asignaciones.add(null);
@@ -77,7 +78,7 @@ public class AgenteSala extends Agent {
     private void initializeSchedule() {
         // Inicializar horario con bloques vacíos
         horarioOcupado = new HashMap<>();
-        for (String dia : Commons.DAYS) {
+        for (Day dia : Day.values()) {
             List<AsignacionSala> asignaciones = new ArrayList<>();
             for (int i = 0; i < Commons.MAX_BLOQUE_DIURNO; i++) {
                 asignaciones.add(null);
@@ -185,7 +186,7 @@ public class AgenteSala extends Agent {
                 boolean propuestaEnviada = false; 
 
                 // Iterar sobre los bloques disponibles
-                for (String dia : Commons.DAYS) {    // Iterar sobre los días de la semana
+                for (Day dia : Day.values()) {    // Iterar sobre los días de la semana
                     List<AsignacionSala> asignaciones = horarioOcupado.get(dia);    // Lista de asignaciones por día 
                     for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {   // Iterar sobre los bloques del día
                         if (asignaciones.get(bloque) == null) {     // Si el bloque está disponible
@@ -225,7 +226,7 @@ public class AgenteSala extends Agent {
                     return;
                 }
 
-                String dia = datos[0];
+                Day dia = Day.fromString(datos[0]);
                 int bloque = Integer.parseInt(datos[1]) - 1;
                 String nombreAsignatura = datos[2];
                 int satisfaccion = Integer.parseInt(datos[3]);

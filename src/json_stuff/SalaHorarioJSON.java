@@ -1,5 +1,6 @@
 package json_stuff;
 
+import constants.enums.Day;
 import objetos.AsignacionSala;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +24,7 @@ public class SalaHorarioJSON {
         return instance;
     }
 
-    public void agregarHorarioSala(String codigo, String campus, Map<String, List<AsignacionSala>> horario) {
+    public void agregarHorarioSala(String codigo, String campus, Map<Day, List<AsignacionSala>> horario) {
         System.out.println("Agregando horario para sala: " + codigo + " (Campus: " + campus + ")");
         
         JSONObject salaJSON = new JSONObject();
@@ -31,8 +32,8 @@ public class SalaHorarioJSON {
         salaJSON.put("Campus", campus);
 
         JSONArray asignaturasJSON = new JSONArray();
-        for (Map.Entry<String, List<AsignacionSala>> entry : horario.entrySet()) {
-            String dia = entry.getKey();
+        for (Map.Entry<Day, List<AsignacionSala>> entry : horario.entrySet()) {
+            Day dia = entry.getKey();
             List<AsignacionSala> asignaciones = entry.getValue();
             
             for (int i = 0; i < asignaciones.size(); i++) {
@@ -42,7 +43,7 @@ public class SalaHorarioJSON {
                     asignaturaJSON.put("Nombre", asignacion.getNombreAsignatura());
                     asignaturaJSON.put("Capacidad", asignacion.getCapacidad());
                     asignaturaJSON.put("Bloque", i + 1);
-                    asignaturaJSON.put("Dia", dia);
+                    asignaturaJSON.put("Dia", dia.getDisplayName());
                     asignaturaJSON.put("Satisfaccion", asignacion.getSatisfaccion());
                     asignaturasJSON.add(asignaturaJSON);
                     

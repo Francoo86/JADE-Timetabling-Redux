@@ -1,9 +1,10 @@
 package objetos;
 
+import constants.enums.Day;
 import jade.lang.acl.ACLMessage;
 
 public class Propuesta {
-    private String dia;
+    private Day dia;
     private int bloque;
     private String codigo;
     private int capacidad;
@@ -27,7 +28,7 @@ public class Propuesta {
         return codigo;
     }
 
-    public String getDia() {
+    public Day getDia() {
         return dia;
     }
 
@@ -41,7 +42,8 @@ public class Propuesta {
     }
 
     public Propuesta(String dia, int bloque, String codigo, int capacidad, int satisfaccion) {
-        this.dia = dia;
+        Day day = Day.fromString(dia);
+        this.dia = day;
         this.bloque = bloque;
         this.codigo = codigo;
         this.capacidad = capacidad;

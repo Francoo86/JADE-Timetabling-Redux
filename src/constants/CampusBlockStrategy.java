@@ -1,5 +1,6 @@
 package constants;
 
+import constants.enums.Day;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import java.util.*;
@@ -78,8 +79,8 @@ public class CampusBlockStrategy {
      *
      * La mejor regla para esto es la regla del modulo. Si el modulo de 2 del nivel es 0, entonces es un nivel par,
      */
-    public BlockScore evaluateBlock(int nivel, int bloque, String dia,
-                                    Map<String, List<Integer>> asignaturasBloques) {
+    public BlockScore evaluateBlock(int nivel, int bloque, Day dia,
+                                    Map<Day, List<Integer>> asignaturasBloques) {
         int baseScore = 0;
         List<String> reasons = new ArrayList<>();
 

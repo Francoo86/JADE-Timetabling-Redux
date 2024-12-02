@@ -34,7 +34,7 @@ public class AgenteProfesor extends Agent {
     private int turno;
     private List<Asignatura> asignaturas;
     private int asignaturaActual = 0;
-    private Map<String, Set<Integer>> horarioOcupado; // dia -> bloques
+    private Map<Day, Set<Integer>> horarioOcupado; // dia -> bloques
     private int orden;
     private JSONObject horarioJSON;
     private static final long TIMEOUT_PROPUESTA = 5000; // 5 segundos para recibir propuestas
@@ -77,7 +77,7 @@ public class AgenteProfesor extends Agent {
         }
 
         bloquesAsignadosPorDia = new HashMap<>();   // Inicializar bloques asignados por día
-        for (String dia : Commons.DAYS) {  // Inicializar días
+        for (Day dia : Day.values()) {  // Inicializar días
             bloquesAsignadosPorDia.put(dia, new HashMap<>());   // Inicializar asignaturas por día
         }
         System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciado");
@@ -328,12 +328,11 @@ public class AgenteProfesor extends Agent {
             propuestas.removeIf(p -> !esPropuestaValida(p, subjectName));
 
             // Obtener bloques ya asignados para la asignatura actual
-            Map<String, List<Integer>> bloquesAsignados = new HashMap<>();
-            for (Map.Entry<String, Map<String, List<Integer>>> entry : bloquesAsignadosPorDia.entrySet()) {
-                String dia = entry.getKey();
+            Map<Day, List<Integer>> bloquesAsignados = new HashMap<>();
+            for (Map.Entry<Day, Map<String, List<Integer>>> entry : bloquesAsignadosPorDia.entrySet()) {
                 List<Integer> bloques = entry.getValue().getOrDefault(subjectName, new ArrayList<>());
                 if (!bloques.isEmpty()) {
-                    bloquesAsignados.put(dia, new ArrayList<>(bloques));
+                    bloquesAsignados.put(entry.getKey(), new ArrayList<>(bloques));
                 }
             }
 
@@ -392,7 +391,8 @@ public class AgenteProfesor extends Agent {
         }
 
         private boolean hayConsecutividadDisponible(Propuesta propuesta) {
-            String dia = propuesta.getDia();
+            //String dia = propuesta.getDia();
+            Day dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
 
             // Verificar bloque anterior
@@ -406,7 +406,7 @@ public class AgenteProfesor extends Agent {
             return bloqueAnteriorDisponible || bloqueSiguienteDisponible;
         }
 
-        private int contarBloquesPorDia(String dia, String nombreAsignatura) {
+        private int contarBloquesPorDia(Day dia, String nombreAsignatura) {
             Map<String, List<Integer>> asignaturasEnDia = bloquesAsignadosPorDia.getOrDefault(dia, new HashMap<>());
             List<Integer> bloques = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
             return bloques.size();
@@ -415,7 +415,7 @@ public class AgenteProfesor extends Agent {
 
         // Directriz N3 ----------------------------------------------------------------------------------------------
         private int evaluarTraslado(Propuesta propuesta, String campusAsignaturaActual) {
-            String dia = propuesta.getDia();
+            Day dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
             String campusPropuesta = getCampusSala(propuesta.getCodigo());
 
@@ -445,7 +445,7 @@ public class AgenteProfesor extends Agent {
             return 75;
         }
 
-        private boolean hayTrasladoEnDia(String dia) {
+        private boolean hayTrasladoEnDia(Day dia) {
             String campusAnterior = null;
 
             Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
@@ -476,7 +476,7 @@ public class AgenteProfesor extends Agent {
             return traslados > 0;
         }
 
-        private BloqueInfo getBloqueInfo(String dia, int bloque) {
+        private BloqueInfo getBloqueInfo(Day dia, int bloque) {
             Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
             if(clasesDelDia == null) {
                 return null;
@@ -514,7 +514,8 @@ public class AgenteProfesor extends Agent {
 
         //TODO: Mantener simple
         private boolean intentarAsignarPropuesta(Propuesta propuesta) {
-            String dia = propuesta.getDia();
+            //String dia = propuesta.getDia();
+            Day dia = propuesta.getDia();
             int bloque = propuesta.getBloque();
 
             // Verificar si el bloque está libre
@@ -537,7 +538,7 @@ public class AgenteProfesor extends Agent {
             String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
 
             //obtener los datos de la propuesta
-            String dia = prop.getDia();
+            Day dia = prop.getDia();
             int bloque = prop.getBloque();
             String sala = prop.getCodigo();
             int satisfaccion = prop.getSatisfaccion();
@@ -650,13 +651,13 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-    private void actualizarHorarioJSON(String dia, String sala, int bloque, int satisfaccion) {
+    private void actualizarHorarioJSON(Day dia, String sala, int bloque, int satisfaccion) {
         // Actualizar JSON con la asignatura actual y sus datos
         JSONObject asignatura = new JSONObject();
         asignatura.put("Nombre", asignaturas.get(asignaturaActual).getNombre());
         asignatura.put("Sala", sala);
         asignatura.put("Bloque", bloque);
-        asignatura.put("Dia", dia);
+        asignatura.put("Dia", dia.getDisplayName());
         asignatura.put("Satisfaccion", satisfaccion);
         ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
 

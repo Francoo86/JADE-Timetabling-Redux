@@ -1,5 +1,6 @@
 package constants;
 
+import constants.enums.Day;
 import org.json.simple.JSONObject;
 import java.util.*;
 
@@ -36,8 +37,8 @@ public class BlockOptimization {
         }
     }
 
-    public BlockScore evaluateBlock(String campus, int nivel, int bloque, String dia, 
-                                  Map<String, List<Integer>> asignaturasBloques) {
+    public BlockScore evaluateBlock(String campus, int nivel, int bloque, Day dia,
+                                  Map<Day, List<Integer>> asignaturasBloques) {
         CampusBlockStrategy strategy = campusStrategies.get(campus);
 
         //en este caso no se podría evaluar un campus.
