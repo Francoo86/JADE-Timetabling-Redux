@@ -1,6 +1,5 @@
 package behaviours;
 
-
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
 import constants.BlockOptimization;
@@ -27,7 +26,7 @@ import java.util.*;
  *  Clase que se encarga de negociar las asignaturas entre los agentes.
  *  Disclaimer: Este behaviour debe tener su propio archivo.
  */
-class NegociarAsignaturasBehaviour extends Behaviour {
+public class NegociarAsignaturasBehaviour extends Behaviour {
     private int step = 0;
     private List<Propuesta> propuestas;
     private boolean finished = false;
@@ -38,6 +37,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
     //TODO: Cambiar a un nombre más descriptivo
     private final AssignationData assignationData = new AssignationData();
     private final AgenteProfesor profesor;
+    private static final int TIMEOUT_PROPUESTA = 5000; // 5 segundos
 
     public NegociarAsignaturasBehaviour(Agent profesor) {
        super(profesor);
@@ -46,10 +46,10 @@ class NegociarAsignaturasBehaviour extends Behaviour {
 
     //Iniciar las negociaciones para la asignatura actual a las salas.
     private void setupNegotiation() {
-        Asignatura asignaturaActualObj = asignaturas.get(asignaturaActual);
+        Asignatura asignaturaActualObj = profesor.getCurrentSubject();
         bloquesPendientes = asignaturaActualObj.getHoras();
         assignationData.clear();
-        System.out.println("Profesor " + profesor.getNombre() + " iniciando negociación para " +
+        System.out.println("Profesor " + profesor + " iniciando negociación para " +
                 asignaturaActualObj.getNombre() + " (" + bloquesPendientes + " horas)");
         solicitarPropuestas();
         propuestas = new ArrayList<>();
@@ -90,7 +90,8 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         if (asignacionExitosa) {
             if (bloquesPendientes == 0) {
                 intentos = 0;
-                asignaturaActual++;
+                //asignaturaActual++;
+                profesor.moveToNextSubject();
                 step = 0;
             } else {
                 propuestas.clear();
@@ -106,7 +107,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
     public void action() {
         switch (step) {
             case 0: // Iniciar negociación, verificar si hay más asignaturas, si no ya damos por terminado.
-                if (asignaturaActual < asignaturas.size()) {
+                if (profesor.canUseMoreSubjects()) {
                     setupNegotiation();
                 } else {
                     finished = true;
@@ -132,8 +133,10 @@ class NegociarAsignaturasBehaviour extends Behaviour {
             template.addServices(sd);
             DFAgentDescription[] result = DFService.search(myAgent, template);
 
+            Asignatura currentSubject = profesor.getCurrentSubject();
+
             if(result.length == 0) {
-                System.out.println("No se encontraron salas para la asignatura " + asignaturas.get(asignaturaActual).getNombre());
+                System.out.println("No se encontraron salas para la asignatura " + currentSubject.getNombre());
                 return;
             }
 
@@ -144,21 +147,21 @@ class NegociarAsignaturasBehaviour extends Behaviour {
             }
 
             // Preparar información de la solicitud
-            Asignatura asignatura = asignaturas.get(asignaturaActual);  // Obtener asignatura actual
+           // Asignatura asignatura = currentSubject;  // Obtener asignatura actual
             String solicitudInfo = String.format("%s,%d,%s,%s,%d",  // Información de la solicitud de propuestas
-                    asignatura.getNombre(),
-                    asignatura.getVacantes(),
+                    currentSubject.getNombre(),
+                    currentSubject.getVacantes(),
                     //Enviar información acerca de la ultima propuesta asignada
                     assignationData.getSalaAsignada(),
                     assignationData.getUltimoDiaAsignado(),
                     assignationData.getUltimoBloqueAsignado());
 
             cfp.setContent(solicitudInfo);
-            cfp.setConversationId("neg-" + nombre + "-" + asignaturaActual + "-" + bloquesPendientes);
+            cfp.setConversationId("neg-" + profesor + "-" + profesor.getCurrentSubjectIndex() + "-" + bloquesPendientes);
             myAgent.send(cfp);
 
-            System.out.println("Profesor " + nombre + " solicitando propuestas para " +
-                    asignatura.getNombre() + " (bloques pendientes: " + bloquesPendientes +
+            System.out.println("Profesor " + profesor + " solicitando propuestas para " +
+                    currentSubject.getNombre() + " (bloques pendientes: " + bloquesPendientes +
                     ", sala previa: " + assignationData.getSalaAsignada() + ")");
         } catch (FIPAException fe) {
             fe.printStackTrace();
@@ -182,8 +185,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
 
     //TODO: Implementar las directrices de asignación de bloques y sortearlas aqui.
     private void ordenarPropuestas() {
-        final int currentSubjectIndex = AgenteProfesor.this.asignaturaActual;
-        final Asignatura currentSubject = asignaturas.get(currentSubjectIndex);
+        final Asignatura currentSubject = profesor.getCurrentSubject();
         final String subjectName = currentSubject.getNombre();
         final String currentCampus = currentSubject.getCampus();
         final int currentNivel = currentSubject.getNivel();
@@ -192,13 +194,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         propuestas.removeIf(p -> !esPropuestaValida(p, subjectName));
 
         // Obtener bloques ya asignados para la asignatura actual
-        Map<Day, List<Integer>> bloquesAsignados = new HashMap<>();
-        for (Map.Entry<Day, Map<String, List<Integer>>> entry : bloquesAsignadosPorDia.entrySet()) {
-            List<Integer> bloques = entry.getValue().getOrDefault(subjectName, new ArrayList<>());
-            if (!bloques.isEmpty()) {
-                bloquesAsignados.put(entry.getKey(), new ArrayList<>(bloques));
-            }
-        }
+        Map<Day, List<Integer>> bloquesAsignados = profesor.getBlocksBySubject(subjectName);
 
         propuestas.sort((p1, p2) -> {
             // Primera prioridad: Verificar el límite de bloques por día
@@ -261,17 +257,17 @@ class NegociarAsignaturasBehaviour extends Behaviour {
 
         // Verificar bloque anterior
         boolean bloqueAnteriorDisponible = bloque > 1 &&
-                (!horarioOcupado.containsKey(dia) || !horarioOcupado.get(dia).contains(bloque - 1));
+                profesor.isBlockAvailable(dia, bloque - 1);
 
         // Verificar bloque siguiente
         boolean bloqueSiguienteDisponible = bloque < Commons.MAX_BLOQUE_DIURNO &&
-                (!horarioOcupado.containsKey(dia) || !horarioOcupado.get(dia).contains(bloque + 1));
+                profesor.isBlockAvailable(dia, bloque + 1);
 
         return bloqueAnteriorDisponible || bloqueSiguienteDisponible;
     }
 
     private int contarBloquesPorDia(Day dia, String nombreAsignatura) {
-        Map<String, List<Integer>> asignaturasEnDia = bloquesAsignadosPorDia.getOrDefault(dia, new HashMap<>());
+        Map<String, List<Integer>> asignaturasEnDia = profesor.getBlocksByDay(dia);
         List<Integer> bloques = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
         return bloques.size();
     }
@@ -291,8 +287,8 @@ class NegociarAsignaturasBehaviour extends Behaviour {
             return 0;
         }
 
-        BloqueInfo bloqueAnterior = getBloqueInfo(dia, bloque - 1);
-        BloqueInfo bloqueSiguiente = getBloqueInfo(dia, bloque + 1);
+        BloqueInfo bloqueAnterior = profesor.getBloqueInfo(dia, bloque - 1);
+        BloqueInfo bloqueSiguiente = profesor.getBloqueInfo(dia, bloque + 1);
 
         if (bloqueAnterior != null &&
                 !bloqueAnterior.getCampus().equals(campusPropuesta) &&
@@ -312,7 +308,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
     private boolean hayTrasladoEnDia(Day dia) {
         String campusAnterior = null;
 
-        Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
+        Map<String, List<Integer>> clasesDelDia = profesor.getBlocksByDay(dia);
         if (clasesDelDia == null || clasesDelDia.isEmpty()) {
             return false;
         }
@@ -320,7 +316,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         List<BloqueInfo> bloques = new ArrayList<>();
         for (Map.Entry<String, List<Integer>> entry : clasesDelDia.entrySet()) {
             for (Integer bloque : entry.getValue()) {
-                BloqueInfo info = getBloqueInfo(dia, bloque);
+                BloqueInfo info = profesor.getBloqueInfo(dia, bloque);
                 if (info != null) {
                     bloques.add(info);
                 }
@@ -340,28 +336,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         return traslados > 0;
     }
 
-    private BloqueInfo getBloqueInfo(Day dia, int bloque) {
-        Map<String, List<Integer>> clasesDelDia = bloquesAsignadosPorDia.get(dia);
-        if(clasesDelDia == null) {
-            return null;
-        }
 
-        for (Map.Entry<String, List<Integer>> entry : clasesDelDia.entrySet()) {
-            //si no hay bloque asociado a la asignatura, pasar de largo
-            if(!entry.getValue().contains(bloque)) {
-                continue;
-            }
-            // Buscar el campus de la asignatura
-            for (Asignatura asig : asignaturas) {
-                if (asig.getNombre().equals(entry.getKey())) {
-                    return new BloqueInfo(asig.getCampus(), bloque);
-                }
-            }
-        }
-
-        //agregar esto mientras refactorizo lo otro
-        return null;
-    }
 
     private String getCampusSala(String codigoSala) {
         // Esta información debería venir del sistema, por ahora la hardcodeamos según los datos
@@ -383,9 +358,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         int bloque = propuesta.getBloque();
 
         // Verificar si el bloque está libre
-        if (!horarioOcupado.containsKey(dia) ||
-                !horarioOcupado.get(dia).contains(bloque)) {
-
+        if (profesor.isBlockAvailable(dia, bloque)) {
             // Intentar enviar la aceptación
             if (enviarAceptacionPropuesta(propuesta)) {
                 // Si se acepta, actualizar los registros
@@ -399,7 +372,7 @@ class NegociarAsignaturasBehaviour extends Behaviour {
 
     private void actualizarRegistrosAsignacion(Propuesta prop) {
         // Actualizar registros de asignación de bloques y salas en el horario y JSON
-        String nombreAsignatura = asignaturas.get(asignaturaActual).getNombre();
+        String nombreAsignatura = profesor.getCurrentSubject().getNombre();
 
         //obtener los datos de la propuesta
         Day dia = prop.getDia();
@@ -408,12 +381,15 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         int satisfaccion = prop.getSatisfaccion();
 
         // Actualizar horario ocupado
+        /*
         horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
 
         // Actualizar bloques por día
         bloquesAsignadosPorDia.computeIfAbsent(dia, k -> new HashMap<>())
                 .computeIfAbsent(nombreAsignatura, k -> new ArrayList<>())
-                .add(bloque);
+                .add(bloque);*/
+
+        profesor.updateScheduleInfo(dia, sala, bloque, nombreAsignatura, satisfaccion);
 
         // Actualizar estado de negociación
         bloquesPendientes--;
@@ -421,24 +397,25 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         assignationData.assign(dia, sala, bloque);
 
         // Actualizar JSON
-        actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
+        //profesor.actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
 
         System.out.printf("Profesor %s: Asignado bloque %d del día %s en sala %s para %s " +
-                "(quedan %d horas)%n", nombre, bloque, dia, sala, nombreAsignatura, bloquesPendientes);
+                "(quedan %d horas)%n", profesor, bloque, dia, sala, nombreAsignatura, bloquesPendientes);
     }
 
     private boolean enviarAceptacionPropuesta(Propuesta propuesta) {
         try {
             // Enviar aceptación de propuesta al agente de sala
+            Asignatura currentSubject = profesor.getCurrentSubject();
             ACLMessage accept = propuesta.getMensaje().createReply();
             accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
             accept.setContent(String.format("%s,%d,%s,%d,%s,%d",
                     propuesta.getDia(),
                     propuesta.getBloque(),
-                    asignaturas.get(asignaturaActual).getNombre(),
+                    currentSubject.getNombre(),
                     propuesta.getSatisfaccion(),
                     propuesta.getCodigo(),
-                    asignaturas.get(asignaturaActual).getVacantes()));
+                    currentSubject.getVacantes()));
             myAgent.send(accept);
 
             // Esperar confirmación de la asignación
@@ -458,22 +435,24 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         // En caso de timeout al recibir propuestas, reintentar o pasar a la siguiente asignatura
         intentos++;
         if (intentos >= MAX_INTENTOS) {
-            if (bloquesPendientes == asignaturas.get(asignaturaActual).getHoras()) {
+            Asignatura currentSubject = profesor.getCurrentSubject();
+            if (bloquesPendientes == currentSubject.getHoras()) {
                 // Si no hemos podido asignar ningún bloque, pasar a la siguiente asignatura
-                System.out.println("Profesor " + nombre + " no pudo obtener propuestas para " +
-                        asignaturas.get(asignaturaActual).getNombre() +
+                System.out.println("Profesor " + profesor + " no pudo obtener propuestas para " +
+                        currentSubject.getNombre() +
                         " después de " + MAX_INTENTOS + " intentos");
-                asignaturaActual++;
+                // Pasar a la siguiente asignatura
+                profesor.moveToNextSubject();
             } else {
                 // Si ya asignamos algunos bloques pero no todos, intentar con otra sala
-                System.out.println("Profesor " + nombre + " buscando nueva sala para bloques restantes de " +
-                        asignaturas.get(asignaturaActual).getNombre());
+                System.out.println("Profesor " + profesor + " buscando nueva sala para bloques restantes de " +
+                        currentSubject.getNombre());
                 assignationData.setSalaAsignada(null);
             }
             intentos = 0;
             step = 0;
         } else {
-            System.out.println("Profesor " + nombre + ": Reintentando solicitud de propuestas. " +
+            System.out.println("Profesor " + profesor + ": Reintentando solicitud de propuestas. " +
                     "Intento " + (intentos + 1) + " de " + MAX_INTENTOS);
             solicitarPropuestas();
             tiempoInicio = System.currentTimeMillis();
@@ -486,13 +465,14 @@ class NegociarAsignaturasBehaviour extends Behaviour {
         if (intentos >= MAX_INTENTOS) {
             if (assignationData.hasSalaAsignada()) {
                 // Intentar con otra sala si la actual no tiene más espacios disponibles
-                System.out.println("Profesor " + nombre + ": Buscando otra sala para los bloques restantes");
+                System.out.println("Profesor " + profesor + ": Buscando otra sala para los bloques restantes");
                 assignationData.setSalaAsignada(null);
             } else {
                 // Si ya probamos con todas las salas, pasar a la siguiente asignatura
-                System.out.println("Profesor " + nombre + " no pudo completar la asignación de " +
-                        asignaturas.get(asignaturaActual).getNombre());
-                asignaturaActual++;
+                System.out.println("Profesor " + profesor + " no pudo completar la asignación de " +
+                        profesor.getCurrentSubject().getNombre());
+
+                profesor.moveToNextSubject();
             }
             //resetear los intentos, ya que se intentará con otra sala
             intentos = 0;
@@ -508,8 +488,8 @@ class NegociarAsignaturasBehaviour extends Behaviour {
     public boolean done() {
         // Verificar si el proceso de negociación ha finalizado
         if (finished) {
-            System.out.println("Profesor " + nombre + " completó proceso de negociación");
-            finalizarNegociaciones();
+            System.out.println("Profesor " + profesor + " completó proceso de negociación");
+            profesor.finalizarNegociaciones();
         }
         return finished;
     }
