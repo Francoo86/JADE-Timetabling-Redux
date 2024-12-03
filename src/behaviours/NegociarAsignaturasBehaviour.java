@@ -8,7 +8,6 @@ import constants.Commons;
 import constants.enums.Day;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -24,7 +23,6 @@ import java.util.*;
 
 /**
  *  Clase que se encarga de negociar las asignaturas entre los agentes.
- *  Disclaimer: Este behaviour debe tener su propio archivo.
  */
 public class NegociarAsignaturasBehaviour extends Behaviour {
     private int step = 0;
@@ -380,24 +378,12 @@ public class NegociarAsignaturasBehaviour extends Behaviour {
         String sala = prop.getCodigo();
         int satisfaccion = prop.getSatisfaccion();
 
-        // Actualizar horario ocupado
-        /*
-        horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
-
-        // Actualizar bloques por día
-        bloquesAsignadosPorDia.computeIfAbsent(dia, k -> new HashMap<>())
-                .computeIfAbsent(nombreAsignatura, k -> new ArrayList<>())
-                .add(bloque);*/
-
         profesor.updateScheduleInfo(dia, sala, bloque, nombreAsignatura, satisfaccion);
 
         // Actualizar estado de negociación
         bloquesPendientes--;
 
         assignationData.assign(dia, sala, bloque);
-
-        // Actualizar JSON
-        //profesor.actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
 
         System.out.printf("Profesor %s: Asignado bloque %d del día %s en sala %s para %s " +
                 "(quedan %d horas)%n", profesor, bloque, dia, sala, nombreAsignatura, bloquesPendientes);
