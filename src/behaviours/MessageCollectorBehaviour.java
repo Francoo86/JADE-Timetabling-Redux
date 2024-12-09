@@ -19,7 +19,8 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
     private final ConcurrentLinkedQueue<Propuesta> propuestas;
     private final NegotiationStateBehaviour stateBehaviour;
 
-    public MessageCollectorBehaviour(AgenteProfesor profesor, ConcurrentLinkedQueue<Propuesta> propuestas,
+    public MessageCollectorBehaviour(AgenteProfesor profesor,
+                                     ConcurrentLinkedQueue<Propuesta> propuestas,
                                      NegotiationStateBehaviour stateBehaviour) {
         super(profesor);
         this.profesor = profesor;
@@ -41,6 +42,9 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                 propuesta.setMensaje(reply);
                 propuestas.offer(propuesta);
                 stateBehaviour.notifyProposalReceived();
+
+                System.out.println("Propuesta recibida para profesor " + profesor.getNombre() +
+                        " de sala " + propuesta.getCodigo() + ", total propuestas: " + propuestas.size());
             }
         } else {
             block();
