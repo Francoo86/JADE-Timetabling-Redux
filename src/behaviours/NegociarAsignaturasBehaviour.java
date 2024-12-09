@@ -410,6 +410,8 @@ public class NegociarAsignaturasBehaviour extends Behaviour {
                     MessageTemplate.MatchPerformative(ACLMessage.INFORM)
             );
             ACLMessage confirm = myAgent.blockingReceive(mt, 5000);
+            //QUIERO CREER QUE ESTO BLOQUEA EL PROCESO HASTA QUE RECIBA UNA RESPUESTA.
+            //Y NO ES BUENA IDEA.
             return confirm != null;
         } catch (Exception e) {
             System.err.println("Error enviando aceptación: " + e.getMessage());
