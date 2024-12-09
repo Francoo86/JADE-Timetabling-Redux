@@ -1,6 +1,8 @@
 package agentes;
 
+import behaviours.MessageCollectorBehaviour;
 import behaviours.NegociarAsignaturasBehaviour;
+import behaviours.NegotiationStateBehaviour;
 import constants.Messages;
 import constants.enums.Day;
 import jade.core.AID;
@@ -16,11 +18,13 @@ import jade.lang.acl.MessageTemplate;
 import json_stuff.ProfesorHorarioJSON;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
+import objetos.Propuesta;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class AgenteProfesor extends Agent {
     public static final String AGENT_NAME = "Profesor";
@@ -69,6 +73,10 @@ public class AgenteProfesor extends Agent {
 
     public boolean isBlockAvailable(Day dia, int bloque) {
         return !horarioOcupado.containsKey(dia) || !horarioOcupado.get(dia).contains(bloque);
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public Map<String, List<Integer>> getBlocksByDay(Day dia) {
@@ -124,7 +132,7 @@ public class AgenteProfesor extends Agent {
 
     @Override
     protected void setup() {
-        // Cargar datos del JSON
+        // Load data from JSON
         Object[] args = getArguments();
         if (args != null && args.length > 1) {
             String jsonString = (String) args[0];
@@ -132,32 +140,50 @@ public class AgenteProfesor extends Agent {
             cargarDatos(jsonString);
         }
 
-        horarioOcupado = new HashMap<>();   // Inicializar horario ocupado
-        horarioJSON = new JSONObject();     // Inicializar horario JSON
-        horarioJSON.put("Asignaturas", new JSONArray());    // Inicializar lista de asignaturas
+        // Initialize data structures
+        initializeDataStructures();
 
-        // Registrar en DF
+        // Register in DF
         registrarEnDF();
 
-        // Añadir comportamientos de debug
-        addBehaviour(new TickerBehaviour(this, 5000) { // Every 5 seconds
+        // Create shared proposal queue and behaviors
+        ConcurrentLinkedQueue<Propuesta> propuestas = new ConcurrentLinkedQueue<>();
+        NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 1000, propuestas);
+        MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, propuestas, stateBehaviour);
+
+        // Add debug behavior
+        addBehaviour(new TickerBehaviour(this, 5000) {
             protected void onTick() {
                 addBehaviour(new MessageQueueDebugBehaviour());
             }
         });
 
-        // Comportamiento principal
-        if (orden == 0) {
-            iniciarNegociacion();
-        } else {    // Esperar a que el profesor anterior termine
-            addBehaviour(new EsperarTurnoBehaviour());
-        }
+        System.out.println("Profesor " + nombre + " iniciando con " + asignaturas.size() + " asignaturas");
 
-        bloquesAsignadosPorDia = new HashMap<>();   // Inicializar bloques asignados por día
-        for (Day dia : Day.values()) {  // Inicializar días
-            bloquesAsignadosPorDia.put(dia, new HashMap<>());   // Inicializar asignaturas por día
+        // Add negotiation behaviors based on order
+        if (orden == 0) {
+            System.out.println("Profesor " + nombre + " iniciando negociación inmediatamente");
+            addBehaviour(stateBehaviour);
+            addBehaviour(messageCollector);
+        } else {
+            System.out.println("Profesor " + nombre + " esperando su turno");
+            addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour, messageCollector));
         }
-        System.out.println("Profesor " + nombre + " (orden " + orden + ") iniciado");
+    }
+
+    private void initializeDataStructures() {
+        // Initialize schedule tracking
+        horarioOcupado = new HashMap<>();
+
+        // Initialize JSON structures
+        horarioJSON = new JSONObject();
+        horarioJSON.put("Asignaturas", new JSONArray());
+
+        // Initialize daily block assignments
+        bloquesAsignadosPorDia = new HashMap<>();
+        for (Day dia : Day.values()) {
+            bloquesAsignadosPorDia.put(dia, new HashMap<>());
+        }
     }
 
     private void iniciarNegociacion() {
@@ -167,6 +193,10 @@ public class AgenteProfesor extends Agent {
             System.out.println("Profesor " + nombre + " iniciando proceso de negociación");
             addBehaviour(new NegociarAsignaturasBehaviour(this));
         }
+    }
+
+    public Map<Day, Map<String, List<Integer>>> getAllBlockAssignments() {
+        return bloquesAsignadosPorDia;
     }
 
     private void registrarEnDF() {
@@ -213,34 +243,45 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-    private class EsperarTurnoBehaviour extends CyclicBehaviour {
+    public class EsperarTurnoBehaviour extends CyclicBehaviour {
+        private final AgenteProfesor profesor;
+        private final NegotiationStateBehaviour stateBehaviour;
+        private final MessageCollectorBehaviour messageCollector;
+
+        public EsperarTurnoBehaviour(AgenteProfesor profesor,
+                                     NegotiationStateBehaviour stateBehaviour,
+                                     MessageCollectorBehaviour messageCollector) {
+            super(profesor);
+            this.profesor = profesor;
+            this.stateBehaviour = stateBehaviour;
+            this.messageCollector = messageCollector;
+        }
+
+        @Override
         public void action() {
-            // Coincidir con el profesor anterior para iniciar negociación
-            // En este caso verificamos si el mensaje empieza con "START"
             MessageTemplate mt = MessageTemplate.and(
                     MessageTemplate.MatchPerformative(ACLMessage.INFORM),
                     MessageTemplate.MatchContent(Messages.START)
             );
 
-            ACLMessage msg = myAgent.receive(mt);   // Recibir mensaje que coincida con la plantilla
+            ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
-                String nextOrdenStr = msg.getUserDefinedParameter("nextOrden");   // Obtener orden del siguiente profesor
-                int nextOrden = Integer.parseInt(nextOrdenStr); 
+                String nextOrdenStr = msg.getUserDefinedParameter("nextOrden");
+                int nextOrden = Integer.parseInt(nextOrdenStr);
 
-                System.out.println("[DEBUG] " + nombre + " received START message. My orden=" +
-                        orden + ", nextOrden=" + nextOrden);
+                if (nextOrden == profesor.getOrden()) {
+                    System.out.println("Profesor " + profesor.getNombre() +
+                            " (orden " + profesor.getOrden() + ") activating on START signal");
 
-                // Unicamente iniciar negociación si el mensaje es para este profesor
-                if (nextOrden == orden) {
-                    System.out.println("Profesor " + nombre + " (orden " + orden + ") activating on START signal");
-                    iniciarNegociacion();
-                    myAgent.removeBehaviour(this);  // Remover comportamiento de espera
-                } else {
-                    System.out.println("[DEBUG] Ignoring START message (not for me)");
+                    // Add negotiation behaviors when it's our turn
+                    myAgent.addBehaviour(stateBehaviour);
+                    myAgent.addBehaviour(messageCollector);
+
+                    // Remove this waiting behavior
+                    myAgent.removeBehaviour(this);
                 }
             } else {
                 block();
-                System.out.println("[DEBUG] " + nombre + " (orden=" + orden + ") waiting for START signal");
             }
         }
     }
