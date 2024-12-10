@@ -186,19 +186,6 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-    private void iniciarNegociacion() {
-        // Evitar iniciar negociación más de una vez por error
-        if (!negociacionIniciada) {
-            negociacionIniciada = true;
-            System.out.println("Profesor " + nombre + " iniciando proceso de negociación");
-            addBehaviour(new NegociarAsignaturasBehaviour(this));
-        }
-    }
-
-    public Map<Day, Map<String, List<Integer>>> getAllBlockAssignments() {
-        return bloquesAsignadosPorDia;
-    }
-
     private void registrarEnDF() {
         try {
             DFAgentDescription dfd = new DFAgentDescription();
