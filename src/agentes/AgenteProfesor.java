@@ -1,7 +1,6 @@
 package agentes;
 
 import behaviours.MessageCollectorBehaviour;
-import behaviours.NegociarAsignaturasBehaviour;
 import behaviours.NegotiationStateBehaviour;
 import constants.Messages;
 import constants.enums.Day;

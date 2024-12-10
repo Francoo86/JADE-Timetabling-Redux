@@ -1,4 +1,4 @@
-package behaviours;
+package behaviours.legacy;
 
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
