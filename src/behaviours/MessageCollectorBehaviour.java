@@ -43,8 +43,10 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                 propuestas.offer(propuesta);
                 stateBehaviour.notifyProposalReceived();
 
-                System.out.println("Propuesta recibida para profesor " + profesor.getNombre() +
-                        " de sala " + propuesta.getCodigo() + ", total propuestas: " + propuestas.size());
+                //FIXME: Revisar porque tiene tantas propuestas
+
+//                System.out.println("Propuesta recibida para profesor " + profesor.getNombre() +
+//                        " de sala " + propuesta.getCodigo() + ", total propuestas: " + propuestas.size());
             }
         } else {
             block();

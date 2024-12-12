@@ -33,7 +33,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private final AssignationData assignationData;
     private int bloquesPendientes = 0;
     private static final long TIMEOUT_PROPUESTA = 5000; // 5 seconds
-    private static final int MIN_ACCEPTABLE_SCORE = 50;
 
     public enum NegotiationState {
         SETUP,
@@ -83,14 +82,14 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         if (currentSubject != null) {
             bloquesPendientes = currentSubject.getHoras();
             assignationData.clear();
-            System.out.println("Profesor " + profesor.getNombre() + " iniciando negociación para " +
-                    currentSubject.getNombre() + " (" + bloquesPendientes + " horas)");
+//            System.out.println("Profesor " + profesor.getNombre() + " iniciando negociación para " +
+//                    currentSubject.getNombre() + " (" + bloquesPendientes + " horas)");
             sendProposalRequests();
             proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
             currentState = NegotiationState.COLLECTING_PROPOSALS;
             proposalReceived = false;
         } else {
-            System.out.println("Error: No hay asignatura actual para " + profesor.getNombre());
+//            System.out.println("Error: No hay asignatura actual para " + profesor.getNombre());
             currentState = NegotiationState.FINISHED;
         }
     }
@@ -346,19 +345,19 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         retryCount++;
         if (retryCount >= MAX_RETRIES) {
             if (bloquesPendientes == profesor.getCurrentSubject().getHoras()) {
-                System.out.println("Profesor " + profesor.getNombre() + " no pudo obtener propuestas para " +
-                        profesor.getCurrentSubject().getNombre() + " después de " + MAX_RETRIES + " intentos");
+//                System.out.println("Profesor " + profesor.getNombre() + " no pudo obtener propuestas para " +
+//                        profesor.getCurrentSubject().getNombre() + " después de " + MAX_RETRIES + " intentos");
                 profesor.moveToNextSubject();
             } else {
-                System.out.println("Profesor " + profesor.getNombre() + " buscando nueva sala para bloques restantes de " +
-                        profesor.getCurrentSubject().getNombre());
+//                System.out.println("Profesor " + profesor.getNombre() + " buscando nueva sala para bloques restantes de " +
+//                        profesor.getCurrentSubject().getNombre());
                 assignationData.setSalaAsignada(null);
             }
             retryCount = 0;
             currentState = NegotiationState.SETUP;
         } else {
-            System.out.println("Profesor " + profesor.getNombre() + ": Reintentando solicitud de propuestas. " +
-                    "Intento " + (retryCount + 1) + " de " + MAX_RETRIES);
+//            System.out.println("Profesor " + profesor.getNombre() + ": Reintentando solicitud de propuestas. " +
+//                    "Intento " + (retryCount + 1) + " de " + MAX_RETRIES);
             sendProposalRequests();
             proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
         }
@@ -368,11 +367,11 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         retryCount++;
         if (retryCount >= MAX_RETRIES) {
             if (assignationData.hasSalaAsignada()) {
-                System.out.println("Profesor " + profesor.getNombre() + ": Buscando otra sala para los bloques restantes");
+//                System.out.println("Profesor " + profesor.getNombre() + ": Buscando otra sala para los bloques restantes");
                 assignationData.setSalaAsignada(null);
             } else {
-                System.out.println("Profesor " + profesor.getNombre() + " no pudo completar la asignación de " +
-                        profesor.getCurrentSubject().getNombre());
+//                System.out.println("Profesor " + profesor.getNombre() + " no pudo completar la asignación de " +
+//                        profesor.getCurrentSubject().getNombre());
                 profesor.moveToNextSubject();
             }
             retryCount = 0;
@@ -464,16 +463,16 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 bloquesPendientes--;
                 assignationData.assign(dia, propuesta.getCodigo(), bloque);
 
-                System.out.printf("Profesor %s: Asignado bloque %d del día %s en sala %s para %s (quedan %d horas)%n",
-                        profesor.getNombre(), bloque, dia, propuesta.getCodigo(),
-                        currentSubject.getNombre(), bloquesPendientes);
+//                System.out.printf("Profesor %s: Asignado bloque %d del día %s en sala %s para %s (quedan %d horas)%n",
+//                        profesor.getNombre(), bloque, dia, propuesta.getCodigo(),
+//                        currentSubject.getNombre(), bloquesPendientes);
 
                 return true;
             }
             block(100); // Block for 100ms between checks
         }
 
-        System.out.println("Timeout esperando confirmación de sala " + propuesta.getCodigo());
+//        System.out.println("Timeout esperando confirmación de sala " + propuesta.getCodigo());
         return false;
     }
 
@@ -508,9 +507,9 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             cfp.setConversationId("neg-" + profesor.getNombre() + "-" + bloquesPendientes);
             profesor.send(cfp);
 
-            System.out.println("Profesor " + profesor.getNombre() + " solicitando propuestas para " +
-                    currentSubject.getNombre() + " (bloques pendientes: " + bloquesPendientes +
-                    ", sala previa: " + assignationData.getSalaAsignada() + ")");
+//            System.out.println("Profesor " + profesor.getNombre() + " solicitando propuestas para " +
+//                    currentSubject.getNombre() + " (bloques pendientes: " + bloquesPendientes +
+//                    ", sala previa: " + assignationData.getSalaAsignada() + ")");
 
         } catch (FIPAException fe) {
             fe.printStackTrace();

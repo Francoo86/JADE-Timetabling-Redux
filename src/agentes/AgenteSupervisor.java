@@ -67,18 +67,18 @@ public class AgenteSupervisor extends Agent {
                         switch (currentState) {
                             case Agent.AP_ACTIVE:
                                 allTerminated = false;
-                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
-                                    System.out.println("[WARNING] Professor " + i + " appears stuck in ACTIVE state. " +
-                                            "Inactivity count: " + inactivityCounters.get(i));
-                                }
+//                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
+//                                    System.out.println("[WARNING] Professor " + i + " appears stuck in ACTIVE state. " +
+//                                            "Inactivity count: " + inactivityCounters.get(i));
+//                                }
                                 break;
 
                             case Agent.AP_WAITING:
                                 allTerminated = false;
-                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
-                                    System.out.println("[WARNING] Professor " + i + " appears stuck in WAITING state. " +
-                                            "Inactivity count: " + inactivityCounters.get(i));
-                                }
+//                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
+//                                    System.out.println("[WARNING] Professor " + i + " appears stuck in WAITING state. " +
+//                                            "Inactivity count: " + inactivityCounters.get(i));
+//                                }
                                 break;
 
                             case Agent.AP_SUSPENDED:
@@ -88,10 +88,10 @@ public class AgenteSupervisor extends Agent {
 
                             case Agent.AP_IDLE:
                                 allTerminated = false;
-                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
-                                    System.out.println("[WARNING] Professor " + i + " appears stuck in IDLE state. " +
-                                            "Inactivity count: " + inactivityCounters.get(i));
-                                }
+//                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
+//                                    System.out.println("[WARNING] Professor " + i + " appears stuck in IDLE state. " +
+//                                            "Inactivity count: " + inactivityCounters.get(i));
+//                                }
                                 break;
 
                             case Agent.AP_DELETED:
@@ -118,23 +118,23 @@ public class AgenteSupervisor extends Agent {
 
                 // Regular status update
                 if (getPeriod() % (CHECK_INTERVAL * 4) == 0) {
-                    System.out.println("\n[Supervisor] Status Report:");
-                    System.out.println("- Active: " + stateCount.getOrDefault(Agent.AP_ACTIVE, 0));
-                    System.out.println("- Waiting: " + stateCount.getOrDefault(Agent.AP_WAITING, 0));
-                    System.out.println("- Idle: " + stateCount.getOrDefault(Agent.AP_IDLE, 0));
-                    System.out.println("- Suspended: " + stateCount.getOrDefault(Agent.AP_SUSPENDED, 0));
-                    System.out.println("- Deleted: " + stateCount.getOrDefault(Agent.AP_DELETED, 0));
-                    System.out.println("- Initiated: " + stateCount.getOrDefault(Agent.AP_INITIATED, 0));
-                    System.out.println("Total Agents: " + profesoresControllers.size() + "\n");
+//                    System.out.println("\n[Supervisor] Status Report:");
+//                    System.out.println("- Active: " + stateCount.getOrDefault(Agent.AP_ACTIVE, 0));
+//                    System.out.println("- Waiting: " + stateCount.getOrDefault(Agent.AP_WAITING, 0));
+//                    System.out.println("- Idle: " + stateCount.getOrDefault(Agent.AP_IDLE, 0));
+//                    System.out.println("- Suspended: " + stateCount.getOrDefault(Agent.AP_SUSPENDED, 0));
+//                    System.out.println("- Deleted: " + stateCount.getOrDefault(Agent.AP_DELETED, 0));
+//                    System.out.println("- Initiated: " + stateCount.getOrDefault(Agent.AP_INITIATED, 0));
+//                    System.out.println("Total Agents: " + profesoresControllers.size() + "\n");
                 }
 
                 if (allTerminated || stateCount.getOrDefault(Agent.AP_DELETED, 0) == profesoresControllers.size()) {
-                    System.out.println("[Supervisor] All professors have completed their work.");
+                    //System.out.println("[Supervisor] All professors have completed their work.");
                     finishSystem();
                 }
 
             } catch (Exception e) {
-                System.err.println("[Supervisor] Error in monitoring: " + e.getMessage());
+                //System.err.println("[Supervisor] Error in monitoring: " + e.getMessage());
                 e.printStackTrace();
             }
         }

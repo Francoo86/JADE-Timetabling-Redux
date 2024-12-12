@@ -58,7 +58,7 @@ public class AgenteSala extends Agent {
         addBehaviour(new RevisarProfesoresBehaviour(this));
         //hasInitialized = true;
 
-        System.out.println("Sala " + codigo + " iniciada. Capacidad: " + capacidad);
+        //System.out.println("Sala " + codigo + " iniciada. Capacidad: " + capacidad);
     }
 
     private void parseJSON(String jsonString) {
@@ -100,9 +100,9 @@ public class AgenteSala extends Agent {
             dfd.addServices(sd);
             DFService.register(this, dfd);
             isRegistered = true;
-            System.out.println("Sala " + codigo + " registrada en DF (Campus: " + campus + ", Turno: " + turno + ")");
+            //System.out.println("Sala " + codigo + " registrada en DF (Campus: " + campus + ", Turno: " + turno + ")");
         } catch (FIPAException fe) {
-            System.err.println("Error registrando sala " + codigo + " en DF: " + fe.getMessage());
+            //System.err.println("Error registrando sala " + codigo + " en DF: " + fe.getMessage());
             fe.printStackTrace();
         }
     }
@@ -128,14 +128,14 @@ public class AgenteSala extends Agent {
 
             //HACK: Es la forma más sencilla de hacer que el agente se elimine.
             if (allDone) {
-                System.out.println("[SALA] Todos los profesores han terminado");
+                //System.out.println("[SALA] Todos los profesores han terminado");
 
                 //Debe hacerse el deregistro del agente
                 DFService.deregister(this);
                 doDelete();
             }
         } catch (FIPAException fe) {
-            System.err.println("Error buscando agentes profesor: " + fe.getMessage());
+            //System.err.println("Error buscando agentes profesor: " + fe.getMessage());
             fe.printStackTrace();
         }
     }
@@ -196,9 +196,9 @@ public class AgenteSala extends Agent {
                                     dia, bloque + 1, codigo, capacidad, satisfaccion));
                             send(reply);
                             propuestaEnviada = true;
-                            System.out.println("Sala " + codigo + " propone para " + nombreAsignatura +
-                                    ": día " + dia + ", bloque " + (bloque + 1) +
-                                    ", satisfacción " + satisfaccion);
+//                            System.out.println("Sala " + codigo + " propone para " + nombreAsignatura +
+//                                    ": día " + dia + ", bloque " + (bloque + 1) +
+//                                    ", satisfacción " + satisfaccion);
                         }
                     }
                 }
@@ -208,11 +208,11 @@ public class AgenteSala extends Agent {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
                     send(reply);
-                    System.out.println("Sala " + codigo + " no tiene bloques disponibles para " +
-                            nombreAsignatura);
+//                    System.out.println("Sala " + codigo + " no tiene bloques disponibles para " +
+//                            nombreAsignatura);
                 }
             } catch (Exception e) {
-                System.err.println("Error procesando solicitud en sala " + codigo + ": " + e.getMessage());
+                //System.err.println("Error procesando solicitud en sala " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -222,7 +222,7 @@ public class AgenteSala extends Agent {
             try {
                 String[] datos = msg.getContent().split(",");
                 if (datos.length < 6) { // Ahora necesitamos un parámetro adicional para vacantes
-                    System.err.println("Error: Formato de mensaje inválido en confirmación para sala " + codigo);
+                    //System.err.println("Error: Formato de mensaje inválido en confirmación para sala " + codigo);
                     return;
                 }
 
@@ -262,8 +262,8 @@ public class AgenteSala extends Agent {
                     confirm.setContent(Messages.CONFIRM);
                     send(confirm);
 
-                    System.out.printf("Sala %s (%s): Asignada %s en %s, bloque %d, satisfacción %d, capacidad %.2f",
-                            codigo, campus, nombreAsignatura, dia, (bloque + 1), satisfaccion, capacidadFraccion);
+//                    System.out.printf("Sala %s (%s): Asignada %s en %s, bloque %d, satisfacción %d, capacidad %.2f",
+//                            codigo, campus, nombreAsignatura, dia, (bloque + 1), satisfaccion, capacidadFraccion);
                 }
             } catch (Exception e) {
                 System.err.println("Error procesando confirmación en sala " + codigo + ": " + e.getMessage());

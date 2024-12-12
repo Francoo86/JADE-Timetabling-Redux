@@ -151,21 +151,22 @@ public class AgenteProfesor extends Agent {
         MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, propuestas, stateBehaviour);
 
         // Add debug behavior
+        /*
         addBehaviour(new TickerBehaviour(this, 5000) {
             protected void onTick() {
                 addBehaviour(new MessageQueueDebugBehaviour());
             }
-        });
+        });*/
 
-        System.out.println("Profesor " + nombre + " iniciando con " + asignaturas.size() + " asignaturas");
+        //System.out.println("Profesor " + nombre + " iniciando con " + asignaturas.size() + " asignaturas");
 
         // Add negotiation behaviors based on order
         if (orden == 0) {
-            System.out.println("Profesor " + nombre + " iniciando negociación inmediatamente");
+            //System.out.println("Profesor " + nombre + " iniciando negociación inmediatamente");
             addBehaviour(stateBehaviour);
             addBehaviour(messageCollector);
         } else {
-            System.out.println("Profesor " + nombre + " esperando su turno");
+            //System.out.println("Profesor " + nombre + " esperando su turno");
             addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour, messageCollector));
         }
     }
@@ -198,7 +199,7 @@ public class AgenteProfesor extends Agent {
             dfd.addServices(sd);
             DFService.register(this, dfd);
             isRegistered = true;        // Marcar como registrado   
-            System.out.println("Profesor " + nombre + " registrado en DF"); 
+            //System.out.println("Profesor " + nombre + " registrado en DF");
         } catch (FIPAException fe) {
             System.err.println("Error registrando profesor " + nombre + " en DF: " + fe.getMessage());
             fe.printStackTrace();
@@ -256,8 +257,8 @@ public class AgenteProfesor extends Agent {
                 int nextOrden = Integer.parseInt(nextOrdenStr);
 
                 if (nextOrden == profesor.getOrden()) {
-                    System.out.println("Profesor " + profesor.getNombre() +
-                            " (orden " + profesor.getOrden() + ") activating on START signal");
+                    //System.out.println("Profesor " + profesor.getNombre() +
+                    //        " (orden " + profesor.getOrden() + ") activating on START signal");
 
                     // Add negotiation behaviors when it's our turn
                     myAgent.addBehaviour(stateBehaviour);
@@ -284,9 +285,10 @@ public class AgenteProfesor extends Agent {
         asignatura.put("Satisfaccion", satisfaccion);
         ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
 
+        /*
         System.out.println("Profesor " + nombre + ": Asignada " +
                 asignaturas.get(asignaturaActual).getNombre() +
-                " en sala " + sala + ", día " + dia + ", bloque " + bloque);
+                " en sala " + sala + ", día " + dia + ", bloque " + bloque);*/
     }
 
     public void finalizarNegociaciones() {
@@ -322,13 +324,13 @@ public class AgenteProfesor extends Agent {
 
             DFAgentDescription[] result = DFService.search(this, template); // Buscar profesores
 
-            System.out.println("[DEBUG] Current profesor: orden=" + orden +
-                    ", localName=" + getAID().getLocalName());
+            //System.out.println("[DEBUG] Current profesor: orden=" + orden +
+            //        ", localName=" + getAID().getLocalName());
 
             // Buscar el siguiente profesor en la lista
             for (DFAgentDescription dfd : result) {     // Iterar sobre los profesores
                 String targetName = dfd.getName().getLocalName();   // Nombre del profesor
-                System.out.println("[DEBUG] Found professor: " + targetName);
+                //System.out.println("[DEBUG] Found professor: " + targetName);
 
                 // Enviar mensaje de inicio al siguiente profesor en la lista (si no es este mismo)
                 if(targetName.equals(getAID().getLocalName())) {
@@ -340,7 +342,7 @@ public class AgenteProfesor extends Agent {
                 msg.setContent(Messages.START);
                 msg.addUserDefinedParameter("nextOrden", Integer.toString(orden + 1));
                 send(msg);
-                System.out.println("[DEBUG] Sent START message to: " + targetName);
+                //System.out.println("[DEBUG] Sent START message to: " + targetName);
             }
         } catch (Exception e) {
             System.err.println("Error notificando siguiente profesor: " + e.getMessage());
