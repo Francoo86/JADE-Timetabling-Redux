@@ -155,6 +155,8 @@ public class AgenteSala extends Agent {
 
     private class ResponderSolicitudesBehaviour extends CyclicBehaviour {
         public void action() {
+            System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
+
             MessageTemplate mt = MessageTemplate.or(
                     MessageTemplate.MatchPerformative(ACLMessage.CFP),
                     MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL)

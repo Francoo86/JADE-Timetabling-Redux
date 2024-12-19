@@ -30,13 +30,21 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
+        System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
+        //print queue of the agent
+
+        /*
         MessageTemplate mt = MessageTemplate.or(
                 MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
                 MessageTemplate.MatchPerformative(ACLMessage.REFUSE)
-        );
+        );*/
 
-        ACLMessage reply = myAgent.receive(mt);
+        ACLMessage reply = myAgent.receive();//mt);
+
+        //FIXME: Reducir cant. propuestas.
         if (reply != null) {
+            System.out.println("Reply: " + reply + " performative: " + reply.getPerformative());
+            //reply.setContentObject();
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
                 Propuesta propuesta = Propuesta.parse(reply.getContent());
                 propuesta.setMensaje(reply);

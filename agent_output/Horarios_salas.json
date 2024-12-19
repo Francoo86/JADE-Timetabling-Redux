@@ -1,195 +1,209 @@
 [ {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS3",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS2",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS1",
+  "Asignaturas" : [ ]
+}, {
   "Campus" : "Playa Brava",
-  "Codigo" : "A-1",
+  "Codigo" : "K1",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "K2",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "A106",
   "Asignaturas" : [ {
-    "Nombre" : "Calculo 3",
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
     "Bloque" : 5,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 3",
-    "Bloque" : 6,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Bloque" : 1,
-    "Capacidad" : 1.0,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 3,
-    "Capacidad" : 1.0,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Programación en Kotlin",
-    "Bloque" : 1,
-    "Capacidad" : 0.8333333,
+    "Capacidad" : 1.7222222,
     "Dia" : "Viernes",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 3
   }, {
-    "Nombre" : "Programación en JADE",
-    "Bloque" : 3,
-    "Capacidad" : 0.8333333,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Calculo 3",
-    "Bloque" : 6,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 3",
-    "Bloque" : 7,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Matemáticas Avanzadas",
-    "Bloque" : 1,
-    "Capacidad" : 1.0,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Matemáticas Avanzadas",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Codigo Binario",
-    "Bloque" : 3,
-    "Capacidad" : 0.8333333,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Codigo Binario",
-    "Bloque" : 4,
-    "Capacidad" : 0.8333333,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Bases de Datos",
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
     "Bloque" : 5,
-    "Capacidad" : 1.1666666,
+    "Capacidad" : 1.7222222,
     "Dia" : "Lunes",
     "Satisfaccion" : 3
   }, {
-    "Nombre" : "Programación en C",
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 1.7222222,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
     "Bloque" : 6,
-    "Capacidad" : 0.8333333,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Calculo 3",
-    "Bloque" : 7,
-    "Capacidad" : 0.6666667,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Programación Basica",
-    "Bloque" : 1,
-    "Capacidad" : 1.0,
+    "Capacidad" : 1.7222222,
     "Dia" : "Jueves",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 3
   }, {
-    "Nombre" : "Programación Basica",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Jueves",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo",
-    "Bloque" : 3,
-    "Capacidad" : 1.0,
-    "Dia" : "Jueves",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Bases de Datos",
-    "Bloque" : 7,
-    "Capacidad" : 1.1666666,
-    "Dia" : "Jueves",
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.7222222,
+    "Dia" : "Martes",
     "Satisfaccion" : 3
   } ]
 }, {
-  "Campus" : "Huayquique",
-  "Codigo" : "B-2",
+  "Campus" : "Playa Brava",
+  "Codigo" : "K3",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM3",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM5",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM4",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "E1",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM6",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IM3",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IM2",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IM4",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "E6",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CRP43",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC1",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC3",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC2",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUL1",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC4",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT8",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT7",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT6",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC8",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT5",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT4",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT3",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT2",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT1",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "LAMB",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "D105",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IOLAB",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CRP33",
+  "Asignaturas" : [ ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "ANT21",
   "Asignaturas" : [ {
-    "Nombre" : "Programación en C++",
-    "Bloque" : 1,
-    "Capacidad" : 1.2,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 2,
-    "Capacidad" : 1.2,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 3
-  }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 3,
-    "Capacidad" : 1.2,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 3
-  }, {
-    "Nombre" : "Programación en Python",
-    "Bloque" : 1,
-    "Capacidad" : 1.0,
-    "Dia" : "Martes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Programación en Python",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Martes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Programación en C++",
-    "Bloque" : 1,
-    "Capacidad" : 1.2,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Programación en JADE",
-    "Bloque" : 2,
-    "Capacidad" : 1.0,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 2",
-    "Bloque" : 3,
-    "Capacidad" : 1.2,
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
     "Dia" : "Viernes",
     "Satisfaccion" : 3
   }, {
-    "Nombre" : "Programación en Java",
-    "Bloque" : 1,
-    "Capacidad" : 0.6,
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
     "Dia" : "Lunes",
-    "Satisfaccion" : 5
+    "Satisfaccion" : 3
   }, {
-    "Nombre" : "Programación en Java",
-    "Bloque" : 2,
-    "Capacidad" : 0.6,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 5
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
   }, {
-    "Nombre" : "Programación en C",
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
     "Bloque" : 5,
-    "Capacidad" : 1.0,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Capacidad" : 1.4090909,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
   } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS5",
+  "Asignaturas" : [ ]
 } ]

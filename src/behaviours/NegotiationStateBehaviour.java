@@ -55,6 +55,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
     @Override
     protected void onTick() {
+        System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
         switch (currentState) {
             case SETUP:
                 handleSetupState();
@@ -381,19 +382,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             sendProposalRequests();
             proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
         }
-    }
-
-    private boolean evaluateProposals(List<Propuesta> proposals) {
-        if (proposals.isEmpty()) return false;
-
-        // Try to assign best proposal
-        for (Propuesta propuesta : proposals) {
-            if (tryAssignProposal(propuesta)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void handleCollectingState() {
