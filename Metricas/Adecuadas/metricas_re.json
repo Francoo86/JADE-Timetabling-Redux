@@ -1,0 +1,2361 @@
+{
+  "asignatura_stats": [
+    {
+      "Codigo_Asignatura": "(FIA14-A)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA INGENIE",
+      "Vacantes": 67,
+      "Salas_Adecuadas": 5,
+      "Salas_Inadecuadas": 68,
+      "Ratio_Adecuacion": 0.0684931506849315
+    },
+    {
+      "Codigo_Asignatura": "(FIA14-B)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA INGENIE",
+      "Vacantes": 61,
+      "Salas_Adecuadas": 6,
+      "Salas_Inadecuadas": 67,
+      "Ratio_Adecuacion": 0.0821917808219178
+    },
+    {
+      "Codigo_Asignatura": "(FIA14-C)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA INGENIE",
+      "Vacantes": 63,
+      "Salas_Adecuadas": 6,
+      "Salas_Inadecuadas": 67,
+      "Ratio_Adecuacion": 0.0821917808219178
+    },
+    {
+      "Codigo_Asignatura": "(FIA41-B)",
+      "Nombre_Asignatura": "TERMODINÁMICA",
+      "Vacantes": 53,
+      "Salas_Adecuadas": 7,
+      "Salas_Inadecuadas": 66,
+      "Ratio_Adecuacion": 0.0958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(FIA22-C)",
+      "Nombre_Asignatura": "ÁLGEBRA LINEAL",
+      "Vacantes": 47,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(FIA11-A)",
+      "Nombre_Asignatura": "CÁLCULO DIFERENCIAL",
+      "Vacantes": 47,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(ARQ25-A)",
+      "Nombre_Asignatura": "MATEMATICAS I",
+      "Vacantes": 46,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(ARQ23-A)",
+      "Nombre_Asignatura": "HISTORIA Y TEORIA I",
+      "Vacantes": 48,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(PRI61-A)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIA",
+      "Vacantes": 46,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(FIA22-A)",
+      "Nombre_Asignatura": "ÁLGEBRA LINEAL",
+      "Vacantes": 49,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(FIA32-A)",
+      "Nombre_Asignatura": "ECUACIONES DIFERENCIALES",
+      "Vacantes": 46,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(ARQ26-A)",
+      "Nombre_Asignatura": "ARQUITECTURA Y MATERIALID",
+      "Vacantes": 49,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(FIA41-A)",
+      "Nombre_Asignatura": "TERMODINÁMICA",
+      "Vacantes": 48,
+      "Salas_Adecuadas": 8,
+      "Salas_Inadecuadas": 65,
+      "Ratio_Adecuacion": 0.1095890410958904
+    },
+    {
+      "Codigo_Asignatura": "(ARQ22-A)",
+      "Nombre_Asignatura": "GEOMETRIA Y ARQUITECTURA",
+      "Vacantes": 45,
+      "Salas_Adecuadas": 14,
+      "Salas_Inadecuadas": 59,
+      "Ratio_Adecuacion": 0.1917808219178082
+    },
+    {
+      "Codigo_Asignatura": "(ARQ24-A)",
+      "Nombre_Asignatura": "TERRITORIO I",
+      "Vacantes": 45,
+      "Salas_Adecuadas": 14,
+      "Salas_Inadecuadas": 59,
+      "Ratio_Adecuacion": 0.1917808219178082
+    },
+    {
+      "Codigo_Asignatura": "(PRI66-A)",
+      "Nombre_Asignatura": "TALLER DE INTEGRACIÓN PRO",
+      "Vacantes": 41,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(PRI64-A)",
+      "Nombre_Asignatura": "ERGONOMÍA",
+      "Vacantes": 41,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(FIA11-B)",
+      "Nombre_Asignatura": "CÁLCULO DIFERENCIAL",
+      "Vacantes": 43,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(PRI63-A)",
+      "Nombre_Asignatura": "HIGIENE OCUPACIONAL APLIC",
+      "Vacantes": 42,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(FIA22-B)",
+      "Nombre_Asignatura": "ÁLGEBRA LINEAL",
+      "Vacantes": 43,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(FIA21-B)",
+      "Nombre_Asignatura": "CÁLCULO INTEGRAL",
+      "Vacantes": 43,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(PRI65-A)",
+      "Nombre_Asignatura": "VIGILANCIA EPIDEMIOLÓGICA",
+      "Vacantes": 41,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(PRI62-A)",
+      "Nombre_Asignatura": "LEGISLACIÓN DE SALUD Y SE",
+      "Vacantes": 41,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(FIA31-A)",
+      "Nombre_Asignatura": "CÁLCULO VECTORIAL",
+      "Vacantes": 44,
+      "Salas_Adecuadas": 15,
+      "Salas_Inadecuadas": 58,
+      "Ratio_Adecuacion": 0.2054794520547945
+    },
+    {
+      "Codigo_Asignatura": "(ICA03-A)",
+      "Nombre_Asignatura": "SISTEMAS INTEGRADOS DE GE",
+      "Vacantes": 40,
+      "Salas_Adecuadas": 21,
+      "Salas_Inadecuadas": 52,
+      "Ratio_Adecuacion": 0.2876712328767123
+    },
+    {
+      "Codigo_Asignatura": "(PRI63-DV1)",
+      "Nombre_Asignatura": "HIGIENE OCUPACIONAL APLIC",
+      "Vacantes": 40,
+      "Salas_Adecuadas": 21,
+      "Salas_Inadecuadas": 52,
+      "Ratio_Adecuacion": 0.2876712328767123
+    },
+    {
+      "Codigo_Asignatura": "(PRI61-DV2)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIA",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI65-DV2)",
+      "Nombre_Asignatura": "VIGILANCIA EPIDEMIOLÓGICA",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI62-DV2)",
+      "Nombre_Asignatura": "LEGISLACIÓN DE SALUD Y SE",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI64-DV1)",
+      "Nombre_Asignatura": "ERGONOMÍA",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI62-DV1)",
+      "Nombre_Asignatura": "LEGISLACIÓN DE SALUD Y SE",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI66-DV1)",
+      "Nombre_Asignatura": "TALLER DE INTEGRACIÓN PRO",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI65-DV1)",
+      "Nombre_Asignatura": "VIGILANCIA EPIDEMIOLÓGICA",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI83-EEE)",
+      "Nombre_Asignatura": "COMUNICACIÓN Y LIDERAZGO",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(FIA24-B)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA PROGRAM",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(FIA45-A)",
+      "Nombre_Asignatura": "DIBUJO DE INGENIERÍA",
+      "Vacantes": 39,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI83-HHH)",
+      "Nombre_Asignatura": "COMUNICACIÓN Y LIDERAZGO",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI85-EEE)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI81-HHH)",
+      "Nombre_Asignatura": "METODOLOGÍAS DE INVESTIGA",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI81-EEE)",
+      "Nombre_Asignatura": "METODOLOGÍAS DE INVESTIGA",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(FIA12-B)",
+      "Nombre_Asignatura": "ÁLGEBRA",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(FIA21-C)",
+      "Nombre_Asignatura": "CÁLCULO INTEGRAL",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI63-DV2)",
+      "Nombre_Asignatura": "HIGIENE OCUPACIONAL APLIC",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI64-DV2)",
+      "Nombre_Asignatura": "ERGONOMÍA",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI84-HHH)",
+      "Nombre_Asignatura": "TÉCNICAS DE NEGOCIACIÓN Y",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI61-DV1)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIA",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI84-EEE)",
+      "Nombre_Asignatura": "TÉCNICAS DE NEGOCIACIÓN Y",
+      "Vacantes": 38,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI66-DV2)",
+      "Nombre_Asignatura": "TALLER DE INTEGRACIÓN PRO",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI85-HHH)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(FIA43-B)",
+      "Nombre_Asignatura": "ELECTRICIDAD Y MAGNETISMO",
+      "Vacantes": 39,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI82-HHH)",
+      "Nombre_Asignatura": "SISTEMAS DE GESTIÓN DE CA",
+      "Vacantes": 37,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(PRI82-EEE)",
+      "Nombre_Asignatura": "SISTEMAS DE GESTIÓN DE CA",
+      "Vacantes": 39,
+      "Salas_Adecuadas": 22,
+      "Salas_Inadecuadas": 51,
+      "Ratio_Adecuacion": 0.3013698630136986
+    },
+    {
+      "Codigo_Asignatura": "(IC404-A)",
+      "Nombre_Asignatura": "INGENIERIA DE MATERIALES",
+      "Vacantes": 36,
+      "Salas_Adecuadas": 23,
+      "Salas_Inadecuadas": 50,
+      "Ratio_Adecuacion": 0.3150684931506849
+    },
+    {
+      "Codigo_Asignatura": "(IC804-A)",
+      "Nombre_Asignatura": "GESTIÓN DE PRODUCCIÓN",
+      "Vacantes": 36,
+      "Salas_Adecuadas": 23,
+      "Salas_Inadecuadas": 50,
+      "Ratio_Adecuacion": 0.3150684931506849
+    },
+    {
+      "Codigo_Asignatura": "(FIA81-A)",
+      "Nombre_Asignatura": "ING. ECONÓMICA Y DIRECCIÓ",
+      "Vacantes": 36,
+      "Salas_Adecuadas": 23,
+      "Salas_Inadecuadas": 50,
+      "Ratio_Adecuacion": 0.3150684931506849
+    },
+    {
+      "Codigo_Asignatura": "(FIA12-A)",
+      "Nombre_Asignatura": "ÁLGEBRA",
+      "Vacantes": 36,
+      "Salas_Adecuadas": 23,
+      "Salas_Inadecuadas": 50,
+      "Ratio_Adecuacion": 0.3150684931506849
+    },
+    {
+      "Codigo_Asignatura": "(FIA21-A)",
+      "Nombre_Asignatura": "CÁLCULO INTEGRAL",
+      "Vacantes": 36,
+      "Salas_Adecuadas": 23,
+      "Salas_Inadecuadas": 50,
+      "Ratio_Adecuacion": 0.3150684931506849
+    },
+    {
+      "Codigo_Asignatura": "(ARQ43-A)",
+      "Nombre_Asignatura": "HISTORIA Y TEORIA 3",
+      "Vacantes": 35,
+      "Salas_Adecuadas": 25,
+      "Salas_Inadecuadas": 48,
+      "Ratio_Adecuacion": 0.3424657534246575
+    },
+    {
+      "Codigo_Asignatura": "(FIA33-A)",
+      "Nombre_Asignatura": "CINEMÁTICA Y DINÁMICA",
+      "Vacantes": 35,
+      "Salas_Adecuadas": 25,
+      "Salas_Inadecuadas": 48,
+      "Ratio_Adecuacion": 0.3424657534246575
+    },
+    {
+      "Codigo_Asignatura": "(FIA42-A)",
+      "Nombre_Asignatura": "MÉTODOS NUMÉRICOS",
+      "Vacantes": 35,
+      "Salas_Adecuadas": 25,
+      "Salas_Inadecuadas": 48,
+      "Ratio_Adecuacion": 0.3424657534246575
+    },
+    {
+      "Codigo_Asignatura": "(IC803-A)",
+      "Nombre_Asignatura": "INVESTIGACION OPERATIVA I",
+      "Vacantes": 32,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIA24-F)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA PROGRAM",
+      "Vacantes": 34,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIA24-E)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA PROGRAM",
+      "Vacantes": 33,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(IC605-A)",
+      "Nombre_Asignatura": "GESTION DE PERSONAS I",
+      "Vacantes": 32,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIA24-A)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA PROGRAM",
+      "Vacantes": 33,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIA24-C)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA PROGRAM",
+      "Vacantes": 33,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(ICA04-A)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 32,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(PRI82-A)",
+      "Nombre_Asignatura": "SISTEMAS DE GESTIÓN DE CA",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(PRI81-A)",
+      "Nombre_Asignatura": "METODOLOGÍAS DE INVESTIGA",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(PRI84-A)",
+      "Nombre_Asignatura": "TÉCNICAS DE NEGOCIACIÓN Y",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIAA1-A)",
+      "Nombre_Asignatura": "DIRECCIÓN ESTRATÉGICA",
+      "Vacantes": 32,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(ARQ46-A)",
+      "Nombre_Asignatura": "CONSTRUCCION 1",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(PRI85-A)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(PRI83-A)",
+      "Nombre_Asignatura": "COMUNICACIÓN Y LIDERAZGO",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(ARQ45-A)",
+      "Nombre_Asignatura": "FISICA ESTATICA",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(IC601-A)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIAS",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(IMI44-A)",
+      "Nombre_Asignatura": "FENOMENOS DE TRANSPORTE",
+      "Vacantes": 31,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIA45-B)",
+      "Nombre_Asignatura": "DIBUJO DE INGENIERÍA",
+      "Vacantes": 33,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIA24-D)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A LA PROGRAM",
+      "Vacantes": 32,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(FIA62-B)",
+      "Nombre_Asignatura": "ECONOMÍA",
+      "Vacantes": 33,
+      "Salas_Adecuadas": 27,
+      "Salas_Inadecuadas": 46,
+      "Ratio_Adecuacion": 0.3698630136986301
+    },
+    {
+      "Codigo_Asignatura": "(ARQ44-A)",
+      "Nombre_Asignatura": "TERRITORIO 2",
+      "Vacantes": 30,
+      "Salas_Adecuadas": 32,
+      "Salas_Inadecuadas": 41,
+      "Ratio_Adecuacion": 0.4383561643835616
+    },
+    {
+      "Codigo_Asignatura": "(PRI63-AR)",
+      "Nombre_Asignatura": "HIGIENE OCUPACIONAL APLIC",
+      "Vacantes": 30,
+      "Salas_Adecuadas": 32,
+      "Salas_Inadecuadas": 41,
+      "Ratio_Adecuacion": 0.4383561643835616
+    },
+    {
+      "Codigo_Asignatura": "(ARQ21-A)",
+      "Nombre_Asignatura": "TALLER 2",
+      "Vacantes": 30,
+      "Salas_Adecuadas": 32,
+      "Salas_Inadecuadas": 41,
+      "Ratio_Adecuacion": 0.4383561643835616
+    },
+    {
+      "Codigo_Asignatura": "(INT52-J)",
+      "Nombre_Asignatura": "TERMODINAMICA",
+      "Vacantes": 30,
+      "Salas_Adecuadas": 32,
+      "Salas_Inadecuadas": 41,
+      "Ratio_Adecuacion": 0.4383561643835616
+    },
+    {
+      "Codigo_Asignatura": "(FIA62-A)",
+      "Nombre_Asignatura": "ECONOMÍA",
+      "Vacantes": 29,
+      "Salas_Adecuadas": 35,
+      "Salas_Inadecuadas": 38,
+      "Ratio_Adecuacion": 0.4794520547945205
+    },
+    {
+      "Codigo_Asignatura": "(INT61-J)",
+      "Nombre_Asignatura": "MECANICA DE FLUIDOS",
+      "Vacantes": 28,
+      "Salas_Adecuadas": 40,
+      "Salas_Inadecuadas": 33,
+      "Ratio_Adecuacion": 0.547945205479452
+    },
+    {
+      "Codigo_Asignatura": "(IC603-A)",
+      "Nombre_Asignatura": "METODOLOGIA DE LA INVESTI",
+      "Vacantes": 28,
+      "Salas_Adecuadas": 40,
+      "Salas_Inadecuadas": 33,
+      "Ratio_Adecuacion": 0.547945205479452
+    },
+    {
+      "Codigo_Asignatura": "(CCIA5-A)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 28,
+      "Salas_Adecuadas": 40,
+      "Salas_Inadecuadas": 33,
+      "Ratio_Adecuacion": 0.547945205479452
+    },
+    {
+      "Codigo_Asignatura": "(IC801-A)",
+      "Nombre_Asignatura": "DIRECCION DE PROYECTOS",
+      "Vacantes": 27,
+      "Salas_Adecuadas": 41,
+      "Salas_Inadecuadas": 32,
+      "Ratio_Adecuacion": 0.5616438356164384
+    },
+    {
+      "Codigo_Asignatura": "(ARQ42-A)",
+      "Nombre_Asignatura": "MEDIOS DE EXPRESION 1",
+      "Vacantes": 27,
+      "Salas_Adecuadas": 41,
+      "Salas_Inadecuadas": 32,
+      "Ratio_Adecuacion": 0.5616438356164384
+    },
+    {
+      "Codigo_Asignatura": "(INT51-J)",
+      "Nombre_Asignatura": "MICROECONOMIA",
+      "Vacantes": 27,
+      "Salas_Adecuadas": 41,
+      "Salas_Inadecuadas": 32,
+      "Ratio_Adecuacion": 0.5616438356164384
+    },
+    {
+      "Codigo_Asignatura": "(INT24-J)",
+      "Nombre_Asignatura": "COMPUTACION I",
+      "Vacantes": 27,
+      "Salas_Adecuadas": 41,
+      "Salas_Inadecuadas": 32,
+      "Ratio_Adecuacion": 0.5616438356164384
+    },
+    {
+      "Codigo_Asignatura": "(INT42-J)",
+      "Nombre_Asignatura": "CONTABILIDAD Y SISTEMAS D",
+      "Vacantes": 27,
+      "Salas_Adecuadas": 41,
+      "Salas_Inadecuadas": 32,
+      "Ratio_Adecuacion": 0.5616438356164384
+    },
+    {
+      "Codigo_Asignatura": "(PRI65-AR)",
+      "Nombre_Asignatura": "VIGILANCIA EPIDEMIOLÓGICA",
+      "Vacantes": 26,
+      "Salas_Adecuadas": 44,
+      "Salas_Inadecuadas": 29,
+      "Ratio_Adecuacion": 0.6027397260273972
+    },
+    {
+      "Codigo_Asignatura": "(ARQ64-A)",
+      "Nombre_Asignatura": "ESTRUCTURA 2",
+      "Vacantes": 26,
+      "Salas_Adecuadas": 44,
+      "Salas_Inadecuadas": 29,
+      "Ratio_Adecuacion": 0.6027397260273972
+    },
+    {
+      "Codigo_Asignatura": "(IC10F-A)",
+      "Nombre_Asignatura": "SEGURIDAD DE LA INFORMACI",
+      "Vacantes": 25,
+      "Salas_Adecuadas": 48,
+      "Salas_Inadecuadas": 25,
+      "Ratio_Adecuacion": 0.6575342465753424
+    },
+    {
+      "Codigo_Asignatura": "(IC802-A)",
+      "Nombre_Asignatura": "FINANZAS",
+      "Vacantes": 25,
+      "Salas_Adecuadas": 48,
+      "Salas_Inadecuadas": 25,
+      "Ratio_Adecuacion": 0.6575342465753424
+    },
+    {
+      "Codigo_Asignatura": "(PRI64-AR)",
+      "Nombre_Asignatura": "ERGONOMÍA",
+      "Vacantes": 25,
+      "Salas_Adecuadas": 48,
+      "Salas_Inadecuadas": 25,
+      "Ratio_Adecuacion": 0.6575342465753424
+    },
+    {
+      "Codigo_Asignatura": "(IC604-A)",
+      "Nombre_Asignatura": "MARKETING",
+      "Vacantes": 25,
+      "Salas_Adecuadas": 48,
+      "Salas_Inadecuadas": 25,
+      "Ratio_Adecuacion": 0.6575342465753424
+    },
+    {
+      "Codigo_Asignatura": "(ARQ83-A)",
+      "Nombre_Asignatura": "TERRITORIO 4",
+      "Vacantes": 25,
+      "Salas_Adecuadas": 48,
+      "Salas_Inadecuadas": 25,
+      "Ratio_Adecuacion": 0.6575342465753424
+    },
+    {
+      "Codigo_Asignatura": "(PRI61-AR)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIA",
+      "Vacantes": 24,
+      "Salas_Adecuadas": 49,
+      "Salas_Inadecuadas": 24,
+      "Ratio_Adecuacion": 0.6712328767123288
+    },
+    {
+      "Codigo_Asignatura": "(INT91-FA)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 24,
+      "Salas_Adecuadas": 49,
+      "Salas_Inadecuadas": 24,
+      "Ratio_Adecuacion": 0.6712328767123288
+    },
+    {
+      "Codigo_Asignatura": "(CCIA3-A)",
+      "Nombre_Asignatura": "GESTION DE CALIDAD DE SOF",
+      "Vacantes": 24,
+      "Salas_Adecuadas": 49,
+      "Salas_Inadecuadas": 24,
+      "Ratio_Adecuacion": 0.6712328767123288
+    },
+    {
+      "Codigo_Asignatura": "(CCIA1-A)",
+      "Nombre_Asignatura": "TALLER DE INNOVACION T.I.",
+      "Vacantes": 24,
+      "Salas_Adecuadas": 49,
+      "Salas_Inadecuadas": 24,
+      "Ratio_Adecuacion": 0.6712328767123288
+    },
+    {
+      "Codigo_Asignatura": "(INT73-FA)",
+      "Nombre_Asignatura": "PROCESOS INDUSTRIALES",
+      "Vacantes": 24,
+      "Salas_Adecuadas": 49,
+      "Salas_Inadecuadas": 24,
+      "Ratio_Adecuacion": 0.6712328767123288
+    },
+    {
+      "Codigo_Asignatura": "(PRI66-AR)",
+      "Nombre_Asignatura": "TALLER DE INTEGRACIÓN PRO",
+      "Vacantes": 24,
+      "Salas_Adecuadas": 49,
+      "Salas_Inadecuadas": 24,
+      "Ratio_Adecuacion": 0.6712328767123288
+    },
+    {
+      "Codigo_Asignatura": "(FIA53-A)",
+      "Nombre_Asignatura": "ONDAS Y ÓPTICA",
+      "Vacantes": 23,
+      "Salas_Adecuadas": 50,
+      "Salas_Inadecuadas": 23,
+      "Ratio_Adecuacion": 0.684931506849315
+    },
+    {
+      "Codigo_Asignatura": "(PRI62-AR)",
+      "Nombre_Asignatura": "LEGISLACIÓN DE SALUD Y SE",
+      "Vacantes": 23,
+      "Salas_Adecuadas": 50,
+      "Salas_Inadecuadas": 23,
+      "Ratio_Adecuacion": 0.684931506849315
+    },
+    {
+      "Codigo_Asignatura": "(INT16-J)",
+      "Nombre_Asignatura": "ADMINISTRACION DE EMPRESA",
+      "Vacantes": 23,
+      "Salas_Adecuadas": 50,
+      "Salas_Inadecuadas": 23,
+      "Ratio_Adecuacion": 0.684931506849315
+    },
+    {
+      "Codigo_Asignatura": "(CCIA4-A)",
+      "Nombre_Asignatura": "LIDERAZGO Y EMPRENDIMIENT",
+      "Vacantes": 23,
+      "Salas_Adecuadas": 50,
+      "Salas_Inadecuadas": 23,
+      "Ratio_Adecuacion": 0.684931506849315
+    },
+    {
+      "Codigo_Asignatura": "(PRI62-S)",
+      "Nombre_Asignatura": "LEGISLACIÓN DE SALUD Y SE",
+      "Vacantes": 23,
+      "Salas_Adecuadas": 50,
+      "Salas_Inadecuadas": 23,
+      "Ratio_Adecuacion": 0.684931506849315
+    },
+    {
+      "Codigo_Asignatura": "(FIA45-C)",
+      "Nombre_Asignatura": "DIBUJO DE INGENIERÍA",
+      "Vacantes": 23,
+      "Salas_Adecuadas": 50,
+      "Salas_Inadecuadas": 23,
+      "Ratio_Adecuacion": 0.684931506849315
+    },
+    {
+      "Codigo_Asignatura": "(PRI63-S)",
+      "Nombre_Asignatura": "HIGIENE OCUPACIONAL APLIC",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(PRI66-S)",
+      "Nombre_Asignatura": "TALLER DE INTEGRACIÓN PRO",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(INT75-FA)",
+      "Nombre_Asignatura": "GESTION DE EMPRESAS",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(PRI65-S)",
+      "Nombre_Asignatura": "VIGILANCIA EPIDEMIOLÓGICA",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(INT43-I)",
+      "Nombre_Asignatura": "TEORIA DE SISTEMAS",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(ARQ82-A)",
+      "Nombre_Asignatura": "URBANISMO 3",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(PRI61-S)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIA",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(INT43-FA)",
+      "Nombre_Asignatura": "TEORIA DE SISTEMAS",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(ARQ85-A)",
+      "Nombre_Asignatura": "INSTALACIONES",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(FIA43-A)",
+      "Nombre_Asignatura": "ELECTRICIDAD Y MAGNETISMO",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(INT32-J)",
+      "Nombre_Asignatura": "CALCULO III",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(PRI64-S)",
+      "Nombre_Asignatura": "ERGONOMÍA",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(INT55-FA)",
+      "Nombre_Asignatura": "FINANZAS",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(CCI85-A)",
+      "Nombre_Asignatura": "SISTEMAS DE INFORMACION P",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(CCIA2-A)",
+      "Nombre_Asignatura": "GESTIÓN DE PROCESOS DE NE",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(INT14-J)",
+      "Nombre_Asignatura": "FISICA I",
+      "Vacantes": 22,
+      "Salas_Adecuadas": 51,
+      "Salas_Inadecuadas": 22,
+      "Ratio_Adecuacion": 0.6986301369863014
+    },
+    {
+      "Codigo_Asignatura": "(FIAL1-A)",
+      "Nombre_Asignatura": "INGLES III",
+      "Vacantes": 21,
+      "Salas_Adecuadas": 52,
+      "Salas_Inadecuadas": 21,
+      "Ratio_Adecuacion": 0.7123287671232876
+    },
+    {
+      "Codigo_Asignatura": "(FIA42-B)",
+      "Nombre_Asignatura": "MÉTODOS NUMÉRICOS",
+      "Vacantes": 21,
+      "Salas_Adecuadas": 52,
+      "Salas_Inadecuadas": 21,
+      "Ratio_Adecuacion": 0.7123287671232876
+    },
+    {
+      "Codigo_Asignatura": "(IMI45-A)",
+      "Nombre_Asignatura": "MINEROLOGIA Y PETROGRAFIA",
+      "Vacantes": 21,
+      "Salas_Adecuadas": 52,
+      "Salas_Inadecuadas": 21,
+      "Ratio_Adecuacion": 0.7123287671232876
+    },
+    {
+      "Codigo_Asignatura": "(CCI83-A)",
+      "Nombre_Asignatura": "REDES DE COMPUTADORES",
+      "Vacantes": 21,
+      "Salas_Adecuadas": 52,
+      "Salas_Inadecuadas": 21,
+      "Ratio_Adecuacion": 0.7123287671232876
+    },
+    {
+      "Codigo_Asignatura": "(CCI63-A)",
+      "Nombre_Asignatura": "FUNDAMENTOS DE LENGUAJE D",
+      "Vacantes": 21,
+      "Salas_Adecuadas": 52,
+      "Salas_Inadecuadas": 21,
+      "Ratio_Adecuacion": 0.7123287671232876
+    },
+    {
+      "Codigo_Asignatura": "(INT68-FB)",
+      "Nombre_Asignatura": "PRODUCCION II",
+      "Vacantes": 21,
+      "Salas_Adecuadas": 52,
+      "Salas_Inadecuadas": 21,
+      "Ratio_Adecuacion": 0.7123287671232876
+    },
+    {
+      "Codigo_Asignatura": "(PRI85-AR)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 21,
+      "Salas_Adecuadas": 52,
+      "Salas_Inadecuadas": 21,
+      "Ratio_Adecuacion": 0.7123287671232876
+    },
+    {
+      "Codigo_Asignatura": "(CCI84-A)",
+      "Nombre_Asignatura": "TALLER DE INGENIERIA DE S",
+      "Vacantes": 19,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT12-J)",
+      "Nombre_Asignatura": "QUIMICA I",
+      "Vacantes": 19,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT82-FA)",
+      "Nombre_Asignatura": "DESARROLLO Y EVALUACION D",
+      "Vacantes": 19,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(PRI81-AR)",
+      "Nombre_Asignatura": "METODOLOGÍAS DE INVESTIGA",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(PRI83-AR)",
+      "Nombre_Asignatura": "COMUNICACIÓN Y LIDERAZGO",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT59-J)",
+      "Nombre_Asignatura": "PRODUCCION I",
+      "Vacantes": 19,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(PRI82-AR)",
+      "Nombre_Asignatura": "SISTEMAS DE GESTIÓN DE CA",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT56-J)",
+      "Nombre_Asignatura": "INGENIERIA ECONOMICA",
+      "Vacantes": 19,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT68-I)",
+      "Nombre_Asignatura": "PRODUCCION II",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT73-I)",
+      "Nombre_Asignatura": "PROCESOS INDUSTRIALES",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT91-J)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT91-I)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(PRI84-AR)",
+      "Nombre_Asignatura": "TÉCNICAS DE NEGOCIACIÓN Y",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(INT82-J)",
+      "Nombre_Asignatura": "DESARROLLO Y EVALUACION D",
+      "Vacantes": 19,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(CCI65-A)",
+      "Nombre_Asignatura": "ANALISIS DE ALGORITMOS",
+      "Vacantes": 20,
+      "Salas_Adecuadas": 61,
+      "Salas_Inadecuadas": 12,
+      "Ratio_Adecuacion": 0.8356164383561644
+    },
+    {
+      "Codigo_Asignatura": "(ARQ65-A)",
+      "Nombre_Asignatura": "CONSTRUCCION 3",
+      "Vacantes": 18,
+      "Salas_Adecuadas": 63,
+      "Salas_Inadecuadas": 10,
+      "Ratio_Adecuacion": 0.863013698630137
+    },
+    {
+      "Codigo_Asignatura": "(INT57-J)",
+      "Nombre_Asignatura": "GESTION AMBIENTAL",
+      "Vacantes": 18,
+      "Salas_Adecuadas": 63,
+      "Salas_Inadecuadas": 10,
+      "Ratio_Adecuacion": 0.863013698630137
+    },
+    {
+      "Codigo_Asignatura": "(ARQ84-A)",
+      "Nombre_Asignatura": "ESTRUCTURA 4",
+      "Vacantes": 18,
+      "Salas_Adecuadas": 63,
+      "Salas_Inadecuadas": 10,
+      "Ratio_Adecuacion": 0.863013698630137
+    },
+    {
+      "Codigo_Asignatura": "(ARQ62-A)",
+      "Nombre_Asignatura": "URBANISMO 1",
+      "Vacantes": 18,
+      "Salas_Adecuadas": 63,
+      "Salas_Inadecuadas": 10,
+      "Ratio_Adecuacion": 0.863013698630137
+    },
+    {
+      "Codigo_Asignatura": "(INT72-FA)",
+      "Nombre_Asignatura": "GESTION DE PERSONAS II",
+      "Vacantes": 18,
+      "Salas_Adecuadas": 63,
+      "Salas_Inadecuadas": 10,
+      "Ratio_Adecuacion": 0.863013698630137
+    },
+    {
+      "Codigo_Asignatura": "(IMI82-A)",
+      "Nombre_Asignatura": "DISEÑO DE EXPLOTACIONES A",
+      "Vacantes": 18,
+      "Salas_Adecuadas": 63,
+      "Salas_Inadecuadas": 10,
+      "Ratio_Adecuacion": 0.863013698630137
+    },
+    {
+      "Codigo_Asignatura": "(IMI64-A)",
+      "Nombre_Asignatura": "GEOLOGIA ESTRUCTURAL",
+      "Vacantes": 18,
+      "Salas_Adecuadas": 63,
+      "Salas_Inadecuadas": 10,
+      "Ratio_Adecuacion": 0.863013698630137
+    },
+    {
+      "Codigo_Asignatura": "(PRI83-S)",
+      "Nombre_Asignatura": "COMUNICACIÓN Y LIDERAZGO",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(INT55-I)",
+      "Nombre_Asignatura": "FINANZAS",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(IMIA3-A)",
+      "Nombre_Asignatura": "CIERRE Y ABANDONO DE FAEN",
+      "Vacantes": 17,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(IMIA4-A)",
+      "Nombre_Asignatura": "SIST. DE GESTION EN SEGUR",
+      "Vacantes": 17,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(PRI82-S)",
+      "Nombre_Asignatura": "SISTEMAS DE GESTIÓN DE CA",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(IC82A-A)",
+      "Nombre_Asignatura": "SUPPLY CHAIN MANAGEMENT",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(INT75-I)",
+      "Nombre_Asignatura": "GESTION DE EMPRESAS",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(FIA52-A)",
+      "Nombre_Asignatura": "ESTADÍSTICA APLICADA",
+      "Vacantes": 17,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(IMI83-A)",
+      "Nombre_Asignatura": "VENTILACIÓN DE MINAS SUBT",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(PRI85-S)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(ARQA1-A)",
+      "Nombre_Asignatura": "SEMINARIO",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(ICIA5-A)",
+      "Nombre_Asignatura": "INTRODUCCIÓN A PROYECTO",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(PRI84-S)",
+      "Nombre_Asignatura": "TÉCNICAS DE NEGOCIACIÓN Y",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(IMI63-A)",
+      "Nombre_Asignatura": "PREPARACION MECANICA DE M",
+      "Vacantes": 17,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(ARQ63-A)",
+      "Nombre_Asignatura": "TERRITORIO 3",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(IC10D-A)",
+      "Nombre_Asignatura": "ESTRUCTURA DE DATOS",
+      "Vacantes": 17,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(INT72-I)",
+      "Nombre_Asignatura": "GESTION DE PERSONAS II",
+      "Vacantes": 17,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(PRI81-S)",
+      "Nombre_Asignatura": "METODOLOGÍAS DE INVESTIGA",
+      "Vacantes": 16,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(CCI44-A)",
+      "Nombre_Asignatura": "PROGRAMACION ORIENTADA A",
+      "Vacantes": 17,
+      "Salas_Adecuadas": 64,
+      "Salas_Inadecuadas": 9,
+      "Ratio_Adecuacion": 0.8767123287671232
+    },
+    {
+      "Codigo_Asignatura": "(ICEA5-A)",
+      "Nombre_Asignatura": "PROCESAMIENTO DIGITAL DE",
+      "Vacantes": 13,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(ARQ21-B)",
+      "Nombre_Asignatura": "TALLER 2",
+      "Vacantes": 15,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(INT42-I)",
+      "Nombre_Asignatura": "CONTABILIDAD Y SISTEMAS D",
+      "Vacantes": 14,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(IME46-A)",
+      "Nombre_Asignatura": "MINEROLOGIA Y GEOLOGIA",
+      "Vacantes": 13,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(INT51-I)",
+      "Nombre_Asignatura": "MICROECONOMIA",
+      "Vacantes": 15,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(INT52-FA)",
+      "Nombre_Asignatura": "TERMODINAMICA",
+      "Vacantes": 13,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(ICE83-A)",
+      "Nombre_Asignatura": "ROBÓTICA",
+      "Vacantes": 14,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(INT61-FA)",
+      "Nombre_Asignatura": "MECANICA DE FLUIDOS",
+      "Vacantes": 14,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(INT42-FA)",
+      "Nombre_Asignatura": "CONTABILIDAD Y SISTEMAS D",
+      "Vacantes": 13,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(ARQA2-A)",
+      "Nombre_Asignatura": "INTRODUCCION AL PROYECTO",
+      "Vacantes": 15,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(INT51-FA)",
+      "Nombre_Asignatura": "MICROECONOMIA",
+      "Vacantes": 13,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(ICIA1-A)",
+      "Nombre_Asignatura": "CONFIABILIDAD Y MANTENIMI",
+      "Vacantes": 15,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(IMIA2-A)",
+      "Nombre_Asignatura": "PLANEAMIENTO MINERO",
+      "Vacantes": 15,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(CCI64-B)",
+      "Nombre_Asignatura": "INGENIERÍA DE REQUISITOS",
+      "Vacantes": 14,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(CCI81-A)",
+      "Nombre_Asignatura": "ARQUITECTURA DE COMPUTADO",
+      "Vacantes": 15,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(INT61-I)",
+      "Nombre_Asignatura": "MECANICA DE FLUIDOS",
+      "Vacantes": 13,
+      "Salas_Adecuadas": 67,
+      "Salas_Inadecuadas": 6,
+      "Ratio_Adecuacion": 0.9178082191780822
+    },
+    {
+      "Codigo_Asignatura": "(ICEA2-A)",
+      "Nombre_Asignatura": "SISTEMAS DE CONTROL DISTR",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(IMI61-A)",
+      "Nombre_Asignatura": "CARGIO Y TRANSPORTE DE MI",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(CCI64-A)",
+      "Nombre_Asignatura": "INGENIERÍA DE REQUISITOS",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(INT64-I)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIAS",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(ARQ81-A)",
+      "Nombre_Asignatura": "TALLER 8",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(FIAB1-A)",
+      "Nombre_Asignatura": "INGLES I",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(INT52-S)",
+      "Nombre_Asignatura": "TERMODINAMICA",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(INT61-S)",
+      "Nombre_Asignatura": "MECANICA DE FLUIDOS",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(ICIA3-A)",
+      "Nombre_Asignatura": "PREPARCIÓN PARA EL PROCES",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(ICEA3-A)",
+      "Nombre_Asignatura": "LABORATORIO DE CONTROL DI",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(ICEA4-A)",
+      "Nombre_Asignatura": "LABORATORIO DE ROBÓTICA",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(INT64-FA)",
+      "Nombre_Asignatura": "OPERACIONES UNITARIAS",
+      "Vacantes": 12,
+      "Salas_Adecuadas": 68,
+      "Salas_Inadecuadas": 5,
+      "Ratio_Adecuacion": 0.9315068493150684
+    },
+    {
+      "Codigo_Asignatura": "(ARQC2-A)",
+      "Nombre_Asignatura": "EXPRESION GRAFICA DE PROY",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(INT82-I)",
+      "Nombre_Asignatura": "DESARROLLO Y EVALUACION D",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(INT82-FB)",
+      "Nombre_Asignatura": "DESARROLLO Y EVALUACION D",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(FIAB2-A)",
+      "Nombre_Asignatura": "INGLES II",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(INT42-S)",
+      "Nombre_Asignatura": "CONTABILIDAD Y SISTEMAS D",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(INT56-FB)",
+      "Nombre_Asignatura": "INGENIERIA ECONOMICA",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(INT59-FB)",
+      "Nombre_Asignatura": "PRODUCCION I",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(ICE82-A)",
+      "Nombre_Asignatura": "LABORATORIO DE CONTROL AU",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(ICE85-A)",
+      "Nombre_Asignatura": "SISTEMAS DE COMUNICACIONE",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(ICEA1-A)",
+      "Nombre_Asignatura": "DISEÑO Y CONST.DE CIRCUIT",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(IME84-A)",
+      "Nombre_Asignatura": "PIROMETALURGIA",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(IMI84-A)",
+      "Nombre_Asignatura": "CREATIVIDAD INNOVACION Y",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(INT52-I)",
+      "Nombre_Asignatura": "TERMODINAMICA",
+      "Vacantes": 11,
+      "Salas_Adecuadas": 69,
+      "Salas_Inadecuadas": 4,
+      "Ratio_Adecuacion": 0.9452054794520548
+    },
+    {
+      "Codigo_Asignatura": "(ARQ41-A)",
+      "Nombre_Asignatura": "TALLER 4",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(ICE84-A)",
+      "Nombre_Asignatura": "ELECTRÓNICA DE POTENCIA",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(ARQ41-B)",
+      "Nombre_Asignatura": "TALLER 4",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(IMIC4-A)",
+      "Nombre_Asignatura": "MODELAMIENTO GEOMECÁNICO",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(INT51-S)",
+      "Nombre_Asignatura": "MICROECONOMIA",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(CCI66-A)",
+      "Nombre_Asignatura": "EVALUACION Y DESARROLLO D",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(ICAA1-A)",
+      "Nombre_Asignatura": "DESARROLLO Y GESTION DE P",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(INT24-S)",
+      "Nombre_Asignatura": "COMPUTACION I",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(ICAA6-A)",
+      "Nombre_Asignatura": "CAMBIO CLIMÁTICO Y RESILE",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(FIA91-A)",
+      "Nombre_Asignatura": "PREPARACIÓN Y EVALUACIÓN",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(ICEA6-A)",
+      "Nombre_Asignatura": "TALLER DE TITULACIÓN",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(ICAA3-A)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 10,
+      "Salas_Adecuadas": 70,
+      "Salas_Inadecuadas": 3,
+      "Ratio_Adecuacion": 0.958904109589041
+    },
+    {
+      "Codigo_Asignatura": "(IME82-A)",
+      "Nombre_Asignatura": "FLOTACION",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(INT91-FB)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(INT42-FB)",
+      "Nombre_Asignatura": "CONTABILIDAD Y SISTEMAS D",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(IME44-A)",
+      "Nombre_Asignatura": "ELEM.DE QUIMICA INORGANIC",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(INT61-FB)",
+      "Nombre_Asignatura": "MECANICA DE FLUIDOS",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(ICE65-A)",
+      "Nombre_Asignatura": "ELECTRÓNICA II",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(IMI62-A)",
+      "Nombre_Asignatura": "GEOLOGIA DE MINAS",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(INT57-FA)",
+      "Nombre_Asignatura": "GESTION AMBIENTAL",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(IMEA3-A)",
+      "Nombre_Asignatura": "ADMINISTRACION DE RIESGO",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(INT51-FB)",
+      "Nombre_Asignatura": "MICROECONOMIA",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(ICE64-A)",
+      "Nombre_Asignatura": "LABORATORIO DE ELECTRÓNIC",
+      "Vacantes": 9,
+      "Salas_Adecuadas": 71,
+      "Salas_Inadecuadas": 2,
+      "Ratio_Adecuacion": 0.9726027397260274
+    },
+    {
+      "Codigo_Asignatura": "(ICA81-A)",
+      "Nombre_Asignatura": "INVESTIGACION DE OPERACIO",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ51-B)",
+      "Nombre_Asignatura": "TALLER 5",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA83-A)",
+      "Nombre_Asignatura": "TRAMIENTO DE RESIDUOS LIQ",
+      "Vacantes": 6,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ61-B)",
+      "Nombre_Asignatura": "TALLER 6",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA94-A)",
+      "Nombre_Asignatura": "PLANIFICACION TERRITORIAL",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICAA2-A)",
+      "Nombre_Asignatura": "GESTION AMBIENTAL",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICE61-A)",
+      "Nombre_Asignatura": "MÁQUINAS ELÉCTRICAS",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA02-A)",
+      "Nombre_Asignatura": "GESTION ESTRATEGICA",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA01-A)",
+      "Nombre_Asignatura": "CREATIVIDAD, INNOVACION Y",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IC902-A)",
+      "Nombre_Asignatura": "SISTEMAS DE INFORMACIÓN",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ56-A)",
+      "Nombre_Asignatura": "PRACTICA EN OFICINA",
+      "Vacantes": 1,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ96-A)",
+      "Nombre_Asignatura": "PRACTICA EN TERRENO",
+      "Vacantes": 1,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(CCI61-A)",
+      "Nombre_Asignatura": "SISTEMAS DIGITALES",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQC9-A)",
+      "Nombre_Asignatura": "TEMÁTICAS EMERGENTES SOBR",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA85-A)",
+      "Nombre_Asignatura": "SIMULACION AMBIENTAL",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IEP3C-A)",
+      "Nombre_Asignatura": "SALUD OCUPACIONAL II",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(INT55-S)",
+      "Nombre_Asignatura": "FINANZAS",
+      "Vacantes": 6,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ71-A)",
+      "Nombre_Asignatura": "TALLER 7",
+      "Vacantes": 7,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(INT75-S)",
+      "Nombre_Asignatura": "GESTION DE EMPRESAS",
+      "Vacantes": 6,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(PRO52-ON)",
+      "Nombre_Asignatura": "LEGISLACIÓN DE SALUD Y SE",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(INT34-J)",
+      "Nombre_Asignatura": "FISICA II",
+      "Vacantes": 1,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICE44-A)",
+      "Nombre_Asignatura": "TEORÍA DE REDES I",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(CCI95-A)",
+      "Nombre_Asignatura": "METODOLOGIA DE LA INVESTI",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA64-A)",
+      "Nombre_Asignatura": "BIOTECNOLOGIA APLICADA",
+      "Vacantes": 3,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(PRO53-ON)",
+      "Nombre_Asignatura": "LEGISLACIÓN AMBIENTAL Y G",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(PRO51-ON)",
+      "Nombre_Asignatura": "CÁLCULO II",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICE63-A)",
+      "Nombre_Asignatura": "SISTEMAS DIGITALES",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA65-A)",
+      "Nombre_Asignatura": "SISTEMA DE INFORMACION GE",
+      "Vacantes": 4,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA84-A)",
+      "Nombre_Asignatura": "EVALUCION AMBIENTAL",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(PRO56-ON)",
+      "Nombre_Asignatura": "TALLER DE INTEGRACIÓN INI",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(PRO55-ON)",
+      "Nombre_Asignatura": "LABORATORIO DE HIGIENE OC",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(PRO54-ON)",
+      "Nombre_Asignatura": "QUÍMICA INDUSTRIAL",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ31-A)",
+      "Nombre_Asignatura": "TALLER 3",
+      "Vacantes": 4,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IMIC5-A)",
+      "Nombre_Asignatura": "SEMINARIO DE PREPARACIÓN",
+      "Vacantes": 1,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IMEB4-A)",
+      "Nombre_Asignatura": "QUÍMICA DEL AGUA",
+      "Vacantes": 1,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IMEB9-A)",
+      "Nombre_Asignatura": "DERECHO MINERO Y AMBIENTA",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ91-A)",
+      "Nombre_Asignatura": "TALLER 9",
+      "Vacantes": 3,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(INT52-FB)",
+      "Nombre_Asignatura": "TERMODINAMICA",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA63-A)",
+      "Nombre_Asignatura": "FENOMENOS DE TRANSPORTE",
+      "Vacantes": 6,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA61-A)",
+      "Nombre_Asignatura": "MECANICA DE FLUIDOS",
+      "Vacantes": 6,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(INT24-FA)",
+      "Nombre_Asignatura": "COMPUTACION I",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(INT91-S)",
+      "Nombre_Asignatura": "TALLER DE TITULO",
+      "Vacantes": 6,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA82-A)",
+      "Nombre_Asignatura": "TRATAMIENTO DE EMISIONES",
+      "Vacantes": 4,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ICA44-A)",
+      "Nombre_Asignatura": "BIOQUIMICA Y MICROBIOLOGI",
+      "Vacantes": 3,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IMI63-B)",
+      "Nombre_Asignatura": "PREPARACION MECANICA DE M",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ61-A)",
+      "Nombre_Asignatura": "TALLER 6",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ51-A)",
+      "Nombre_Asignatura": "TALLER 5",
+      "Vacantes": 3,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(CCI82-A)",
+      "Nombre_Asignatura": "COMPILADORES",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IC904-A)",
+      "Nombre_Asignatura": "PRODUCCION",
+      "Vacantes": 0,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IME83-A)",
+      "Nombre_Asignatura": "PURIFICACION Y SEPARACION",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IME61-A)",
+      "Nombre_Asignatura": "BALANCE DE MATERIA Y ENER",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IMEA2-A)",
+      "Nombre_Asignatura": "CADENA DE VALOR HIDROMETA",
+      "Vacantes": 8,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(IME64-A)",
+      "Nombre_Asignatura": "CINETICA QUIMICA",
+      "Vacantes": 5,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    },
+    {
+      "Codigo_Asignatura": "(ARQ31-B)",
+      "Nombre_Asignatura": "TALLER 3",
+      "Vacantes": 4,
+      "Salas_Adecuadas": 73,
+      "Salas_Inadecuadas": 0,
+      "Ratio_Adecuacion": 1.0
+    }
+  ],
+  "global_stats": {
+    "total_asignaturas": 294,
+    "asignaturas_sin_salas_adecuadas": 0,
+    "porcentaje_asignaturas_problematicas": 0.0
+  }
+}

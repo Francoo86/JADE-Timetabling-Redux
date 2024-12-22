@@ -1,0 +1,56 @@
+{
+  "room_stats": {
+    "A106": {
+      "bajo": 6,
+      "exacta": 2,
+      "sobre": 16,
+      "total": 24,
+      "room_capacity": 18,
+      "bajo_pct": 25.0,
+      "exacta_pct": 8.33,
+      "sobre_pct": 66.67,
+      "capacity_range": "10-19"
+    },
+    "ANT21": {
+      "bajo": 28,
+      "exacta": 0,
+      "sobre": 7,
+      "total": 35,
+      "room_capacity": 22,
+      "bajo_pct": 80.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 20.0,
+      "capacity_range": "20-29"
+    },
+    "LPIR": {
+      "bajo": 1,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 1,
+      "room_capacity": 24,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    }
+  },
+  "global_stats": {
+    "bajo_capacidad": 58.333333333333336,
+    "capacidad_exacta": 3.3333333333333335,
+    "sobre_capacidad": 38.333333333333336
+  },
+  "range_analysis": {
+    "bajo": {
+      "10-19": 6,
+      "20-29": 29
+    },
+    "exacta": {
+      "10-19": 2,
+      "20-29": 0
+    },
+    "sobre": {
+      "10-19": 16,
+      "20-29": 7
+    }
+  }
+}

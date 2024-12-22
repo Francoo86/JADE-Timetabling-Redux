@@ -1,0 +1,40 @@
+{
+  "room_stats": [
+    {
+      "Codigo": "A106",
+      "Bloques Ocupados": 24,
+      "Bloques Desocupados": 21,
+      "Tasa de Ocupacion": 53.33
+    },
+    {
+      "Codigo": "ANT21",
+      "Bloques Ocupados": 35,
+      "Bloques Desocupados": 10,
+      "Tasa de Ocupacion": 77.78
+    },
+    {
+      "Codigo": "LPIR",
+      "Bloques Ocupados": 1,
+      "Bloques Desocupados": 44,
+      "Tasa de Ocupacion": 2.22
+    },
+    {
+      "Codigo": "Total",
+      "Bloques Ocupados": 60,
+      "Bloques Desocupados": 75,
+      "Tasa de Ocupacion": "-"
+    }
+  ],
+  "global_stats": {
+    "total_occupied_blocks": 120,
+    "total_unoccupied_blocks": 150,
+    "global_compaction_rate": 0.4444444444444444
+  },
+  "daily_compaction_rates": {
+    "Lunes": 0.5185185185185185,
+    "Martes": 0.5185185185185185,
+    "Miercoles": 0.4444444444444444,
+    "Jueves": 0.4444444444444444,
+    "Viernes": 0.2962962962962963
+  }
+}

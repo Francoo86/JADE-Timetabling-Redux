@@ -1,0 +1,30 @@
+{
+  "room_stats": [
+    {
+      "Codigo": "A106",
+      "Cantidad de Ventanas": 5,
+      "Duracion de Ventanas": 6
+    },
+    {
+      "Codigo": "ANT21",
+      "Cantidad de Ventanas": 3,
+      "Duracion de Ventanas": 4
+    },
+    {
+      "Codigo": "LPIR",
+      "Cantidad de Ventanas": 0,
+      "Duracion de Ventanas": 0
+    },
+    {
+      "Codigo": "Total",
+      "Cantidad de Ventanas": 8,
+      "Duracion de Ventanas": 10
+    }
+  ],
+  "global_stats": {
+    "promedio_ventanas": 4.0,
+    "promedio_duracion": 5.0,
+    "max_ventanas": 8,
+    "max_duracion": 10
+  }
+}
