@@ -3,6 +3,7 @@ package agentes;
 import constants.Commons;
 import constants.Messages;
 import constants.enums.Day;
+import jade.proto.SubscriptionInitiator;
 import service.SatisfaccionHandler;
 import jade.core.Agent;
 import jade.core.behaviours.*;
@@ -55,7 +56,7 @@ public class AgenteSala extends Agent {
         addBehaviour(new ResponderSolicitudesBehaviour());
 
         // Agregar comportamiento para revisar si los profesores han terminado
-        addBehaviour(new RevisarProfesoresBehaviour(this));
+        addBehaviour(new ProfessorMonitorBehaviour(this));
         //hasInitialized = true;
 
         //System.out.println("Sala " + codigo + " iniciada. Capacidad: " + capacidad);
@@ -140,16 +141,40 @@ public class AgenteSala extends Agent {
         }
     }
 
-    private class RevisarProfesoresBehaviour extends TickerBehaviour {
-        private static final int INTERVAL = 5000; // 5 segundos
+    private class ProfessorMonitorBehaviour extends SubscriptionInitiator {
+        public ProfessorMonitorBehaviour(Agent a) {
+            // Create template directly in constructor
+            super(a, createSubscriptionMessage(a));
+        }
 
-        public RevisarProfesoresBehaviour(Agent a) {
-            super(a, INTERVAL);
+        // Make this static or move it out
+        private static ACLMessage createSubscriptionMessage(Agent a) {
+            DFAgentDescription template = new DFAgentDescription();
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType(AgenteProfesor.SERVICE_NAME);
+            template.addServices(sd);
+
+            return DFService.createSubscriptionMessage(a,
+                    a.getDefaultDF(),
+                    template,
+                    null);
         }
 
         @Override
-        protected void onTick() {
-            checkIfProfessorsAreDone();
+        protected void handleInform(ACLMessage inform) {
+            try {
+                DFAgentDescription[] results = DFService.decodeNotification(inform.getContent());
+                if (results == null || results.length < 1) {
+                    // No professors left
+                    if (isRegistered) {
+                        DFService.deregister(myAgent);
+                        isRegistered = false;
+                        myAgent.doDelete();
+                    }
+                }
+            } catch (FIPAException fe) {
+                fe.printStackTrace();
+            }
         }
     }
 
