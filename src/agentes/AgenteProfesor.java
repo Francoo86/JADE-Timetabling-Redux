@@ -314,6 +314,8 @@ public class AgenteProfesor extends Agent {
         }
     }
 
+
+
     private void notificarSiguienteProfesor() {
         // Notificar al siguiente profesor para que inicie su proceso de negociación
         try {

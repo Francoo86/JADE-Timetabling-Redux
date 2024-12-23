@@ -203,43 +203,70 @@ public class AgenteSala extends Agent {
         }
 
         private void procesarSolicitud(ACLMessage msg) {
-            // Formato del mensaje: "nombreAsignatura,vacantes"
             try {
+                // Parse enhanced CFP format: "nombreAsignatura,vacantes,nivel,campus,horasPendientes,salaPrevia,diaAnterior,bloqueAnterior"
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = solicitudData[0];
                 int vacantes = Integer.parseInt(solicitudData[1]);
+                int nivel = Integer.parseInt(solicitudData[2]);
+                String campusRequerido = solicitudData[3];
+                int horasPendientes = Integer.parseInt(solicitudData[4]);
+                String salaPrevia = solicitudData[5];
+                String diaAnterior = solicitudData[6];
+                int bloqueAnterior = Integer.parseInt(solicitudData[7]);
+
+                // Early filtering based on campus and capacity
+                if (!campusRequerido.equals(campus) && salaPrevia.isEmpty()) {
+                    // Don't propose if different campus for first block of subject
+                    ACLMessage reply = msg.createReply();
+                    reply.setPerformative(ACLMessage.REFUSE);
+                    send(reply);
+                    return;
+                }
+
                 int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
+                boolean propuestaEnviada = false;
 
-                boolean propuestaEnviada = false; 
+                // Optimize block iteration based on nivel preference
+                boolean prefiereMañana = nivel % 2 == 1;
+                int inicioBloque = prefiereMañana ? 1 : 5;
+                int finBloque = prefiereMañana ? 4 : Commons.MAX_BLOQUE_DIURNO;
 
-                // Iterar sobre los bloques disponibles
-                for (Day dia : Day.values()) {    // Iterar sobre los días de la semana
-                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);    // Lista de asignaciones por día 
-                    for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {   // Iterar sobre los bloques del día
-                        if (asignaciones.get(bloque) == null) {     // Si el bloque está disponible
-                            ACLMessage reply = msg.createReply();          // Crear mensaje de respuesta
+                for (Day dia : Day.values()) {
+                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+
+                    // Skip days that would create invalid campus transitions
+                    if (!salaPrevia.isEmpty() && diaAnterior.equals(dia.toString())) {
+                        // Only propose consecutive blocks on same day
+                        if (Math.abs(bloqueAnterior - inicioBloque) > 1) {
+                            continue;
+                        }
+                    }
+
+                    // Optimize block iteration
+                    for (int bloque = inicioBloque; bloque <= finBloque; bloque++) {
+                        if (asignaciones.get(bloque - 1) == null) {
+                            // Additional validation for block 9
+                            if (bloque == Commons.MAX_BLOQUE_DIURNO && horasPendientes % 2 == 0) {
+                                continue;
+                            }
+
+                            ACLMessage reply = msg.createReply();
                             reply.setPerformative(ACLMessage.PROPOSE);
                             reply.setContent(String.format("%s,%d,%s,%d,%d",
-                                    dia, bloque + 1, codigo, capacidad, satisfaccion));
+                                    dia, bloque, codigo, capacidad, satisfaccion));
                             send(reply);
                             propuestaEnviada = true;
-//                            System.out.println("Sala " + codigo + " propone para " + nombreAsignatura +
-//                                    ": día " + dia + ", bloque " + (bloque + 1) +
-//                                    ", satisfacción " + satisfaccion);
                         }
                     }
                 }
 
-                // Si no se envió ninguna propuesta, rechazar la solicitud
                 if (!propuestaEnviada) {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
                     send(reply);
-//                    System.out.println("Sala " + codigo + " no tiene bloques disponibles para " +
-//                            nombreAsignatura);
                 }
             } catch (Exception e) {
-                //System.err.println("Error procesando solicitud en sala " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
             }
         }

@@ -472,9 +472,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             template.addServices(sd);
 
             DFAgentDescription[] result = DFService.search(profesor, template);
-
             if (result.length == 0) {
-                System.out.println("No se encontraron salas disponibles");
                 return;
             }
 
@@ -484,20 +482,21 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 cfp.addReceiver(dfd.getName());
             }
 
-            String solicitudInfo = String.format("%s,%d,%s,%s,%d",
+            // Enhanced CFP content with more context
+            String solicitudInfo = String.format("%s,%d,%d,%s,%d,%s,%s,%d",
                     currentSubject.getNombre(),
                     currentSubject.getVacantes(),
+                    currentSubject.getNivel(),
+                    currentSubject.getCampus(),
+                    bloquesPendientes,
                     assignationData.getSalaAsignada(),
-                    assignationData.getUltimoDiaAsignado(),
+                    assignationData.getUltimoDiaAsignado() != null ?
+                            assignationData.getUltimoDiaAsignado().toString() : "",
                     assignationData.getUltimoBloqueAsignado());
 
             cfp.setContent(solicitudInfo);
             cfp.setConversationId("neg-" + profesor.getNombre() + "-" + bloquesPendientes);
             profesor.send(cfp);
-
-//            System.out.println("Profesor " + profesor.getNombre() + " solicitando propuestas para " +
-//                    currentSubject.getNombre() + " (bloques pendientes: " + bloquesPendientes +
-//                    ", sala previa: " + assignationData.getSalaAsignada() + ")");
 
         } catch (FIPAException fe) {
             fe.printStackTrace();
