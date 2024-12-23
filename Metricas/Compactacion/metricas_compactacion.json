@@ -1,30 +1,200 @@
 {
   "room_stats": [
     {
+      "Codigo": "KAUS3",
+      "Cantidad de Ventanas": 7,
+      "Duracion de Ventanas": 7
+    },
+    {
+      "Codigo": "KAUS2",
+      "Cantidad de Ventanas": 15,
+      "Duracion de Ventanas": 15
+    },
+    {
+      "Codigo": "KAUS1",
+      "Cantidad de Ventanas": 10,
+      "Duracion de Ventanas": 10
+    },
+    {
+      "Codigo": "K1",
+      "Cantidad de Ventanas": 11,
+      "Duracion de Ventanas": 13
+    },
+    {
+      "Codigo": "K2",
+      "Cantidad de Ventanas": 15,
+      "Duracion de Ventanas": 15
+    },
+    {
       "Codigo": "A106",
-      "Cantidad de Ventanas": 5,
-      "Duracion de Ventanas": 6
-    },
-    {
-      "Codigo": "ANT21",
-      "Cantidad de Ventanas": 3,
-      "Duracion de Ventanas": 4
-    },
-    {
-      "Codigo": "LPIR",
       "Cantidad de Ventanas": 0,
       "Duracion de Ventanas": 0
     },
     {
-      "Codigo": "Total",
-      "Cantidad de Ventanas": 8,
+      "Codigo": "CM3",
+      "Cantidad de Ventanas": 13,
+      "Duracion de Ventanas": 13
+    },
+    {
+      "Codigo": "K3",
+      "Cantidad de Ventanas": 11,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "CM5",
+      "Cantidad de Ventanas": 10,
       "Duracion de Ventanas": 10
+    },
+    {
+      "Codigo": "CM4",
+      "Cantidad de Ventanas": 10,
+      "Duracion de Ventanas": 10
+    },
+    {
+      "Codigo": "E1",
+      "Cantidad de Ventanas": 8,
+      "Duracion de Ventanas": 12
+    },
+    {
+      "Codigo": "CM6",
+      "Cantidad de Ventanas": 8,
+      "Duracion de Ventanas": 14
+    },
+    {
+      "Codigo": "IM3",
+      "Cantidad de Ventanas": 8,
+      "Duracion de Ventanas": 12
+    },
+    {
+      "Codigo": "IM2",
+      "Cantidad de Ventanas": 7,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "IM4",
+      "Cantidad de Ventanas": 10,
+      "Duracion de Ventanas": 12
+    },
+    {
+      "Codigo": "E6",
+      "Cantidad de Ventanas": 7,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "IC1",
+      "Cantidad de Ventanas": 11,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "CRP43",
+      "Cantidad de Ventanas": 10,
+      "Duracion de Ventanas": 10
+    },
+    {
+      "Codigo": "IC3",
+      "Cantidad de Ventanas": 8,
+      "Duracion de Ventanas": 8
+    },
+    {
+      "Codigo": "IC2",
+      "Cantidad de Ventanas": 5,
+      "Duracion de Ventanas": 9
+    },
+    {
+      "Codigo": "IC4",
+      "Cantidad de Ventanas": 8,
+      "Duracion de Ventanas": 12
+    },
+    {
+      "Codigo": "KAUL1",
+      "Cantidad de Ventanas": 15,
+      "Duracion de Ventanas": 15
+    },
+    {
+      "Codigo": "KAUT8",
+      "Cantidad de Ventanas": 17,
+      "Duracion de Ventanas": 17
+    },
+    {
+      "Codigo": "KAUT7",
+      "Cantidad de Ventanas": 11,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "KAUT6",
+      "Cantidad de Ventanas": 10,
+      "Duracion de Ventanas": 10
+    },
+    {
+      "Codigo": "IC8",
+      "Cantidad de Ventanas": 14,
+      "Duracion de Ventanas": 14
+    },
+    {
+      "Codigo": "KAUT5",
+      "Cantidad de Ventanas": 9,
+      "Duracion de Ventanas": 15
+    },
+    {
+      "Codigo": "KAUT4",
+      "Cantidad de Ventanas": 13,
+      "Duracion de Ventanas": 13
+    },
+    {
+      "Codigo": "KAUT3",
+      "Cantidad de Ventanas": 15,
+      "Duracion de Ventanas": 15
+    },
+    {
+      "Codigo": "KAUT2",
+      "Cantidad de Ventanas": 10,
+      "Duracion de Ventanas": 14
+    },
+    {
+      "Codigo": "KAUT1",
+      "Cantidad de Ventanas": 13,
+      "Duracion de Ventanas": 13
+    },
+    {
+      "Codigo": "LAMB",
+      "Cantidad de Ventanas": 9,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "D105",
+      "Cantidad de Ventanas": 11,
+      "Duracion de Ventanas": 13
+    },
+    {
+      "Codigo": "IOLAB",
+      "Cantidad de Ventanas": 13,
+      "Duracion de Ventanas": 13
+    },
+    {
+      "Codigo": "CRP33",
+      "Cantidad de Ventanas": 9,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "ANT21",
+      "Cantidad de Ventanas": 0,
+      "Duracion de Ventanas": 0
+    },
+    {
+      "Codigo": "KAUS5",
+      "Cantidad de Ventanas": 7,
+      "Duracion de Ventanas": 11
+    },
+    {
+      "Codigo": "Total",
+      "Cantidad de Ventanas": 368,
+      "Duracion de Ventanas": 422
     }
   ],
   "global_stats": {
-    "promedio_ventanas": 4.0,
-    "promedio_duracion": 5.0,
-    "max_ventanas": 8,
-    "max_duracion": 10
+    "promedio_ventanas": 19.36842105263158,
+    "promedio_duracion": 22.210526315789473,
+    "max_ventanas": 368,
+    "max_duracion": 422
   }
 }
