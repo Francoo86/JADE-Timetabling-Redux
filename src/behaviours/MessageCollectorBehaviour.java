@@ -7,10 +7,13 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import objetos.Asignatura;
+import objetos.ClassroomAvailability;
 import objetos.Propuesta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // Message handler for collecting proposals
@@ -30,31 +33,45 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
-        //print queue of the agent
-
-        /*
         MessageTemplate mt = MessageTemplate.or(
                 MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
                 MessageTemplate.MatchPerformative(ACLMessage.REFUSE)
-        );*/
+        );
 
-        ACLMessage reply = myAgent.receive();//mt);
+        ACLMessage reply = myAgent.receive(mt);
 
-        //FIXME: Reducir cant. propuestas.
         if (reply != null) {
-            System.out.println("Reply: " + reply + " performative: " + reply.getPerformative());
-            //reply.setContentObject();
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
-                Propuesta propuesta = Propuesta.parse(reply.getContent());
-                propuesta.setMensaje(reply);
-                propuestas.offer(propuesta);
-                stateBehaviour.notifyProposalReceived();
+                try {
+                    ClassroomAvailability sala = (ClassroomAvailability) reply.getContentObject();
+                    if (sala == null) {
+                        System.out.println("Sala es null");
+                        return;
+                    }
 
-                //FIXME: Revisar porque tiene tantas propuestas
+                    // Create proposals for all available blocks
+                    for (Map.Entry<String, List<Integer>> entry : sala.getAvailableBlocks().entrySet()) {
+                        String dia = entry.getKey();
+                        List<Integer> bloques = entry.getValue();
 
-//                System.out.println("Propuesta recibida para profesor " + profesor.getNombre() +
-//                        " de sala " + propuesta.getCodigo() + ", total propuestas: " + propuestas.size());
+                        for (Integer bloque : bloques) {
+                            Propuesta propuesta = new Propuesta(
+                                    dia,
+                                    bloque,
+                                    sala.getCodigo(),
+                                    sala.getCapacidad(),
+                                    sala.getSatisfactionScore()
+                            );
+                            propuesta.setMensaje(reply);
+                            propuestas.offer(propuesta);
+                        }
+                    }
+
+                    stateBehaviour.notifyProposalReceived();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             block();
