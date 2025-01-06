@@ -1,200 +1,2527 @@
 {
-  "room_stats": [
-    {
-      "Codigo": "KAUS3",
-      "Cantidad de Ventanas": 7,
-      "Duracion de Ventanas": 7
+  "estadisticas_por_sala": {
+    "KAUS3": {
+      "ventanas": 12,
+      "bloques_ocupados": 12,
+      "schedule": [
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUS2",
-      "Cantidad de Ventanas": 15,
-      "Duracion de Ventanas": 15
+    "KAUS2": {
+      "ventanas": 20,
+      "bloques_ocupados": 21,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUS1",
-      "Cantidad de Ventanas": 10,
-      "Duracion de Ventanas": 10
+    "KAUS1": {
+      "ventanas": 15,
+      "bloques_ocupados": 30,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "K1",
-      "Cantidad de Ventanas": 11,
-      "Duracion de Ventanas": 13
+    "K1": {
+      "ventanas": 16,
+      "bloques_ocupados": 19,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "K2",
-      "Cantidad de Ventanas": 15,
-      "Duracion de Ventanas": 15
+    "K2": {
+      "ventanas": 20,
+      "bloques_ocupados": 20,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "A106",
-      "Cantidad de Ventanas": 0,
-      "Duracion de Ventanas": 0
+    "A106": {
+      "ventanas": 0,
+      "bloques_ocupados": 45,
+      "schedule": [
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      ]
     },
-    {
-      "Codigo": "CM3",
-      "Cantidad de Ventanas": 13,
-      "Duracion de Ventanas": 13
+    "CM3": {
+      "ventanas": 18,
+      "bloques_ocupados": 19,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "K3",
-      "Cantidad de Ventanas": 11,
-      "Duracion de Ventanas": 11
+    "K3": {
+      "ventanas": 16,
+      "bloques_ocupados": 27,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "CM5",
-      "Cantidad de Ventanas": 10,
-      "Duracion de Ventanas": 10
+    "CM5": {
+      "ventanas": 15,
+      "bloques_ocupados": 30,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "CM4",
-      "Cantidad de Ventanas": 10,
-      "Duracion de Ventanas": 10
+    "CM4": {
+      "ventanas": 15,
+      "bloques_ocupados": 30,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "E1",
-      "Cantidad de Ventanas": 8,
-      "Duracion de Ventanas": 12
+    "E1": {
+      "ventanas": 13,
+      "bloques_ocupados": 17,
+      "schedule": [
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "CM6",
-      "Cantidad de Ventanas": 8,
-      "Duracion de Ventanas": 14
+    "CM6": {
+      "ventanas": 13,
+      "bloques_ocupados": 16,
+      "schedule": [
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IM3",
-      "Cantidad de Ventanas": 8,
-      "Duracion de Ventanas": 12
+    "IM3": {
+      "ventanas": 13,
+      "bloques_ocupados": 17,
+      "schedule": [
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IM2",
-      "Cantidad de Ventanas": 7,
-      "Duracion de Ventanas": 11
+    "IM2": {
+      "ventanas": 12,
+      "bloques_ocupados": 12,
+      "schedule": [
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IM4",
-      "Cantidad de Ventanas": 10,
-      "Duracion de Ventanas": 12
+    "IM4": {
+      "ventanas": 15,
+      "bloques_ocupados": 15,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "E6",
-      "Cantidad de Ventanas": 7,
-      "Duracion de Ventanas": 11
+    "E6": {
+      "ventanas": 12,
+      "bloques_ocupados": 15,
+      "schedule": [
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IC1",
-      "Cantidad de Ventanas": 11,
-      "Duracion de Ventanas": 11
+    "IC1": {
+      "ventanas": 16,
+      "bloques_ocupados": 27,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "CRP43",
-      "Cantidad de Ventanas": 10,
-      "Duracion de Ventanas": 10
+    "CRP43": {
+      "ventanas": 15,
+      "bloques_ocupados": 30,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IC3",
-      "Cantidad de Ventanas": 8,
-      "Duracion de Ventanas": 8
+    "IC3": {
+      "ventanas": 13,
+      "bloques_ocupados": 17,
+      "schedule": [
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IC2",
-      "Cantidad de Ventanas": 5,
-      "Duracion de Ventanas": 9
+    "IC2": {
+      "ventanas": 10,
+      "bloques_ocupados": 14,
+      "schedule": [
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IC4",
-      "Cantidad de Ventanas": 8,
-      "Duracion de Ventanas": 12
+    "IC4": {
+      "ventanas": 13,
+      "bloques_ocupados": 21,
+      "schedule": [
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUL1",
-      "Cantidad de Ventanas": 15,
-      "Duracion de Ventanas": 15
+    "KAUL1": {
+      "ventanas": 20,
+      "bloques_ocupados": 20,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT8",
-      "Cantidad de Ventanas": 17,
-      "Duracion de Ventanas": 17
+    "KAUT8": {
+      "ventanas": 20,
+      "bloques_ocupados": 22,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT7",
-      "Cantidad de Ventanas": 11,
-      "Duracion de Ventanas": 11
+    "KAUT7": {
+      "ventanas": 15,
+      "bloques_ocupados": 29,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT6",
-      "Cantidad de Ventanas": 10,
-      "Duracion de Ventanas": 10
+    "KAUT6": {
+      "ventanas": 15,
+      "bloques_ocupados": 29,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IC8",
-      "Cantidad de Ventanas": 14,
-      "Duracion de Ventanas": 14
+    "IC8": {
+      "ventanas": 19,
+      "bloques_ocupados": 22,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT5",
-      "Cantidad de Ventanas": 9,
-      "Duracion de Ventanas": 15
+    "KAUT5": {
+      "ventanas": 14,
+      "bloques_ocupados": 14,
+      "schedule": [
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT4",
-      "Cantidad de Ventanas": 13,
-      "Duracion de Ventanas": 13
+    "KAUT4": {
+      "ventanas": 18,
+      "bloques_ocupados": 23,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT3",
-      "Cantidad de Ventanas": 15,
-      "Duracion de Ventanas": 15
+    "KAUT3": {
+      "ventanas": 20,
+      "bloques_ocupados": 20,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT2",
-      "Cantidad de Ventanas": 10,
-      "Duracion de Ventanas": 14
+    "KAUT2": {
+      "ventanas": 15,
+      "bloques_ocupados": 16,
+      "schedule": [
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUT1",
-      "Cantidad de Ventanas": 13,
-      "Duracion de Ventanas": 13
+    "KAUT1": {
+      "ventanas": 18,
+      "bloques_ocupados": 22,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "LAMB",
-      "Cantidad de Ventanas": 9,
-      "Duracion de Ventanas": 11
+    "LAMB": {
+      "ventanas": 14,
+      "bloques_ocupados": 14,
+      "schedule": [
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "D105",
-      "Cantidad de Ventanas": 11,
-      "Duracion de Ventanas": 13
+    "D105": {
+      "ventanas": 16,
+      "bloques_ocupados": 16,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "IOLAB",
-      "Cantidad de Ventanas": 13,
-      "Duracion de Ventanas": 13
+    "IOLAB": {
+      "ventanas": 18,
+      "bloques_ocupados": 25,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "CRP33",
-      "Cantidad de Ventanas": 9,
-      "Duracion de Ventanas": 11
+    "CRP33": {
+      "ventanas": 14,
+      "bloques_ocupados": 18,
+      "schedule": [
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      ]
     },
-    {
-      "Codigo": "ANT21",
-      "Cantidad de Ventanas": 0,
-      "Duracion de Ventanas": 0
+    "ANT21": {
+      "ventanas": 0,
+      "bloques_ocupados": 45,
+      "schedule": [
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      ]
     },
-    {
-      "Codigo": "KAUS5",
-      "Cantidad de Ventanas": 7,
-      "Duracion de Ventanas": 11
-    },
-    {
-      "Codigo": "Total",
-      "Cantidad de Ventanas": 368,
-      "Duracion de Ventanas": 422
+    "KAUS5": {
+      "ventanas": 12,
+      "bloques_ocupados": 12,
+      "schedule": [
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      ]
     }
-  ],
-  "global_stats": {
-    "promedio_ventanas": 19.36842105263158,
-    "promedio_duracion": 22.210526315789473,
-    "max_ventanas": 368,
-    "max_duracion": 422
+  },
+  "estadisticas_duracion": {
+    "KAUS3": {
+      "duraciones": {
+        "1": 7,
+        "2": 5
+      },
+      "total_bloques": 17
+    },
+    "KAUS2": {
+      "duraciones": {
+        "1": 16,
+        "2": 4
+      },
+      "total_bloques": 24
+    },
+    "KAUS1": {
+      "duraciones": {
+        "1": 15
+      },
+      "total_bloques": 15
+    },
+    "K1": {
+      "duraciones": {
+        "1": 11,
+        "2": 4,
+        "3": 1
+      },
+      "total_bloques": 22
+    },
+    "K2": {
+      "duraciones": {
+        "1": 15,
+        "2": 5
+      },
+      "total_bloques": 25
+    },
+    "A106": {
+      "duraciones": {},
+      "total_bloques": 0
+    },
+    "CM3": {
+      "duraciones": {
+        "1": 14,
+        "2": 4
+      },
+      "total_bloques": 22
+    },
+    "K3": {
+      "duraciones": {
+        "1": 14,
+        "2": 2
+      },
+      "total_bloques": 18
+    },
+    "CM5": {
+      "duraciones": {
+        "1": 15
+      },
+      "total_bloques": 15
+    },
+    "CM4": {
+      "duraciones": {
+        "1": 15
+      },
+      "total_bloques": 15
+    },
+    "E1": {
+      "duraciones": {
+        "2": 3,
+        "1": 8,
+        "3": 2
+      },
+      "total_bloques": 20
+    },
+    "CM6": {
+      "duraciones": {
+        "1": 6,
+        "2": 4,
+        "3": 3
+      },
+      "total_bloques": 23
+    },
+    "IM3": {
+      "duraciones": {
+        "1": 6,
+        "2": 5,
+        "3": 2
+      },
+      "total_bloques": 22
+    },
+    "IM2": {
+      "duraciones": {
+        "3": 2,
+        "1": 5,
+        "2": 5
+      },
+      "total_bloques": 21
+    },
+    "IM4": {
+      "duraciones": {
+        "1": 9,
+        "2": 5,
+        "3": 1
+      },
+      "total_bloques": 22
+    },
+    "E6": {
+      "duraciones": {
+        "1": 6,
+        "2": 4,
+        "3": 2
+      },
+      "total_bloques": 20
+    },
+    "IC1": {
+      "duraciones": {
+        "1": 14,
+        "2": 2
+      },
+      "total_bloques": 18
+    },
+    "CRP43": {
+      "duraciones": {
+        "1": 15
+      },
+      "total_bloques": 15
+    },
+    "IC3": {
+      "duraciones": {
+        "1": 10,
+        "2": 3
+      },
+      "total_bloques": 16
+    },
+    "IC2": {
+      "duraciones": {
+        "3": 2,
+        "2": 5,
+        "1": 3
+      },
+      "total_bloques": 19
+    },
+    "IC4": {
+      "duraciones": {
+        "3": 2,
+        "1": 8,
+        "2": 3
+      },
+      "total_bloques": 20
+    },
+    "KAUL1": {
+      "duraciones": {
+        "1": 15,
+        "2": 5
+      },
+      "total_bloques": 25
+    },
+    "KAUT8": {
+      "duraciones": {
+        "1": 17,
+        "2": 3
+      },
+      "total_bloques": 23
+    },
+    "KAUT7": {
+      "duraciones": {
+        "1": 14,
+        "2": 1
+      },
+      "total_bloques": 16
+    },
+    "KAUT6": {
+      "duraciones": {
+        "1": 14,
+        "2": 1
+      },
+      "total_bloques": 16
+    },
+    "IC8": {
+      "duraciones": {
+        "1": 15,
+        "2": 4
+      },
+      "total_bloques": 23
+    },
+    "KAUT5": {
+      "duraciones": {
+        "1": 6,
+        "2": 5,
+        "3": 3
+      },
+      "total_bloques": 25
+    },
+    "KAUT4": {
+      "duraciones": {
+        "1": 14,
+        "2": 4
+      },
+      "total_bloques": 22
+    },
+    "KAUT3": {
+      "duraciones": {
+        "1": 15,
+        "2": 5
+      },
+      "total_bloques": 25
+    },
+    "KAUT2": {
+      "duraciones": {
+        "3": 2,
+        "1": 9,
+        "2": 4
+      },
+      "total_bloques": 23
+    },
+    "KAUT1": {
+      "duraciones": {
+        "1": 13,
+        "2": 5
+      },
+      "total_bloques": 23
+    },
+    "LAMB": {
+      "duraciones": {
+        "3": 1,
+        "1": 8,
+        "2": 5
+      },
+      "total_bloques": 21
+    },
+    "D105": {
+      "duraciones": {
+        "1": 10,
+        "2": 5,
+        "3": 1
+      },
+      "total_bloques": 23
+    },
+    "IOLAB": {
+      "duraciones": {
+        "1": 16,
+        "2": 2
+      },
+      "total_bloques": 20
+    },
+    "CRP33": {
+      "duraciones": {
+        "1": 8,
+        "2": 5,
+        "3": 1
+      },
+      "total_bloques": 21
+    },
+    "ANT21": {
+      "duraciones": {},
+      "total_bloques": 0
+    },
+    "KAUS5": {
+      "duraciones": {
+        "3": 2,
+        "1": 5,
+        "2": 5
+      },
+      "total_bloques": 21
+    }
   }
 }

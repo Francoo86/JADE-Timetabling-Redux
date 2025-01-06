@@ -1,244 +1,221 @@
 {
-  "room_stats": [
-    {
-      "Codigo": "KAUS3",
+  "room_stats": {
+    "KAUS3": {
       "Bloques Ocupados": 12,
       "Bloques Desocupados": 33,
       "Tasa de Ocupacion": 26.67
     },
-    {
-      "Codigo": "KAUS2",
+    "KAUS2": {
       "Bloques Ocupados": 21,
       "Bloques Desocupados": 24,
       "Tasa de Ocupacion": 46.67
     },
-    {
-      "Codigo": "KAUS1",
+    "KAUS1": {
       "Bloques Ocupados": 30,
       "Bloques Desocupados": 15,
       "Tasa de Ocupacion": 66.67
     },
-    {
-      "Codigo": "K1",
+    "K1": {
       "Bloques Ocupados": 19,
       "Bloques Desocupados": 26,
       "Tasa de Ocupacion": 42.22
     },
-    {
-      "Codigo": "K2",
+    "K2": {
       "Bloques Ocupados": 20,
       "Bloques Desocupados": 25,
       "Tasa de Ocupacion": 44.44
     },
-    {
-      "Codigo": "A106",
+    "A106": {
       "Bloques Ocupados": 45,
       "Bloques Desocupados": 0,
       "Tasa de Ocupacion": 100.0
     },
-    {
-      "Codigo": "CM3",
+    "CM3": {
       "Bloques Ocupados": 19,
       "Bloques Desocupados": 26,
       "Tasa de Ocupacion": 42.22
     },
-    {
-      "Codigo": "K3",
+    "K3": {
       "Bloques Ocupados": 27,
       "Bloques Desocupados": 18,
       "Tasa de Ocupacion": 60.0
     },
-    {
-      "Codigo": "CM5",
+    "CM5": {
       "Bloques Ocupados": 30,
       "Bloques Desocupados": 15,
       "Tasa de Ocupacion": 66.67
     },
-    {
-      "Codigo": "CM4",
+    "CM4": {
       "Bloques Ocupados": 30,
       "Bloques Desocupados": 15,
       "Tasa de Ocupacion": 66.67
     },
-    {
-      "Codigo": "E1",
+    "E1": {
       "Bloques Ocupados": 17,
       "Bloques Desocupados": 28,
       "Tasa de Ocupacion": 37.78
     },
-    {
-      "Codigo": "CM6",
+    "CM6": {
       "Bloques Ocupados": 16,
       "Bloques Desocupados": 29,
       "Tasa de Ocupacion": 35.56
     },
-    {
-      "Codigo": "IM3",
+    "IM3": {
       "Bloques Ocupados": 17,
       "Bloques Desocupados": 28,
       "Tasa de Ocupacion": 37.78
     },
-    {
-      "Codigo": "IM2",
+    "IM2": {
       "Bloques Ocupados": 12,
       "Bloques Desocupados": 33,
       "Tasa de Ocupacion": 26.67
     },
-    {
-      "Codigo": "IM4",
+    "IM4": {
       "Bloques Ocupados": 15,
       "Bloques Desocupados": 30,
       "Tasa de Ocupacion": 33.33
     },
-    {
-      "Codigo": "E6",
+    "E6": {
       "Bloques Ocupados": 15,
       "Bloques Desocupados": 30,
       "Tasa de Ocupacion": 33.33
     },
-    {
-      "Codigo": "IC1",
+    "IC1": {
       "Bloques Ocupados": 27,
       "Bloques Desocupados": 18,
       "Tasa de Ocupacion": 60.0
     },
-    {
-      "Codigo": "CRP43",
+    "CRP43": {
       "Bloques Ocupados": 30,
       "Bloques Desocupados": 15,
       "Tasa de Ocupacion": 66.67
     },
-    {
-      "Codigo": "IC3",
+    "IC3": {
       "Bloques Ocupados": 17,
       "Bloques Desocupados": 28,
       "Tasa de Ocupacion": 37.78
     },
-    {
-      "Codigo": "IC2",
+    "IC2": {
       "Bloques Ocupados": 14,
       "Bloques Desocupados": 31,
       "Tasa de Ocupacion": 31.11
     },
-    {
-      "Codigo": "IC4",
+    "IC4": {
       "Bloques Ocupados": 21,
       "Bloques Desocupados": 24,
       "Tasa de Ocupacion": 46.67
     },
-    {
-      "Codigo": "KAUL1",
+    "KAUL1": {
       "Bloques Ocupados": 20,
       "Bloques Desocupados": 25,
       "Tasa de Ocupacion": 44.44
     },
-    {
-      "Codigo": "KAUT8",
+    "KAUT8": {
       "Bloques Ocupados": 22,
       "Bloques Desocupados": 23,
       "Tasa de Ocupacion": 48.89
     },
-    {
-      "Codigo": "KAUT7",
+    "KAUT7": {
       "Bloques Ocupados": 29,
       "Bloques Desocupados": 16,
       "Tasa de Ocupacion": 64.44
     },
-    {
-      "Codigo": "KAUT6",
+    "KAUT6": {
       "Bloques Ocupados": 29,
       "Bloques Desocupados": 16,
       "Tasa de Ocupacion": 64.44
     },
-    {
-      "Codigo": "IC8",
+    "IC8": {
       "Bloques Ocupados": 22,
       "Bloques Desocupados": 23,
       "Tasa de Ocupacion": 48.89
     },
-    {
-      "Codigo": "KAUT5",
+    "KAUT5": {
       "Bloques Ocupados": 14,
       "Bloques Desocupados": 31,
       "Tasa de Ocupacion": 31.11
     },
-    {
-      "Codigo": "KAUT4",
+    "KAUT4": {
       "Bloques Ocupados": 23,
       "Bloques Desocupados": 22,
       "Tasa de Ocupacion": 51.11
     },
-    {
-      "Codigo": "KAUT3",
+    "KAUT3": {
       "Bloques Ocupados": 20,
       "Bloques Desocupados": 25,
       "Tasa de Ocupacion": 44.44
     },
-    {
-      "Codigo": "KAUT2",
+    "KAUT2": {
       "Bloques Ocupados": 16,
       "Bloques Desocupados": 29,
       "Tasa de Ocupacion": 35.56
     },
-    {
-      "Codigo": "KAUT1",
+    "KAUT1": {
       "Bloques Ocupados": 22,
       "Bloques Desocupados": 23,
       "Tasa de Ocupacion": 48.89
     },
-    {
-      "Codigo": "LAMB",
+    "LAMB": {
       "Bloques Ocupados": 14,
       "Bloques Desocupados": 31,
       "Tasa de Ocupacion": 31.11
     },
-    {
-      "Codigo": "D105",
+    "D105": {
       "Bloques Ocupados": 16,
       "Bloques Desocupados": 29,
       "Tasa de Ocupacion": 35.56
     },
-    {
-      "Codigo": "IOLAB",
+    "IOLAB": {
       "Bloques Ocupados": 25,
       "Bloques Desocupados": 20,
       "Tasa de Ocupacion": 55.56
     },
-    {
-      "Codigo": "CRP33",
+    "CRP33": {
       "Bloques Ocupados": 18,
       "Bloques Desocupados": 27,
       "Tasa de Ocupacion": 40.0
     },
-    {
-      "Codigo": "ANT21",
+    "ANT21": {
       "Bloques Ocupados": 45,
       "Bloques Desocupados": 0,
       "Tasa de Ocupacion": 100.0
     },
-    {
-      "Codigo": "KAUS5",
+    "KAUS5": {
       "Bloques Ocupados": 12,
       "Bloques Desocupados": 33,
       "Tasa de Ocupacion": 26.67
-    },
-    {
-      "Codigo": "Total",
-      "Bloques Ocupados": 801,
-      "Bloques Desocupados": 864,
-      "Tasa de Ocupacion": "-"
     }
-  ],
-  "global_stats": {
-    "total_occupied_blocks": 1602,
-    "total_unoccupied_blocks": 1728,
-    "global_compaction_rate": 0.4810810810810811
   },
-  "daily_compaction_rates": {
-    "Lunes": 0.5015015015015014,
-    "Martes": 0.47747747747747743,
-    "Miercoles": 0.45345345345345345,
-    "Jueves": 0.43543543543543534,
-    "Viernes": 0.5375375375375374
+  "global_stats": {
+    "total_ocupados": 801,
+    "total_desocupados": 864,
+    "tasa_ocupacion_global": 48.10810810810811
+  },
+  "daily_stats": {
+    "Lunes": {
+      "bloques_ocupados": 167,
+      "bloques_desocupados": 166,
+      "tasa_ocupacion": 50.15
+    },
+    "Martes": {
+      "bloques_ocupados": 159,
+      "bloques_desocupados": 174,
+      "tasa_ocupacion": 47.75
+    },
+    "Miercoles": {
+      "bloques_ocupados": 151,
+      "bloques_desocupados": 182,
+      "tasa_ocupacion": 45.35
+    },
+    "Jueves": {
+      "bloques_ocupados": 145,
+      "bloques_desocupados": 188,
+      "tasa_ocupacion": 43.54
+    },
+    "Viernes": {
+      "bloques_ocupados": 179,
+      "bloques_desocupados": 154,
+      "tasa_ocupacion": 53.75
+    }
   }
 }
