@@ -13,11 +13,15 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
 import objetos.Propuesta;
 import objetos.AssignationData;
+import objetos.helper.BatchAssignmentConfirmation;
+import objetos.helper.BatchAssignmentRequest;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
@@ -105,8 +109,10 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
 
         // Filter and sort proposals based on constraints
+        //FIXME: Dont use this.
         List<Propuesta> validProposals = filterAndSortProposals(currentProposals);
 
+        //ACA TOCA CAMBIAR EL METODO DE ASIGNACION
         if (!validProposals.isEmpty() && tryAssignBestProposal(validProposals)) {
             retryCount = 0;
             if (bloquesPendientes == 0) {
@@ -123,12 +129,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     }
 
     private boolean tryAssignBestProposal(List<Propuesta> validProposals) {
-        for (Propuesta propuesta : validProposals) {
-            if (tryAssignProposal(propuesta)) {
-                return true;
-            }
-        }
-        return false;
+        return tryAssignBatchProposals(validProposals);
     }
 
     private List<Propuesta> filterAndSortProposals(List<Propuesta> proposals) {
@@ -403,7 +404,88 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
     }
 
-    private boolean tryAssignProposal(Propuesta propuesta) {
+    private boolean tryAssignBatchProposals(List<Propuesta> validProposals) {
+        Map<String, List<Propuesta>> proposalsBySala = validProposals.stream()
+                .collect(Collectors.groupingBy(Propuesta::getCodigo));
+
+        boolean anySuccess = false;
+
+        for (Map.Entry<String, List<Propuesta>> entry : proposalsBySala.entrySet()) {
+            List<Propuesta> salaProposals = entry.getValue();
+
+            if (!salaProposals.isEmpty()) {
+                List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
+
+                for (Propuesta propuesta : salaProposals) {
+                    if (profesor.isBlockAvailable(propuesta.getDia(), propuesta.getBloque())) {
+                        requests.add(new BatchAssignmentRequest.AssignmentRequest(
+                                propuesta.getDia(),
+                                propuesta.getBloque(),
+                                profesor.getCurrentSubject().getNombre(),
+                                propuesta.getSatisfaccion(),
+                                propuesta.getCodigo(),
+                                profesor.getCurrentSubject().getVacantes()
+                        ));
+                    }
+                }
+
+                if (!requests.isEmpty()) {
+                    try {
+                        ACLMessage batchAccept = salaProposals.get(0).getMensaje().createReply();
+                        batchAccept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                        batchAccept.setContentObject(new BatchAssignmentRequest(requests));
+                        profesor.send(batchAccept);
+
+                        // Wait for batch confirmation
+                        MessageTemplate mt = MessageTemplate.and(
+                                MessageTemplate.MatchSender(salaProposals.get(0).getMensaje().getSender()),
+                                MessageTemplate.MatchPerformative(ACLMessage.INFORM)
+                        );
+
+                        long startTime = System.currentTimeMillis();
+                        long timeout = 1000;
+
+                        while (System.currentTimeMillis() - startTime < timeout) {
+                            ACLMessage confirm = myAgent.receive(mt);
+                            if (confirm != null) {
+                                BatchAssignmentConfirmation confirmation =
+                                        (BatchAssignmentConfirmation) confirm.getContentObject();
+
+                                for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
+                                        confirmation.getConfirmedAssignments()) {
+                                    profesor.updateScheduleInfo(
+                                            assignment.getDay(),
+                                            assignment.getClassroomCode(),
+                                            assignment.getBlock(),
+                                            profesor.getCurrentSubject().getNombre(),
+                                            assignment.getSatisfaction()
+                                    );
+
+                                    bloquesPendientes--;
+                                    assignationData.assign(
+                                            assignment.getDay(),
+                                            assignment.getClassroomCode(),
+                                            assignment.getBlock()
+                                    );
+                                    anySuccess = true;
+                                }
+                                break;
+                            }
+                            block(50);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (UnreadableException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        return anySuccess;
+    }
+    //FIXME: Esto envia no por bloques, si no TODAS las propuestas aceptadas
+    /*private boolean tryAssignProposal(Propuesta propuesta) {
         Day dia = propuesta.getDia();
         int bloque = propuesta.getBloque();
 
@@ -438,7 +520,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         while (System.currentTimeMillis() - startTime < timeout) {
             ACLMessage confirm = myAgent.receive(mt);
             if (confirm != null) {
-                // Update profesor's schedule
+                //Aca le pasamos asignacionsala?
                 profesor.updateScheduleInfo(
                         dia,
                         propuesta.getCodigo(),
@@ -462,7 +544,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
 //        System.out.println("Timeout esperando confirmación de sala " + propuesta.getCodigo());
         return false;
-    }
+    }*/
 
     private void sendProposalRequests() {
         try {

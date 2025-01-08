@@ -62,6 +62,8 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                                     sala.getCapacidad(),
                                     sala.getSatisfactionScore()
                             );
+
+                            //set el mensaje de la propuesta
                             propuesta.setMensaje(reply);
                             propuestas.offer(propuesta);
                         }

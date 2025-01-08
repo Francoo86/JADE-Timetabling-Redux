@@ -5,46 +5,102 @@ import org.json.simple.JSONObject;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ProfesorHorarioJSON {
     private static ProfesorHorarioJSON instance;
-    private Map<String, JSONObject> profesoresHorarios;
+    private static final ReentrantLock instanceLock = new ReentrantLock();
+
+    // Threshold for number of updates before writing to disk
+    private static final int WRITE_THRESHOLD = 10;
+
+    // In-memory storage
+    private final Map<String, JSONObject> profesoresHorarios;
+    private final AtomicInteger updateCount;
+
+    // Lock for file writing operations
+    private final ReentrantLock writeLock;
 
     private ProfesorHorarioJSON() {
         profesoresHorarios = new ConcurrentHashMap<>();
+        updateCount = new AtomicInteger(0);
+        writeLock = new ReentrantLock();
     }
 
-    public static synchronized ProfesorHorarioJSON getInstance() {
+    public static ProfesorHorarioJSON getInstance() {
         if (instance == null) {
-            instance = new ProfesorHorarioJSON();
+            instanceLock.lock();
+            try {
+                if (instance == null) {
+                    instance = new ProfesorHorarioJSON();
+                }
+            } finally {
+                instanceLock.unlock();
+            }
         }
         return instance;
     }
 
-    public synchronized void agregarHorarioProfesor(String nombre, JSONObject horario, int solicitudes) {
-        System.out.println("Agregando horario para profesor: " + nombre);
+    public void agregarHorarioProfesor(String nombre, JSONObject horario, int solicitudes) {
+        try {
+            JSONObject profesorJSON = new JSONObject();
+            profesorJSON.put("Nombre", nombre);
 
-        JSONObject profesorJSON = new JSONObject();
-        profesorJSON.put("Nombre", nombre);
-        //profesorJSON.put("Turno", 0); // Valor por defecto si no está disponible
+            JSONArray asignaturas = (JSONArray) horario.get("Asignaturas");
+            if (asignaturas == null) {
+                asignaturas = new JSONArray();
+            }
 
-        // Ensure asignaturas array exists
-        JSONArray asignaturas = (JSONArray) horario.get("Asignaturas");
-        if (asignaturas == null) {
-            asignaturas = new JSONArray();
+            profesorJSON.put("Asignaturas", asignaturas);
+            profesorJSON.put("Solicitudes", solicitudes);
+            profesorJSON.put("AsignaturasCompletadas", asignaturas.size());
+
+            // Store in memory
+            profesoresHorarios.put(nombre, profesorJSON);
+
+            // Check if we should write to disk
+            if (updateCount.incrementAndGet() >= WRITE_THRESHOLD) {
+                flushUpdates(false);
+            }
+        } catch (Exception e) {
+            System.err.println("Error agregando horario del profesor: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void flushUpdates(boolean isFinalWrite) {
+        // Try to acquire write lock - if can't get it immediately, skip this flush unless it's final write
+        if (!isFinalWrite && !writeLock.tryLock()) {
+            return;
         }
 
-        profesorJSON.put("Asignaturas", asignaturas);
-        profesorJSON.put("Solicitudes", solicitudes);
-        profesorJSON.put("AsignaturasCompletadas", asignaturas.size());
+        if (isFinalWrite) {
+            writeLock.lock();
+        }
 
-        System.out.println("Profesor " + nombre + ": " + asignaturas.size() +
-                "/" + solicitudes + " asignaturas procesadas");
+        try {
+            if (profesoresHorarios.isEmpty()) {
+                return;
+            }
 
-        profesoresHorarios.put(nombre, profesorJSON);
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.addAll(profesoresHorarios.values());
 
-        // Generate JSON file after each professor to ensure data is saved
-        generarArchivoJSON();
+            JSONHelper.writeJsonFile("Horarios_asignados.json", jsonArray);
+
+            if (isFinalWrite) {
+                printAsignationSummary();
+            }
+
+            updateCount.set(0);
+
+        } catch (Exception e) {
+            System.err.println("Error writing professor schedules to file: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            writeLock.unlock();
+        }
     }
 
     private void printAsignationSummary() {
@@ -58,14 +114,16 @@ public class ProfesorHorarioJSON {
         }
     }
 
+    // Called by AgenteSupervisor for final write
     public void generarArchivoJSON() {
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.addAll(profesoresHorarios.values());
+        System.out.println("Generando archivo JSON final de profesores...");
+        flushUpdates(true);
+        System.out.println("Archivo Horarios_asignados.json generado con " +
+                profesoresHorarios.size() + " profesores");
+    }
 
-        JSONHelper.writeJsonFile("Horarios_asignados.json", jsonArray);
-
-        System.out.println("Archivo Horarios_asignados.json generado con " + profesoresHorarios.size() + " profesores");
-
-        printAsignationSummary();
+    // Get current number of pending updates
+    public int getPendingUpdateCount() {
+        return profesoresHorarios.size();
     }
 }

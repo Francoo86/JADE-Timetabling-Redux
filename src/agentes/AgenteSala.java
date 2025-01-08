@@ -5,6 +5,8 @@ import constants.Messages;
 import constants.enums.Day;
 import jade.proto.SubscriptionInitiator;
 import objetos.ClassroomAvailability;
+import objetos.helper.BatchAssignmentConfirmation;
+import objetos.helper.BatchAssignmentRequest;
 import service.SatisfaccionHandler;
 import jade.core.Agent;
 import jade.core.behaviours.*;
@@ -183,7 +185,7 @@ public class AgenteSala extends Agent {
 
     private class ResponderSolicitudesBehaviour extends CyclicBehaviour {
         public void action() {
-            System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
+            //System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
 
             if(myAgent.getCurQueueSize() > 100) {
                 System.out.println("Sala " + codigo + " tiene " + myAgent.getCurQueueSize() + " mensajes pendientes");
@@ -216,17 +218,15 @@ public class AgenteSala extends Agent {
                 int vacantes = Integer.parseInt(solicitudData[1]);
                 int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
 
-                // Create availability map
                 Map<String, List<Integer>> availableBlocks = new HashMap<>();
 
-                // Collect all available blocks at once
                 for (Day dia : Day.values()) {
                     List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
                     List<Integer> freeBlocks = new ArrayList<>();
 
                     for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {
                         if (asignaciones.get(bloque) == null) {
-                            freeBlocks.add(bloque + 1); // Adding 1 to match 1-based block numbering
+                            freeBlocks.add(bloque + 1);
                         }
                     }
 
@@ -267,53 +267,49 @@ public class AgenteSala extends Agent {
         }
 
         private void confirmarAsignacion(ACLMessage msg) {
-            // Formato del mensaje: "dia,bloque,nombreAsignatura,satisfaccion,salaConfirmada,vacantesAsignatura"
             try {
-                String[] datos = msg.getContent().split(",");
-                if (datos.length < 6) { // Ahora necesitamos un parámetro adicional para vacantes
-                    //System.err.println("Error: Formato de mensaje inválido en confirmación para sala " + codigo);
-                    return;
+                BatchAssignmentRequest batchRequest = (BatchAssignmentRequest) msg.getContentObject();
+                List<BatchAssignmentConfirmation.ConfirmedAssignment> confirmedAssignments = new ArrayList<>();
+
+                for (BatchAssignmentRequest.AssignmentRequest request : batchRequest.getAssignments()) {
+                    if (!request.getClassroomCode().equals(codigo)) {
+                        continue;
+                    }
+
+                    int bloque = request.getBlock() - 1;
+                    List<AsignacionSala> asignaciones = horarioOcupado.get(request.getDay());
+
+                    if (asignaciones != null && bloque >= 0 && bloque < asignaciones.size() &&
+                            asignaciones.get(bloque) == null) {
+
+                        float capacidadFraccion = (float) request.getVacancy() / capacidad;
+                        AsignacionSala nuevaAsignacion = new AsignacionSala(
+                                request.getSubjectName(),
+                                request.getSatisfaction(),
+                                capacidadFraccion
+                        );
+                        asignaciones.set(bloque, nuevaAsignacion);
+
+                        confirmedAssignments.add(new BatchAssignmentConfirmation.ConfirmedAssignment(
+                                request.getDay(),
+                                request.getBlock(),
+                                codigo,
+                                request.getSatisfaction()
+                        ));
+                    }
                 }
 
-                Day dia = Day.fromString(datos[0]);
-                int bloque = Integer.parseInt(datos[1]) - 1;
-                String nombreAsignatura = datos[2];
-                int satisfaccion = Integer.parseInt(datos[3]);
-                String salaConfirmada = datos[4];
-                int vacantesAsignatura = Integer.parseInt(datos[5]); // Nuevo parámetro
-
-                if (!salaConfirmada.equals(codigo)) {
-                    System.err.println("Error: Confirmación recibida para sala incorrecta");
-                    return;
-                }
-
-                // Verificar si el bloque está disponible
-                List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-                if (asignaciones != null && bloque >= 0 && bloque < asignaciones.size() &&
-                        asignaciones.get(bloque) == null) {
-
-                    // Calcular la capacidad como fracción
-                    float capacidadFraccion = (float) vacantesAsignatura / capacidad;
-                    
-                    // Crear nueva asignación y actualizar horario
-                    AsignacionSala nuevaAsignacion = new AsignacionSala(
-                            nombreAsignatura,
-                            satisfaccion,
-                            capacidadFraccion
-                    );
-                    asignaciones.set(bloque, nuevaAsignacion);
-
+                // Update JSON after batch processing
+                if (!confirmedAssignments.isEmpty()) {
                     SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
-                    
-                    // Enviar confirmación al profesor
+
+                    // Send single confirmation with all successful assignments
                     ACLMessage confirm = msg.createReply();
                     confirm.setPerformative(ACLMessage.INFORM);
-                    confirm.setContent(Messages.CONFIRM);
+                    confirm.setContentObject(new BatchAssignmentConfirmation(confirmedAssignments));
                     send(confirm);
-
-//                    System.out.printf("Sala %s (%s): Asignada %s en %s, bloque %d, satisfacción %d, capacidad %.2f",
-//                            codigo, campus, nombreAsignatura, dia, (bloque + 1), satisfaccion, capacidadFraccion);
                 }
+
             } catch (Exception e) {
                 System.err.println("Error procesando confirmación en sala " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
