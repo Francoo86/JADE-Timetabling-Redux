@@ -118,6 +118,21 @@ public class AgenteProfesor extends Agent {
 
     //TODO: Refactorizar esto, ya que se ve bien feo
     public void updateScheduleInfo(Day dia, String sala, int bloque, String nombreAsignatura, int satisfaccion) {
+        if (bloquesAsignadosPorDia.containsKey(dia) &&
+                bloquesAsignadosPorDia.get(dia).containsKey(nombreAsignatura) &&
+                bloquesAsignadosPorDia.get(dia).get(nombreAsignatura).contains(bloque)) {
+            return;
+        }
+
+        // Check if we've exceeded the hours for this subject
+        Asignatura currentSubject = getCurrentSubject();
+        if (currentSubject != null &&
+                getBlocksBySubject(nombreAsignatura).values().stream()
+                        .mapToInt(List::size)
+                        .sum() >= currentSubject.getHoras()) {
+            return;
+        }
+
         // Actualizar horario ocupado
         horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
 

@@ -9,6 +9,7 @@ public class Propuesta {
     private String codigo;
     private int capacidad;
     private int satisfaccion;
+    private String cachedCampus;
 
     public ACLMessage getMensaje() {
         return mensaje;

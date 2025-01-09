@@ -32,11 +32,11 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private NegotiationState currentState;
     private long proposalTimeout;
     private int retryCount = 0;
-    private static final int MAX_RETRIES = 10;
+    //private static final int MAX_RETRIES = 10;
     private boolean proposalReceived = false;
     private final AssignationData assignationData;
     private int bloquesPendientes = 0;
-    private static final long TIMEOUT_PROPUESTA = 5000; // 5 seconds
+    private static final long TIMEOUT_PROPUESTA = 500; // 5 seconds
 
     public enum NegotiationState {
         SETUP,
@@ -133,14 +133,137 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     }
 
     private List<Propuesta> filterAndSortProposals(List<Propuesta> proposals) {
+        if (proposals.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         Asignatura currentSubject = profesor.getCurrentSubject();
         String currentCampus = currentSubject.getCampus();
         int currentNivel = currentSubject.getNivel();
+        String currentAsignaturaNombre = currentSubject.getNombre();
 
-        return proposals.stream()
-                .filter(p -> isValidProposal(p, currentSubject))
-                .sorted((p1, p2) -> compareProposals(p1, p2, currentSubject, currentCampus, currentNivel))
-                .collect(Collectors.toList());
+        // Pre-calculate common values
+        boolean isOddYear = currentNivel % 2 == 1;
+        int targetSize = proposals.size();
+
+        // Use ArrayList for better performance with sorting
+        ArrayList<ProposalScore> scoredProposals = new ArrayList<>(targetSize);
+
+        // First pass: Filter and calculate scores simultaneously
+        for (Propuesta proposal : proposals) {
+            if (!isValidProposalFast(proposal, currentSubject, isOddYear, currentAsignaturaNombre)) {
+                continue;
+            }
+
+            int score = calculateProposalScore(proposal, currentCampus, currentNivel, currentSubject);
+            scoredProposals.add(new ProposalScore(proposal, score));
+        }
+
+        // Early return if no valid proposals
+        if (scoredProposals.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Sort in place using a simple comparison
+        scoredProposals.sort((ps1, ps2) -> ps2.score - ps1.score);
+
+        // Convert back to List<Propuesta>
+        int resultSize = scoredProposals.size();
+        ArrayList<Propuesta> result = new ArrayList<>(resultSize);
+        for (ProposalScore ps : scoredProposals) {
+            result.add(ps.proposal);
+        }
+
+        return result;
+    }
+
+    // Lightweight class to hold proposal and its score
+    private static class ProposalScore {
+        final Propuesta proposal;
+        final int score;
+
+        ProposalScore(Propuesta proposal, int score) {
+            this.proposal = proposal;
+            this.score = score;
+        }
+    }
+
+    // Optimized validation method combining multiple checks
+    private boolean isValidProposalFast(Propuesta propuesta, Asignatura asignatura,
+                                        boolean isOddYear, String asignaturaNombre) {
+        // Check basic time constraints first (fastest checks)
+        int bloque = propuesta.getBloque();
+        if (bloque < 1 || bloque > Commons.MAX_BLOQUE_DIURNO) {
+            return false;
+        }
+
+        // Check block 9 constraint
+        if (bloque == Commons.MAX_BLOQUE_DIURNO && bloquesPendientes % 2 == 0) {
+            return false;
+        }
+
+        // Check year-based constraints
+        if (isOddYear) {
+            if (bloque > 4 && bloque != Commons.MAX_BLOQUE_DIURNO) {
+                return false;
+            }
+        } else {
+            if (bloque < 5 && propuesta.getSatisfaccion() < 8) {
+                return false;
+            }
+        }
+
+        // Check block limit per day
+        Map<String, List<Integer>> asignaturasEnDia = profesor.getBlocksByDay(propuesta.getDia());
+        List<Integer> bloques = asignaturasEnDia.get(asignaturaNombre);
+        if (bloques != null && bloques.size() >= 2) {
+            return false;
+        }
+
+        // More expensive checks
+        if (!checkCampusConstraints(propuesta, asignatura.getCampus())) {
+            return false;
+        }
+
+        // Check consecutive blocks only if needed
+        return bloquesPendientes < 2 || hasConsecutiveBlockAvailable(propuesta);
+    }
+
+    // Optimized score calculation
+    private int calculateProposalScore(Propuesta proposal, String currentCampus,
+                                       int nivel, Asignatura subject) {
+        int score = 0;
+
+        // Campus score (highest priority)
+        if (getCampusSala(proposal.getCodigo()).equals(currentCampus)) {
+            score += 10000;
+        }
+
+        // Block preference score
+        boolean isOddYear = nivel % 2 == 1;
+        int bloque = proposal.getBloque();
+        if (isOddYear) {
+            score += (bloque <= 4) ? 5000 : 0;
+        } else {
+            score += (bloque >= 5) ? 5000 : 0;
+        }
+
+        // Consecutive block bonus
+        List<Integer> existingBlocks = profesor.getBlocksBySubject(subject.getNombre())
+                .getOrDefault(proposal.getDia(), Collections.emptyList());
+        if (!existingBlocks.isEmpty()) {
+            for (int existingBlock : existingBlocks) {
+                if (Math.abs(existingBlock - bloque) == 1) {
+                    score += 2000;
+                    break;
+                }
+            }
+        }
+
+        // Satisfaction score
+        score += proposal.getSatisfaccion() * 100;
+
+        return score;
     }
 
     private boolean isValidProposal(Propuesta propuesta, Asignatura asignatura) {
@@ -343,25 +466,25 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
         return "";
     }
+    private static final int MAX_RETRIES = 3;
+
     private void handleNoProposals() {
         retryCount++;
         if (retryCount >= MAX_RETRIES) {
             if (bloquesPendientes == profesor.getCurrentSubject().getHoras()) {
-//                System.out.println("Profesor " + profesor.getNombre() + " no pudo obtener propuestas para " +
-//                        profesor.getCurrentSubject().getNombre() + " después de " + MAX_RETRIES + " intentos");
+                // If no blocks assigned yet for this subject, move to next subject
                 profesor.moveToNextSubject();
             } else {
-//                System.out.println("Profesor " + profesor.getNombre() + " buscando nueva sala para bloques restantes de " +
-//                        profesor.getCurrentSubject().getNombre());
+                // If some blocks assigned, try different room
                 assignationData.setSalaAsignada(null);
             }
             retryCount = 0;
             currentState = NegotiationState.SETUP;
         } else {
-//            System.out.println("Profesor " + profesor.getNombre() + ": Reintentando solicitud de propuestas. " +
-//                    "Intento " + (retryCount + 1) + " de " + MAX_RETRIES);
+            // Add exponential backoff to avoid overwhelming the system
+            long backoffTime = (long) Math.pow(2, retryCount) * 1000; // 2^retry seconds
+            proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA + backoffTime;
             sendProposalRequests();
-            proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
         }
     }
 
@@ -369,19 +492,20 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         retryCount++;
         if (retryCount >= MAX_RETRIES) {
             if (assignationData.hasSalaAsignada()) {
-//                System.out.println("Profesor " + profesor.getNombre() + ": Buscando otra sala para los bloques restantes");
+                // Try different room if current one isn't working
                 assignationData.setSalaAsignada(null);
             } else {
-//                System.out.println("Profesor " + profesor.getNombre() + " no pudo completar la asignación de " +
-//                        profesor.getCurrentSubject().getNombre());
+                // If we've tried different rooms without success, move on
                 profesor.moveToNextSubject();
             }
             retryCount = 0;
             currentState = NegotiationState.SETUP;
         } else {
             currentState = NegotiationState.COLLECTING_PROPOSALS;
+            // Add exponential backoff here too
+            long backoffTime = (long) Math.pow(2, retryCount) * 1000;
+            proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA + backoffTime;
             sendProposalRequests();
-            proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
         }
     }
 
@@ -409,14 +533,18 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 .collect(Collectors.groupingBy(Propuesta::getCodigo));
 
         boolean anySuccess = false;
+        int remainingHours = profesor.getCurrentSubject().getHoras();
 
         for (Map.Entry<String, List<Propuesta>> entry : proposalsBySala.entrySet()) {
-            List<Propuesta> salaProposals = entry.getValue();
+            if (remainingHours <= 0) break;
 
+            List<Propuesta> salaProposals = entry.getValue();
             if (!salaProposals.isEmpty()) {
                 List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
 
                 for (Propuesta propuesta : salaProposals) {
+                    if (remainingHours <= 0) break;
+
                     if (profesor.isBlockAvailable(propuesta.getDia(), propuesta.getBloque())) {
                         requests.add(new BatchAssignmentRequest.AssignmentRequest(
                                 propuesta.getDia(),
@@ -425,7 +553,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                                 propuesta.getSatisfaccion(),
                                 propuesta.getCodigo(),
                                 profesor.getCurrentSubject().getVacantes()
-                        ));
+                                ));
+                        remainingHours--;
                     }
                 }
 
