@@ -87,6 +87,13 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         if (currentSubject != null) {
             bloquesPendientes = currentSubject.getHoras();
             assignationData.clear();
+
+            // Add logging here
+            System.out.printf("[SETUP] Starting assignment for %s (Code: %s) - Required hours: %d%n",
+                    currentSubject.getNombre(),
+                    currentSubject.getCodigoAsignatura(),
+                    currentSubject.getHoras());
+
 //            System.out.println("Profesor " + profesor.getNombre() + " iniciando negociación para " +
 //                    currentSubject.getNombre() + " (" + bloquesPendientes + " horas)");
             sendProposalRequests();
@@ -533,28 +540,46 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 .collect(Collectors.groupingBy(Propuesta::getCodigo));
 
         boolean anySuccess = false;
-        int remainingHours = profesor.getCurrentSubject().getHoras();
+        Asignatura currentSubject = profesor.getCurrentSubject();
+        String subjectKey = profesor.getCurrentSubjectKey();
+        int requiredHours = profesor.getCurrentSubjectRequiredHours();
+        int assignedHours = 0;
+
+        // Track assigned hours per day to prevent over-assignment
+        Map<Day, Integer> hoursPerDay = new HashMap<>();
 
         for (Map.Entry<String, List<Propuesta>> entry : proposalsBySala.entrySet()) {
-            if (remainingHours <= 0) break;
+            if (assignedHours >= requiredHours) break;
 
             List<Propuesta> salaProposals = entry.getValue();
             if (!salaProposals.isEmpty()) {
                 List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
 
+                // Sort proposals by day and block
+                salaProposals.sort(Comparator
+                        .comparing(Propuesta::getDia)
+                        .thenComparing(Propuesta::getBloque));
+
                 for (Propuesta propuesta : salaProposals) {
-                    if (remainingHours <= 0) break;
+                    if (assignedHours >= requiredHours) break;
+
+                    Day day = propuesta.getDia();
+                    int dayHours = hoursPerDay.getOrDefault(day, 0);
+
+                    // Limit 2 hours per day per subject
+                    if (dayHours >= 2) continue;
 
                     if (profesor.isBlockAvailable(propuesta.getDia(), propuesta.getBloque())) {
                         requests.add(new BatchAssignmentRequest.AssignmentRequest(
                                 propuesta.getDia(),
                                 propuesta.getBloque(),
-                                profesor.getCurrentSubject().getNombre(),
+                                currentSubject.getNombre(),
                                 propuesta.getSatisfaccion(),
                                 propuesta.getCodigo(),
-                                profesor.getCurrentSubject().getVacantes()
-                                ));
-                        remainingHours--;
+                                currentSubject.getVacantes()
+                        ));
+                        assignedHours++;
+                        hoursPerDay.merge(day, 1, Integer::sum);
                     }
                 }
 
@@ -602,6 +627,12 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                             }
                             block(50);
                         }
+                        System.out.printf("[BATCH] Subject %s (Code: %s): Assigned %d/%d hours (Pending: %d)%n",
+                                currentSubject.getNombre(),
+                                currentSubject.getCodigoAsignatura(),
+                                assignedHours,
+                                requiredHours,
+                                bloquesPendientes);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (UnreadableException e) {
@@ -611,7 +642,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             }
         }
 
-        return anySuccess;
+        return anySuccess && assignedHours == requiredHours;
     }
     //FIXME: Esto envia no por bloques, si no TODAS las propuestas aceptadas
     /*private boolean tryAssignProposal(Propuesta propuesta) {

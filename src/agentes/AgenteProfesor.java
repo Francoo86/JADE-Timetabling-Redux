@@ -66,8 +66,30 @@ public class AgenteProfesor extends Agent {
         return asignaturaActual;
     }
 
+    //private Map<String, Integer> subjectInstanceHours = new HashMap<>();
+    private int currentInstanceIndex = 0;
+
+    public String getCurrentSubjectKey() {
+        Asignatura current = getCurrentSubject();
+        return String.format("%s-%d", current.getNombre(), currentInstanceIndex);
+    }
+
     public void moveToNextSubject() {
+        String currentName = getCurrentSubject().getNombre();
         asignaturaActual++;
+        if (asignaturaActual < asignaturas.size()) {
+            // If next subject has same name, increment instance index
+            if (asignaturas.get(asignaturaActual).getNombre().equals(currentName)) {
+                currentInstanceIndex++;
+            } else {
+                currentInstanceIndex = 0;
+            }
+        }
+    }
+
+    // Helper method to get required hours for current subject
+    public int getCurrentSubjectRequiredHours() {
+        return getCurrentSubject().getHoras();
     }
 
     public boolean isBlockAvailable(Day dia, int bloque) {
@@ -116,32 +138,38 @@ public class AgenteProfesor extends Agent {
         return null;
     }
 
+    private String getCurrentInstanceKey() {
+        Asignatura current = getCurrentSubject();
+        return String.format("%s-%s-%d",
+                current.getNombre(),
+                current.getCodigoAsignatura(),
+                currentInstanceIndex);  // Instance index
+    }
+
     //TODO: Refactorizar esto, ya que se ve bien feo
     public void updateScheduleInfo(Day dia, String sala, int bloque, String nombreAsignatura, int satisfaccion) {
-        if (bloquesAsignadosPorDia.containsKey(dia) &&
-                bloquesAsignadosPorDia.get(dia).containsKey(nombreAsignatura) &&
-                bloquesAsignadosPorDia.get(dia).get(nombreAsignatura).contains(bloque)) {
-            return;
-        }
+        String currentInstanceKey = getCurrentInstanceKey();
 
-        // Check if we've exceeded the hours for this subject
-        Asignatura currentSubject = getCurrentSubject();
-        if (currentSubject != null &&
-                getBlocksBySubject(nombreAsignatura).values().stream()
-                        .mapToInt(List::size)
-                        .sum() >= currentSubject.getHoras()) {
-            return;
-        }
-
-        // Actualizar horario ocupado
+        // Update horario ocupado
         horarioOcupado.computeIfAbsent(dia, k -> new HashSet<>()).add(bloque);
 
-        // Actualizar bloques por día
+        // Update bloques por día with instance information
         bloquesAsignadosPorDia.computeIfAbsent(dia, k -> new HashMap<>())
-                .computeIfAbsent(nombreAsignatura, k -> new ArrayList<>())
+                .computeIfAbsent(currentInstanceKey, k -> new ArrayList<>())
                 .add(bloque);
 
-        actualizarHorarioJSON(dia, sala, bloque, satisfaccion);
+        actualizarHorarioJSON(dia, sala, bloque, satisfaccion);//, currentInstanceKey);
+    }
+
+
+    private Map<String, Integer> requiredHoursPerSubject;
+
+    private Map<String, Integer> requiredHoursPerInstance;
+    private Map<String, String> subjectInstanceKeys; // Track which instance a subject belongs to
+    private int instanceCounter = 0;
+
+    private String generateInstanceKey(String nombre, String codigo) {
+        return String.format("%s-%s-%d", nombre, codigo, instanceCounter++);
     }
 
     @Override
@@ -156,6 +184,16 @@ public class AgenteProfesor extends Agent {
 
         // Initialize data structures
         initializeDataStructures();
+
+        // Initialize required hours per subject
+        requiredHoursPerInstance = new HashMap<>();
+        subjectInstanceKeys = new HashMap<>();
+
+        for (Asignatura asig : asignaturas) {
+            String instanceKey = generateInstanceKey(asig.getNombre(), asig.getCodigoAsignatura());
+            requiredHoursPerInstance.put(instanceKey, asig.getHoras());
+            subjectInstanceKeys.put(instanceKey, asig.getNombre());
+        }
 
         // Register in DF
         registrarEnDF();
@@ -185,6 +223,28 @@ public class AgenteProfesor extends Agent {
             addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour, messageCollector));
         }
     }
+
+    private Map<String, Integer> subjectCompletedHours = new HashMap<>();
+
+    public String getSubjectKey(Asignatura subject) {
+        return subject.getNombre() + "-" + subject.getCodigoAsignatura();
+    }
+
+    public boolean isSubjectComplete(Asignatura subject) {
+        String key = getSubjectKey(subject);
+        return subjectCompletedHours.getOrDefault(key, 0) >= subject.getHoras();
+    }
+
+    public void updateSubjectHours(Asignatura subject, int hours) {
+        String key = getSubjectKey(subject);
+        subjectCompletedHours.merge(key, hours, Integer::sum);
+    }
+
+    //getCompletedHours
+    public int getCompletedHours(String key) {
+        return subjectCompletedHours.getOrDefault(key, 0);
+    }
+
 
     private void initializeDataStructures() {
         // Initialize schedule tracking
@@ -291,19 +351,20 @@ public class AgenteProfesor extends Agent {
     //why is this a god object?
 
     public void actualizarHorarioJSON(Day dia, String sala, int bloque, int satisfaccion) {
-        // Actualizar JSON con la asignatura actual y sus datos
+        // Get current subject
+        Asignatura currentSubject = asignaturas.get(asignaturaActual);
+
         JSONObject asignatura = new JSONObject();
-        asignatura.put("Nombre", asignaturas.get(asignaturaActual).getNombre());
+        asignatura.put("Nombre", currentSubject.getNombre());
         asignatura.put("Sala", sala);
         asignatura.put("Bloque", bloque);
         asignatura.put("Dia", dia.getDisplayName());
         asignatura.put("Satisfaccion", satisfaccion);
-        ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
+        // Add these to track instances
+        asignatura.put("CodigoAsignatura", currentSubject.getCodigoAsignatura());
+        asignatura.put("Instance", currentInstanceIndex); // or currentInstanceIndex if you have it
 
-        /*
-        System.out.println("Profesor " + nombre + ": Asignada " +
-                asignaturas.get(asignaturaActual).getNombre() +
-                " en sala " + sala + ", día " + dia + ", bloque " + bloque);*/
+        ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
     }
 
     public void finalizarNegociaciones() {
@@ -316,7 +377,7 @@ public class AgenteProfesor extends Agent {
 
             // Guardar horario final
             ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(
-                    nombre, horarioJSON, asignaturas.size());
+                    nombre, horarioJSON, asignaturas);
 
             // Notificar al siguiente profesor antes de hacer cleanup
             notificarSiguienteProfesor();
@@ -395,12 +456,45 @@ public class AgenteProfesor extends Agent {
 
     @Override
     protected void takeDown() {
-        //mostrar resumen final por profesor...
-        int asignadas = ((JSONArray) horarioJSON.get("Asignaturas")).size();
-        System.out.println("Profesor " + nombre + " finalizado con " +
-                asignadas + "/" + asignaturas.size() + " asignaturas asignadas");
-    }
+        // Get actual completion numbers
+        Map<String, Integer> assignedHours = new HashMap<>();
+        JSONArray asignaturas = (JSONArray) horarioJSON.get("Asignaturas");
 
+        // Count assigned hours per instance
+        for (Object obj : asignaturas) {
+            JSONObject asignatura = (JSONObject) obj;
+            String nombreAsig = (String) asignatura.get("Nombre");
+            String codigo = (String) asignatura.get("CodigoAsignatura");
+            int instance = ((Number) asignatura.get("Instance")).intValue();
+            String instanceKey = String.format("%s-%s-%d", nombreAsig, codigo, instance);
+            assignedHours.merge(instanceKey, 1, Integer::sum);
+        }
+
+        // Count completed subjects
+        int completedCount = 0;
+        int totalSubjects = 0;
+        int totalRequiredHours = 0;
+
+        for (Asignatura asig : this.asignaturas) {
+            totalSubjects++;
+            totalRequiredHours += asig.getHoras();
+
+            String instanceKey = String.format("%s-%s-%d",
+                    asig.getNombre(),
+                    asig.getCodigoAsignatura(),
+                    totalSubjects - 1);
+
+            if (assignedHours.getOrDefault(instanceKey, 0) >= asig.getHoras()) {
+                completedCount++;
+            }
+        }
+
+        System.out.printf("Profesor %s finalizado con %d/%d asignaturas completas (requirió %d horas totales)%n",
+                nombre,
+                completedCount,
+                totalSubjects,
+                totalRequiredHours);
+    }
     //FINES DE DEBUG!!!
     private class MessageQueueDebugBehaviour extends OneShotBehaviour {
         @Override
