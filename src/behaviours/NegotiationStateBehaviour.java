@@ -149,39 +149,123 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         int currentNivel = currentSubject.getNivel();
         String currentAsignaturaNombre = currentSubject.getNombre();
 
+        // Track current schedule state
+        Map<Day, List<Integer>> currentSchedule = profesor.getBlocksBySubject(currentAsignaturaNombre);
+        Map<String, Integer> roomUsage = new HashMap<>();
+        Map<Day, Integer> blocksPerDay = new HashMap<>();
+        String mostUsedRoom = null;
+
+        // Calculate current room and day usage
+        for (Map.Entry<Day, List<Integer>> entry : currentSchedule.entrySet()) {
+            Day day = entry.getKey();
+            List<Integer> blocks = entry.getValue();
+            blocksPerDay.put(day, blocks.size());
+
+            // Get room usage and track most used room
+            for (int block : blocks) {
+                BloqueInfo info = profesor.getBloqueInfo(day, block);
+                if (info != null) {
+                    String room = info.getCampus();
+                    int count = roomUsage.merge(room, 1, Integer::sum);
+                    if (mostUsedRoom == null || count > roomUsage.getOrDefault(mostUsedRoom, 0)) {
+                        mostUsedRoom = room;
+                    }
+                }
+            }
+        }
+
         // Pre-calculate common values
         boolean isOddYear = currentNivel % 2 == 1;
         int targetSize = proposals.size();
+        int daysUsed = blocksPerDay.size();
 
-        // Use ArrayList for better performance with sorting
         ArrayList<ProposalScore> scoredProposals = new ArrayList<>(targetSize);
 
-        // First pass: Filter and calculate scores simultaneously
+        // Filter and score proposals
         for (Propuesta proposal : proposals) {
             if (!isValidProposalFast(proposal, currentSubject, isOddYear, currentAsignaturaNombre)) {
                 continue;
             }
 
+            // Calculate base score
             int score = calculateProposalScore(proposal, currentCampus, currentNivel, currentSubject);
+
+            Day proposalDay = proposal.getDia();
+            String proposalRoom = proposal.getCodigo();
+            int proposalBlock = proposal.getBloque();
+
+            // Strong penalty for same-day assignments
+            int dayUsage = blocksPerDay.getOrDefault(proposalDay, 0);
+            score -= dayUsage * 6000;  // Increased penalty
+
+            // Bonus for distributing across week
+            if (!blocksPerDay.containsKey(proposalDay)) {
+                score += 8000;  // Encourage using new days up to 3 days
+            }
+
+            // Consecutive block handling
+            List<Integer> dayBlocks = currentSchedule.getOrDefault(proposalDay, Collections.emptyList());
+            boolean hasConsecutive = dayBlocks.stream()
+                    .anyMatch(block -> Math.abs(block - proposalBlock) == 1);
+            if (hasConsecutive && dayUsage < 2) {  // Only reward consecutive if not too many blocks that day
+                score += 5000;
+            }
+
+            // Room consistency bonus
+            if (proposalRoom.equals(mostUsedRoom)) {
+                score += 7000;
+            }
+
+            if (!proposalRoom.startsWith(currentCampus.substring(0, 1))) {
+                score -= 10000;  // Increase from 8000
+            }
+
+            // Penalize room changes
+            int roomCount = roomUsage.getOrDefault(proposalRoom, 0);
+            score -= roomCount * 1500;  // Increased penalty
+
+            // Time of day preference
+            if (isOddYear && proposalBlock <= 4) {
+                score += 3500;
+            } else if (!isOddYear && proposalBlock >= 5) {
+                score += 3500;
+            }
+
+            // Stronger penalty for block 9
+            if (proposalBlock == Commons.MAX_BLOQUE_DIURNO) {
+                score -= 3000;
+            }
+
+            // Stronger campus transition penalty
+            if (!proposalRoom.startsWith(currentCampus.substring(0, 1))) {
+                BloqueInfo prevBlock = profesor.getBloqueInfo(proposalDay, proposalBlock - 1);
+                BloqueInfo nextBlock = profesor.getBloqueInfo(proposalDay, proposalBlock + 1);
+
+                if ((prevBlock != null && !prevBlock.getCampus().equals(currentCampus)) ||
+                        (nextBlock != null && !nextBlock.getCampus().equals(currentCampus))) {
+                    score -= 8000;  // Doubled penalty
+                }
+            }
+
+            // Penalty for too many blocks in one day
+            if (dayUsage >= 2) {
+                score -= 6000;  // Strong penalty for more than 2 blocks per day
+            }
+
             scoredProposals.add(new ProposalScore(proposal, score));
         }
 
-        // Early return if no valid proposals
         if (scoredProposals.isEmpty()) {
             return Collections.emptyList();
         }
 
-        // Sort in place using a simple comparison
+        // Sort by final scores
         scoredProposals.sort((ps1, ps2) -> ps2.score - ps1.score);
 
-        // Convert back to List<Propuesta>
-        int resultSize = scoredProposals.size();
-        ArrayList<Propuesta> result = new ArrayList<>(resultSize);
-        for (ProposalScore ps : scoredProposals) {
-            result.add(ps.proposal);
-        }
-
-        return result;
+        // Convert to List<Propuesta>
+        return scoredProposals.stream()
+                .map(ps -> ps.proposal)
+                .collect(Collectors.toList());
     }
 
     // Lightweight class to hold proposal and its score
@@ -241,33 +325,55 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                                        int nivel, Asignatura subject) {
         int score = 0;
 
-        // Campus score (highest priority)
-        if (getCampusSala(proposal.getCodigo()).equals(currentCampus)) {
-            score += 10000;
-        }
-
-        // Block preference score
-        boolean isOddYear = nivel % 2 == 1;
-        int bloque = proposal.getBloque();
-        if (isOddYear) {
-            score += (bloque <= 4) ? 5000 : 0;
-        } else {
-            score += (bloque >= 5) ? 5000 : 0;
-        }
-
-        // Consecutive block bonus
+        // Highest priority: Consecutive block bonus
         List<Integer> existingBlocks = profesor.getBlocksBySubject(subject.getNombre())
                 .getOrDefault(proposal.getDia(), Collections.emptyList());
         if (!existingBlocks.isEmpty()) {
             for (int existingBlock : existingBlocks) {
-                if (Math.abs(existingBlock - bloque) == 1) {
-                    score += 2000;
+                if (Math.abs(existingBlock - proposal.getBloque()) == 1) {
+                    score += 20000; // Increased weight for consecutive blocks
                     break;
                 }
             }
         }
 
-        // Satisfaction score
+        // Second priority: Time of day preference based on year
+        boolean isOddYear = nivel % 2 == 1;
+        int bloque = proposal.getBloque();
+        if (isOddYear) {
+            score += (bloque <= 4) ? 10000 : 0; // Morning preference
+        } else {
+            score += (bloque >= 5) ? 10000 : 0; // Afternoon preference
+        }
+
+        // Third priority: Campus consistency
+        if (getCampusSala(proposal.getCodigo()).equals(currentCampus)) {
+            score += 5000;
+        }
+
+        // Fourth priority: Even distribution across days
+        Map<Day, List<Integer>> currentSchedule = profesor.getBlocksBySubject(subject.getNombre());
+        int blocksOnDay = currentSchedule.getOrDefault(proposal.getDia(), Collections.emptyList()).size();
+        score -= blocksOnDay * 1000; // Penalty for concentrating too many blocks on same day
+
+        // Fifth priority: Block 9 avoidance
+        if (proposal.getBloque() == Commons.MAX_BLOQUE_DIURNO) {
+            score -= 3000; // Penalty for using block 9
+        }
+
+        // Sixth priority: Room consistency
+        String currentRoom = null;
+        for (Map.Entry<Day, List<Integer>> entry : currentSchedule.entrySet()) {
+            if (!entry.getValue().isEmpty()) {
+                currentRoom = getCampusSala(proposal.getCodigo());
+                break;
+            }
+        }
+        if (currentRoom != null && currentRoom.equals(proposal.getCodigo())) {
+            score += 2000; // Bonus for using same room
+        }
+
+        // Base satisfaction score
         score += proposal.getSatisfaccion() * 100;
 
         return score;
@@ -535,114 +641,217 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
     }
 
+    private boolean roomsInSameCampus(String room1, String room2) {
+        return room1.substring(0, 1).equals(room2.substring(0, 1));
+    }
+
     private boolean tryAssignBatchProposals(List<Propuesta> validProposals) {
-        Map<String, List<Propuesta>> proposalsBySala = validProposals.stream()
-                .collect(Collectors.groupingBy(Propuesta::getCodigo));
+        // Group proposals by day
+        Map<Day, List<Propuesta>> proposalsByDay = validProposals.stream()
+                .collect(Collectors.groupingBy(Propuesta::getDia));
+
+        // Sort days by available proposals and limit to 3 days
+        List<Day> sortedDays = proposalsByDay.entrySet().stream()
+                .sorted((e1, e2) -> e2.getValue().size() - e1.getValue().size())
+                .limit(3)  // Hard limit to 3 days
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
 
         boolean anySuccess = false;
         Asignatura currentSubject = profesor.getCurrentSubject();
-        String subjectKey = profesor.getCurrentSubjectKey();
         int requiredHours = profesor.getCurrentSubjectRequiredHours();
         int assignedHours = 0;
 
-        // Track assigned hours per day to prevent over-assignment
-        Map<Day, Integer> hoursPerDay = new HashMap<>();
+        // Track assignments and preferences
+        Map<Day, Integer> blocksPerDay = new HashMap<>();
+        String preferredRoom = null;
+        String preferredCampus = currentSubject.getCampus();
+        boolean isOddYear = currentSubject.getNivel() % 2 == 1;
 
-        for (Map.Entry<String, List<Propuesta>> entry : proposalsBySala.entrySet()) {
+        // Process each day
+        for (Day day : sortedDays) {
             if (assignedHours >= requiredHours) break;
 
-            List<Propuesta> salaProposals = entry.getValue();
-            if (!salaProposals.isEmpty()) {
-                List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
+            List<Propuesta> dayProposals = proposalsByDay.get(day);
+            if (dayProposals.isEmpty()) continue;
 
-                // Sort proposals by day and block
-                salaProposals.sort(Comparator
-                        .comparing(Propuesta::getDia)
-                        .thenComparing(Propuesta::getBloque));
+            // Strict limit of 2 blocks per day
+            if (blocksPerDay.getOrDefault(day, 0) >= 2) continue;
 
-                for (Propuesta propuesta : salaProposals) {
-                    if (assignedHours >= requiredHours) break;
+            // Track available rooms for this day
+            Set<String> availableRooms = dayProposals.stream()
+                    .map(Propuesta::getCodigo)
+                    .collect(Collectors.toSet());
 
-                    Day day = propuesta.getDia();
-                    int dayHours = hoursPerDay.getOrDefault(day, 0);
+            // Sort proposals by priority
+            String finalPreferredRoom = preferredRoom;
+            dayProposals.sort((p1, p2) -> {
+                int score1 = 0, score2 = 0;
 
-                    // Limit 2 hours per day per subject
-                    if (dayHours >= 2) continue;
+                // Preferred room bonus (highest priority)
+                if (finalPreferredRoom != null) {
+                    if (p1.getCodigo().equals(finalPreferredRoom)) score1 += 10000;
+                    if (p2.getCodigo().equals(finalPreferredRoom)) score2 += 10000;
+                }
 
-                    if (profesor.isBlockAvailable(propuesta.getDia(), propuesta.getBloque())) {
-                        requests.add(new BatchAssignmentRequest.AssignmentRequest(
-                                propuesta.getDia(),
-                                propuesta.getBloque(),
-                                currentSubject.getNombre(),
-                                propuesta.getSatisfaccion(),
-                                propuesta.getCodigo(),
-                                currentSubject.getVacantes()
-                        ));
-                        assignedHours++;
-                        hoursPerDay.merge(day, 1, Integer::sum);
+                // Campus consistency (high priority)
+                if (p1.getCodigo().startsWith(preferredCampus.substring(0, 1))) score1 += 5000;
+                if (p2.getCodigo().startsWith(preferredCampus.substring(0, 1))) score2 += 5000;
+
+                // Time preference based on year
+                if (isOddYear) {
+                    if (p1.getBloque() <= 4) score1 += 3000;
+                    if (p2.getBloque() <= 4) score2 += 3000;
+                } else {
+                    if (p1.getBloque() >= 5) score1 += 3000;
+                    if (p2.getBloque() >= 5) score2 += 3000;
+                }
+
+                // Room availability bonus
+                int room1Avail = (int) dayProposals.stream()
+                        .filter(p -> p.getCodigo().equals(p1.getCodigo())).count();
+                int room2Avail = (int) dayProposals.stream()
+                        .filter(p -> p.getCodigo().equals(p2.getCodigo())).count();
+                score1 += room1Avail * 100;
+                score2 += room2Avail * 100;
+
+                // Satisfaction score
+                score1 += p1.getSatisfaccion() * 10;
+                score2 += p2.getSatisfaccion() * 10;
+
+                return score2 - score1;
+            });
+
+            List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
+            int lastBlock = -1;
+            String lastRoom = null;
+
+            for (Propuesta propuesta : dayProposals) {
+                if (assignedHours >= requiredHours) break;
+                if (blocksPerDay.getOrDefault(day, 0) >= 2) break;
+
+                // Ensure consecutive blocks
+                if (lastBlock != -1) {
+                    if (Math.abs(propuesta.getBloque() - lastBlock) != 1) continue;
+
+                    // For non-consecutive blocks, require same campus
+                    if (!propuesta.getCodigo().equals(lastRoom) &&
+                            !propuesta.getCodigo().substring(0, 1).equals(lastRoom.substring(0, 1))) {
+                        continue;
                     }
                 }
 
-                if (!requests.isEmpty()) {
-                    try {
-                        ACLMessage batchAccept = salaProposals.get(0).getMensaje().createReply();
-                        batchAccept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-                        batchAccept.setContentObject(new BatchAssignmentRequest(requests));
-                        profesor.send(batchAccept);
-
-                        // Wait for batch confirmation
-                        MessageTemplate mt = MessageTemplate.and(
-                                MessageTemplate.MatchSender(salaProposals.get(0).getMensaje().getSender()),
-                                MessageTemplate.MatchPerformative(ACLMessage.INFORM)
-                        );
-
-                        long startTime = System.currentTimeMillis();
-                        long timeout = 1000;
-
-                        while (System.currentTimeMillis() - startTime < timeout) {
-                            ACLMessage confirm = myAgent.receive(mt);
-                            if (confirm != null) {
-                                BatchAssignmentConfirmation confirmation =
-                                        (BatchAssignmentConfirmation) confirm.getContentObject();
-
-                                for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
-                                        confirmation.getConfirmedAssignments()) {
-                                    profesor.updateScheduleInfo(
-                                            assignment.getDay(),
-                                            assignment.getClassroomCode(),
-                                            assignment.getBlock(),
-                                            profesor.getCurrentSubject().getNombre(),
-                                            assignment.getSatisfaction()
-                                    );
-
-                                    bloquesPendientes--;
-                                    assignationData.assign(
-                                            assignment.getDay(),
-                                            assignment.getClassroomCode(),
-                                            assignment.getBlock()
-                                    );
-                                    anySuccess = true;
-                                }
-                                break;
-                            }
-                            block(50);
-                        }
-                        System.out.printf("[BATCH] Subject %s (Code: %s): Assigned %d/%d hours (Pending: %d)%n",
-                                currentSubject.getNombre(),
-                                currentSubject.getCodigoAsignatura(),
-                                assignedHours,
-                                requiredHours,
-                                bloquesPendientes);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (UnreadableException e) {
-                        throw new RuntimeException(e);
+                // Room consistency check
+                if (preferredRoom == null) {
+                    preferredRoom = propuesta.getCodigo();
+                } else if (!propuesta.getCodigo().equals(preferredRoom)) {
+                    // Allow room change only if same campus and original room not available
+                    if (!propuesta.getCodigo().substring(0, 1).equals(preferredRoom.substring(0, 1)) ||
+                            availableRooms.contains(preferredRoom)) {
+                        continue;
                     }
+                }
+
+                // Block 9 special handling
+                if (propuesta.getBloque() == Commons.MAX_BLOQUE_DIURNO && bloquesPendientes % 2 == 0) {
+                    continue;
+                }
+
+                // Verify block availability
+                if (profesor.isBlockAvailable(propuesta.getDia(), propuesta.getBloque())) {
+                    requests.add(new BatchAssignmentRequest.AssignmentRequest(
+                            propuesta.getDia(),
+                            propuesta.getBloque(),
+                            currentSubject.getNombre(),
+                            propuesta.getSatisfaccion(),
+                            propuesta.getCodigo(),
+                            currentSubject.getVacantes()
+                    ));
+
+                    lastBlock = propuesta.getBloque();
+                    lastRoom = propuesta.getCodigo();
+                    assignedHours++;
+                    blocksPerDay.merge(day, 1, Integer::sum);
+                }
+            }
+
+            // Process batch assignment if we have requests
+            if (!requests.isEmpty()) {
+                try {
+                    ACLMessage batchAccept = dayProposals.get(0).getMensaje().createReply();
+                    batchAccept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                    batchAccept.setContentObject(new BatchAssignmentRequest(requests));
+                    profesor.send(batchAccept);
+
+                    // Wait for confirmation
+                    MessageTemplate mt = MessageTemplate.and(
+                            MessageTemplate.MatchSender(dayProposals.get(0).getMensaje().getSender()),
+                            MessageTemplate.MatchPerformative(ACLMessage.INFORM)
+                    );
+
+                    if (waitForConfirmation(mt, requests)) {
+                        anySuccess = true;
+                    }
+
+                    // Log assignment results
+                    System.out.printf("[BATCH] Subject %s (Code: %s): Assigned %d/%d hours on %s (Pending: %d)%n",
+                            currentSubject.getNombre(),
+                            currentSubject.getCodigoAsignatura(),
+                            requests.size(),
+                            requiredHours,
+                            day,
+                            bloquesPendientes);
+
+                } catch (IOException e) {
+                    System.err.printf("Error processing batch assignment for %s: %s%n",
+                            currentSubject.getNombre(), e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }
 
         return anySuccess && assignedHours == requiredHours;
+    }
+
+    // Helper method to handle confirmation waiting
+    private boolean waitForConfirmation(MessageTemplate mt, List<BatchAssignmentRequest.AssignmentRequest> requests) {
+        long startTime = System.currentTimeMillis();
+        long timeout = 1000;
+
+        while (System.currentTimeMillis() - startTime < timeout) {
+            ACLMessage confirm = myAgent.receive(mt);
+            if (confirm != null) {
+                try {
+                    BatchAssignmentConfirmation confirmation =
+                            (BatchAssignmentConfirmation) confirm.getContentObject();
+
+                    for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
+                            confirmation.getConfirmedAssignments()) {
+                        profesor.updateScheduleInfo(
+                                assignment.getDay(),
+                                assignment.getClassroomCode(),
+                                assignment.getBlock(),
+                                profesor.getCurrentSubject().getNombre(),
+                                assignment.getSatisfaction()
+                        );
+
+                        bloquesPendientes--;
+                        assignationData.assign(
+                                assignment.getDay(),
+                                assignment.getClassroomCode(),
+                                assignment.getBlock()
+                        );
+                    }
+                    return true;
+                } catch (UnreadableException e) {
+                    System.err.println("Error reading confirmation: " + e.getMessage());
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+            block(50);
+        }
+        return false;
     }
     //FIXME: Esto envia no por bloques, si no TODAS las propuestas aceptadas
     /*private boolean tryAssignProposal(Propuesta propuesta) {
