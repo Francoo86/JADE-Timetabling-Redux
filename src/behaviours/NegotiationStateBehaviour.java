@@ -320,6 +320,36 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         return bloquesPendientes < 2 || hasConsecutiveBlockAvailable(propuesta);
     }
 
+    private int calculateProposalScore(Propuesta propuesta, String preferredRoom,
+                                       String preferredCampus, boolean isOddYear) {
+        int score = 0;
+
+        // Preferred room bonus (highest priority)
+        if (preferredRoom != null && propuesta.getCodigo().equals(preferredRoom)) {
+            score += 10000;
+        }
+
+        // Campus consistency (high priority)
+        if (!getCampusSala(propuesta.getCodigo()).equals(preferredCampus)) {
+            score -= 10000;
+        }
+
+        // Time preference based on year
+        if (isOddYear) {
+            if (propuesta.getBloque() <= 4) score += 3000;
+        } else {
+            if (propuesta.getBloque() >= 5) score += 3000;
+        }
+
+        // Room availability bonus (can be calculated outside and passed in if performance is a concern)
+        // score += roomAvailability * 100;
+
+        // Satisfaction score
+        score += propuesta.getSatisfaccion() * 10;
+
+        return score;
+    }
+
     // Optimized score calculation
     private int calculateProposalScore(Propuesta proposal, String currentCampus,
                                        int nivel, Asignatura subject) {
@@ -572,13 +602,9 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     }
 
     private String getCampusSala(String codigoSala) {
-        if (codigoSala.startsWith("A")) {
-            return "Playa Brava";
-        } else if (codigoSala.startsWith("B")) {
-            return "Huayquique";
-        }
-        return "";
+        return codigoSala.startsWith("KAU") ? "Kaufmann" : "Playa Brava";
     }
+
     private static final int MAX_RETRIES = 3;
 
     private void handleNoProposals() {
@@ -686,41 +712,14 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             // Sort proposals by priority
             String finalPreferredRoom = preferredRoom;
             dayProposals.sort((p1, p2) -> {
-                int score1 = 0, score2 = 0;
+                // First calculate complete scores for both proposals
+                int score1 = calculateProposalScore(p1, finalPreferredRoom, preferredCampus, isOddYear);
+                int score2 = calculateProposalScore(p2, finalPreferredRoom, preferredCampus, isOddYear);
 
-                // Preferred room bonus (highest priority)
-                if (finalPreferredRoom != null) {
-                    if (p1.getCodigo().equals(finalPreferredRoom)) score1 += 10000;
-                    if (p2.getCodigo().equals(finalPreferredRoom)) score2 += 10000;
-                }
-
-                // Campus consistency (high priority)
-                if (p1.getCodigo().startsWith(preferredCampus.substring(0, 1))) score1 += 5000;
-                if (p2.getCodigo().startsWith(preferredCampus.substring(0, 1))) score2 += 5000;
-
-                // Time preference based on year
-                if (isOddYear) {
-                    if (p1.getBloque() <= 4) score1 += 3000;
-                    if (p2.getBloque() <= 4) score2 += 3000;
-                } else {
-                    if (p1.getBloque() >= 5) score1 += 3000;
-                    if (p2.getBloque() >= 5) score2 += 3000;
-                }
-
-                // Room availability bonus
-                int room1Avail = (int) dayProposals.stream()
-                        .filter(p -> p.getCodigo().equals(p1.getCodigo())).count();
-                int room2Avail = (int) dayProposals.stream()
-                        .filter(p -> p.getCodigo().equals(p2.getCodigo())).count();
-                score1 += room1Avail * 100;
-                score2 += room2Avail * 100;
-
-                // Satisfaction score
-                score1 += p1.getSatisfaccion() * 10;
-                score2 += p2.getSatisfaccion() * 10;
-
-                return score2 - score1;
+                // Return comparison of final scores
+                return Integer.compare(score2, score1);
             });
+
 
             List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
             int lastBlock = -1;
