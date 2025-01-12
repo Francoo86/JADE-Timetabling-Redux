@@ -667,28 +667,35 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
     }
 
-    private boolean roomsInSameCampus(String room1, String room2) {
-        return room1.substring(0, 1).equals(room2.substring(0, 1));
-    }
+    private Set<String> assignedSlots = new HashSet<>();
 
     private boolean tryAssignBatchProposals(List<Propuesta> validProposals) {
+        // Validate current state
+        Asignatura currentSubject = profesor.getCurrentSubject();
+        int requiredHours = profesor.getCurrentSubjectRequiredHours();
+
+        // Early exit if no more hours needed
+        if (bloquesPendientes <= 0) {
+            System.out.println("No more hours needed for current subject: " + currentSubject.getNombre());
+            return true;
+        }
+
         // Group proposals by day
         Map<Day, List<Propuesta>> proposalsByDay = validProposals.stream()
                 .collect(Collectors.groupingBy(Propuesta::getDia));
 
-        // Sort days by available proposals and limit to 3 days
+        // Sort and limit days
         List<Day> sortedDays = proposalsByDay.entrySet().stream()
                 .sorted((e1, e2) -> e2.getValue().size() - e1.getValue().size())
-                .limit(3)  // Hard limit to 3 days
+                .limit(3)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
         boolean anySuccess = false;
-        Asignatura currentSubject = profesor.getCurrentSubject();
-        int requiredHours = profesor.getCurrentSubjectRequiredHours();
         int assignedHours = 0;
+        int maxHoursForInstance = requiredHours;
 
-        // Track assignments and preferences
+        // Track preferences
         Map<Day, Integer> blocksPerDay = new HashMap<>();
         String preferredRoom = null;
         String preferredCampus = currentSubject.getCampus();
@@ -696,15 +703,17 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
         // Process each day
         for (Day day : sortedDays) {
-            if (assignedHours >= requiredHours) break;
+            // Stop if we've assigned all needed hours
+            if (assignedHours >= maxHoursForInstance) {
+                break;
+            }
 
             List<Propuesta> dayProposals = proposalsByDay.get(day);
             if (dayProposals.isEmpty()) continue;
 
-            // Strict limit of 2 blocks per day
+            // Enforce 2 blocks per day limit
             if (blocksPerDay.getOrDefault(day, 0) >= 2) continue;
 
-            // Track available rooms for this day
             Set<String> availableRooms = dayProposals.stream()
                     .map(Propuesta::getCodigo)
                     .collect(Collectors.toSet());
@@ -712,28 +721,31 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             // Sort proposals by priority
             String finalPreferredRoom = preferredRoom;
             dayProposals.sort((p1, p2) -> {
-                // First calculate complete scores for both proposals
                 int score1 = calculateProposalScore(p1, finalPreferredRoom, preferredCampus, isOddYear);
                 int score2 = calculateProposalScore(p2, finalPreferredRoom, preferredCampus, isOddYear);
-
-                // Return comparison of final scores
                 return Integer.compare(score2, score1);
             });
-
 
             List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
             int lastBlock = -1;
             String lastRoom = null;
 
             for (Propuesta propuesta : dayProposals) {
-                if (assignedHours >= requiredHours) break;
-                if (blocksPerDay.getOrDefault(day, 0) >= 2) break;
+                // Check if we've reached the required hours
+                if (assignedHours >= maxHoursForInstance ||
+                        blocksPerDay.getOrDefault(day, 0) >= 2) {
+                    break;
+                }
+
+                // Check if slot is already assigned
+                String slotKey = day.toString() + "-" + propuesta.getBloque();
+                if (assignedSlots.contains(slotKey)) {
+                    continue;
+                }
 
                 // Ensure consecutive blocks
                 if (lastBlock != -1) {
                     if (Math.abs(propuesta.getBloque() - lastBlock) != 1) continue;
-
-                    // For non-consecutive blocks, require same campus
                     if (!propuesta.getCodigo().equals(lastRoom) &&
                             !propuesta.getCodigo().substring(0, 1).equals(lastRoom.substring(0, 1))) {
                         continue;
@@ -744,19 +756,19 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 if (preferredRoom == null) {
                     preferredRoom = propuesta.getCodigo();
                 } else if (!propuesta.getCodigo().equals(preferredRoom)) {
-                    // Allow room change only if same campus and original room not available
                     if (!propuesta.getCodigo().substring(0, 1).equals(preferredRoom.substring(0, 1)) ||
                             availableRooms.contains(preferredRoom)) {
                         continue;
                     }
                 }
 
-                // Block 9 special handling
-                if (propuesta.getBloque() == Commons.MAX_BLOQUE_DIURNO && bloquesPendientes % 2 == 0) {
+                // Block 9 handling
+                if (propuesta.getBloque() == Commons.MAX_BLOQUE_DIURNO &&
+                        bloquesPendientes % 2 == 0) {
                     continue;
                 }
 
-                // Verify block availability
+                // Final availability check
                 if (profesor.isBlockAvailable(propuesta.getDia(), propuesta.getBloque())) {
                     requests.add(new BatchAssignmentRequest.AssignmentRequest(
                             propuesta.getDia(),
@@ -767,6 +779,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                             currentSubject.getVacantes()
                     ));
 
+                    assignedSlots.add(slotKey);
                     lastBlock = propuesta.getBloque();
                     lastRoom = propuesta.getCodigo();
                     assignedHours++;
@@ -774,15 +787,20 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 }
             }
 
-            // Process batch assignment if we have requests
+            // Process batch assignment
             if (!requests.isEmpty()) {
                 try {
+                    // Validate we won't exceed required hours
+                    if (bloquesPendientes - requests.size() < 0) {
+                        System.out.println("WARNING: Would exceed required hours - skipping batch");
+                        continue;
+                    }
+
                     ACLMessage batchAccept = dayProposals.get(0).getMensaje().createReply();
                     batchAccept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
                     batchAccept.setContentObject(new BatchAssignmentRequest(requests));
                     profesor.send(batchAccept);
 
-                    // Wait for confirmation
                     MessageTemplate mt = MessageTemplate.and(
                             MessageTemplate.MatchSender(dayProposals.get(0).getMensaje().getSender()),
                             MessageTemplate.MatchPerformative(ACLMessage.INFORM)
@@ -790,17 +808,14 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
                     if (waitForConfirmation(mt, requests)) {
                         anySuccess = true;
+                        System.out.printf("[BATCH] Subject %s (Code: %s): Assigned %d/%d hours on %s (Pending: %d)%n",
+                                currentSubject.getNombre(),
+                                currentSubject.getCodigoAsignatura(),
+                                requests.size(),
+                                requiredHours,
+                                day,
+                                bloquesPendientes);
                     }
-
-                    // Log assignment results
-                    System.out.printf("[BATCH] Subject %s (Code: %s): Assigned %d/%d hours on %s (Pending: %d)%n",
-                            currentSubject.getNombre(),
-                            currentSubject.getCodigoAsignatura(),
-                            requests.size(),
-                            requiredHours,
-                            day,
-                            bloquesPendientes);
-
                 } catch (IOException e) {
                     System.err.printf("Error processing batch assignment for %s: %s%n",
                             currentSubject.getNombre(), e.getMessage());
@@ -809,11 +824,17 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             }
         }
 
-        return anySuccess && assignedHours == requiredHours;
+        // Success only if we assigned exactly what was needed
+        return anySuccess && assignedHours <= requiredHours && bloquesPendientes == 0;
     }
 
     // Helper method to handle confirmation waiting
     private boolean waitForConfirmation(MessageTemplate mt, List<BatchAssignmentRequest.AssignmentRequest> requests) {
+        if (bloquesPendientes - requests.size() < 0) {
+            System.out.println("WARNING: Assignment would exceed required hours");
+            return false;
+        }
+
         long startTime = System.currentTimeMillis();
         long timeout = 1000;
 
@@ -914,6 +935,10 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         return false;
     }*/
 
+    private String sanitizeSubjectName(String name) {
+        return name.replaceAll("[^a-zA-Z0-9]", "");
+    }
+
     private void sendProposalRequests() {
         try {
             DFAgentDescription template = new DFAgentDescription();
@@ -934,7 +959,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
             // Enhanced CFP content with more context
             String solicitudInfo = String.format("%s,%d,%d,%s,%d,%s,%s,%d",
-                    currentSubject.getNombre(),
+                    sanitizeSubjectName(currentSubject.getNombre()),
                     currentSubject.getVacantes(),
                     currentSubject.getNivel(),
                     currentSubject.getCampus(),
