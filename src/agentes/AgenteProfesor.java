@@ -75,14 +75,16 @@ public class AgenteProfesor extends Agent {
 
     public void moveToNextSubject() {
         String currentName = getCurrentSubject().getNombre();
+        String currentCode = getCurrentSubject().getCodigoAsignatura();
         asignaturaActual++;
-        if (asignaturaActual < asignaturas.size()) {
-            // If next subject has same name, increment instance index
-            if (asignaturas.get(asignaturaActual).getNombre().equals(currentName)) {
-                currentInstanceIndex++;
-            } else {
-                currentInstanceIndex = 0;
-            }
+
+        // Reset instance counter when moving to different subject
+        if (asignaturaActual < asignaturas.size() &&
+                !(asignaturas.get(asignaturaActual).getNombre().equals(currentName) &&
+                        asignaturas.get(asignaturaActual).getCodigoAsignatura().equals(currentCode))) {
+            currentInstanceIndex = 0;
+        } else {
+            currentInstanceIndex++;
         }
     }
 
@@ -231,21 +233,29 @@ public class AgenteProfesor extends Agent {
     private void registrarEnDF() {
         try {
             DFAgentDescription dfd = new DFAgentDescription();
-            dfd.setName(getAID());      // AID del agente
+            dfd.setName(getAID());
             ServiceDescription sd = new ServiceDescription();
-            sd.setType(SERVICE_NAME);   // Tipo de servicio
+            sd.setType(SERVICE_NAME);
             sd.setName(AGENT_NAME + orden);
-            //Esto se pasa en el mensaje del CFP.
-            //Confirmar bien...
-            sd.addProperties(new Property("orden", orden));
+
+            // Properly create and add the order property
+            Property ordenProp = new Property();
+            ordenProp.setName("orden");
+            ordenProp.setValue(orden);
+            sd.addProperties(ordenProp);
+
             dfd.addServices(sd);
             DFService.register(this, dfd);
-            isRegistered = true;        // Marcar como registrado   
-            //System.out.println("Profesor " + nombre + " registrado en DF");
+            isRegistered = true;
+            System.out.println("Professor " + nombre + " registered with order " + orden);
         } catch (FIPAException fe) {
-            System.err.println("Error registrando profesor " + nombre + " en DF: " + fe.getMessage());
+            System.err.println("Error registering professor " + nombre + " in DF: " + fe.getMessage());
             fe.printStackTrace();
         }
+    }
+
+    private String sanitizeSubjectName(String name) {
+        return name.replaceAll("[^a-zA-Z0-9]", "");
     }
 
     private void cargarDatos(String jsonString) {
@@ -301,6 +311,9 @@ public class AgenteProfesor extends Agent {
                 if (nextOrden == profesor.getOrden()) {
                     //System.out.println("Profesor " + profesor.getNombre() +
                     //        " (orden " + profesor.getOrden() + ") activating on START signal");
+                    System.out.println("Professor " + profesor.getNombre() +
+                            " received START signal. My order=" + profesor.getOrden() +
+                            ", requested order=" + nextOrden);
 
                     // Add negotiation behaviors when it's our turn
                     myAgent.addBehaviour(stateBehaviour);
@@ -359,40 +372,78 @@ public class AgenteProfesor extends Agent {
 
 
     private void notificarSiguienteProfesor() {
-        // Notificar al siguiente profesor para que inicie su proceso de negociación
         try {
+            int nextOrden = orden + 1;
+            System.out.println("Current professor: " + nombre + " (order=" + orden +
+                    ") looking for next professor (order=" + nextOrden + ")");
+
             DFAgentDescription template = new DFAgentDescription();
             ServiceDescription sd = new ServiceDescription();
             sd.setType(SERVICE_NAME);
+
+            // Create proper property for search
+            Property ordenProp = new Property();
+            ordenProp.setName("orden");
+            ordenProp.setValue(nextOrden);
+            sd.addProperties(ordenProp);
+
             template.addServices(sd);
 
-            DFAgentDescription[] result = DFService.search(this, template); // Buscar profesores
-
-            //System.out.println("[DEBUG] Current profesor: orden=" + orden +
-            //        ", localName=" + getAID().getLocalName());
-
-            // Buscar el siguiente profesor en la lista
-            for (DFAgentDescription dfd : result) {     // Iterar sobre los profesores
-                String targetName = dfd.getName().getLocalName();   // Nombre del profesor
-                //System.out.println("[DEBUG] Found professor: " + targetName);
-
-                // Enviar mensaje de inicio al siguiente profesor en la lista (si no es este mismo)
-                if(targetName.equals(getAID().getLocalName())) {
-                    continue;
+            // Add retry logic for DF search
+            DFAgentDescription[] result = null;
+            int retries = 3;
+            while (retries > 0 && (result == null || result.length == 0)) {
+                result = DFService.search(this, template);
+                if (result.length == 0) {
+                    System.out.println("Retry " + retries + ": No professors found, waiting...");
+                    Thread.sleep(1000);
+                    retries--;
                 }
-
-                ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                msg.addReceiver(dfd.getName());
-                msg.setContent(Messages.START);
-                msg.addUserDefinedParameter("nextOrden", Integer.toString(orden + 1));
-                send(msg);
-                //System.out.println("[DEBUG] Sent START message to: " + targetName);
             }
+
+            if (result.length == 0) {
+                System.out.println("Warning: No next professor found after retries");
+                return;
+            }
+
+            // Find the correct next professor
+            for (DFAgentDescription dfd : result) {
+                ServiceDescription service = (ServiceDescription) dfd.getAllServices().next();
+                Iterator props = service.getAllProperties();
+                while (props.hasNext()) {
+                    Property prop = (Property) props.next();
+                    if ("orden".equals(prop.getName())) {
+                        int foundOrder = Integer.parseInt(prop.getValue().toString());
+                        if (foundOrder == nextOrden) {
+                            notifyNextProfessor(dfd, nextOrden);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            System.out.println("Warning: Could not find professor with order " + nextOrden);
+
         } catch (Exception e) {
-            System.err.println("Error notificando siguiente profesor: " + e.getMessage());
+            System.err.println("Error notifying next professor: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    private void notifyNextProfessor(DFAgentDescription dfd, int nextOrden) {
+        try {
+            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+            msg.addReceiver(dfd.getName());
+            msg.setContent(Messages.START);
+            msg.addUserDefinedParameter("nextOrden", Integer.toString(nextOrden));
+            send(msg);
+            System.out.println("Successfully notified next professor " +
+                    dfd.getName().getLocalName() + " with order: " + nextOrden);
+        } catch (Exception e) {
+            System.err.println("Error sending notification: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     private synchronized void cleanup() {
         // Limpiar y terminar el agente
         try {
