@@ -36,7 +36,6 @@ public class AgenteProfesor extends Agent {
     private Map<Day, Set<Integer>> horarioOcupado; // dia -> bloques
     private int orden;
     private JSONObject horarioJSON;
-    private static final long TIMEOUT_PROPUESTA = 5000; // 5 segundos para recibir propuestas
     private boolean isRegistered = false;
     private boolean isCleaningUp = false;
     private boolean negociacionIniciada = false;
@@ -161,9 +160,6 @@ public class AgenteProfesor extends Agent {
         actualizarHorarioJSON(dia, sala, bloque, satisfaccion);//, currentInstanceKey);
     }
 
-
-    private Map<String, Integer> requiredHoursPerSubject;
-
     private Map<String, Integer> requiredHoursPerInstance;
     private Map<String, String> subjectInstanceKeys; // Track which instance a subject belongs to
     private int instanceCounter = 0;
@@ -203,23 +199,10 @@ public class AgenteProfesor extends Agent {
         NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 1000, propuestas);
         MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, propuestas, stateBehaviour);
 
-        // Add debug behavior
-        /*
-        addBehaviour(new TickerBehaviour(this, 5000) {
-            protected void onTick() {
-                addBehaviour(new MessageQueueDebugBehaviour());
-            }
-        });*/
-
-        //System.out.println("Profesor " + nombre + " iniciando con " + asignaturas.size() + " asignaturas");
-
-        // Add negotiation behaviors based on order
         if (orden == 0) {
-            //System.out.println("Profesor " + nombre + " iniciando negociación inmediatamente");
             addBehaviour(stateBehaviour);
             addBehaviour(messageCollector);
         } else {
-            //System.out.println("Profesor " + nombre + " esperando su turno");
             addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour, messageCollector));
         }
     }
@@ -229,22 +212,6 @@ public class AgenteProfesor extends Agent {
     public String getSubjectKey(Asignatura subject) {
         return subject.getNombre() + "-" + subject.getCodigoAsignatura();
     }
-
-    public boolean isSubjectComplete(Asignatura subject) {
-        String key = getSubjectKey(subject);
-        return subjectCompletedHours.getOrDefault(key, 0) >= subject.getHoras();
-    }
-
-    public void updateSubjectHours(Asignatura subject, int hours) {
-        String key = getSubjectKey(subject);
-        subjectCompletedHours.merge(key, hours, Integer::sum);
-    }
-
-    //getCompletedHours
-    public int getCompletedHours(String key) {
-        return subjectCompletedHours.getOrDefault(key, 0);
-    }
-
 
     private void initializeDataStructures() {
         // Initialize schedule tracking
@@ -349,7 +316,6 @@ public class AgenteProfesor extends Agent {
     }
 
     //why is this a god object?
-
     public void actualizarHorarioJSON(Day dia, String sala, int bloque, int satisfaccion) {
         // Get current subject
         Asignatura currentSubject = asignaturas.get(asignaturaActual);
