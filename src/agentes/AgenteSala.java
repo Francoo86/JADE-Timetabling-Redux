@@ -67,6 +67,10 @@ public class AgenteSala extends Agent {
         //System.out.println("Sala " + codigo + " iniciada. Capacidad: " + capacidad);
     }
 
+    private String sanitizeSubjectName(String name) {
+        return name.replaceAll("[^a-zA-Z0-9]", "");
+    }
+
     private void parseJSON(String jsonString) {
         // Parsear JSON y asignar valores
         try {
@@ -214,7 +218,7 @@ public class AgenteSala extends Agent {
         private void procesarSolicitud(ACLMessage msg) {
             try {
                 String[] solicitudData = msg.getContent().split(",");
-                String nombreAsignatura = solicitudData[0];
+                String nombreAsignatura = sanitizeSubjectName(solicitudData[0]);
                 int vacantes = Integer.parseInt(solicitudData[1]);
                 int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
 
