@@ -10,24 +10,26 @@ import jade.lang.acl.MessageTemplate;
 import objetos.Asignatura;
 import objetos.ClassroomAvailability;
 import objetos.Propuesta;
+import objetos.helper.BatchProposal;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // Message handler for collecting proposals
 public class MessageCollectorBehaviour extends CyclicBehaviour {
     private final AgenteProfesor profesor;
-    private final ConcurrentLinkedQueue<Propuesta> propuestas;
+    private final Queue<BatchProposal> batchProposals;
     private final NegotiationStateBehaviour stateBehaviour;
 
     public MessageCollectorBehaviour(AgenteProfesor profesor,
-                                     ConcurrentLinkedQueue<Propuesta> propuestas,
+                                     Queue<BatchProposal> batchProposals,
                                      NegotiationStateBehaviour stateBehaviour) {
         super(profesor);
         this.profesor = profesor;
-        this.propuestas = propuestas;
+        this.batchProposals = batchProposals;
         this.stateBehaviour = stateBehaviour;
     }
 
@@ -45,30 +47,13 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                 try {
                     ClassroomAvailability sala = (ClassroomAvailability) reply.getContentObject();
                     if (sala == null) {
-                        System.out.println("Sala es null");
+                        System.out.println("Null classroom availability received");
                         return;
                     }
 
-                    // Create proposals for all available blocks
-                    for (Map.Entry<String, List<Integer>> entry : sala.getAvailableBlocks().entrySet()) {
-                        String dia = entry.getKey();
-                        List<Integer> bloques = entry.getValue();
-
-                        for (Integer bloque : bloques) {
-                            Propuesta propuesta = new Propuesta(
-                                    dia,
-                                    bloque,
-                                    sala.getCodigo(),
-                                    sala.getCapacidad(),
-                                    sala.getSatisfactionScore()
-                            );
-
-                            //set el mensaje de la propuesta
-                            propuesta.setMensaje(reply);
-                            propuestas.offer(propuesta);
-                        }
-                    }
-
+                    // Create single batch proposal instead of multiple individual ones
+                    BatchProposal batchProposal = new BatchProposal(sala, reply);
+                    batchProposals.offer(batchProposal);
                     stateBehaviour.notifyProposalReceived();
 
                 } catch (Exception e) {

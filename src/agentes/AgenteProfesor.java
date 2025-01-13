@@ -4,6 +4,7 @@ import behaviours.MessageCollectorBehaviour;
 import behaviours.NegotiationStateBehaviour;
 import constants.Messages;
 import constants.enums.Day;
+import debugscreens.ProfessorDebugViewer;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
@@ -18,10 +19,12 @@ import json_stuff.ProfesorHorarioJSON;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
 import objetos.Propuesta;
+import objetos.helper.BatchProposal;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
+import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -49,16 +52,37 @@ public class AgenteProfesor extends Agent {
         return nombre;
     }
 
-    public boolean canUseMoreSubjects() {
-        return asignaturaActual < asignaturas.size();
+    public synchronized boolean canUseMoreSubjects() {
+        try {
+            // First check basic index bounds
+            if (asignaturaActual >= asignaturas.size()) {
+                return false;
+            }
+
+            // Validate the current subject exists
+            Asignatura current = asignaturas.get(asignaturaActual);
+            if (current == null) {
+                System.out.println("Warning: Null subject at index " + asignaturaActual);
+                return false;
+            }
+
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.err.printf("Index out of bounds checking for more subjects: %d/%d%n",
+                    asignaturaActual, asignaturas.size());
+            return false;
+        }
+    }
+
+    public synchronized Asignatura getCurrentSubject() {
+        if (!canUseMoreSubjects()) {
+            return null;
+        }
+        return asignaturas.get(asignaturaActual);
     }
 
     public int getOrden() {
         return orden;
-    }
-
-    public Asignatura getCurrentSubject() {
-        return asignaturas.get(asignaturaActual);
     }
 
     public int getCurrentSubjectIndex() {
@@ -73,18 +97,33 @@ public class AgenteProfesor extends Agent {
         return String.format("%s-%d", current.getNombre(), currentInstanceIndex);
     }
 
-    public void moveToNextSubject() {
+    public synchronized void moveToNextSubject() {
+        System.out.printf("[MOVE] Moving from subject index %d (total: %d)%n",
+                asignaturaActual, asignaturas.size());
+
+        if (asignaturaActual >= asignaturas.size()) {
+            System.out.println("[MOVE] Already at last subject");
+            return;
+        }
+
         String currentName = getCurrentSubject().getNombre();
         String currentCode = getCurrentSubject().getCodigoAsignatura();
         asignaturaActual++;
 
-        // Reset instance counter when moving to different subject
-        if (asignaturaActual < asignaturas.size() &&
-                !(asignaturas.get(asignaturaActual).getNombre().equals(currentName) &&
-                        asignaturas.get(asignaturaActual).getCodigoAsignatura().equals(currentCode))) {
-            currentInstanceIndex = 0;
+        if (asignaturaActual < asignaturas.size()) {
+            Asignatura next = asignaturas.get(asignaturaActual);
+            if (next.getNombre().equals(currentName) &&
+                    next.getCodigoAsignatura().equals(currentCode)) {
+                currentInstanceIndex++;
+                System.out.printf("[MOVE] Moving to next instance (%d) of %s%n",
+                        currentInstanceIndex, currentName);
+            } else {
+                currentInstanceIndex = 0;
+                System.out.printf("[MOVE] Moving to new subject %s%n",
+                        next.getNombre());
+            }
         } else {
-            currentInstanceIndex++;
+            System.out.println("[MOVE] Reached end of subjects");
         }
     }
 
@@ -147,6 +186,10 @@ public class AgenteProfesor extends Agent {
                 currentInstanceIndex);  // Instance index
     }
 
+    public void setDebugWindow(ProfessorDebugViewer debugWindow) {
+        this.debugWindow = debugWindow;
+    }
+
     //TODO: Refactorizar esto, ya que se ve bien feo
     public void updateScheduleInfo(Day dia, String sala, int bloque, String nombreAsignatura, int satisfaccion) {
         String currentInstanceKey = getCurrentInstanceKey();
@@ -160,6 +203,17 @@ public class AgenteProfesor extends Agent {
                 .add(bloque);
 
         actualizarHorarioJSON(dia, sala, bloque, satisfaccion);//, currentInstanceKey);
+
+        if (debugWindow != null && horarioJSON != null && horarioJSON.containsKey("Asignaturas")) {
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    debugWindow.updateSchedule(horarioJSON, asignaturaActual, asignaturas.size());
+                } catch (Exception e) {
+                    System.err.println("Error updating debug window for professor " + nombre + ": " + e.getMessage());
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 
     private Map<String, Integer> requiredHoursPerInstance;
@@ -168,6 +222,12 @@ public class AgenteProfesor extends Agent {
 
     private String generateInstanceKey(String nombre, String codigo) {
         return String.format("%s-%s-%d", nombre, codigo, instanceCounter++);
+    }
+
+    private ProfessorDebugViewer debugWindow;
+
+    public ProfessorDebugViewer getDebugWindow() {
+        return debugWindow;
     }
 
     @Override
@@ -197,9 +257,9 @@ public class AgenteProfesor extends Agent {
         registrarEnDF();
 
         // Create shared proposal queue and behaviors
-        ConcurrentLinkedQueue<Propuesta> propuestas = new ConcurrentLinkedQueue<>();
-        NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 1000, propuestas);
-        MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, propuestas, stateBehaviour);
+        ConcurrentLinkedQueue<BatchProposal> batchProposals = new ConcurrentLinkedQueue<>();
+        NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 1000, batchProposals);
+        MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, batchProposals, stateBehaviour);
 
         if (orden == 0) {
             addBehaviour(stateBehaviour);
@@ -447,6 +507,10 @@ public class AgenteProfesor extends Agent {
     private synchronized void cleanup() {
         // Limpiar y terminar el agente
         try {
+            if (debugWindow != null) {
+                //SwingUtilities.invokeLater(() -> debugWindow.dispose());
+            }
+
             if (isRegistered) {
                 // Verificar si aún estamos registrados antes de hacer deregister
                 DFAgentDescription dfd = new DFAgentDescription(); 
