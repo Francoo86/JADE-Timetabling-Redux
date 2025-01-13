@@ -39,7 +39,7 @@ public class AgenteSupervisor extends Agent {
         @Override
         protected void onTick() {
             if (!isSystemActive) return;
-            System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
+            //System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
 
             try {
                 boolean allTerminated = true;

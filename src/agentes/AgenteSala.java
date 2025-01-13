@@ -215,31 +215,31 @@ public class AgenteSala extends Agent {
             }
         }
 
+        private Map<String, Integer> subjectAssignments = new HashMap<>();
+        private Map<Day, Integer> dayLoadCount = new HashMap<>();
+
         private void procesarSolicitud(ACLMessage msg) {
             try {
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = sanitizeSubjectName(solicitudData[0]);
                 int vacantes = Integer.parseInt(solicitudData[1]);
+                int nivel = Integer.parseInt(solicitudData[2]);
+                String preferredCampus = solicitudData[3];
+                int remainingHours = Integer.parseInt(solicitudData[4]);
+
+                // Calculate base satisfaction
                 int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
 
-                Map<String, List<Integer>> availableBlocks = new HashMap<>();
-
-                for (Day dia : Day.values()) {
-                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-                    List<Integer> freeBlocks = new ArrayList<>();
-
-                    for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {
-                        if (asignaciones.get(bloque) == null) {
-                            freeBlocks.add(bloque + 1);
-                        }
-                    }
-
-                    if (!freeBlocks.isEmpty()) {
-                        availableBlocks.put(dia.toString(), freeBlocks);
-                    }
-                }
+                // Get available blocks with enhanced distribution
+                Map<String, List<Integer>> availableBlocks = getOptimizedAvailableBlocks(
+                        nombreAsignatura,
+                        nivel,
+                        preferredCampus,
+                        remainingHours
+                );
 
                 if (!availableBlocks.isEmpty()) {
+                    // Send proposal with available blocks
                     // Create single availability object
                     ClassroomAvailability availability = new ClassroomAvailability(
                             codigo,
@@ -259,15 +259,94 @@ public class AgenteSala extends Agent {
                         e.printStackTrace();
                     }
                 } else {
-                    // Send refuse if no blocks available
+                    // Send refusal
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
                     send(reply);
                 }
+
             } catch (Exception e) {
-                System.err.println("Error processing request in classroom " + codigo + ": " + e.getMessage());
+                System.err.println("Error processing request in room " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
             }
+        }
+
+        private Map<String, List<Integer>> getOptimizedAvailableBlocks(
+                String asignatura,
+                int nivel,
+                String preferredCampus,
+                int remainingHours) {
+
+            Map<String, List<Integer>> availableBlocks = new HashMap<>();
+
+            for (Day dia : Day.values()) {
+                List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+                if (asignaciones == null) continue;
+
+                // Calculate day load
+                int currentDayLoad = dayLoadCount.getOrDefault(dia, 0);
+                int subjectDayLoad = countSubjectBlocksInDay(dia, asignatura);
+
+                // Skip overloaded days
+                if (currentDayLoad >= 6 || subjectDayLoad >= 2) continue;
+
+                List<Integer> freeBlocks = findOptimalBlocksForDay(
+                        dia,
+                        asignaciones,
+                        nivel,
+                        remainingHours
+                );
+
+                if (!freeBlocks.isEmpty()) {
+                    availableBlocks.put(dia.toString(), freeBlocks);
+                }
+            }
+
+            return availableBlocks;
+        }
+
+        private List<Integer> findOptimalBlocksForDay(
+                Day dia,
+                List<AsignacionSala> asignaciones,
+                int nivel,
+                int remainingHours) {
+
+            List<Integer> freeBlocks = new ArrayList<>();
+            boolean isOddYear = nivel % 2 == 1;
+
+            // Determine preferred time slots
+            int startBlock = isOddYear ? 1 : 5;
+            int endBlock = isOddYear ? 4 : Commons.MAX_BLOQUE_DIURNO;
+
+            // Find consecutive blocks when possible
+            for (int bloque = startBlock; bloque <= endBlock; bloque++) {
+                if (asignaciones.get(bloque - 1) == null) {
+                    // Check if this could form a consecutive sequence
+                    if (freeBlocks.isEmpty() ||
+                            bloque == freeBlocks.get(freeBlocks.size() - 1) + 1) {
+                        freeBlocks.add(bloque);
+
+                        // Stop if we have enough blocks for remaining hours
+                        if (freeBlocks.size() >= remainingHours) break;
+                    }
+                }
+            }
+
+            return freeBlocks;
+        }
+
+        private int countSubjectBlocksInDay(Day dia, String asignatura) {
+            List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+            if (asignaciones == null) return 0;
+
+            int count = 0;
+            for (AsignacionSala asignacion : asignaciones) {
+                if (asignacion != null &&
+                        asignacion.getNombreAsignatura().equals(asignatura)) {
+                    count++;
+                }
+            }
+            return count;
         }
 
         private void confirmarAsignacion(ACLMessage msg) {
