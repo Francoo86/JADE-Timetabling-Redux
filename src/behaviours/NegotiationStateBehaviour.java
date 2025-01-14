@@ -2,17 +2,12 @@ package behaviours;
 
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
-import constants.BlockOptimization;
-import constants.BlockScore;
 import constants.Commons;
 import constants.enums.Day;
 import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
 import jade.core.behaviours.TickerBehaviour;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
@@ -24,7 +19,6 @@ import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import objetos.helper.BatchProposal;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -44,7 +38,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private static final long TIMEOUT_PROPUESTA = 500; // 5 seconds
 
     private long negotiationStartTime;
-    private Map<String, Long> subjectNegotiationTimes = new HashMap<>();
+    private final Map<String, Long> subjectNegotiationTimes = new HashMap<>();
 
     public enum NegotiationState {
         SETUP,
@@ -366,75 +360,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         score -= capacityDiff * 100;
 
         return score;
-    }
-    // Optimized score calculation
-    private int calculateProposalScore(Propuesta proposal, String currentCampus,
-                                       int nivel, Asignatura subject) {
-        int score = 0;
-
-        // Highest priority: Consecutive block bonus
-        List<Integer> existingBlocks = profesor.getBlocksBySubject(subject.getNombre())
-                .getOrDefault(proposal.getDia(), Collections.emptyList());
-        if (!existingBlocks.isEmpty()) {
-            for (int existingBlock : existingBlocks) {
-                if (Math.abs(existingBlock - proposal.getBloque()) == 1) {
-                    score += 20000; // Increased weight for consecutive blocks
-                    break;
-                }
-            }
-        }
-
-        // Second priority: Time of day preference based on year
-        boolean isOddYear = nivel % 2 == 1;
-        int bloque = proposal.getBloque();
-        if (isOddYear) {
-            score += (bloque <= 4) ? 10000 : 0; // Morning preference
-        } else {
-            score += (bloque >= 5) ? 10000 : 0; // Afternoon preference
-        }
-
-        // Third priority: Campus consistency
-        if (getCampusSala(proposal.getCodigo()).equals(currentCampus)) {
-            score += 5000;
-        }
-
-        // Fourth priority: Even distribution across days
-        Map<Day, List<Integer>> currentSchedule = profesor.getBlocksBySubject(subject.getNombre());
-        int blocksOnDay = currentSchedule.getOrDefault(proposal.getDia(), Collections.emptyList()).size();
-        score -= blocksOnDay * 1000; // Penalty for concentrating too many blocks on same day
-
-        // Fifth priority: Block 9 avoidance
-        if (proposal.getBloque() == Commons.MAX_BLOQUE_DIURNO) {
-            score -= 3000; // Penalty for using block 9
-        }
-
-        // Sixth priority: Room consistency
-        String currentRoom = null;
-        for (Map.Entry<Day, List<Integer>> entry : currentSchedule.entrySet()) {
-            if (!entry.getValue().isEmpty()) {
-                currentRoom = getCampusSala(proposal.getCodigo());
-                break;
-            }
-        }
-        if (currentRoom != null && currentRoom.equals(proposal.getCodigo())) {
-            score += 2000; // Bonus for using same room
-        }
-
-        // Base satisfaction score
-        score += proposal.getSatisfaccion() * 100;
-
-        return score;
-    }
-
-    private int countBlocksPerDay(Day dia, String nombreAsignatura) {
-        Map<String, List<Integer>> asignaturasEnDia = profesor.getBlocksByDay(dia);
-        List<Integer> bloques = asignaturasEnDia.getOrDefault(nombreAsignatura, new ArrayList<>());
-        return bloques.size();
-    }
-
-    private boolean checkTimeConstraints(Propuesta propuesta) {
-        int bloque = propuesta.getBloque();
-        return bloque >= 1 && bloque <= Commons.MAX_BLOQUE_DIURNO;
     }
 
     private boolean checkCampusConstraints(BatchProposal proposal, String currentCampus) {
