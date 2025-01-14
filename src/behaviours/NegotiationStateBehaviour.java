@@ -13,7 +13,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
-import objetos.Propuesta;
 import objetos.AssignationData;
 import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;

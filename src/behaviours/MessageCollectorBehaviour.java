@@ -1,22 +1,12 @@
 package behaviours;
 
 import agentes.AgenteProfesor;
-import constants.Messages;
-import constants.enums.Day;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import objetos.Asignatura;
 import objetos.ClassroomAvailability;
-import objetos.Propuesta;
 import objetos.helper.BatchProposal;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 // Message handler for collecting proposals
 public class MessageCollectorBehaviour extends CyclicBehaviour {

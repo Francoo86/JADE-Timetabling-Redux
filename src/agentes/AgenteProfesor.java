@@ -19,7 +19,6 @@ import jade.lang.acl.MessageTemplate;
 import json_stuff.ProfesorHorarioJSON;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
-import objetos.Propuesta;
 import objetos.helper.BatchProposal;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
