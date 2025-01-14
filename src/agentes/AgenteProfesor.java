@@ -87,10 +87,6 @@ public class AgenteProfesor extends Agent {
         return orden;
     }
 
-    public int getCurrentSubjectIndex() {
-        return asignaturaActual;
-    }
-
     //private Map<String, Integer> subjectInstanceHours = new HashMap<>();
     private int currentInstanceIndex = 0;
 
@@ -127,11 +123,6 @@ public class AgenteProfesor extends Agent {
         } else {
             System.out.println("[MOVE] Reached end of subjects");
         }
-    }
-
-    // Helper method to get required hours for current subject
-    public int getCurrentSubjectRequiredHours() {
-        return getCurrentSubject().getHoras();
     }
 
     public boolean isBlockAvailable(Day dia, int bloque) {
