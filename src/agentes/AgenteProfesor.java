@@ -34,8 +34,6 @@ public class AgenteProfesor extends Agent {
     public static final String AGENT_NAME = "Profesor";
     public static final String SERVICE_NAME = AGENT_NAME.toLowerCase(Locale.ROOT);
     private String nombre;
-    //private String rut;
-    private int turno;
     private List<Asignatura> asignaturas;
     private int asignaturaActual = 0;
     private Map<Day, Set<Integer>> horarioOcupado; // dia -> bloques
@@ -43,7 +41,6 @@ public class AgenteProfesor extends Agent {
     private JSONObject horarioJSON;
     private boolean isRegistered = false;
     private boolean isCleaningUp = false;
-    private boolean negociacionIniciada = false;
     //TODO: Cambiar el mapeo de string a int porque los días son del 0-6 (asumiendo que el lunes es 0).
     //TODO-2: Pienso que puede ser mejor tener un objeto que contenga la información de los bloques asignados.
     private Map<Day, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
@@ -317,10 +314,7 @@ public class AgenteProfesor extends Agent {
             // Cargar datos del profesor
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(jsonString);
-            //rut = (String) jsonObject.get("RUT");
             nombre = (String) jsonObject.get("Nombre");
-            //quiero creer que este es el orden (?)
-            turno = ((Number) jsonObject.get("Turno")).intValue();
 
             // Cargar asignaturas
             asignaturas = new ArrayList<>();
@@ -362,8 +356,6 @@ public class AgenteProfesor extends Agent {
                 int nextOrden = Integer.parseInt(nextOrdenStr);
 
                 if (nextOrden == profesor.getOrden()) {
-                    //System.out.println("Profesor " + profesor.getNombre() +
-                    //        " (orden " + profesor.getOrden() + ") activating on START signal");
                     System.out.println("Professor " + profesor.getNombre() +
                             " received START signal. My order=" + profesor.getOrden() +
                             ", requested order=" + nextOrden);
@@ -392,7 +384,6 @@ public class AgenteProfesor extends Agent {
         asignatura.put("Bloque", bloque);
         asignatura.put("Dia", dia.getDisplayName());
         asignatura.put("Satisfaccion", satisfaccion);
-        // Add these to track instances
         asignatura.put("CodigoAsignatura", currentSubject.getCodigoAsignatura());
         asignatura.put("Instance", currentInstanceIndex); // or currentInstanceIndex if you have it
 

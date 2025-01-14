@@ -3,6 +3,7 @@ package agentes;
 import constants.Commons;
 import constants.Messages;
 import constants.enums.Day;
+import jade.domain.FIPANames;
 import jade.proto.SubscriptionInitiator;
 import objetos.ClassroomAvailability;
 import objetos.helper.BatchAssignmentConfirmation;
@@ -62,9 +63,6 @@ public class AgenteSala extends Agent {
 
         // Agregar comportamiento para revisar si los profesores han terminado
         addBehaviour(new ProfessorMonitorBehaviour(this));
-        //hasInitialized = true;
-
-        //System.out.println("Sala " + codigo + " iniciada. Capacidad: " + capacidad);
     }
 
     private String sanitizeSubjectName(String name) {
@@ -220,6 +218,7 @@ public class AgenteSala extends Agent {
 
                     // Send single response with all availability data
                     ACLMessage reply = msg.createReply();
+                    reply.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
                     reply.setPerformative(ACLMessage.PROPOSE);
                     try {
                         reply.setContentObject(availability);
@@ -230,6 +229,7 @@ public class AgenteSala extends Agent {
                 } else {
                     // Send refusal
                     ACLMessage reply = msg.createReply();
+                    reply.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
                     reply.setPerformative(ACLMessage.REFUSE);
                     send(reply);
                 }

@@ -8,6 +8,7 @@ import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
@@ -204,8 +205,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             }
 
             Map<Day, List<BatchProposal.BlockProposal>> dayProposals = proposal.getDayProposals();
-            int baseScore = calculateProposalScore(proposal, currentCampus, currentNivel, currentSubject);
-            int totalScore = baseScore;
+            int totalScore = calculateProposalScore(proposal, currentCampus, currentNivel, currentSubject);
 
             for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry : dayProposals.entrySet()) {
                 Day proposalDay = entry.getKey();
@@ -426,7 +426,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             }
         }
 
-        Collections.sort(blocks, Comparator.comparingInt(BloqueInfo::getBloque));
+        blocks.sort(Comparator.comparingInt(BloqueInfo::getBloque));
 
         for (BloqueInfo block : blocks) {
             if (previousCampus != null && !previousCampus.equals(block.getCampus())) {
@@ -680,6 +680,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     // Separate method for creating the CFP message to improve readability
     private ACLMessage createCFPMessage(Asignatura currentSubject) {
         ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
+
+        cfp.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
 
         // Build request info
         String solicitudInfo = String.format("%s,%d,%d,%s,%d,%s,%s,%d",
