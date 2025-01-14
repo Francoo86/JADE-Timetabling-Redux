@@ -1,11 +1,13 @@
 package behaviours;
 
 import agentes.AgenteProfesor;
+import agentes.AgenteSala;
 import constants.BlockOptimization;
 import constants.BlockScore;
 import constants.Commons;
 import constants.enums.Day;
 import debugscreens.ProfessorDebugViewer;
+import df.DFCache;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -41,6 +43,9 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private int bloquesPendientes = 0;
     private static final long TIMEOUT_PROPUESTA = 500; // 5 seconds
 
+    private long negotiationStartTime;
+    private Map<String, Long> subjectNegotiationTimes = new HashMap<>();
+
     public enum NegotiationState {
         SETUP,
         COLLECTING_PROPOSALS,
@@ -54,6 +59,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         this.propuestas = propuestas;
         this.currentState = NegotiationState.SETUP;
         this.assignationData = new AssignationData();
+        this.negotiationStartTime = System.currentTimeMillis();
     }
 
     public synchronized void notifyProposalReceived() {
@@ -92,6 +98,14 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
         if (!profesor.canUseMoreSubjects()) {
             currentState = NegotiationState.FINISHED;
+            long totalTime = System.currentTimeMillis() - negotiationStartTime;
+            System.out.printf("[TIMING] Professor %s completed all negotiations in %d ms%n",
+                    profesor.getNombre(), totalTime);
+
+            // Print individual subject times
+            subjectNegotiationTimes.forEach((subject, time) ->
+                    System.out.printf("[TIMING] Subject %s negotiation took %d ms%n", subject, time));
+
             profesor.finalizarNegociaciones();
             return;
         }
@@ -100,6 +114,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         if (currentSubject != null) {
             bloquesPendientes = currentSubject.getHoras();
             assignationData.clear();
+
+            negotiationStartTime = System.currentTimeMillis();
 
             // Add logging here
             System.out.printf("[SETUP] Starting assignment for %s (Code: %s) - Required hours: %d%n",
@@ -133,7 +149,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         List<BatchProposal> validProposals = filterAndSortProposals(currentBatchProposals);
 
         //ACA TOCA CAMBIAR EL METODO DE ASIGNACION
-        if (!validProposals.isEmpty() && tryAssignBestProposal(validProposals)) {
+        if (!validProposals.isEmpty() && tryAssignBatchProposals(validProposals)) {
             retryCount = 0;
             if (bloquesPendientes == 0) {
                 profesor.moveToNextSubject();
@@ -146,10 +162,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         } else {
             handleProposalFailure();
         }
-    }
-
-    private boolean tryAssignBestProposal(List<BatchProposal> validProposals) {
-        return tryAssignBatchProposals(validProposals);
     }
 
     private List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
@@ -189,7 +201,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
         // Pre-calculate common values
         boolean isOddYear = currentNivel % 2 == 1;
-        int daysUsed = blocksPerDay.size();
 
         ArrayList<BatchProposalScore> scoredProposals = new ArrayList<>();
 
@@ -473,85 +484,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         return true;
     }
 
-    private boolean checkYearBasedConstraints(Propuesta propuesta, int nivel) {
-        // First, third, and fifth years prefer morning blocks (1-4)
-        // Second, fourth, and sixth years prefer afternoon blocks (5-9)
-        boolean isOddYear = nivel % 2 == 1;
-        int bloque = propuesta.getBloque();
-
-        if (isOddYear) {
-            return bloque <= 4 || bloque == Commons.MAX_BLOQUE_DIURNO;
-        } else {
-            return bloque >= 5 || propuesta.getSatisfaccion() >= 8;
-        }
-    }
-
-    private boolean hasConsecutiveBlockAvailable(Propuesta propuesta) {
-        Day dia = propuesta.getDia();
-        int bloque = propuesta.getBloque();
-
-        boolean previousBlockAvailable = bloque > 1 &&
-                profesor.isBlockAvailable(dia, bloque - 1);
-        boolean nextBlockAvailable = bloque < Commons.MAX_BLOQUE_DIURNO &&
-                profesor.isBlockAvailable(dia, bloque + 1);
-
-        return previousBlockAvailable || nextBlockAvailable;
-    }
-
-    private int compareProposals(Propuesta p1, Propuesta p2,
-                                 Asignatura subject, String currentCampus, int nivel) {
-        // First priority: Block optimization score
-        BlockScore score1 = BlockOptimization.getInstance().evaluateBlock(
-                currentCampus, nivel, p1.getBloque(), p1.getDia(),
-                profesor.getBlocksBySubject(subject.getNombre())
-        );
-        BlockScore score2 = BlockOptimization.getInstance().evaluateBlock(
-                currentCampus, nivel, p2.getBloque(), p2.getDia(),
-                profesor.getBlocksBySubject(subject.getNombre())
-        );
-
-        if (score1.getScore() != score2.getScore()) {
-            return score2.getScore() - score1.getScore();
-        }
-
-        // Second priority: Campus transition score
-        int transitionScore1 = evaluateCampusTransition(p1, currentCampus);
-        int transitionScore2 = evaluateCampusTransition(p2, currentCampus);
-
-        if (transitionScore1 != transitionScore2) {
-            return transitionScore2 - transitionScore1;
-        }
-
-        // Third priority: Professor satisfaction
-        return p2.getSatisfaccion() - p1.getSatisfaccion();
-    }
-
-    private int evaluateCampusTransition(Propuesta propuesta, String currentCampus) {
-        String proposedCampus = getCampusSala(propuesta.getCodigo());
-
-        if (proposedCampus.equals(currentCampus)) {
-            return 100;
-        }
-
-        if (hasExistingTransitionInDay(propuesta.getDia())) {
-            return 0;
-        }
-
-        // Check surrounding blocks for transitions
-        BloqueInfo prevBlock = profesor.getBloqueInfo(propuesta.getDia(), propuesta.getBloque() - 1);
-        BloqueInfo nextBlock = profesor.getBloqueInfo(propuesta.getDia(), propuesta.getBloque() + 1);
-
-        if (prevBlock != null && !prevBlock.getCampus().equals(proposedCampus)) {
-            return 25;
-        }
-
-        if (nextBlock != null && !nextBlock.getCampus().equals(proposedCampus)) {
-            return 25;
-        }
-
-        return 75;
-    }
-
     private boolean hasExistingTransitionInDay(Day dia) {
         String previousCampus = null;
         Map<String, List<Integer>> dayClasses = profesor.getBlocksByDay(dia);
@@ -580,26 +512,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
 
         return false;
-    }
-
-    private boolean validateTransitionBuffer(Propuesta propuesta) {
-        Day dia = propuesta.getDia();
-        int bloque = propuesta.getBloque();
-        String proposedCampus = getCampusSala(propuesta.getCodigo());
-
-        BloqueInfo prevBlock = profesor.getBloqueInfo(dia, bloque - 1);
-        BloqueInfo nextBlock = profesor.getBloqueInfo(dia, bloque + 1);
-
-        // Check if there's at least one empty block between different campuses
-        if (prevBlock != null && !prevBlock.getCampus().equals(proposedCampus)) {
-            return profesor.isBlockAvailable(dia, bloque - 1);
-        }
-
-        if (nextBlock != null && !nextBlock.getCampus().equals(proposedCampus)) {
-            return profesor.isBlockAvailable(dia, bloque + 1);
-        }
-
-        return true;
     }
 
     private String getCampusSala(String codigoSala) {
@@ -668,12 +580,10 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
     }
 
-    private Set<String> assignedSlots = new HashSet<>();
-
     private boolean tryAssignBatchProposals(List<BatchProposal> batchProposals) {
         Asignatura currentSubject = profesor.getCurrentSubject();
         int requiredHours = currentSubject.getHoras();
-
+        long batchStartTime = System.currentTimeMillis();
         if (bloquesPendientes <= 0 || bloquesPendientes > requiredHours) {
             System.out.printf("Invalid pending hours state: %d/%d for %s%n",
                     bloquesPendientes, requiredHours, currentSubject.getNombre());
@@ -685,6 +595,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
         // Process each batch proposal (which represents one room's available blocks)
         for (BatchProposal batchProposal : batchProposals) {
+            long proposalStartTime = System.currentTimeMillis();
             List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
 
             // Process each day's blocks in this room
@@ -724,6 +635,11 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                         System.out.printf("Successfully assigned %d blocks in room %s for %s%n",
                                 requests.size(), batchProposal.getRoomCode(),
                                 currentSubject.getNombre());
+
+                        long proposalTime = System.currentTimeMillis() - proposalStartTime;
+                        System.out.printf("[TIMING] Room %s assignment took %d ms - Assigned %d blocks for %s%n",
+                                batchProposal.getRoomCode(), proposalTime, requests.size(),
+                                currentSubject.getNombre());
                     }
                 } catch (Exception e) {
                     System.err.println("Error in batch assignment: " + e.getMessage());
@@ -731,6 +647,10 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 }
             }
         }
+
+        long totalBatchTime = System.currentTimeMillis() - batchStartTime;
+        System.out.printf("[TIMING] Total batch assignment time for %s: %d ms - Total blocks assigned: %d%n",
+                currentSubject.getNombre(), totalBatchTime, totalAssigned);
 
         return totalAssigned > 0;
     }
@@ -753,15 +673,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         );
 
         return waitForConfirmation(mt, requests);
-    }
-
-    private boolean hasConsecutiveBlock(Propuesta propuesta) {
-        Day dia = propuesta.getDia();
-        int bloque = propuesta.getBloque();
-
-        // Check blocks before and after
-        return profesor.isBlockAvailable(dia, bloque - 1) ||
-                profesor.isBlockAvailable(dia, bloque + 1);
     }
 
     // Helper method to handle confirmation waiting
@@ -809,67 +720,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
         return false;
     }
-    //FIXME: Esto envia no por bloques, si no TODAS las propuestas aceptadas
-    /*private boolean tryAssignProposal(Propuesta propuesta) {
-        Day dia = propuesta.getDia();
-        int bloque = propuesta.getBloque();
-
-        if (!profesor.isBlockAvailable(dia, bloque)) {
-            return false;
-        }
-
-        // Send acceptance message
-        ACLMessage accept = propuesta.getMensaje().createReply();
-        accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-
-        Asignatura currentSubject = profesor.getCurrentSubject();
-        accept.setContent(String.format("%s,%d,%s,%d,%s,%d",
-                dia,
-                bloque,
-                currentSubject.getNombre(),
-                propuesta.getSatisfaccion(),
-                propuesta.getCodigo(),
-                currentSubject.getVacantes()));
-
-        profesor.send(accept);
-
-        // Wait for confirmation with retry
-        long startTime = System.currentTimeMillis();
-        long timeout = 1000; // 1 second timeout for confirmation
-
-        MessageTemplate mt = MessageTemplate.and(
-                MessageTemplate.MatchSender(propuesta.getMensaje().getSender()),
-                MessageTemplate.MatchPerformative(ACLMessage.INFORM)
-        );
-
-        while (System.currentTimeMillis() - startTime < timeout) {
-            ACLMessage confirm = myAgent.receive(mt);
-            if (confirm != null) {
-                //Aca le pasamos asignacionsala?
-                profesor.updateScheduleInfo(
-                        dia,
-                        propuesta.getCodigo(),
-                        bloque,
-                        currentSubject.getNombre(),
-                        propuesta.getSatisfaccion()
-                );
-
-                // Update negotiation state
-                bloquesPendientes--;
-                assignationData.assign(dia, propuesta.getCodigo(), bloque);
-
-//                System.out.printf("Profesor %s: Asignado bloque %d del día %s en sala %s para %s (quedan %d horas)%n",
-//                        profesor.getNombre(), bloque, dia, propuesta.getCodigo(),
-//                        currentSubject.getNombre(), bloquesPendientes);
-
-                return true;
-            }
-            block(100); // Block for 100ms between checks
-        }
-
-//        System.out.println("Timeout esperando confirmación de sala " + propuesta.getCodigo());
-        return false;
-    }*/
 
     private String sanitizeSubjectName(String name) {
         return name.replaceAll("[^a-zA-Z0-9]", "");
@@ -877,40 +727,51 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
     private void sendProposalRequests() {
         try {
-            DFAgentDescription template = new DFAgentDescription();
-            ServiceDescription sd = new ServiceDescription();
-            sd.setType("sala");
-            template.addServices(sd);
-
-            DFAgentDescription[] result = DFService.search(profesor, template);
-            if (result.length == 0) {
+            List<DFAgentDescription> results = DFCache.search(profesor, AgenteSala.SERVICE_NAME);
+            if (results.isEmpty()) {
                 return;
             }
 
             Asignatura currentSubject = profesor.getCurrentSubject();
-            ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
-            for (DFAgentDescription dfd : result) {
-                cfp.addReceiver(dfd.getName());
+            if (currentSubject == null) {
+                System.err.println("Warning: No current subject available for professor " + profesor.getNombre());
+                return;
             }
 
-            // Enhanced CFP content with more context
-            String solicitudInfo = String.format("%s,%d,%d,%s,%d,%s,%s,%d",
-                    sanitizeSubjectName(currentSubject.getNombre()),
-                    currentSubject.getVacantes(),
-                    currentSubject.getNivel(),
-                    currentSubject.getCampus(),
-                    bloquesPendientes,
-                    assignationData.getSalaAsignada(),
-                    assignationData.getUltimoDiaAsignado() != null ?
-                            assignationData.getUltimoDiaAsignado().toString() : "",
-                    assignationData.getUltimoBloqueAsignado());
+            // Create CFP message once
+            ACLMessage cfp = createCFPMessage(currentSubject);
 
-            cfp.setContent(solicitudInfo);
-            cfp.setConversationId("neg-" + profesor.getNombre() + "-" + bloquesPendientes);
+            // Add all receivers
+            results.forEach(dfd -> cfp.addReceiver(dfd.getName()));
+
+            // Send the message
             profesor.send(cfp);
 
-        } catch (FIPAException fe) {
-            fe.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Error sending proposal requests: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    // Separate method for creating the CFP message to improve readability
+    private ACLMessage createCFPMessage(Asignatura currentSubject) {
+        ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
+
+        // Build request info
+        String solicitudInfo = String.format("%s,%d,%d,%s,%d,%s,%s,%d",
+                sanitizeSubjectName(currentSubject.getNombre()),
+                currentSubject.getVacantes(),
+                currentSubject.getNivel(),
+                currentSubject.getCampus(),
+                bloquesPendientes,
+                assignationData.getSalaAsignada(),
+                assignationData.getUltimoDiaAsignado() != null ?
+                        assignationData.getUltimoDiaAsignado().toString() : "",
+                assignationData.getUltimoBloqueAsignado());
+
+        cfp.setContent(solicitudInfo);
+        cfp.setConversationId("neg-" + profesor.getNombre() + "-" + bloquesPendientes);
+
+        return cfp;
     }
 }

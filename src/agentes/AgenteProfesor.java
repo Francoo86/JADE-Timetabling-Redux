@@ -5,6 +5,7 @@ import behaviours.NegotiationStateBehaviour;
 import constants.Messages;
 import constants.enums.Day;
 import debugscreens.ProfessorDebugViewer;
+import df.DFCache;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
@@ -26,7 +27,9 @@ import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 public class AgenteProfesor extends Agent {
     public static final String AGENT_NAME = "Profesor";
@@ -429,60 +432,26 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-
-
     private void notificarSiguienteProfesor() {
         try {
             int nextOrden = orden + 1;
-            System.out.println("Current professor: " + nombre + " (order=" + orden +
-                    ") looking for next professor (order=" + nextOrden + ")");
 
-            DFAgentDescription template = new DFAgentDescription();
-            ServiceDescription sd = new ServiceDescription();
-            sd.setType(SERVICE_NAME);
-
-            // Create proper property for search
+            // Create property for next order
             Property ordenProp = new Property();
             ordenProp.setName("orden");
             ordenProp.setValue(nextOrden);
-            sd.addProperties(ordenProp);
 
-            template.addServices(sd);
+            // Use cached search
+            List<DFAgentDescription> results = DFCache.search(this, SERVICE_NAME, ordenProp);
 
-            // Add retry logic for DF search
-            DFAgentDescription[] result = null;
-            int retries = 3;
-            while (retries > 0 && (result == null || result.length == 0)) {
-                result = DFService.search(this, template);
-                if (result.length == 0) {
-                    System.out.println("Retry " + retries + ": No professors found, waiting...");
-                    Thread.sleep(1000);
-                    retries--;
-                }
-            }
-
-            if (result.length == 0) {
-                System.out.println("Warning: No next professor found after retries");
+            if (results.isEmpty()) {
+                System.out.println("Warning: No next professor found with order " + nextOrden);
                 return;
             }
 
-            // Find the correct next professor
-            for (DFAgentDescription dfd : result) {
-                ServiceDescription service = (ServiceDescription) dfd.getAllServices().next();
-                Iterator props = service.getAllProperties();
-                while (props.hasNext()) {
-                    Property prop = (Property) props.next();
-                    if ("orden".equals(prop.getName())) {
-                        int foundOrder = Integer.parseInt(prop.getValue().toString());
-                        if (foundOrder == nextOrden) {
-                            notifyNextProfessor(dfd, nextOrden);
-                            return;
-                        }
-                    }
-                }
-            }
-
-            System.out.println("Warning: Could not find professor with order " + nextOrden);
+            // Notify first matching professor
+            DFAgentDescription nextProfessor = results.get(0);
+            notifyNextProfessor(nextProfessor, nextOrden);
 
         } catch (Exception e) {
             System.err.println("Error notifying next professor: " + e.getMessage());
@@ -505,34 +474,43 @@ public class AgenteProfesor extends Agent {
         }
     }
     private synchronized void cleanup() {
-        // Limpiar y terminar el agente
         try {
+            // Close debug window if exists
             if (debugWindow != null) {
                 //SwingUtilities.invokeLater(() -> debugWindow.dispose());
             }
 
+            // Directly deregister if registered - no need to search first
             if (isRegistered) {
-                // Verificar si aún estamos registrados antes de hacer deregister
-                DFAgentDescription dfd = new DFAgentDescription(); 
-                dfd.setName(getAID());
-                DFAgentDescription[] result = DFService.search(this, dfd);
-
-                if (result != null && result.length > 0) {      // Si aún estamos registrados en DF
-                    DFService.deregister(this);    // Deregistrar agente
-                    System.out.println("Profesor " + nombre + " eliminado del DF");
+                try {
+                    DFService.deregister(this);
+                    System.out.println("Professor " + nombre + " removed from DF");
+                } catch (FIPAException fe) {
+                    // If deregistration fails, it means we're already deregistered
+                    System.out.println("Professor " + nombre + " was already deregistered");
                 }
                 isRegistered = false;
+
+                // Invalidate DF cache since we're deregistering
+                DFCache.invalidateCache();
             }
 
-            // Esperar un momento para asegurar que la notificación se envio
-            Thread.sleep(1000);
-            doDelete();
-        } catch (Exception e) {
-            System.err.println("Error durante cleanup de profesor " + nombre + ": " + e.getMessage());
-            e.printStackTrace();
-        }
+            // Use CompletableFuture for graceful shutdown
+            CompletableFuture.delayedExecutor(500, TimeUnit.MILLISECONDS)
+                    .execute(() -> {
+                        try {
+                            doDelete();
+                        } catch (Exception e) {
+                            System.err.println("Error during agent deletion: " + e.getMessage());
+                        }
+                    });
 
-        isCleaningUp = false;
+        } catch (Exception e) {
+            System.err.println("Error during cleanup for professor " + nombre + ": " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            isCleaningUp = false;
+        }
     }
 
     @Override

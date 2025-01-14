@@ -119,37 +119,6 @@ public class AgenteSala extends Agent {
 
     private boolean allDone = false;
 
-    private void checkIfProfessorsAreDone() {
-        if(!hasInitialized) {
-            hasInitialized = true;
-            return;
-        }
-
-        DFAgentDescription template = new DFAgentDescription();
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType(AgenteProfesor.SERVICE_NAME);
-        template.addServices(sd);
-
-        try {
-            DFAgentDescription[] result = DFService.search(this, template);
-            if (result != null && result.length < 1) {
-                allDone = true;
-            }
-
-            //HACK: Es la forma más sencilla de hacer que el agente se elimine.
-            if (allDone) {
-                //System.out.println("[SALA] Todos los profesores han terminado");
-
-                //Debe hacerse el deregistro del agente
-                DFService.deregister(this);
-                doDelete();
-            }
-        } catch (FIPAException fe) {
-            //System.err.println("Error buscando agentes profesor: " + fe.getMessage());
-            fe.printStackTrace();
-        }
-    }
-
     private class ProfessorMonitorBehaviour extends SubscriptionInitiator {
         public ProfessorMonitorBehaviour(Agent a) {
             // Create template directly in constructor
