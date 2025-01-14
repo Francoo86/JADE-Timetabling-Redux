@@ -8,6 +8,8 @@ import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.Property;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -21,6 +23,7 @@ import objetos.helper.BatchProposal;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -35,7 +38,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private boolean proposalReceived = false;
     private final AssignationData assignationData;
     private int bloquesPendientes = 0;
-    private static final long TIMEOUT_PROPUESTA = 500; // 5 seconds
+    private static final long TIMEOUT_PROPUESTA = 1000; // 5 seconds
 
     private long negotiationStartTime;
     private final Map<String, Long> subjectNegotiationTimes = new HashMap<>();
@@ -138,11 +141,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             }
         }
 
-        // Filter and sort proposals based on constraints
-        //FIXME: Dont use this.
         List<BatchProposal> validProposals = filterAndSortProposals(currentBatchProposals);
 
-        //ACA TOCA CAMBIAR EL METODO DE ASIGNACION
         if (!validProposals.isEmpty() && tryAssignBatchProposals(validProposals)) {
             retryCount = 0;
             if (bloquesPendientes == 0) {
@@ -664,9 +664,12 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
             // Create CFP message once
             ACLMessage cfp = createCFPMessage(currentSubject);
+            // Filter rooms before adding receivers
+            results.stream()
+                    .filter(room -> !canQuickReject(currentSubject, room))
+                    .forEach(room -> cfp.addReceiver(room.getName()));
 
-            // Add all receivers
-            results.forEach(dfd -> cfp.addReceiver(dfd.getName()));
+            profesor.send(cfp);
 
             // Send the message
             profesor.send(cfp);
@@ -675,6 +678,44 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             System.err.println("Error sending proposal requests: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private final Map<String, DFAgentDescription> roomCache = new ConcurrentHashMap<>();
+    private final Map<String, Boolean> quickRejectCache = new ConcurrentHashMap<>();
+
+    // Cache key generator
+    private String getCacheKey(Asignatura subject, String roomId) {
+        return subject.getCodigoAsignatura() + "-" + roomId;
+    }
+
+    //FIXME: La capacidad está como "turno" en el json de salas
+    private boolean canQuickReject(Asignatura subject, DFAgentDescription room) {
+        String cacheKey = getCacheKey(subject, room.getName().getLocalName());
+
+        return quickRejectCache.computeIfAbsent(cacheKey, k -> {
+            // Basic room requirements
+            ServiceDescription sd = (ServiceDescription) room.getAllServices().next();
+            List<Property> props = new ArrayList<>();
+            sd.getAllProperties().forEachRemaining(prop -> props.add((Property) prop));
+
+            //first 0 is the campus, and 1 is the capacity
+            Property roomCampusProp = props.get(0);
+            String roomCampus = (String) roomCampusProp.getValue();
+
+            Property roomCapacityProp = props.get(2);
+            int roomCapacity = Integer.parseInt((String) roomCapacityProp.getValue());
+
+            // Quick reject conditions
+            if (!roomCampus.equals(subject.getCampus())) {
+                return true;
+            }
+
+            if (roomCapacity < subject.getVacantes()) {
+                return true; // Room too small
+            }
+
+            return false; // Passed basic checks
+        });
     }
 
     // Separate method for creating the CFP message to improve readability

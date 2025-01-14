@@ -105,6 +105,7 @@ public class AgenteSala extends Agent {
             // Agregar propiedades adicionales
             sd.addProperties(new Property("campus", campus));
             sd.addProperties(new Property("turno", turno));
+            sd.addProperties(new Property("capacidad", capacidad));
             dfd.addServices(sd);
             DFService.register(this, dfd);
             isRegistered = true;
@@ -156,12 +157,6 @@ public class AgenteSala extends Agent {
 
     private class ResponderSolicitudesBehaviour extends CyclicBehaviour {
         public void action() {
-            //System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
-
-            if(myAgent.getCurQueueSize() > 100) {
-                System.out.println("Sala " + codigo + " tiene " + myAgent.getCurQueueSize() + " mensajes pendientes");
-            }
-
             MessageTemplate mt = MessageTemplate.or(
                     MessageTemplate.MatchPerformative(ACLMessage.CFP),
                     MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL)

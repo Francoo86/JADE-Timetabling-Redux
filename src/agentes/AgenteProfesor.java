@@ -84,13 +84,7 @@ public class AgenteProfesor extends Agent {
         return orden;
     }
 
-    //private Map<String, Integer> subjectInstanceHours = new HashMap<>();
     private int currentInstanceIndex = 0;
-
-    public String getCurrentSubjectKey() {
-        Asignatura current = getCurrentSubject();
-        return String.format("%s-%d", current.getNombre(), currentInstanceIndex);
-    }
 
     public synchronized void moveToNextSubject() {
         System.out.printf("[MOVE] Moving from subject index %d (total: %d)%n",
@@ -248,7 +242,7 @@ public class AgenteProfesor extends Agent {
 
         // Create shared proposal queue and behaviors
         ConcurrentLinkedQueue<BatchProposal> batchProposals = new ConcurrentLinkedQueue<>();
-        NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 1000, batchProposals);
+        NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 500, batchProposals);
         MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, batchProposals, stateBehaviour);
 
         if (orden == 0) {
