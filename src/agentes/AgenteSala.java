@@ -1,14 +1,12 @@
 package agentes;
 
 import constants.Commons;
-import constants.Messages;
 import constants.enums.Day;
 import jade.domain.FIPANames;
 import jade.proto.SubscriptionInitiator;
 import objetos.ClassroomAvailability;
 import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
-import service.SatisfaccionHandler;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
@@ -22,6 +20,8 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import service.SatisfaccionHandler;
+import service.TimetablingEvaluator;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,7 +34,6 @@ public class AgenteSala extends Agent {
     private int capacidad;
     private int turno;
     private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
-    private boolean hasInitialized = false;
 
     @Override
     protected void setup() {
@@ -177,7 +176,6 @@ public class AgenteSala extends Agent {
             }
         }
 
-        private Map<String, Integer> subjectAssignments = new HashMap<>();
         private Map<Day, Integer> dayLoadCount = new HashMap<>();
 
         private void procesarSolicitud(ACLMessage msg) {
@@ -190,8 +188,6 @@ public class AgenteSala extends Agent {
                 int remainingHours = Integer.parseInt(solicitudData[4]);
 
                 // Calculate base satisfaction
-                int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
-
                 // Get available blocks with enhanced distribution
                 Map<String, List<Integer>> availableBlocks = getOptimizedAvailableBlocks(
                         nombreAsignatura,
@@ -200,7 +196,10 @@ public class AgenteSala extends Agent {
                         remainingHours
                 );
 
+                int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
+
                 if (!availableBlocks.isEmpty()) {
+
                     // Send proposal with available blocks
                     // Create single availability object
                     ClassroomAvailability availability = new ClassroomAvailability(
@@ -233,6 +232,23 @@ public class AgenteSala extends Agent {
                 System.err.println("Error processing request in room " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
             }
+        }
+
+        private Map<Day, List<Integer>> convertToExistingBlocks(Map<Day, List<AsignacionSala>> horario) {
+            Map<Day, List<Integer>> result = new HashMap<>();
+            for (Map.Entry<Day, List<AsignacionSala>> entry : horario.entrySet()) {
+                List<Integer> blocks = new ArrayList<>();
+                List<AsignacionSala> assignments = entry.getValue();
+                for (int i = 0; i < assignments.size(); i++) {
+                    if (assignments.get(i) != null) {
+                        blocks.add(i + 1);
+                    }
+                }
+                if (!blocks.isEmpty()) {
+                    result.put(entry.getKey(), blocks);
+                }
+            }
+            return result;
         }
 
         private Map<String, List<Integer>> getOptimizedAvailableBlocks(
