@@ -131,9 +131,14 @@ public class AgenteProfesor extends Agent {
     public Map<Day, List<Integer>> getBlocksBySubject(String nombreAsignatura) {
         Map<Day, List<Integer>> bloquesAsignados = new HashMap<>();
         for (Map.Entry<Day, Map<String, List<Integer>>> entry : bloquesAsignadosPorDia.entrySet()) {
-            List<Integer> bloques = entry.getValue().getOrDefault(nombreAsignatura, new ArrayList<>());
-            if (!bloques.isEmpty()) {
-                bloquesAsignados.put(entry.getKey(), new ArrayList<>(bloques));
+            // Look for all keys that start with the asignatura name
+            for (Map.Entry<String, List<Integer>> subjectEntry : entry.getValue().entrySet()) {
+                if (subjectEntry.getKey().startsWith(nombreAsignatura)) {
+                    if (!subjectEntry.getValue().isEmpty()) {
+                        bloquesAsignados.computeIfAbsent(entry.getKey(), k -> new ArrayList<>())
+                                .addAll(subjectEntry.getValue());
+                    }
+                }
             }
         }
         return bloquesAsignados;
