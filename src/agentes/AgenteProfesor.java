@@ -4,6 +4,7 @@ import behaviours.MessageCollectorBehaviour;
 import behaviours.NegotiationStateBehaviour;
 import constants.Messages;
 import constants.enums.Day;
+import constants.enums.TipoContrato;
 import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
 import jade.core.AID;
@@ -49,12 +50,6 @@ public class AgenteProfesor extends Agent {
     @Override
     public String toString() {
         return nombre;
-    }
-
-    public enum TipoContrato {
-        JORNADA_COMPLETA,
-        MEDIA_JORNADA,
-        JORNADA_PARCIAL
     }
 
     public TipoContrato inferirTipoContrato(List<Asignatura> asignaturas) {
@@ -344,6 +339,10 @@ public class AgenteProfesor extends Agent {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public TipoContrato getTipoContrato() {
+        return inferirTipoContrato(asignaturas);
     }
 
     public class EsperarTurnoBehaviour extends CyclicBehaviour {

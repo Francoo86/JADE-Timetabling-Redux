@@ -4,6 +4,7 @@ import agentes.AgenteProfesor;
 import agentes.AgenteSala;
 import constants.Commons;
 import constants.enums.Day;
+import constants.enums.TipoContrato;
 import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
 import jade.core.behaviours.TickerBehaviour;
@@ -156,6 +157,45 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         } else {
             handleProposalFailure();
         }
+    }
+
+    private boolean validateConsecutiveGaps(Day dia, List<BatchProposal.BlockProposal> proposedBlocks) {
+        // Obtener el tipo de contrato
+        TipoContrato tipoContrato = profesor.getTipoContrato();
+
+        // Solo aplicar para jornada completa y media jornada
+        if (tipoContrato == TipoContrato.JORNADA_PARCIAL) {
+            return true;
+        }
+
+        // Obtener todos los bloques asignados para este día
+        Map<String, List<Integer>> bloquesAsignados = profesor.getBlocksByDay(dia);
+        List<Integer> allBlocks = new ArrayList<>();
+
+        // Agregar bloques existentes
+        bloquesAsignados.values().forEach(allBlocks::addAll);
+
+        // Agregar bloques propuestos
+        proposedBlocks.forEach(block -> allBlocks.add(block.getBlock()));
+
+        // Ordenar bloques
+        Collections.sort(allBlocks);
+
+        // Verificar gaps
+        int consecutiveGaps = 0;
+        for (int i = 1; i < allBlocks.size(); i++) {
+            int gap = allBlocks.get(i) - allBlocks.get(i-1) - 1;
+            if (gap > 0) {
+                consecutiveGaps += gap;
+                if (consecutiveGaps > 1) {
+                    return false; // Más de un bloque libre consecutivo
+                }
+            } else {
+                consecutiveGaps = 0;
+            }
+        }
+
+        return true;
     }
 
     private List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
