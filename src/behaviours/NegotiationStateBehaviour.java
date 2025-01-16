@@ -245,6 +245,19 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 continue;
             }
 
+            boolean validGaps = true;
+            for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry :
+                    proposal.getDayProposals().entrySet()) {
+                if (!validateConsecutiveGaps(entry.getKey(), entry.getValue())) {
+                    validGaps = false;
+                    break;
+                }
+            }
+
+            if (!validGaps) {
+                continue;
+            }
+
             // Calculate satisfaction for each block in the proposal
             for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry : proposal.getDayProposals().entrySet()) {
                 for (BatchProposal.BlockProposal blockProposal : entry.getValue()) {
@@ -401,11 +414,26 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         // Time preference based on year
         boolean isOddYear = nivel % 2 == 1;
         for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry : proposal.getDayProposals().entrySet()) {
-            for (BatchProposal.BlockProposal block : entry.getValue()) {
+            List<BatchProposal.BlockProposal> blocks = entry.getValue();
+            for (BatchProposal.BlockProposal block : blocks) {
                 if (isOddYear) {
                     if (block.getBlock() <= 4) score += 3000;
                 } else {
                     if (block.getBlock() >= 5) score += 3000;
+                }
+            }
+
+            if (profesor.getTipoContrato() != TipoContrato.JORNADA_PARCIAL) {
+                if (blocks.size() > 1) {
+                    blocks.sort(Comparator.comparingInt(BatchProposal.BlockProposal::getBlock));
+                    for (int i = 1; i < blocks.size(); i++) {
+                        int gap = blocks.get(i).getBlock() - blocks.get(i-1).getBlock();
+                        if (gap <= 2) { // Bloques consecutivos o con 1 bloque libre
+                            score += 5000;  // Alto bonus para favorecer horarios compactos
+                        } else {
+                            score -= 8000;  // Penalización por gaps grandes
+                        }
+                    }
                 }
             }
         }
