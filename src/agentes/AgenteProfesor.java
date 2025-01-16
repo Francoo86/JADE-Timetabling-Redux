@@ -51,6 +51,26 @@ public class AgenteProfesor extends Agent {
         return nombre;
     }
 
+    public enum TipoContrato {
+        JORNADA_COMPLETA,
+        MEDIA_JORNADA,
+        JORNADA_PARCIAL
+    }
+
+    private TipoContrato inferirTipoContrato(List<Asignatura> asignaturas) {
+        int horasTotales = asignaturas.stream()
+                .mapToInt(Asignatura::getHoras)
+                .sum();
+
+        if (horasTotales >= 16 && horasTotales <= 18) {
+            return TipoContrato.JORNADA_COMPLETA;
+        } else if (horasTotales >= 12 && horasTotales <= 14) {
+            return TipoContrato.MEDIA_JORNADA;
+        } else {
+            return TipoContrato.JORNADA_PARCIAL;
+        }
+    }
+
     public synchronized boolean canUseMoreSubjects() {
         try {
             // First check basic index bounds
@@ -258,8 +278,6 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-    private Map<String, Integer> subjectCompletedHours = new HashMap<>();
-
     public String getSubjectKey(Asignatura subject) {
         return subject.getNombre() + "-" + subject.getCodigoAsignatura();
     }
@@ -296,7 +314,7 @@ public class AgenteProfesor extends Agent {
             dfd.addServices(sd);
             DFService.register(this, dfd);
             isRegistered = true;
-            System.out.println("Professor " + nombre + " registered with order " + orden);
+            System.out.println("Professor " + nombre + " registered with order " + orden + " con tipo contrato: " + inferirTipoContrato(asignaturas));
         } catch (FIPAException fe) {
             System.err.println("Error registering professor " + nombre + " in DF: " + fe.getMessage());
             fe.printStackTrace();
