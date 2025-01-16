@@ -14,14 +14,14 @@ public class BatchProposal {
     private final String roomCode;
     private final String campus;
     private final int capacity;
-    private final int satisfactionScore;
+    private int satisfactionScore;
     private final ACLMessage originalMessage;
 
     public BatchProposal(ClassroomAvailability availability, ACLMessage message) {
         this.roomCode = availability.getCodigo();
         this.campus = availability.getCampus();
         this.capacity = availability.getCapacidad();
-        this.satisfactionScore = availability.getSatisfactionScore();
+        this.satisfactionScore = 0;
         this.originalMessage = message;
         this.dayProposals = new HashMap<>();
 
@@ -54,4 +54,5 @@ public class BatchProposal {
     public int getCapacity() { return capacity; }
     public int getSatisfactionScore() { return satisfactionScore; }
     public ACLMessage getOriginalMessage() { return originalMessage; }
+    public void setSatisfactionScore(int satisfactionScore) { this.satisfactionScore = satisfactionScore; }
 }

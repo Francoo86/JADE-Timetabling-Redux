@@ -21,6 +21,7 @@ import objetos.AssignationData;
 import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import objetos.helper.BatchProposal;
+import service.TimetablingEvaluator;
 
 import java.io.IOException;
 import java.util.*;
@@ -242,6 +243,24 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         for (BatchProposal proposal : proposals) {
             if (!isValidProposalFast(proposal, currentSubject, isOddYear, currentAsignaturaNombre)) {
                 continue;
+            }
+
+            // Calculate satisfaction for each block in the proposal
+            for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry : proposal.getDayProposals().entrySet()) {
+                for (BatchProposal.BlockProposal blockProposal : entry.getValue()) {
+                    // Calculate satisfaction using TimetablingEvaluator
+                    int satisfaction = TimetablingEvaluator.calculateSatisfaction(
+                            proposal.getCapacity(),
+                            currentSubject.getVacantes(),
+                            currentNivel,
+                            proposal.getCampus(),
+                            currentCampus,
+                            blockProposal.getBlock(),
+                            currentSchedule,
+                            profesor.getTipoContrato()
+                    );
+                    proposal.setSatisfactionScore(satisfaction);
+                }
             }
 
             Map<Day, List<BatchProposal.BlockProposal>> dayProposals = proposal.getDayProposals();

@@ -9,16 +9,16 @@ public class ClassroomAvailability implements Serializable {
     private final String campus;
     private final int capacidad;
     private final Map<String, List<Integer>> availableBlocks; // day -> list of available blocks
-    private final int satisfactionScore;
+    //private final int satisfactionScore;
 
     public ClassroomAvailability(String codigo, String campus, int capacidad,
-                                 Map<String, List<Integer>> availableBlocks,
-                                 int satisfactionScore) {
+                                 Map<String, List<Integer>> availableBlocks)
+    {//int satisfactionScore) {
         this.codigo = codigo;
         this.campus = campus;
         this.capacidad = capacidad;
         this.availableBlocks = availableBlocks;
-        this.satisfactionScore = satisfactionScore;
+        //this.satisfactionScore = satisfactionScore;
     }
 
     // Add getters
@@ -26,5 +26,5 @@ public class ClassroomAvailability implements Serializable {
     public String getCampus() { return campus; }
     public int getCapacidad() { return capacidad; }
     public Map<String, List<Integer>> getAvailableBlocks() { return availableBlocks; }
-    public int getSatisfactionScore() { return satisfactionScore; }
+    //public int getSatisfactionScore() { return satisfactionScore; }
 }

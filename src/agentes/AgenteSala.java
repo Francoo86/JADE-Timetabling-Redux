@@ -20,6 +20,7 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import service.SatisfaccionHandler;
 import service.TimetablingEvaluator;
 
 import java.io.IOException;
@@ -186,47 +187,31 @@ public class AgenteSala extends Agent {
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = sanitizeSubjectName(solicitudData[0]);
                 int vacantes = Integer.parseInt(solicitudData[1]);
-                int nivel = Integer.parseInt(solicitudData[2]);
-                String preferredCampus = solicitudData[3];
-                int remainingHours = Integer.parseInt(solicitudData[4]);
-
-                // Calculate base satisfaction
-                // Get available blocks with enhanced distribution
-                Map<String, List<Integer>> availableBlocks = getOptimizedAvailableBlocks(
-                        nombreAsignatura,
-                        nivel,
-                        preferredCampus,
-                        remainingHours
-                );
-
-
+                //int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
+                Map<String, List<Integer>> availableBlocks = new HashMap<>();
+                for (Day dia : Day.values()) {
+                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+                    List<Integer> freeBlocks = new ArrayList<>();
+                    for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {
+                        if (asignaciones.get(bloque) == null) {
+                            freeBlocks.add(bloque + 1);
+                        }
+                    }
+                    if (!freeBlocks.isEmpty()) {
+                        availableBlocks.put(dia.toString(), freeBlocks);
+                    }
+                }
                 if (!availableBlocks.isEmpty()) {
-                    Map<Day, List<Integer>> existingSchedule = convertToExistingBlocks(horarioOcupado);
-
-                    int satisfaccion = calculateBestSatisfaction(
-                            availableBlocks,
-                            capacidad,
-                            vacantes,
-                            nivel,
-                            campus,
-                            preferredCampus,
-                            existingSchedule
-                    );
-
-
-                    // Send proposal with available blocks
                     // Create single availability object
                     ClassroomAvailability availability = new ClassroomAvailability(
                             codigo,
                             campus,
                             capacidad,
-                            availableBlocks,
-                            satisfaccion
+                            availableBlocks
+                            //satisfaccion
                     );
-
                     // Send single response with all availability data
                     ACLMessage reply = msg.createReply();
-                    reply.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
                     reply.setPerformative(ACLMessage.PROPOSE);
                     try {
                         reply.setContentObject(availability);
@@ -235,15 +220,13 @@ public class AgenteSala extends Agent {
                         e.printStackTrace();
                     }
                 } else {
-                    // Send refusal
+                    // Send refuse if no blocks available
                     ACLMessage reply = msg.createReply();
-                    reply.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
                     reply.setPerformative(ACLMessage.REFUSE);
                     send(reply);
                 }
-
             } catch (Exception e) {
-                System.err.println("Error processing request in room " + codigo + ": " + e.getMessage());
+                System.err.println("Error processing request in classroom " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -263,43 +246,6 @@ public class AgenteSala extends Agent {
                 }
             }
             return result;
-        }
-
-        private int calculateBestSatisfaction(
-                Map<String, List<Integer>> availableBlocks,
-                int roomCapacity,
-                int studentsCount,
-                int nivel,
-                String campus,
-                String preferredCampus,
-                Map<Day, List<Integer>> existingSchedule) {
-
-            int bestSatisfaction = 0;
-
-            // Evaluate each day and block combination
-            for (Map.Entry<String, List<Integer>> entry : availableBlocks.entrySet()) {
-                Day day = Day.fromString(entry.getKey());
-
-                for (Integer block : entry.getValue()) {
-                    // Create a temporary schedule that includes this potential block
-                    Map<Day, List<Integer>> tempSchedule = new HashMap<>(existingSchedule);
-                    tempSchedule.computeIfAbsent(day, k -> new ArrayList<>()).add(block);
-
-                    int satisfaction = TimetablingEvaluator.calculateSatisfaction(
-                            roomCapacity,
-                            studentsCount,
-                            nivel,
-                            campus,
-                            preferredCampus,
-                            block,
-                            tempSchedule
-                    );
-
-                    bestSatisfaction = Math.max(bestSatisfaction, satisfaction);
-                }
-            }
-
-            return bestSatisfaction;
         }
 
         private Map<String, List<Integer>> getOptimizedAvailableBlocks(
