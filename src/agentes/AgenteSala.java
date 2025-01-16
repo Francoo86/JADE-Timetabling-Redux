@@ -20,7 +20,6 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import service.SatisfaccionHandler;
 import service.TimetablingEvaluator;
 
 import java.io.IOException;
@@ -62,6 +61,12 @@ public class AgenteSala extends Agent {
 
         // Agregar comportamiento para revisar si los profesores han terminado
         addBehaviour(new ProfessorMonitorBehaviour(this));
+    }
+
+    private int MEEETING_ROOM_THRESHOLD = 10;
+
+    public boolean isMeetingRoom() {
+        return capacidad < MEEETING_ROOM_THRESHOLD;
     }
 
     private String sanitizeSubjectName(String name) {
@@ -108,9 +113,7 @@ public class AgenteSala extends Agent {
             dfd.addServices(sd);
             DFService.register(this, dfd);
             isRegistered = true;
-            //System.out.println("Sala " + codigo + " registrada en DF (Campus: " + campus + ", Turno: " + turno + ")");
         } catch (FIPAException fe) {
-            //System.err.println("Error registrando sala " + codigo + " en DF: " + fe.getMessage());
             fe.printStackTrace();
         }
     }
@@ -196,9 +199,20 @@ public class AgenteSala extends Agent {
                         remainingHours
                 );
 
-                int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
 
                 if (!availableBlocks.isEmpty()) {
+                    Map<Day, List<Integer>> existingSchedule = convertToExistingBlocks(horarioOcupado);
+
+                    int satisfaccion = calculateBestSatisfaction(
+                            availableBlocks,
+                            capacidad,
+                            vacantes,
+                            nivel,
+                            campus,
+                            preferredCampus,
+                            existingSchedule
+                    );
+
 
                     // Send proposal with available blocks
                     // Create single availability object
@@ -249,6 +263,43 @@ public class AgenteSala extends Agent {
                 }
             }
             return result;
+        }
+
+        private int calculateBestSatisfaction(
+                Map<String, List<Integer>> availableBlocks,
+                int roomCapacity,
+                int studentsCount,
+                int nivel,
+                String campus,
+                String preferredCampus,
+                Map<Day, List<Integer>> existingSchedule) {
+
+            int bestSatisfaction = 0;
+
+            // Evaluate each day and block combination
+            for (Map.Entry<String, List<Integer>> entry : availableBlocks.entrySet()) {
+                Day day = Day.fromString(entry.getKey());
+
+                for (Integer block : entry.getValue()) {
+                    // Create a temporary schedule that includes this potential block
+                    Map<Day, List<Integer>> tempSchedule = new HashMap<>(existingSchedule);
+                    tempSchedule.computeIfAbsent(day, k -> new ArrayList<>()).add(block);
+
+                    int satisfaction = TimetablingEvaluator.calculateSatisfaction(
+                            roomCapacity,
+                            studentsCount,
+                            nivel,
+                            campus,
+                            preferredCampus,
+                            block,
+                            tempSchedule
+                    );
+
+                    bestSatisfaction = Math.max(bestSatisfaction, satisfaction);
+                }
+            }
+
+            return bestSatisfaction;
         }
 
         private Map<String, List<Integer>> getOptimizedAvailableBlocks(
