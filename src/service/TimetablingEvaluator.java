@@ -32,8 +32,10 @@ public class TimetablingEvaluator {
         // Aquellas que tengan un numero inferior a nueve, deberan utilizar salas de reuniones.
         // Aquellas actividades curriculares que tengan un numero de estudaintes que sobrepase la capacidad de las aulas dispuestas
         // en el campus (70), deberan dividirse en paralelos equivalentes
+
+        //FIXME: Esto tiene un problema con las salas de reuniones, ya que no se consideran en el calculo de la satisfaccion.
         if (studentsCount < MIN_STUDENTS || studentsCount > MAX_STUDENTS) {
-            return 1; // Minimum satisfaction for invalid student counts
+            return 1;
         }
 
         double capacityScore = evaluateCapacity(roomCapacity, studentsCount);
