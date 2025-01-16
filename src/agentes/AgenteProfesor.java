@@ -57,7 +57,7 @@ public class AgenteProfesor extends Agent {
         JORNADA_PARCIAL
     }
 
-    private TipoContrato inferirTipoContrato(List<Asignatura> asignaturas) {
+    public TipoContrato inferirTipoContrato(List<Asignatura> asignaturas) {
         int horasTotales = asignaturas.stream()
                 .mapToInt(Asignatura::getHoras)
                 .sum();
@@ -434,12 +434,11 @@ public class AgenteProfesor extends Agent {
         try {
             int nextOrden = orden + 1;
 
-            // Create property for next order
             Property ordenProp = new Property();
             ordenProp.setName("orden");
             ordenProp.setValue(nextOrden);
 
-            // Use cached search
+            //Es mejor usar DFCache.search en vez de DFService.search debido al performance.
             List<DFAgentDescription> results = DFCache.search(this, SERVICE_NAME, ordenProp);
 
             if (results.isEmpty()) {
@@ -447,7 +446,6 @@ public class AgenteProfesor extends Agent {
                 return;
             }
 
-            // Notify first matching professor
             DFAgentDescription nextProfessor = results.get(0);
             notifyNextProfessor(nextProfessor, nextOrden);
 
