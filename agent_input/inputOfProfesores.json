@@ -10,7 +10,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 31,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -26,7 +26,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 27,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -35,7 +35,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 16,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -44,7 +44,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -60,7 +60,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 48,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -69,7 +69,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 48,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -78,7 +78,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -87,7 +87,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -96,7 +96,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -105,7 +105,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -114,7 +114,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 25,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -123,7 +123,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 25,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -139,7 +139,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -148,7 +148,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -157,7 +157,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -166,7 +166,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -175,7 +175,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 18,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -184,7 +184,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 18,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -193,7 +193,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -202,7 +202,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -236,7 +236,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 45,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -245,7 +245,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 45,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -254,7 +254,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 1,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -263,7 +263,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 1,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -272,7 +272,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 1,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -281,7 +281,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 1,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -297,7 +297,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 19,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -306,7 +306,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 19,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -315,7 +315,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -324,7 +324,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -340,7 +340,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 0,
+        "Vacantes": 5,
         "Campus": "Playa Brava"
       },
       {
@@ -349,7 +349,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 41,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       },
       {
@@ -358,7 +358,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 31,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -374,7 +374,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -383,7 +383,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 8,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -399,7 +399,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 6,
-        "Vacantes": 41,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       }
     ]
@@ -415,7 +415,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -431,7 +431,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 53,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       },
       {
@@ -440,7 +440,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -449,7 +449,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -458,7 +458,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 8,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -467,7 +467,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 11,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -483,7 +483,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -492,7 +492,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -501,7 +501,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 0,
+        "Vacantes": 1,
         "Campus": "Playa Brava"
       },
       {
@@ -510,7 +510,7 @@
         "Nivel": 0,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 32,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -519,7 +519,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -528,7 +528,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -537,7 +537,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -571,7 +571,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -580,7 +580,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -589,7 +589,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 33,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -598,7 +598,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 33,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -632,7 +632,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 41,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       }
     ]
@@ -648,7 +648,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 9,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -657,7 +657,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 6,
-        "Vacantes": 10,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       }
     ]
@@ -673,7 +673,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 18,
+        "Vacantes": 24,
         "Campus": "Playa Brava"
       }
     ]
@@ -689,7 +689,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 16,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -705,7 +705,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 6,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       }
     ]
@@ -721,7 +721,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -730,7 +730,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -746,7 +746,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 28,
         "Campus": "Playa Brava"
       },
       {
@@ -755,7 +755,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 8,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -771,7 +771,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 3,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -780,7 +780,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 3,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -789,7 +789,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 4,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -798,7 +798,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 4,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -807,7 +807,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 12,
         "Campus": "Playa Brava"
       }
     ]
@@ -823,7 +823,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -832,7 +832,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -841,7 +841,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -850,7 +850,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -866,7 +866,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -875,7 +875,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -891,7 +891,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -907,7 +907,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -916,7 +916,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -932,7 +932,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -941,7 +941,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -950,7 +950,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -959,7 +959,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -968,7 +968,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -984,7 +984,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 16,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -993,7 +993,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 16,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -1002,7 +1002,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 7,
-        "Vacantes": 3,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1011,7 +1011,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 3,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1027,7 +1027,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 11,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -1036,7 +1036,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 14,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -1045,7 +1045,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 14,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -1054,7 +1054,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -1063,7 +1063,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       }
     ]
@@ -1079,7 +1079,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 24,
+        "Vacantes": 28,
         "Campus": "Playa Brava"
       },
       {
@@ -1088,7 +1088,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 9,
+        "Vacantes": 28,
         "Campus": "Playa Brava"
       }
     ]
@@ -1104,7 +1104,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1113,7 +1113,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 31,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -1129,7 +1129,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 16,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -1145,7 +1145,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 6,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -1161,7 +1161,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 7,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -1170,7 +1170,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 7,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -1179,7 +1179,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1188,7 +1188,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1197,7 +1197,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1206,7 +1206,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1222,7 +1222,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 16,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1238,7 +1238,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1254,7 +1254,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 19,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1263,7 +1263,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 19,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1272,7 +1272,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 19,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1281,7 +1281,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 24,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1290,7 +1290,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 24,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1299,7 +1299,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 28,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1315,7 +1315,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 3,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -1324,7 +1324,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 3,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -1340,7 +1340,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 3,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -1349,7 +1349,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 3,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -1365,7 +1365,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 21,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -1381,7 +1381,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 19,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1390,7 +1390,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 11,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1406,7 +1406,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 26,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       }
     ]
@@ -1422,7 +1422,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 30,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -1431,7 +1431,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 25,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       }
     ]
@@ -1447,7 +1447,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1456,7 +1456,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1465,7 +1465,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 0,
+        "Vacantes": 3,
         "Campus": "Playa Brava"
       },
       {
@@ -1474,7 +1474,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 28,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1483,7 +1483,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 17,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -1492,7 +1492,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 17,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       }
     ]
@@ -1508,7 +1508,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 23,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -1517,7 +1517,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -1526,7 +1526,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -1535,7 +1535,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1544,7 +1544,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 1,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1560,7 +1560,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1569,7 +1569,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1578,7 +1578,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1587,7 +1587,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1596,7 +1596,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1605,7 +1605,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1614,7 +1614,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1623,7 +1623,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1632,7 +1632,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1641,7 +1641,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1650,7 +1650,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1659,7 +1659,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1668,7 +1668,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 6,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1677,7 +1677,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1686,7 +1686,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1695,7 +1695,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 5,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1704,7 +1704,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1720,7 +1720,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 12,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       },
       {
@@ -1729,7 +1729,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 12,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       },
       {
@@ -1738,7 +1738,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1754,7 +1754,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 23,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       }
     ]
@@ -1770,7 +1770,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1786,7 +1786,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 18,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -1795,7 +1795,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -1804,7 +1804,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1820,7 +1820,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 63,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       },
       {
@@ -1829,7 +1829,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 63,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       }
     ]
@@ -1845,7 +1845,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 10,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       },
       {
@@ -1854,7 +1854,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 16,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -1870,7 +1870,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -1886,7 +1886,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 11,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -1902,7 +1902,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -1911,7 +1911,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -1927,7 +1927,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 24,
         "Campus": "Playa Brava"
       },
       {
@@ -1936,7 +1936,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 21,
+        "Vacantes": 24,
         "Campus": "Playa Brava"
       }
     ]
@@ -1952,7 +1952,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 23,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -1968,7 +1968,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 39,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -1977,7 +1977,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -1993,7 +1993,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 24,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2002,7 +2002,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 24,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2018,7 +2018,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2027,7 +2027,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2043,7 +2043,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2052,7 +2052,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 27,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2061,7 +2061,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 14,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2077,7 +2077,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 5,
-        "Vacantes": 4,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -2086,7 +2086,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 5,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -2095,7 +2095,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 5,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -2111,7 +2111,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 33,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2120,7 +2120,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 33,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2129,7 +2129,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 36,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -2138,7 +2138,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 36,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -2154,7 +2154,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 7,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2163,7 +2163,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2179,7 +2179,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -2188,7 +2188,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -2204,7 +2204,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -2213,7 +2213,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -2222,7 +2222,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -2231,7 +2231,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -2247,7 +2247,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 32,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2256,7 +2256,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 32,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2265,7 +2265,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 15,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2274,7 +2274,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -2283,7 +2283,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -2299,7 +2299,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 67,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       },
       {
@@ -2308,7 +2308,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 67,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       },
       {
@@ -2317,7 +2317,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 10,
+        "Vacantes": 12,
         "Campus": "Playa Brava"
       },
       {
@@ -2326,7 +2326,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 12,
         "Campus": "Playa Brava"
       },
       {
@@ -2335,7 +2335,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2344,7 +2344,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 18,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2360,7 +2360,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 5,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2369,7 +2369,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 5,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2378,7 +2378,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2387,7 +2387,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       }
     ]
@@ -2403,7 +2403,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -2412,7 +2412,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -2421,7 +2421,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 0,
-        "Vacantes": 0,
+        "Vacantes": 5,
         "Campus": "Playa Brava"
       },
       {
@@ -2430,7 +2430,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 12,
         "Campus": "Playa Brava"
       },
       {
@@ -2439,7 +2439,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 12,
         "Campus": "Playa Brava"
       },
       {
@@ -2448,7 +2448,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2457,7 +2457,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2473,7 +2473,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 46,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -2482,7 +2482,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 46,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -2491,7 +2491,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 31,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -2500,7 +2500,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 31,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       }
     ]
@@ -2516,7 +2516,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 31,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -2541,7 +2541,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 28,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2550,7 +2550,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 28,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2559,7 +2559,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 25,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -2568,7 +2568,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 25,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -2577,7 +2577,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 21,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2586,7 +2586,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 27,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2627,7 +2627,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 48,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       },
       {
@@ -2636,7 +2636,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 31,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -2645,7 +2645,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 31,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -2661,7 +2661,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 9,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2677,7 +2677,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -2693,7 +2693,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -2702,7 +2702,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -2711,7 +2711,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 31,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2720,7 +2720,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 31,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2729,7 +2729,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 46,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       }
     ]
@@ -2745,7 +2745,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 12,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -2754,7 +2754,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -2763,7 +2763,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 14,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -2772,7 +2772,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 14,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -2781,7 +2781,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 28,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2797,7 +2797,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 41,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       }
     ]
@@ -2813,7 +2813,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 49,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -2822,7 +2822,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 49,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -2831,7 +2831,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2840,7 +2840,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 5,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2849,7 +2849,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2858,7 +2858,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2867,7 +2867,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 11,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -2876,7 +2876,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 0,
-        "Vacantes": 0,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -2892,7 +2892,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -2908,7 +2908,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 18,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2917,7 +2917,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 16,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2926,7 +2926,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 15,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2935,7 +2935,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 15,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -2944,7 +2944,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 1,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -2953,7 +2953,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 28,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -2969,7 +2969,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 6,
-        "Vacantes": 24,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -2978,7 +2978,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -2994,7 +2994,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 7,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3003,7 +3003,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3012,7 +3012,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 27,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -3021,7 +3021,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 27,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       }
     ]
@@ -3037,6 +3037,15 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 4,
+        "Vacantes": 40,
+        "Campus": "Playa Brava"
+      },
+      {
+        "CodigoAsignatura": "(FIA43-A)",
+        "Nombre": "ELECTRICIDAD Y MAGNETISMO",
+        "Nivel": 4,
+        "Paralelo": "A",
+        "Horas": 2,
         "Vacantes": 35,
         "Campus": "Playa Brava"
       },
@@ -3046,16 +3055,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 22,
-        "Campus": "Playa Brava"
-      },
-      {
-        "CodigoAsignatura": "(FIA43-A)",
-        "Nombre": "ELECTRICIDAD Y MAGNETISMO",
-        "Nivel": 4,
-        "Paralelo": "A",
-        "Horas": 2,
-        "Vacantes": 22,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3064,7 +3064,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 39,
+        "Vacantes": 36,
         "Campus": "Playa Brava"
       },
       {
@@ -3073,7 +3073,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 39,
+        "Vacantes": 36,
         "Campus": "Playa Brava"
       }
     ]
@@ -3089,7 +3089,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 4,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3098,7 +3098,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 4,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3107,7 +3107,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 4,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3116,7 +3116,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3125,7 +3125,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3134,7 +3134,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3150,7 +3150,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 6,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       }
     ]
@@ -3166,7 +3166,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 7,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -3175,7 +3175,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 7,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -3184,7 +3184,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3193,7 +3193,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3209,7 +3209,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 25,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3218,7 +3218,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 25,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3227,7 +3227,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 0,
+        "Vacantes": 2,
         "Campus": "Playa Brava"
       },
       {
@@ -3236,7 +3236,7 @@
         "Nivel": 0,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 0,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -3245,7 +3245,7 @@
         "Nivel": 0,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 0,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -3254,7 +3254,7 @@
         "Nivel": 0,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 0,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -3263,7 +3263,7 @@
         "Nivel": 0,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 0,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -3279,7 +3279,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3288,7 +3288,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3297,7 +3297,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 11,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -3306,7 +3306,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 11,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -3315,7 +3315,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 12,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -3324,7 +3324,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       }
     ]
@@ -3340,7 +3340,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 11,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -3349,7 +3349,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 11,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       }
     ]
@@ -3365,7 +3365,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 11,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -3374,7 +3374,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 11,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       }
     ]
@@ -3390,7 +3390,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 16,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -3406,7 +3406,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 44,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3415,7 +3415,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 44,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3424,7 +3424,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 46,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3433,7 +3433,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 46,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3442,7 +3442,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 35,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -3451,7 +3451,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 35,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -3460,7 +3460,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 22,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3469,7 +3469,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 39,
+        "Vacantes": 36,
         "Campus": "Playa Brava"
       },
       {
@@ -3478,7 +3478,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 39,
+        "Vacantes": 36,
         "Campus": "Playa Brava"
       },
       {
@@ -3487,7 +3487,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 43,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -3496,7 +3496,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 43,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       }
     ]
@@ -3512,7 +3512,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 0,
-        "Vacantes": 24,
+        "Vacantes": 28,
         "Campus": "Playa Brava"
       }
     ]
@@ -3528,7 +3528,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3537,7 +3537,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3546,7 +3546,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3555,7 +3555,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3564,7 +3564,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 7,
-        "Vacantes": 16,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3573,7 +3573,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 16,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3589,7 +3589,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3598,7 +3598,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 18,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3623,7 +3623,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3632,7 +3632,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3641,7 +3641,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 9,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -3650,7 +3650,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 9,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -3666,7 +3666,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 34,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3675,7 +3675,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 34,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3684,7 +3684,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3693,7 +3693,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3709,7 +3709,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -3718,7 +3718,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -3727,7 +3727,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 13,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       },
       {
@@ -3736,7 +3736,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 13,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       }
     ]
@@ -3752,7 +3752,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 23,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3768,7 +3768,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 26,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3777,7 +3777,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 18,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3786,7 +3786,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 18,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3802,7 +3802,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3811,7 +3811,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3820,7 +3820,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3829,7 +3829,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3838,7 +3838,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3847,7 +3847,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3863,7 +3863,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 37,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3872,7 +3872,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 37,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3881,7 +3881,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 33,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3890,7 +3890,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 33,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3899,7 +3899,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 33,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3908,7 +3908,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 33,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -3917,7 +3917,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 39,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -3926,7 +3926,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 39,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -3935,7 +3935,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 23,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3944,7 +3944,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 23,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -3960,7 +3960,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 45,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -3969,7 +3969,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 45,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       }
     ]
@@ -3985,7 +3985,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 32,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -3994,7 +3994,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 32,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4010,7 +4010,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 26,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4026,7 +4026,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 38,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -4035,7 +4035,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 38,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -4044,7 +4044,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 47,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -4053,7 +4053,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 47,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       }
     ]
@@ -4069,7 +4069,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 0,
-        "Vacantes": 11,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4078,7 +4078,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 11,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4087,7 +4087,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4096,7 +4096,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 12,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4112,7 +4112,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 18,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4137,7 +4137,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 21,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       }
     ]
@@ -4153,7 +4153,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 48,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       }
     ]
@@ -4169,7 +4169,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 53,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       }
     ]
@@ -4185,7 +4185,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 27,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       }
     ]
@@ -4201,7 +4201,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 47,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4210,7 +4210,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 47,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4219,7 +4219,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 43,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4228,7 +4228,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 43,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4237,7 +4237,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -4246,7 +4246,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -4255,7 +4255,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 37,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -4264,7 +4264,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 37,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       }
     ]
@@ -4280,7 +4280,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 42,
+        "Vacantes": 50,
         "Campus": "Playa Brava"
       }
     ]
@@ -4296,7 +4296,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 13,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4305,7 +4305,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 13,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4314,7 +4314,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4323,7 +4323,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 6,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4332,7 +4332,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4341,7 +4341,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 9,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4357,7 +4357,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -4366,7 +4366,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 6,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -4382,7 +4382,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 28,
         "Campus": "Playa Brava"
       },
       {
@@ -4391,7 +4391,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 14,
+        "Vacantes": 17,
         "Campus": "Playa Brava"
       },
       {
@@ -4400,7 +4400,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 12,
+        "Vacantes": 17,
         "Campus": "Playa Brava"
       },
       {
@@ -4409,7 +4409,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 19,
+        "Vacantes": 24,
         "Campus": "Playa Brava"
       },
       {
@@ -4418,7 +4418,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 8,
+        "Vacantes": 11,
         "Campus": "Playa Brava"
       }
     ]
@@ -4434,7 +4434,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 13,
+        "Vacantes": 11,
         "Campus": "Playa Brava"
       },
       {
@@ -4452,7 +4452,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 9,
+        "Vacantes": 11,
         "Campus": "Playa Brava"
       },
       {
@@ -4461,7 +4461,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 11,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -4470,7 +4470,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 9,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       }
     ]
@@ -4486,7 +4486,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 11,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -4495,7 +4495,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 9,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -4504,7 +4504,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 11,
+        "Vacantes": 10,
         "Campus": "Playa Brava"
       },
       {
@@ -4513,7 +4513,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 9,
+        "Vacantes": 28,
         "Campus": "Playa Brava"
       }
     ]
@@ -4529,7 +4529,7 @@
         "Nivel": 7,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 6,
+        "Vacantes": 15,
         "Campus": "Playa Brava"
       }
     ]
@@ -4545,7 +4545,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4554,7 +4554,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 4,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4563,7 +4563,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4572,7 +4572,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 10,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4581,7 +4581,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 35,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4590,7 +4590,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 35,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4599,7 +4599,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 7,
-        "Vacantes": 16,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4608,7 +4608,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 16,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4624,7 +4624,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 24,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       }
     ]
@@ -4665,7 +4665,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 13,
+        "Vacantes": 17,
         "Campus": "Playa Brava"
       }
     ]
@@ -4681,7 +4681,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 10,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -4697,7 +4697,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 29,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4706,7 +4706,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 29,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4722,7 +4722,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 31,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -4738,7 +4738,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -4747,7 +4747,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -4763,7 +4763,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 1,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4772,7 +4772,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 19,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4788,7 +4788,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 32,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4797,7 +4797,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 32,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4813,7 +4813,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 9,
+        "Vacantes": 11,
         "Campus": "Playa Brava"
       }
     ]
@@ -4829,7 +4829,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -4838,7 +4838,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -4856,7 +4856,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -4872,7 +4872,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 13,
+        "Vacantes": 17,
         "Campus": "Playa Brava"
       }
     ]
@@ -4888,7 +4888,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 31,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4897,7 +4897,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 31,
+        "Vacantes": 60,
         "Campus": "Playa Brava"
       },
       {
@@ -4906,7 +4906,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 3,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -4915,7 +4915,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 3,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -4924,7 +4924,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -4933,7 +4933,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       }
     ]
@@ -4949,7 +4949,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 22,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       }
     ]
@@ -4965,7 +4965,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 6,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -4981,7 +4981,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -4990,7 +4990,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5006,7 +5006,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 10,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5015,7 +5015,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 10,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5024,7 +5024,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 9,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5033,7 +5033,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 9,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5042,7 +5042,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5051,7 +5051,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 5,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5067,7 +5067,7 @@
         "Nivel": 4,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 9,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5083,7 +5083,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -5092,7 +5092,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -5101,7 +5101,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 9,
-        "Vacantes": 38,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       },
       {
@@ -5110,7 +5110,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 9,
-        "Vacantes": 37,
+        "Vacantes": 40,
         "Campus": "Playa Brava"
       }
     ]
@@ -5126,7 +5126,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 61,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       },
       {
@@ -5135,7 +5135,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 61,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       },
       {
@@ -5144,7 +5144,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 32,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -5153,7 +5153,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 32,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       },
       {
@@ -5162,7 +5162,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 32,
+        "Vacantes": 35,
         "Campus": "Playa Brava"
       }
     ]
@@ -5178,7 +5178,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 3,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5187,7 +5187,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 3,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5196,7 +5196,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5205,7 +5205,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 8,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5214,7 +5214,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 7,
-        "Vacantes": 3,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5223,7 +5223,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 3,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5232,7 +5232,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5241,7 +5241,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5257,7 +5257,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 16,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5291,7 +5291,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -5300,7 +5300,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 36,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -5309,7 +5309,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 49,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -5318,7 +5318,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 49,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -5327,7 +5327,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 43,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -5336,7 +5336,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 43,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -5345,7 +5345,7 @@
         "Nivel": 3,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5361,7 +5361,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 22,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5377,7 +5377,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5386,7 +5386,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 21,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5402,7 +5402,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 63,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       },
       {
@@ -5411,7 +5411,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 63,
+        "Vacantes": 65,
         "Campus": "Playa Brava"
       }
     ]
@@ -5427,7 +5427,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5436,7 +5436,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 0,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5445,7 +5445,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 1,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5454,7 +5454,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 15,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5463,7 +5463,7 @@
         "Nivel": 2,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 27,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5479,7 +5479,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 11,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5488,7 +5488,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 11,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5497,7 +5497,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5506,7 +5506,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 4,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5515,7 +5515,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 17,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5533,7 +5533,7 @@
         "Nivel": 6,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 13,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]
@@ -5549,7 +5549,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 16,
+        "Vacantes": 25,
         "Campus": "Playa Brava"
       }
     ]
@@ -5565,7 +5565,7 @@
         "Nivel": 8,
         "Paralelo": "A",
         "Horas": 2,
-        "Vacantes": 27,
+        "Vacantes": 45,
         "Campus": "Playa Brava"
       },
       {
@@ -5592,7 +5592,7 @@
         "Nivel": 5,
         "Paralelo": "A",
         "Horas": 3,
-        "Vacantes": 16,
+        "Vacantes": 20,
         "Campus": "Playa Brava"
       },
       {
@@ -5601,7 +5601,7 @@
         "Nivel": 1,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 23,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       },
       {
@@ -5610,7 +5610,7 @@
         "Nivel": 9,
         "Paralelo": "A",
         "Horas": 12,
-        "Vacantes": 20,
+        "Vacantes": 30,
         "Campus": "Playa Brava"
       }
     ]

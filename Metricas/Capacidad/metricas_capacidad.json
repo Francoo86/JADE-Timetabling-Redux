@@ -1,0 +1,421 @@
+{
+  "room_stats": {
+    "KAUS3": {
+      "bajo": 4,
+      "exacta": 8,
+      "sobre": 0,
+      "total": 12,
+      "room_capacity": 26,
+      "bajo_pct": 33.33,
+      "exacta_pct": 66.67,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    },
+    "KAUS2": {
+      "bajo": 21,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 21,
+      "room_capacity": 26,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    },
+    "KAUS1": {
+      "bajo": 30,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 30,
+      "room_capacity": 68,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "60-69"
+    },
+    "K1": {
+      "bajo": 19,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 19,
+      "room_capacity": 82,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "80-89"
+    },
+    "K2": {
+      "bajo": 15,
+      "exacta": 5,
+      "sobre": 0,
+      "total": 20,
+      "room_capacity": 30,
+      "bajo_pct": 75.0,
+      "exacta_pct": 25.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    },
+    "A106": {
+      "bajo": 22,
+      "exacta": 2,
+      "sobre": 21,
+      "total": 45,
+      "room_capacity": 18,
+      "bajo_pct": 48.89,
+      "exacta_pct": 4.44,
+      "sobre_pct": 46.67,
+      "capacity_range": "10-19"
+    },
+    "CM3": {
+      "bajo": 19,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 19,
+      "room_capacity": 50,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "40-49"
+    },
+    "K3": {
+      "bajo": 27,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 27,
+      "room_capacity": 40,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "30-39"
+    },
+    "CM5": {
+      "bajo": 29,
+      "exacta": 1,
+      "sobre": 0,
+      "total": 30,
+      "room_capacity": 45,
+      "bajo_pct": 96.67,
+      "exacta_pct": 3.33,
+      "sobre_pct": 0.0,
+      "capacity_range": "40-49"
+    },
+    "CM4": {
+      "bajo": 29,
+      "exacta": 1,
+      "sobre": 0,
+      "total": 30,
+      "room_capacity": 45,
+      "bajo_pct": 96.67,
+      "exacta_pct": 3.33,
+      "sobre_pct": 0.0,
+      "capacity_range": "40-49"
+    },
+    "E1": {
+      "bajo": 17,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 17,
+      "room_capacity": 45,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "40-49"
+    },
+    "CM6": {
+      "bajo": 9,
+      "exacta": 7,
+      "sobre": 0,
+      "total": 16,
+      "room_capacity": 30,
+      "bajo_pct": 56.25,
+      "exacta_pct": 43.75,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    },
+    "IM3": {
+      "bajo": 8,
+      "exacta": 9,
+      "sobre": 0,
+      "total": 17,
+      "room_capacity": 20,
+      "bajo_pct": 47.06,
+      "exacta_pct": 52.94,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "IM2": {
+      "bajo": 8,
+      "exacta": 4,
+      "sobre": 0,
+      "total": 12,
+      "room_capacity": 20,
+      "bajo_pct": 66.67,
+      "exacta_pct": 33.33,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "IM4": {
+      "bajo": 4,
+      "exacta": 6,
+      "sobre": 5,
+      "total": 15,
+      "room_capacity": 9,
+      "bajo_pct": 26.67,
+      "exacta_pct": 40.0,
+      "sobre_pct": 33.33,
+      "capacity_range": "0-9"
+    },
+    "E6": {
+      "bajo": 15,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 15,
+      "room_capacity": 45,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "40-49"
+    },
+    "IC1": {
+      "bajo": 19,
+      "exacta": 8,
+      "sobre": 0,
+      "total": 27,
+      "room_capacity": 30,
+      "bajo_pct": 70.37,
+      "exacta_pct": 29.63,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    },
+    "CRP43": {
+      "bajo": 30,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 30,
+      "room_capacity": 71,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "70-79"
+    },
+    "IC3": {
+      "bajo": 17,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 17,
+      "room_capacity": 40,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "30-39"
+    },
+    "IC2": {
+      "bajo": 14,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 14,
+      "room_capacity": 44,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "40-49"
+    },
+    "IC4": {
+      "bajo": 21,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 21,
+      "room_capacity": 77,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "70-79"
+    },
+    "KAUL1": {
+      "bajo": 20,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 20,
+      "room_capacity": 26,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    },
+    "KAUT8": {
+      "bajo": 1,
+      "exacta": 19,
+      "sobre": 2,
+      "total": 22,
+      "room_capacity": 10,
+      "bajo_pct": 4.55,
+      "exacta_pct": 86.36,
+      "sobre_pct": 9.09,
+      "capacity_range": "0-9"
+    },
+    "KAUT7": {
+      "bajo": 20,
+      "exacta": 9,
+      "sobre": 0,
+      "total": 29,
+      "room_capacity": 20,
+      "bajo_pct": 68.97,
+      "exacta_pct": 31.03,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "KAUT6": {
+      "bajo": 22,
+      "exacta": 7,
+      "sobre": 0,
+      "total": 29,
+      "room_capacity": 20,
+      "bajo_pct": 75.86,
+      "exacta_pct": 24.14,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "IC8": {
+      "bajo": 22,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 22,
+      "room_capacity": 34,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "30-39"
+    },
+    "KAUT5": {
+      "bajo": 12,
+      "exacta": 2,
+      "sobre": 0,
+      "total": 14,
+      "room_capacity": 20,
+      "bajo_pct": 85.71,
+      "exacta_pct": 14.29,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "KAUT4": {
+      "bajo": 20,
+      "exacta": 3,
+      "sobre": 0,
+      "total": 23,
+      "room_capacity": 20,
+      "bajo_pct": 86.96,
+      "exacta_pct": 13.04,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "KAUT3": {
+      "bajo": 6,
+      "exacta": 14,
+      "sobre": 0,
+      "total": 20,
+      "room_capacity": 17,
+      "bajo_pct": 30.0,
+      "exacta_pct": 70.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "KAUT2": {
+      "bajo": 12,
+      "exacta": 2,
+      "sobre": 2,
+      "total": 16,
+      "room_capacity": 28,
+      "bajo_pct": 75.0,
+      "exacta_pct": 12.5,
+      "sobre_pct": 12.5,
+      "capacity_range": "20-29"
+    },
+    "KAUT1": {
+      "bajo": 16,
+      "exacta": 6,
+      "sobre": 0,
+      "total": 22,
+      "room_capacity": 28,
+      "bajo_pct": 72.73,
+      "exacta_pct": 27.27,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    },
+    "LAMB": {
+      "bajo": 14,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 14,
+      "room_capacity": 40,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "30-39"
+    },
+    "D105": {
+      "bajo": 16,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 16,
+      "room_capacity": 34,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "30-39"
+    },
+    "IOLAB": {
+      "bajo": 9,
+      "exacta": 16,
+      "sobre": 0,
+      "total": 25,
+      "room_capacity": 15,
+      "bajo_pct": 36.0,
+      "exacta_pct": 64.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "10-19"
+    },
+    "CRP33": {
+      "bajo": 18,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 18,
+      "room_capacity": 71,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "70-79"
+    },
+    "ANT21": {
+      "bajo": 26,
+      "exacta": 3,
+      "sobre": 16,
+      "total": 45,
+      "room_capacity": 22,
+      "bajo_pct": 57.78,
+      "exacta_pct": 6.67,
+      "sobre_pct": 35.56,
+      "capacity_range": "20-29"
+    },
+    "KAUS5": {
+      "bajo": 12,
+      "exacta": 0,
+      "sobre": 0,
+      "total": 12,
+      "room_capacity": 29,
+      "bajo_pct": 100.0,
+      "exacta_pct": 0.0,
+      "sobre_pct": 0.0,
+      "capacity_range": "20-29"
+    }
+  },
+  "global_stats": {
+    "bajo_capacidad": 77.77777777777779,
+    "capacidad_exacta": 16.479400749063668,
+    "sobre_capacidad": 5.742821473158552
+  },
+  "range_analysis": {
+    "bajo": 623,
+    "exacta": 132,
+    "sobre": 46
+  }
+}

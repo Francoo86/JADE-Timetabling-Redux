@@ -1,212 +1,5192 @@
 [ {
-  "Nombre" : "María Gonzalez",
-  "AsignaturasCompletadas" : 6,
-  "Solicitudes" : 3,
+  "Nombre" : "TAPIA QUEZADA JAIM",
+  "AsignaturasCompletadas" : 5,
+  "Solicitudes" : 2,
   "Asignaturas" : [ {
-    "Nombre" : "Programación en Java",
-    "Sala" : "B-2",
-    "Bloque" : 1,
+    "Nombre" : "CINETICA QUIMICA",
+    "Sala" : "CM4",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CINETICA QUIMICA",
+    "Sala" : "KAUT6",
+    "Bloque" : 7,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
-    "Nombre" : "Programación en Java",
-    "Sala" : "B-2",
-    "Bloque" : 2,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Programación en Python",
-    "Sala" : "B-2",
-    "Bloque" : 1,
+    "Nombre" : "CINETICA QUIMICA",
+    "Sala" : "KAUS1",
+    "Bloque" : 5,
     "Dia" : "Martes",
     "Satisfaccion" : 5
   }, {
-    "Nombre" : "Programación en Python",
-    "Sala" : "B-2",
-    "Bloque" : 2,
+    "Nombre" : "CADENA DE VALOR HIDROMETA",
+    "Sala" : "KAUT6",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CADENA DE VALOR HIDROMETA",
+    "Sala" : "KAUS1",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "JUICA MUJICA GERAL",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "FINANZAS",
+    "Sala" : "CM5",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "KAUT5",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "IC8",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "IC1",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "IM2",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "CM5",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "CM5",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "IC3",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "KAUT5",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "KAUT5",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "GONZALEZ GONZALEZ",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "K2",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "IC1",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "CM6",
+    "Bloque" : 5,
     "Dia" : "Martes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación en C++",
-    "Sala" : "B-2",
-    "Bloque" : 1,
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "CM6",
+    "Bloque" : 5,
     "Dia" : "Miercoles",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Programación en C++",
-    "Sala" : "B-2",
-    "Bloque" : 1,
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "K2",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "CM6",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "CM6",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "K2",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "E1",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Sala" : "CRP33",
+    "Bloque" : 7,
     "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "CORTES REYES FABIA",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "D105",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "K2",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "E1",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "E6",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "CRP33",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "D105",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "CRP33",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "E6",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "IC4",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "E6",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "LÓPEZ SEGUEL JULIO",
+  "AsignaturasCompletadas" : 9,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "LABORATORIO DE ELECTRÓNIC",
+    "Sala" : "IM4",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LABORATORIO DE ELECTRÓNIC",
+    "Sala" : "IM4",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LABORATORIO DE ELECTRÓNIC",
+    "Sala" : "IM4",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Sala" : "KAUT8",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Sala" : "KAUT8",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Sala" : "KAUT8",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Sala" : "KAUT8",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Sala" : "KAUT8",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Sala" : "KAUT8",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
     "Satisfaccion" : 10
   } ]
 }, {
-  "Nombre" : "Carlos Jose",
+  "Nombre" : "MASANA SEPULVEDA P",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IOLAB",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC2",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CRP43",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CRP43",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC1",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CRP43",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CRP43",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IM3",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "E6",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT5",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ROJAS GONZALEZ MAR",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "IC2",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "CM5",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "IC2",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "CM3",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "K1",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "E1",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "IC2",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "CM5",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "CRP33",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "IC4",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "URIBE PALACIOS MAR",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "CM5",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUS1",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "CM3",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "IC1",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUL1",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "IC8",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUT7",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUS1",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "CRP43",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUL1",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "CRUCES CASTILLO JO",
+  "AsignaturasCompletadas" : 4,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Sala" : "KAUS3",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Sala" : "KAUL1",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Sala" : "E1",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Sala" : "KAUT1",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "VARGAS VARGAS CRIS",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC2",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "K3",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CM3",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC3",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUS3",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CM6",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT2",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUS5",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CM3",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC2",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "PEDREROS REYES MAN",
   "AsignaturasCompletadas" : 5,
   "Solicitudes" : 3,
   "Asignaturas" : [ {
-    "Nombre" : "Programación en C",
-    "Sala" : "B-2",
+    "Nombre" : "URBANISMO 1",
+    "Sala" : "KAUT5",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "URBANISMO 1",
+    "Sala" : "IC3",
     "Bloque" : 5,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Programación en C",
-    "Sala" : "A-1",
-    "Bloque" : 6,
+    "Nombre" : "URBANISMO 3",
+    "Sala" : "CM3",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "URBANISMO 3",
+    "Sala" : "CRP33",
+    "Bloque" : 7,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
   }, {
-    "Nombre" : "Programación en JADE",
-    "Sala" : "A-1",
-    "Bloque" : 3,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 5
-  }, {
-    "Nombre" : "Programación en JADE",
-    "Sala" : "B-2",
-    "Bloque" : 2,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Programación en Kotlin",
-    "Sala" : "A-1",
-    "Bloque" : 1,
+    "Nombre" : "URBANISMO 3",
+    "Sala" : "KAUT2",
+    "Bloque" : 5,
     "Dia" : "Viernes",
     "Satisfaccion" : 5
   } ]
 }, {
-  "Nombre" : "Juan Perez",
-  "AsignaturasCompletadas" : 6,
+  "Nombre" : "ROJAS RODRIGUEZ RO",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "A106",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "ANT21",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "A106",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "ANT21",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "ANT21",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "ANT21",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "A106",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "ANT21",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "ANT21",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "ANT21",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Nombre" : "WONG BARREDA EDUAR",
+  "AsignaturasCompletadas" : 14,
+  "Solicitudes" : 8,
+  "Asignaturas" : [ {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Sala" : "CRP43",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Sala" : "CRP43",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Sala" : "IC4",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Sala" : "K1",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Sala" : "KAUS2",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Sala" : "CRP43",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Sala" : "IC8",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Sala" : "IC8",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Sala" : "CRP43",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Sala" : "E1",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Sala" : "CM4",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Sala" : "CM4",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Sala" : "KAUS1",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Sala" : "CM4",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "CARMONA MALBRAN RA",
+  "AsignaturasCompletadas" : 3,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Sala" : "IOLAB",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Sala" : "IOLAB",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Sala" : "IOLAB",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "CASTRO CASTRO RUBÉ",
+  "AsignaturasCompletadas" : 13,
+  "Solicitudes" : 5,
+  "Asignaturas" : [ {
+    "Nombre" : "LABORATORIO DE CONTROL AU",
+    "Sala" : "IC8",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL AU",
+    "Sala" : "K3",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL AU",
+    "Sala" : "KAUL1",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Sala" : "IC1",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Sala" : "CM3",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Sala" : "IC2",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Sala" : "KAUT3",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL DI",
+    "Sala" : "IC8",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL DI",
+    "Sala" : "IC1",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL DI",
+    "Sala" : "IC8",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE ROBÓTICA",
+    "Sala" : "KAUL1",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE ROBÓTICA",
+    "Sala" : "K3",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE ROBÓTICA",
+    "Sala" : "KAUS2",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "VILCA ASTORGA BELF",
+  "AsignaturasCompletadas" : 22,
   "Solicitudes" : 3,
   "Asignaturas" : [ {
-    "Nombre" : "Matemáticas Avanzadas",
-    "Sala" : "A-1",
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "KAUT6",
     "Bloque" : 1,
     "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Matemáticas Avanzadas",
-    "Sala" : "A-1",
-    "Bloque" : 2,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 10
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "CRP43",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Programación Basica",
-    "Sala" : "A-1",
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "KAUS1",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "KAUT6",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "KAUT7",
     "Bloque" : 1,
     "Dia" : "Jueves",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Programación Basica",
-    "Sala" : "A-1",
-    "Bloque" : 2,
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "KAUT6",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "CRP43",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "KAUT6",
+    "Bloque" : 3,
     "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "KAUT7",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Sala" : "CRP43",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "K1",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "CM4",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "CRP43",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "CM4",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "KAUS1",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "KAUS1",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "CM4",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "KAUS1",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "KAUS1",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "CM4",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "A106",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Nombre" : "RANGEL MORALES JUA",
+  "AsignaturasCompletadas" : 5,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "DERECHO MINERO Y AMBIENTA",
+    "Sala" : "CRP43",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DERECHO MINERO Y AMBIENTA",
+    "Sala" : "KAUT4",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DERECHO MINERO Y AMBIENTA",
+    "Sala" : "IC3",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CIERRE Y ABANDONO DE FAEN",
+    "Sala" : "KAUT3",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Codigo Binario",
-    "Sala" : "A-1",
+    "Nombre" : "CIERRE Y ABANDONO DE FAEN",
+    "Sala" : "KAUT3",
     "Bloque" : 3,
     "Dia" : "Lunes",
     "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "VARELA VILLAGRAN J",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "KAUL1",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Codigo Binario",
-    "Sala" : "A-1",
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "CM6",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "KAUL1",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "KAUT1",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "K2",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "CRP33",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "KAUL1",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "KAUT2",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "E1",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "KAUT1",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "DONOSO DIAZ MARTIN",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "FINANZAS",
+    "Sala" : "IC8",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "K2",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "KAUT1",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "IC1",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "KAUS2",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "K3",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "KAUL1",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "D105",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "CM3",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "K3",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "MEZA CÁRDENAS ERIK",
+  "AsignaturasCompletadas" : 21,
+  "Solicitudes" : 5,
+  "Asignaturas" : [ {
+    "Nombre" : "TERMODINÁMICA",
+    "Sala" : "K1",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Sala" : "CRP43",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Sala" : "CRP33",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BALANCE DE MATERIA Y ENER",
+    "Sala" : "KAUT6",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BALANCE DE MATERIA Y ENER",
+    "Sala" : "KAUT6",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BALANCE DE MATERIA Y ENER",
+    "Sala" : "CM4",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Sala" : "CRP43",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Sala" : "KAUT7",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Sala" : "IOLAB",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Sala" : "KAUT7",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Sala" : "A106",
+    "Bloque" : 9,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUT6",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "CM4",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUT6",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUS1",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "CM4",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUS1",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "CM4",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUS1",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUS1",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "CM4",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "GÓMEZ BASTIDAS PED",
+  "AsignaturasCompletadas" : 3,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "SIST. DE GESTION EN SEGUR",
+    "Sala" : "KAUT3",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SIST. DE GESTION EN SEGUR",
+    "Sala" : "KAUT3",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SIST. DE GESTION EN SEGUR",
+    "Sala" : "KAUT3",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "PADILLA GUZMAN SIL",
+  "AsignaturasCompletadas" : 22,
+  "Solicitudes" : 3,
+  "Asignaturas" : [ {
+    "Nombre" : "DIRECCION DE PROYECTOS",
+    "Sala" : "A106",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "DIRECCION DE PROYECTOS",
+    "Sala" : "A106",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "ANT21",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "ANT21",
+    "Bloque" : 2,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "ANT21",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "A106",
+    "Bloque" : 2,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "ANT21",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "A106",
+    "Bloque" : 2,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "A106",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "ANT21",
+    "Bloque" : 2,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "ANT21",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "ANT21",
+    "Bloque" : 2,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
     "Bloque" : 4,
     "Dia" : "Lunes",
     "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 4,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 4,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
   } ]
 }, {
-  "Nombre" : "Carlos Rodríguez",
-  "AsignaturasCompletadas" : 2,
-  "Solicitudes" : 2,
+  "Nombre" : "JARA MALDONADO ELI",
+  "AsignaturasCompletadas" : 11,
+  "Solicitudes" : 6,
   "Asignaturas" : [ {
-    "Nombre" : "Bases de Datos",
-    "Sala" : "A-1",
-    "Bloque" : 5,
-    "Dia" : "Lunes",
-    "Satisfaccion" : 3
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "K1",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Bases de Datos",
-    "Sala" : "A-1",
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "K1",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "K1",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "K1",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "IC4",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Sala" : "D105",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Sala" : "IM3",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Sala" : "KAUT1",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Sala" : "CRP33",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Sala" : "D105",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT8",
+    "Bloque" : 9,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "SEGOVIA RIVERA JUA",
+  "AsignaturasCompletadas" : 9,
+  "Solicitudes" : 5,
+  "Asignaturas" : [ {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUS2",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUS2",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUL1",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "IC1",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUT8",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Sala" : "KAUL1",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Sala" : "IC8",
     "Bloque" : 7,
     "Dia" : "Jueves",
-    "Satisfaccion" : 3
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Sala" : "E6",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT8",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
   } ]
 }, {
-  "Nombre" : "Rodrigo Tejada",
-  "AsignaturasCompletadas" : 12,
-  "Solicitudes" : 3,
+  "Nombre" : "DIAZ MIRANDA MARCO",
+  "AsignaturasCompletadas" : 6,
+  "Solicitudes" : 1,
   "Asignaturas" : [ {
-    "Nombre" : "Calculo",
-    "Sala" : "A-1",
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Sala" : "KAUS1",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Sala" : "KAUS1",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Sala" : "KAUS1",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Sala" : "CRP43",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Sala" : "KAUS1",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Sala" : "CRP43",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "MAMANI APALA PAOLA",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 5,
+  "Asignaturas" : [ {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Sala" : "IC3",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Sala" : "E1",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Sala" : "K3",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Sala" : "E1",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Sala" : "K3",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Sala" : "IC4",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Sala" : "K3",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Sala" : "E1",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Sala" : "IC8",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIA",
+    "Sala" : "K1",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ARAYA TORRES CARLO",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
     "Bloque" : 1,
     "Dia" : "Martes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Calculo",
-    "Sala" : "A-1",
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IOLAB",
     "Bloque" : 3,
     "Dia" : "Jueves",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Calculo",
-    "Sala" : "A-1",
-    "Bloque" : 2,
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IC8",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ALBISTUR GONZALEZ",
+  "AsignaturasCompletadas" : 4,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "IC1",
+    "Bloque" : 5,
     "Dia" : "Martes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Calculo 2",
-    "Sala" : "B-2",
-    "Bloque" : 3,
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "CM6",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "KAUT3",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "IC1",
+    "Bloque" : 7,
     "Dia" : "Miercoles",
-    "Satisfaccion" : 3
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "CHANDIA CONCHA HEC",
+  "AsignaturasCompletadas" : 20,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "K3",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Calculo 2",
-    "Sala" : "B-2",
-    "Bloque" : 2,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 3
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "CM5",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Calculo 2",
-    "Sala" : "A-1",
-    "Bloque" : 3,
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "CM5",
+    "Bloque" : 1,
     "Dia" : "Martes",
-    "Satisfaccion" : 10
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Calculo 2",
-    "Sala" : "B-2",
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "CRP43",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "KAUT1",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "CM6",
     "Bloque" : 3,
     "Dia" : "Viernes",
-    "Satisfaccion" : 3
+    "Satisfaccion" : 5
   }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "CM3",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "IC1",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "IC8",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Sala" : "KAUT2",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "KAUS2",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "E1",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "KAUT7",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "IOLAB",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "IOLAB",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "IOLAB",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "CM5",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "CM5",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "KAUS2",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Sala" : "IOLAB",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "OVALLE GAHONA MONI",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
     "Bloque" : 7,
     "Dia" : "Viernes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
-    "Bloque" : 5,
-    "Dia" : "Miercoles",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
-    "Bloque" : 6,
-    "Dia" : "Viernes",
-    "Satisfaccion" : 10
-  }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
     "Bloque" : 7,
     "Dia" : "Lunes",
     "Satisfaccion" : 10
   }, {
-    "Nombre" : "Calculo 3",
-    "Sala" : "A-1",
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS3",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUS5",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "KAUT1",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "RIVAS PEREZ JORGE",
+  "AsignaturasCompletadas" : 20,
+  "Solicitudes" : 3,
+  "Asignaturas" : [ {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "K3",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUT4",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "D105",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "K3",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "K3",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUT4",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "KAUT2",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "K3",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "LAMB",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Sala" : "CM3",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUT5",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "K1",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUS5",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUT5",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUT2",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "CM3",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "K2",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "IM2",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUT4",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Sala" : "KAUT2",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "LUZA CONTRERAS JUA",
+  "AsignaturasCompletadas" : 22,
+  "Solicitudes" : 4,
+  "Asignaturas" : [ {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "A106",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "A106",
+    "Bloque" : 4,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "A106",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "A106",
+    "Bloque" : 4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "A106",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "A106",
+    "Bloque" : 2,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "KAUT6",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "CM4",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "KAUT6",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Sala" : "KAUT6",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Sala" : "A106",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Sala" : "A106",
+    "Bloque" : 4,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Sala" : "KAUT7",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Sala" : "KAUT6",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "KAUT7",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "KAUT6",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "KAUT6",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "KAUT6",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "A106",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "KAUT6",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "KAUT6",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Sala" : "KAUT4",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "LLANCA RIQUELME PA",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "IM2",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "KAUT5",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "IM2",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "IM3",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "IM2",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "IM3",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "KAUT5",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "IM3",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "KAUT1",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Sala" : "KAUT1",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "OBILINOVIC GONZÁLE",
+  "AsignaturasCompletadas" : 14,
+  "Solicitudes" : 8,
+  "Asignaturas" : [ {
+    "Nombre" : "HISTORIA Y TEORIA I",
+    "Sala" : "ANT21",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "HISTORIA Y TEORIA I",
+    "Sala" : "A106",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "HISTORIA Y TEORIA I",
+    "Sala" : "A106",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 3",
+    "Sala" : "A106",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Sala" : "A106",
+    "Bloque" : 2,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Sala" : "A106",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Sala" : "ANT21",
+    "Bloque" : 2,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "A106",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "A106",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "ANT21",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "A106",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 4",
+    "Sala" : "ANT21",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TERRITORIO 4",
+    "Sala" : "A106",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TERRITORIO 4",
+    "Sala" : "A106",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Nombre" : "BERRIOS ZAMORA PAU",
+  "AsignaturasCompletadas" : 11,
+  "Solicitudes" : 5,
+  "Asignaturas" : [ {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Sala" : "KAUT2",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Sala" : "CRP43",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Sala" : "CM4",
     "Bloque" : 6,
     "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Sala" : "KAUS1",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONFIABILIDAD Y MANTENIMI",
+    "Sala" : "KAUT4",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONFIABILIDAD Y MANTENIMI",
+    "Sala" : "IC4",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONFIABILIDAD Y MANTENIMI",
+    "Sala" : "IM2",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Sala" : "KAUT7",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Sala" : "IOLAB",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Sala" : "KAUT6",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Sala" : "KAUT7",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "PACHECO LOPEZ DANI",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "CM5",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "CM4",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "K3",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "CM4",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "CM5",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "E6",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "CM5",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "K3",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "CM5",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "IC3",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "LAM MORAGA JAIME A",
+  "AsignaturasCompletadas" : 18,
+  "Solicitudes" : 7,
+  "Asignaturas" : [ {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Sala" : "CM4",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Sala" : "CM4",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Sala" : "CM4",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Sala" : "CM5",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION",
+    "Sala" : "KAUS1",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION",
+    "Sala" : "KAUS1",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC2",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC8",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CRP43",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PREPARCIÓN PARA EL PROCES",
+    "Sala" : "KAUT7",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PREPARCIÓN PARA EL PROCES",
+    "Sala" : "CM4",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PREPARCIÓN PARA EL PROCES",
+    "Sala" : "CM4",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT7",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT7",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT7",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT7",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IM3",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 9,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "SALINAS SOLARI JAV",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IC1",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IC1",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IC1",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IC1",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IC1",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "CM6",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "CM6",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IC1",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "VALDIVIESO VEGA CA",
+  "AsignaturasCompletadas" : 11,
+  "Solicitudes" : 4,
+  "Asignaturas" : [ {
+    "Nombre" : "TERRITORIO 3",
+    "Sala" : "KAUT4",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 3",
+    "Sala" : "IC8",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 3",
+    "Sala" : "KAUT7",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "IC8",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "CM5",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "KAUL1",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "CM3",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "CM5",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "KAUS3",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "CM5",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Sala" : "LAMB",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "BRICEÑO ROMERO WIL",
+  "AsignaturasCompletadas" : 5,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "CRP33",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "IC4",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "CRP33",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "K1",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Sala" : "IC4",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "MOYA HENRIQUEZ HEC",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUT3",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "IC1",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "CM3",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "IC1",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "IC4",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUT2",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUL1",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUT4",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "KAUT2",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Sala" : "LAMB",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ACUÑA NAVARRO DANI",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 3,
+  "Asignaturas" : [ {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Sala" : "D105",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Sala" : "KAUT1",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Sala" : "IM4",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Sala" : "IM3",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Sala" : "KAUT6",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "EVALUCION AMBIENTAL",
+    "Sala" : "KAUT6",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "EVALUCION AMBIENTAL",
+    "Sala" : "CM4",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "EVALUCION AMBIENTAL",
+    "Sala" : "KAUT6",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "GONZALEZ GALLEGOS",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IM2",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "KAUT3",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "KAUT1",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "KAUS5",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IOLAB",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IOLAB",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IOLAB",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IOLAB",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "SALAZAR PEREZ INGR",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "CM5",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "KAUT6",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "KAUT7",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "K1",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "KAUT7",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "KAUS2",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "K2",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "KAUT4",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "KAUT7",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "IM2",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "CRISÓSTOMO MARTÍNE",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "IC3",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "K1",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "LAMB",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "IM4",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "IC3",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "LAMB",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "KAUS1",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Sala" : "CRP43",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "AZÓCAR AZÓCAR PABL",
+  "AsignaturasCompletadas" : 15,
+  "Solicitudes" : 8,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 2",
+    "Sala" : "ANT21",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "A106",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "ANT21",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "ANT21",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "CM6",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "IC1",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "K2",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Sala" : "K2",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GEOMETRIA Y ARQUITECTURA",
+    "Sala" : "CM4",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GEOMETRIA Y ARQUITECTURA",
+    "Sala" : "ANT21",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "GEOMETRIA Y ARQUITECTURA",
+    "Sala" : "CM5",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRACTICA EN OFICINA",
+    "Sala" : "A106",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRACTICA EN OFICINA",
+    "Sala" : "A106",
+    "Bloque" : 4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRACTICA EN TERRENO",
+    "Sala" : "A106",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRACTICA EN TERRENO",
+    "Sala" : "ANT21",
+    "Bloque" : 2,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "AYALA ALCAZAR LUIS",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CM5",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC1",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUL1",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUL1",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CM6",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUS2",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC8",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "K3",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "K2",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC8",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "TASSARA GUTIERREZ",
+  "AsignaturasCompletadas" : 14,
+  "Solicitudes" : 5,
+  "Asignaturas" : [ {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Sala" : "KAUS2",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Sala" : "KAUS2",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Sala" : "K2",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Sala" : "KAUS2",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Sala" : "K2",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Sala" : "LAMB",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Sala" : "IM3",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Sala" : "KAUT2",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Sala" : "KAUS2",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Sala" : "K2",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Sala" : "CM3",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Sala" : "KAUS5",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Sala" : "E1",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Sala" : "KAUS2",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "MEZA ARRIAGADA CAT",
+  "AsignaturasCompletadas" : 6,
+  "Solicitudes" : 4,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 5",
+    "Sala" : "KAUT4",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 5",
+    "Sala" : "IM4",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 5",
+    "Sala" : "D105",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 6",
+    "Sala" : "KAUS5",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 6",
+    "Sala" : "KAUT4",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 6",
+    "Sala" : "KAUT6",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "OYARZUN SILVA MAUR",
+  "AsignaturasCompletadas" : 14,
+  "Solicitudes" : 6,
+  "Asignaturas" : [ {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Sala" : "IM3",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Sala" : "IM3",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Sala" : "IM3",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Sala" : "IM2",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Sala" : "KAUT7",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Sala" : "KAUS2",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT1",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT1",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT2",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT1",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Sala" : "KAUT3",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Sala" : "KAUT3",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Sala" : "KAUT3",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Sala" : "CRP33",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ARRIAZA SCHILLER R",
+  "AsignaturasCompletadas" : 6,
+  "Solicitudes" : 4,
+  "Asignaturas" : [ {
+    "Nombre" : "MATEMATICAS I",
+    "Sala" : "CRP33",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MATEMATICAS I",
+    "Sala" : "CRP43",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MATEMATICAS I",
+    "Sala" : "CRP43",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA ESTATICA",
+    "Sala" : "CM5",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA ESTATICA",
+    "Sala" : "CRP43",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA ESTATICA",
+    "Sala" : "CM4",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "PICEROS FUENTES ED",
+  "AsignaturasCompletadas" : 7,
+  "Solicitudes" : 3,
+  "Asignaturas" : [ {
+    "Nombre" : "TERMODINÁMICA",
+    "Sala" : "IC4",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Sala" : "IC4",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Sala" : "IC4",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Sala" : "CM3",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Sala" : "IC4",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Sala" : "E6",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Sala" : "CM5",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ARAVENA APPELT HÉC",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "K3",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "IM2",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT4",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "K3",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "D105",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "IC1",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "K3",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "IC4",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT5",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT5",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "MOYA SANDOVAL MARI",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "D105",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "IC4",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "KAUT2",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "IC2",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "IC3",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "CM6",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "E6",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Sala" : "A106",
+    "Bloque" : 9,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Nombre" : "BALCARCE SANTANDER",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT7",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT7",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT6",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT6",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT7",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT7",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT4",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "IM3",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "IM3",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Sala" : "KAUT4",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "CONTRERAS ROCO GER",
+  "AsignaturasCompletadas" : 4,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Sala" : "KAUT3",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Sala" : "KAUT3",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Sala" : "LAMB",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Sala" : "KAUT4",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "TRONCOSO CASTRO JO",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 4,
+  "Asignaturas" : [ {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "IM4",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "CRP43",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "CM4",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "CM4",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "KAUS1",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "CRP43",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "IC2",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "CM5",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "IC2",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "ANT21",
+    "Bloque" : 9,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Nombre" : "GUZMAN BUENO JUAN",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "KAUT5",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "D105",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "KAUT1",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "KAUS5",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "E6",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "KAUT2",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "CRP33",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "IC2",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "IC4",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "KAUT8",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Nombre" : "CARTES ARENAS FRAN",
+  "AsignaturasCompletadas" : 20,
+  "Solicitudes" : 7,
+  "Asignaturas" : [ {
+    "Nombre" : "MÉTODOS NUMÉRICOS",
+    "Sala" : "K3",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MÉTODOS NUMÉRICOS",
+    "Sala" : "K1",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Sala" : "KAUT2",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Sala" : "KAUT1",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Sala" : "KAUT1",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "KAUS2",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "CRP33",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "IC1",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Sala" : "CM5",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MÉTODOS NUMÉRICOS",
+    "Sala" : "CM5",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "K2",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUS5",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "K2",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT1",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "CM6",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "K1",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "E1",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "K2",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "CRP33",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "LAMB",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "CORTES CAMPOS EMEL",
+  "AsignaturasCompletadas" : 3,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Sala" : "KAUT3",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Sala" : "KAUT3",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Sala" : "KAUT3",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "ETCHEVERRY MUÑOZ S",
+  "AsignaturasCompletadas" : 4,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Sala" : "KAUS5",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Sala" : "IC4",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Sala" : "D105",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Sala" : "IC3",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "Docente Clave Guia",
+  "AsignaturasCompletadas" : 15,
+  "Solicitudes" : 17,
+  "Asignaturas" : [ {
+    "Nombre" : "CÁLCULO II",
+    "Sala" : "KAUT4",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Sala" : "KAUT4",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Sala" : "K2",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Sala" : "E6",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Sala" : "KAUS2",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Sala" : "K1",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "KAUT3",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "E6",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "IM3",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Sala" : "IC1",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Sala" : "A106",
+    "Bloque" : 9,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Sala" : "ANT21",
+    "Bloque" : 9,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Sala" : "A106",
+    "Bloque" : 9,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Sala" : "A106",
+    "Bloque" : 9,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Sala" : "KAUT7",
+    "Bloque" : 9,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "SARIAN GONZALEZ MA",
+  "AsignaturasCompletadas" : 20,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "KAUT8",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Sala" : "IM3",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "K1",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "IM3",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "E6",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "KAUT4",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "LAMB",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "KAUS5",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "E1",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "KAUT4",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "IC4",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Sala" : "KAUT5",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "VALENZUELA GROLLMU",
+  "AsignaturasCompletadas" : 11,
+  "Solicitudes" : 6,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 7",
+    "Sala" : "K3",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 7",
+    "Sala" : "KAUS2",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 7",
+    "Sala" : "E1",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 7",
+    "Sala" : "IC2",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 8",
+    "Sala" : "IC1",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 8",
+    "Sala" : "KAUT4",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 8",
+    "Sala" : "LAMB",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 8",
+    "Sala" : "IM2",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Sala" : "IC3",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Sala" : "KAUT5",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Sala" : "D105",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "RUZ ACUÑA KARINA E",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 4,
+  "Asignaturas" : [ {
+    "Nombre" : "ECONOMÍA",
+    "Sala" : "E6",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ECONOMÍA",
+    "Sala" : "LAMB",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ECONOMÍA",
+    "Sala" : "IM4",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "ECONOMÍA",
+    "Sala" : "LAMB",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Sala" : "KAUS1",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Sala" : "KAUS1",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Sala" : "KAUS1",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Sala" : "CRP43",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ZARZAR MAZA MIGUEL",
+  "AsignaturasCompletadas" : 4,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "KAUL1",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "IM4",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "CRP33",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Sala" : "KAUT3",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ICARTE AHUMADA GAB",
+  "AsignaturasCompletadas" : 9,
+  "Solicitudes" : 6,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Sala" : "K3",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Sala" : "IC1",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Sala" : "IM3",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Sala" : "KAUL1",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Sala" : "KAUL1",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Sala" : "K3",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Sala" : "KAUL1",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Sala" : "IC4",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT1",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "YÁÑEZ MUÑOZ RICARD",
+  "AsignaturasCompletadas" : 14,
+  "Solicitudes" : 8,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 3",
+    "Sala" : "ANT21",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Sala" : "A106",
+    "Bloque" : 2,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Sala" : "A106",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Sala" : "A106",
+    "Bloque" : 4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "A106",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "ANT21",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "A106",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Sala" : "A106",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONSTRUCCION 3",
+    "Sala" : "A106",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CONSTRUCCION 3",
+    "Sala" : "A106",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CONSTRUCCION 3",
+    "Sala" : "ANT21",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INSTALACIONES",
+    "Sala" : "ANT21",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INSTALACIONES",
+    "Sala" : "ANT21",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INSTALACIONES",
+    "Sala" : "ANT21",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Nombre" : "RAMÍREZ CASTILLO W",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "CM5",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "E1",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "K1",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "K3",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "E1",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "K1",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "K3",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "K3",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "CM3",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Sala" : "E1",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "SEGUEL PALMA FREDY",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "CM3",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "IC2",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "CRP33",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "IC4",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "LAMB",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "LAMB",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "CM3",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Sala" : "IC4",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "CARREÑO PASTRIAN E",
+  "AsignaturasCompletadas" : 11,
+  "Solicitudes" : 5,
+  "Asignaturas" : [ {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Sala" : "KAUT7",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Sala" : "KAUT7",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Sala" : "KAUT4",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Sala" : "IOLAB",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Sala" : "KAUT3",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRATAMIENTO DE EMISIONES",
+    "Sala" : "KAUS2",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRATAMIENTO DE EMISIONES",
+    "Sala" : "CM5",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRATAMIENTO DE EMISIONES",
+    "Sala" : "KAUS2",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CAMBIO CLIMÁTICO Y RESILE",
+    "Sala" : "KAUT8",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CAMBIO CLIMÁTICO Y RESILE",
+    "Sala" : "IOLAB",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CAMBIO CLIMÁTICO Y RESILE",
+    "Sala" : "ANT21",
+    "Bloque" : 9,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "GALLARDO CONTRERAS",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 3,
+  "Asignaturas" : [ {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Sala" : "KAUT4",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Sala" : "D105",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "KAUT1",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "E6",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "IC3",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "D105",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "KAUT1",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "IM4",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "CM4",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Sala" : "CM4",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "PIZARRO GIANI EUGE",
+  "AsignaturasCompletadas" : 20,
+  "Solicitudes" : 7,
+  "Asignaturas" : [ {
+    "Nombre" : "TRAMIENTO DE RESIDUOS LIQ",
+    "Sala" : "CRP43",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRAMIENTO DE RESIDUOS LIQ",
+    "Sala" : "KAUS1",
+    "Bloque" : 6,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRAMIENTO DE RESIDUOS LIQ",
+    "Sala" : "KAUS1",
+    "Bloque" : 8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "IC3",
+    "Bloque" : 1,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "IM4",
+    "Bloque" : 1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "K2",
+    "Bloque" : 1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "CM6",
+    "Bloque" : 1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "KAUT4",
+    "Bloque" : 3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "KAUT1",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "IC3",
+    "Bloque" : 3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "CM3",
+    "Bloque" : 1,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "CRP33",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Sala" : "K2",
+    "Bloque" : 3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Sala" : "KAUT7",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Sala" : "KAUT6",
+    "Bloque" : 6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Sala" : "KAUT6",
+    "Bloque" : 8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Sala" : "CM5",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT8",
+    "Bloque" : 9,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Sala" : "KAUT7",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Sala" : "IC8",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ZAPATA HERNÁNDEZ C",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT2",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUT8",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IM4",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUS1",
+    "Bloque" : 6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "KAUS1",
+    "Bloque" : 8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CM4",
+    "Bloque" : 8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "K3",
+    "Bloque" : 6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "CRP43",
+    "Bloque" : 6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "IC3",
+    "Bloque" : 8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Sala" : "ANT21",
+    "Bloque" : 9,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Nombre" : "CONTRERAS AGUILAR",
+  "AsignaturasCompletadas" : 8,
+  "Solicitudes" : 4,
+  "Asignaturas" : [ {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Sala" : "CM5",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Sala" : "IC8",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Sala" : "KAUL1",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Sala" : "IC3",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Sala" : "IC8",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Sala" : "IC8",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Sala" : "KAUS2",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Sala" : "IC8",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "ARCE RAMOS CHRISTI",
+  "AsignaturasCompletadas" : 10,
+  "Solicitudes" : 2,
+  "Asignaturas" : [ {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "D105",
+    "Bloque" : 5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "CM6",
+    "Bloque" : 7,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "KAUS3",
+    "Bloque" : 5,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "KAUS5",
+    "Bloque" : 5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "IC3",
+    "Bloque" : 5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "IM2",
+    "Bloque" : 7,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "KAUS5",
+    "Bloque" : 7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "IC1",
+    "Bloque" : 7,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "CM3",
+    "Bloque" : 5,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Sala" : "E6",
+    "Bloque" : 7,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Nombre" : "MORALES RIVAS FELI",
+  "AsignaturasCompletadas" : 3,
+  "Solicitudes" : 1,
+  "Asignaturas" : [ {
+    "Nombre" : "ADMINISTRACION DE RIESGO",
+    "Sala" : "IM4",
+    "Bloque" : 3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ADMINISTRACION DE RIESGO",
+    "Sala" : "IM4",
+    "Bloque" : 3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ADMINISTRACION DE RIESGO",
+    "Sala" : "IM4",
+    "Bloque" : 1,
+    "Dia" : "Martes",
     "Satisfaccion" : 10
   } ]
 } ]

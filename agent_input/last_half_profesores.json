@@ -1,0 +1,639 @@
+[
+    {
+        "RUT": "13647383-2",
+        "Nombre": "ARCE RAMOS CHRISTI",
+        "Turno": 40,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(INT82-J)",
+                "Nombre": "DESARROLLO Y EVALUACION D",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 19,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(INT82-I)",
+                "Nombre": "DESARROLLO Y EVALUACION D",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 11,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "13863035-8",
+        "Nombre": "OVALLE GAHONA MONI",
+        "Turno": 41,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(PRI65-AR)",
+                "Nombre": "VIGILANCIA EPIDEMIOLÓGICA",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 26,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "13864664-5",
+        "Nombre": "GONZALEZ GONZALEZ",
+        "Turno": 42,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(PRI63-AR)",
+                "Nombre": "HIGIENE OCUPACIONAL APLIC",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 30,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRI64-AR)",
+                "Nombre": "ERGONOMÍA",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 25,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "13865738-8",
+        "Nombre": "OYARZUN SILVA MAUR",
+        "Turno": 43,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(CCI65-A)",
+                "Nombre": "ANALISIS DE ALGORITMOS",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 1,
+                "Vacantes": 20,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(CCI65-A)",
+                "Nombre": "ANALISIS DE ALGORITMOS",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 3,
+                "Vacantes": 20,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(CCI95-A)",
+                "Nombre": "METODOLOGIA DE LA INVESTI",
+                "Nivel": 9,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 0,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(CCIA5-A)",
+                "Nombre": "TALLER DE TITULO",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 4,
+                "Vacantes": 28,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(IC10D-A)",
+                "Nombre": "ESTRUCTURA DE DATOS",
+                "Nivel": 1,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 17,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(IC10D-A)",
+                "Nombre": "ESTRUCTURA DE DATOS",
+                "Nivel": 1,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 17,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "13867264-6",
+        "Nombre": "TASSARA GUTIERREZ",
+        "Turno": 44,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(FIA53-A)",
+                "Nombre": "ONDAS Y ÓPTICA",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 4,
+                "Vacantes": 23,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(ICE44-A)",
+                "Nombre": "TEORÍA DE REDES I",
+                "Nivel": 4,
+                "Paralelo": "A",
+                "Horas": 1,
+                "Vacantes": 8,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(ICE44-A)",
+                "Nombre": "TEORÍA DE REDES I",
+                "Nivel": 4,
+                "Paralelo": "A",
+                "Horas": 3,
+                "Vacantes": 8,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(INT14-J)",
+                "Nombre": "FISICA I",
+                "Nivel": 1,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 22,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(INT34-J)",
+                "Nombre": "FISICA II",
+                "Nivel": 3,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 1,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "1390648-3",
+        "Nombre": "Docente Clave Guia",
+        "Turno": 45,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(PRO51-ON)",
+                "Nombre": "CÁLCULO II",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 3,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO51-ON)",
+                "Nombre": "CÁLCULO II",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 1,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO51-ON)",
+                "Nombre": "CÁLCULO II",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO52-ON)",
+                "Nombre": "LEGISLACIÓN DE SALUD Y SE",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 3,
+                "Vacantes": 0,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO52-ON)",
+                "Nombre": "LEGISLACIÓN DE SALUD Y SE",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 1,
+                "Vacantes": 0,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO52-ON)",
+                "Nombre": "LEGISLACIÓN DE SALUD Y SE",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 0,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO53-ON)",
+                "Nombre": "LEGISLACIÓN AMBIENTAL Y G",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 3,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO53-ON)",
+                "Nombre": "LEGISLACIÓN AMBIENTAL Y G",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO53-ON)",
+                "Nombre": "LEGISLACIÓN AMBIENTAL Y G",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 4,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO54-ON)",
+                "Nombre": "QUÍMICA INDUSTRIAL",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 3,
+                "Vacantes": 0,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO54-ON)",
+                "Nombre": "QUÍMICA INDUSTRIAL",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 1,
+                "Vacantes": 0,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO54-ON)",
+                "Nombre": "QUÍMICA INDUSTRIAL",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 0,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO55-ON)",
+                "Nombre": "LABORATORIO DE HIGIENE OC",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 6,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO55-ON)",
+                "Nombre": "LABORATORIO DE HIGIENE OC",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO55-ON)",
+                "Nombre": "LABORATORIO DE HIGIENE OC",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 4,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO56-ON)",
+                "Nombre": "TALLER DE INTEGRACIÓN INI",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 5,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRO56-ON)",
+                "Nombre": "TALLER DE INTEGRACIÓN INI",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 1,
+                "Vacantes": 5,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "13936825-8",
+        "Nombre": "RIVAS PEREZ JORGE",
+        "Turno": 46,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(INT52-S)",
+                "Nombre": "TERMODINAMICA",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 12,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(INT61-S)",
+                "Nombre": "MECANICA DE FLUIDOS",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 12,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRI61-S)",
+                "Nombre": "OPERACIONES UNITARIA",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 22,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14102275-K",
+        "Nombre": "CORTES REYES FABIA",
+        "Turno": 47,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(PRI62-AR)",
+                "Nombre": "LEGISLACIÓN DE SALUD Y SE",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 23,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14106180-1",
+        "Nombre": "MOYA HENRIQUEZ HEC",
+        "Turno": 48,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(INT72-I)",
+                "Nombre": "GESTION DE PERSONAS II",
+                "Nivel": 7,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 17,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14107843-7",
+        "Nombre": "PEDREROS REYES MAN",
+        "Turno": 49,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(ARQ62-A)",
+                "Nombre": "URBANISMO 1",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 18,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(ARQ82-A)",
+                "Nombre": "URBANISMO 3",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 1,
+                "Vacantes": 22,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(ARQ82-A)",
+                "Nombre": "URBANISMO 3",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 22,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14109116-6",
+        "Nombre": "BRICEÑO ROMERO WIL",
+        "Turno": 50,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(FIA14-C)",
+                "Nombre": "INTRODUCCIÓN A LA INGENIE",
+                "Nivel": 1,
+                "Paralelo": "A",
+                "Horas": 3,
+                "Vacantes": 63,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(FIA14-C)",
+                "Nombre": "INTRODUCCIÓN A LA INGENIE",
+                "Nivel": 1,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 63,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14113881-2",
+        "Nombre": "SARIAN GONZALEZ MA",
+        "Turno": 51,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(INT51-S)",
+                "Nombre": "MICROECONOMIA",
+                "Nivel": 5,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 10,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRI81-S)",
+                "Nombre": "METODOLOGÍAS DE INVESTIGA",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 16,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14151235-8",
+        "Nombre": "LLANCA RIQUELME PA",
+        "Turno": 52,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(PRI84-AR)",
+                "Nombre": "TÉCNICAS DE NEGOCIACIÓN Y",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 20,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14174336-8",
+        "Nombre": "GUZMAN BUENO JUAN",
+        "Turno": 53,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(INT42-S)",
+                "Nombre": "CONTABILIDAD Y SISTEMAS D",
+                "Nivel": 4,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 11,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14244700-2",
+        "Nombre": "SEGUEL PALMA FREDY",
+        "Turno": 54,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(PRI65-DV1)",
+                "Nombre": "VIGILANCIA EPIDEMIOLÓGICA",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 38,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRI65-DV2)",
+                "Nombre": "VIGILANCIA EPIDEMIOLÓGICA",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 37,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14295142-8",
+        "Nombre": "MOYA SANDOVAL MARI",
+        "Turno": 55,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(INT43-FA)",
+                "Nombre": "TEORIA DE SISTEMAS",
+                "Nivel": 4,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 22,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(INT68-FB)",
+                "Nombre": "PRODUCCION II",
+                "Nivel": 6,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 21,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14408780-1",
+        "Nombre": "ETCHEVERRY MUÑOZ S",
+        "Turno": 56,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(CCIA4-A)",
+                "Nombre": "LIDERAZGO Y EMPRENDIMIENT",
+                "Nivel": 4,
+                "Paralelo": "A",
+                "Horas": 4,
+                "Vacantes": 23,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14452655-4",
+        "Nombre": "CRISÓSTOMO MARTÍNE",
+        "Turno": 57,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(PRI82-EEE)",
+                "Nombre": "SISTEMAS DE GESTIÓN DE CA",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 39,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(PRI82-HHH)",
+                "Nombre": "SISTEMAS DE GESTIÓN DE CA",
+                "Nivel": 8,
+                "Paralelo": "A",
+                "Horas": 12,
+                "Vacantes": 37,
+                "Campus": "Playa Brava"
+            }
+        ]
+    },
+    {
+        "RUT": "14459316-2",
+        "Nombre": "CRUCES CASTILLO JO",
+        "Turno": 58,
+        "Asignaturas": [
+            {
+                "CodigoAsignatura": "(CCIA3-A)",
+                "Nombre": "GESTION DE CALIDAD DE SOF",
+                "Nivel": 3,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 24,
+                "Campus": "Playa Brava"
+            },
+            {
+                "CodigoAsignatura": "(CCIA3-A)",
+                "Nombre": "GESTION DE CALIDAD DE SOF",
+                "Nivel": 3,
+                "Paralelo": "A",
+                "Horas": 2,
+                "Vacantes": 24,
+                "Campus": "Playa Brava"
+            }
+        ]
+    }
+]
