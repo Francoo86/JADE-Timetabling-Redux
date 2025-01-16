@@ -57,9 +57,13 @@ public class AgenteProfesor extends Agent {
                 .mapToInt(Asignatura::getHoras)
                 .sum();
 
-        if (horasTotales >= 16 && horasTotales <= 18) {
+        return inferirTipoContrato(horasTotales);
+    }
+
+    public static TipoContrato inferirTipoContrato(int totalHours) {
+        if (totalHours >= 16 && totalHours <= 18) {
             return TipoContrato.JORNADA_COMPLETA;
-        } else if (horasTotales >= 12 && horasTotales <= 14) {
+        } else if (totalHours >= 12 && totalHours <= 14) {
             return TipoContrato.MEDIA_JORNADA;
         } else {
             return TipoContrato.JORNADA_PARCIAL;
