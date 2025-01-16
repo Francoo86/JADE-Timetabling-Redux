@@ -51,7 +51,7 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                 }
             }
         } else {
-            block();
+            block(50);
         }
     }
 }
