@@ -5,8 +5,7 @@ import objetos.AsignacionSala;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -14,40 +13,17 @@ import java.util.concurrent.locks.ReentrantLock;
 public class SalaHorarioJSON {
     private static SalaHorarioJSON instance;
     private static final ReentrantLock instanceLock = new ReentrantLock();
-
-    // Threshold for number of updates before writing to disk
     private static final int WRITE_THRESHOLD = 20;
-
-    // In-memory storage of pending updates
     private final Map<String, JSONObject> pendingUpdates;
+    private final Set<String> allRoomCodes;
     private final AtomicInteger updateCount;
-
-    // Lock for file writing operations
     private final ReentrantLock writeLock;
 
     private SalaHorarioJSON() {
         pendingUpdates = new ConcurrentHashMap<>();
+        allRoomCodes = ConcurrentHashMap.newKeySet();
         updateCount = new AtomicInteger(0);
         writeLock = new ReentrantLock();
-    }
-
-    public void generarArchivoJSON() {
-        writeLock.lock();
-        try {
-            // Force write any pending updates first
-            flushUpdates();
-
-            // Then do the final write of everything
-            JSONArray jsonArray = new JSONArray();
-            jsonArray.addAll(pendingUpdates.values());
-
-            if (!jsonArray.isEmpty()) {
-                JSONHelper.writeJsonFile("Horarios_salas.json", jsonArray);
-                System.out.println("Generated final Horarios_salas.json with " + pendingUpdates.size() + " salas");
-            }
-        } finally {
-            writeLock.unlock();
-        }
     }
 
     public static SalaHorarioJSON getInstance() {
@@ -64,20 +40,42 @@ public class SalaHorarioJSON {
         return instance;
     }
 
+// In SalaHorarioJSON.java
+
     public void agregarHorarioSala(String codigo, String campus, Map<Day, List<AsignacionSala>> horario) {
         try {
+            System.out.println("[DEBUG] Adding/updating schedule for room " + codigo);
+
+            // Count assignments before creating JSON
+            int assignmentCount = 0;
+            for (List<AsignacionSala> dayAssignments : horario.values()) {
+                for (AsignacionSala assignment : dayAssignments) {
+                    if (assignment != null) {
+                        assignmentCount++;
+                    }
+                }
+            }
+
+            System.out.println("[DEBUG] Room " + codigo + " has " + assignmentCount + " total assignments");
+
             // Create JSON for this update
             JSONObject salaJSON = createSalaJSON(codigo, campus, horario);
+            JSONArray asignaturas = (JSONArray) salaJSON.get("Asignaturas");
+
+            System.out.println("[DEBUG] Created JSON object for room " + codigo +
+                    " with " + asignaturas.size() + " assignments");
 
             // Store update in memory
             pendingUpdates.put(codigo, salaJSON);
+            allRoomCodes.add(codigo);
 
             // Check if we should write to disk
             if (updateCount.incrementAndGet() >= WRITE_THRESHOLD) {
+                System.out.println("[DEBUG] Threshold reached, flushing updates");
                 flushUpdates();
             }
         } catch (Exception e) {
-            System.err.println("Error adding classroom schedule: " + e.getMessage());
+            System.err.println("[ERROR] Error adding classroom schedule for " + codigo + ": " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -111,29 +109,60 @@ public class SalaHorarioJSON {
         return salaJSON;
     }
 
+    private JSONObject createEmptySalaJSON(String codigo) {
+        JSONObject salaJSON = new JSONObject();
+        salaJSON.put("Codigo", codigo);
+        salaJSON.put("Asignaturas", new JSONArray());
+        return salaJSON;
+    }
+
+    public void generarArchivoJSON() {
+        writeLock.lock();
+        try {
+            flushUpdates();
+
+            JSONArray jsonArray = new JSONArray();
+
+            for (String roomCode : allRoomCodes) {
+                JSONObject salaJSON = pendingUpdates.getOrDefault(roomCode, createEmptySalaJSON(roomCode));
+                jsonArray.add(salaJSON);
+            }
+
+            if (!jsonArray.isEmpty()) {
+                JSONHelper.writeJsonFile("Horarios_salas.json", jsonArray);
+                System.out.println("Generated final Horarios_salas.json with " + jsonArray.size() + " salas");
+
+                for (Object obj : jsonArray) {
+                    JSONObject sala = (JSONObject) obj;
+                    String codigo = (String) sala.get("Codigo");
+                    JSONArray asignaturas = (JSONArray) sala.get("Asignaturas");
+                    System.out.println("Room " + codigo + ": " +
+                            (asignaturas != null ? asignaturas.size() : 0) + " assignments");
+                }
+            }
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
     private void flushUpdates() {
-        // Try to acquire write lock - if can't get it immediately, skip this flush
         if (!writeLock.tryLock()) {
             return;
         }
 
         try {
-            // Check if there are any updates to write
             if (pendingUpdates.isEmpty()) {
                 return;
             }
 
-            // Create JSON array with all pending updates
             JSONArray jsonArray = new JSONArray();
             jsonArray.addAll(pendingUpdates.values());
 
-            // Write to file
             if (!jsonArray.isEmpty()) {
                 JSONHelper.writeJsonFile("Horarios_salas.json", jsonArray);
                 System.out.println("Successfully wrote " + pendingUpdates.size() + " classroom schedules to file");
             }
 
-            // Clear pending updates and reset counter
             pendingUpdates.clear();
             updateCount.set(0);
 
@@ -145,7 +174,6 @@ public class SalaHorarioJSON {
         }
     }
 
-    // Force write all pending updates - called during cleanup
     public void forceFlush() {
         writeLock.lock();
         try {
@@ -155,23 +183,20 @@ public class SalaHorarioJSON {
         }
     }
 
-    // Get current number of pending updates
     public int getPendingUpdateCount() {
         return pendingUpdates.size();
     }
 
-    // Generate summary of assignments
     public void printAssignmentSummary() {
         writeLock.lock();
         try {
-            // Force write any pending updates before generating summary
             flushUpdates();
 
             for (JSONObject sala : pendingUpdates.values()) {
                 String codigo = (String) sala.get("Codigo");
                 JSONArray asignaturas = (JSONArray) sala.get("Asignaturas");
-                System.out.println("Sala " + codigo + ": " +
-                        (asignaturas != null ? asignaturas.size() : 0) + " asignaturas asignadas");
+                System.out.println("Room " + codigo + ": " +
+                        (asignaturas != null ? asignaturas.size() : 0) + " assignments");
             }
         } finally {
             writeLock.unlock();
