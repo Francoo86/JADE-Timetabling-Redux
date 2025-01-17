@@ -3,6 +3,7 @@ package behaviours;
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
 import constants.Commons;
+import constants.enums.Actividad;
 import constants.enums.Day;
 import constants.enums.TipoContrato;
 import debugscreens.ProfessorDebugViewer;
@@ -483,11 +484,43 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             Day day = entry.getKey();
             List<BatchProposal.BlockProposal> blocks = entry.getValue();
 
-            // Check block limit per day
+            // Get all blocks for this subject on this day
             Map<String, List<Integer>> asignaturasEnDia = profesor.getBlocksByDay(day);
             List<Integer> existingBlocks = asignaturasEnDia.get(asignaturaNombre);
+
+            // Check block limit per day
             if (existingBlocks != null && existingBlocks.size() >= 2) {
                 continue;
+            }
+
+            // Extract proposed block numbers for validation
+            List<Integer> proposedBlocks = blocks.stream()
+                    .map(BatchProposal.BlockProposal::getBlock)
+                    .collect(Collectors.toList());
+
+            // Skip if activity duration constraint would be violated
+            // (Unless it's a lab or workshop)
+            if (asignatura.getActividad() != Actividad.LABORATORIO &&
+                    asignatura.getActividad() != Actividad.TALLER) {
+
+                // Check for continuous blocks in proposed blocks
+                List<Integer> sortedBlocks = new ArrayList<>(proposedBlocks);
+                if (existingBlocks != null) {
+                    sortedBlocks.addAll(existingBlocks);
+                }
+                Collections.sort(sortedBlocks);
+
+                int continuousCount = 1;
+                for (int i = 1; i < sortedBlocks.size(); i++) {
+                    if (sortedBlocks.get(i) == sortedBlocks.get(i-1) + 1) {
+                        continuousCount++;
+                        if (continuousCount > 2) {
+                            continue;  // Skip this day if it would create >2 continuous hours
+                        }
+                    } else {
+                        continuousCount = 1;
+                    }
+                }
             }
 
             // Validate each block in the day
@@ -880,10 +913,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                     .forEach(room -> cfp.addReceiver(room.getName()));
 
             profesor.send(cfp);
-
-            // Send the message
-            profesor.send(cfp);
-
         } catch (Exception e) {
             System.err.println("Error sending proposal requests: " + e.getMessage());
             e.printStackTrace();
