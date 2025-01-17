@@ -30,7 +30,7 @@ class ScheduleValidator:
     @staticmethod
     def is_workshop_or_lab(subject_name: str) -> bool:
         return any(keyword in subject_name.upper() 
-                  for keyword in ['TALLER', 'LABORATORIO'])
+                  for keyword in ['TAL', 'LAB'])
 
     @staticmethod
     def get_campus_from_room(room_code: str) -> str:
@@ -57,7 +57,7 @@ class ScheduleValidator:
                      if a['Nombre'] == assignment['Nombre']]
         if not self.validate_continuous_blocks(
             day_blocks, 
-            self.is_workshop_or_lab(assignment['Nombre'])
+            self.is_workshop_or_lab(subject_info['Actividad'])
         ):
             violations.append(ConstraintViolation(
                 2,
