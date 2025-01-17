@@ -331,13 +331,19 @@ public class AgenteSala extends Agent {
                 BatchAssignmentRequest batchRequest = (BatchAssignmentRequest) msg.getContentObject();
                 List<BatchAssignmentConfirmation.ConfirmedAssignment> confirmedAssignments = new ArrayList<>();
 
+                System.out.println("\n[DEBUG] Room " + codigo + " processing assignment request");
+
                 for (BatchAssignmentRequest.AssignmentRequest request : batchRequest.getAssignments()) {
                     if (!request.getClassroomCode().equals(codigo)) {
+                        System.out.println("[DEBUG] Skipping request for different room: " + request.getClassroomCode());
                         continue;
                     }
 
                     int bloque = request.getBlock() - 1;
                     List<AsignacionSala> asignaciones = horarioOcupado.get(request.getDay());
+
+                    System.out.println("[DEBUG] Processing request for " + request.getSubjectName() +
+                            " Day: " + request.getDay() + " Block: " + request.getBlock());
 
                     if (asignaciones != null && bloque >= 0 && bloque < asignaciones.size() &&
                             asignaciones.get(bloque) == null) {
@@ -356,11 +362,21 @@ public class AgenteSala extends Agent {
                                 codigo,
                                 request.getSatisfaction()
                         ));
+
+                        System.out.println("[DEBUG] Successfully assigned " + request.getSubjectName() +
+                                " to block " + request.getBlock() + " on " + request.getDay());
+                    } else {
+                        System.out.println("[DEBUG] Could not assign - asignaciones null? " + (asignaciones == null) +
+                                " valid block? " + (bloque >= 0 && bloque < (asignaciones != null ? asignaciones.size() : 0)) +
+                                " block empty? " + (asignaciones != null && bloque >= 0 &&
+                                bloque < asignaciones.size() && asignaciones.get(bloque) == null));
                     }
                 }
 
                 // Update JSON after batch processing
                 if (!confirmedAssignments.isEmpty()) {
+                    verifyAssignments(confirmedAssignments);
+
                     SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
 
                     // Send single confirmation with all successful assignments
@@ -373,6 +389,19 @@ public class AgenteSala extends Agent {
             } catch (Exception e) {
                 System.err.println("Error procesando confirmación en sala " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private void verifyAssignments(List<BatchAssignmentConfirmation.ConfirmedAssignment> assignments) {
+        for (BatchAssignmentConfirmation.ConfirmedAssignment assignment : assignments) {
+            Day day = assignment.getDay();
+            int block = assignment.getBlock() - 1;
+
+            List<AsignacionSala> dayAssignments = horarioOcupado.get(day);
+            if (dayAssignments == null || dayAssignments.get(block) == null) {
+                System.err.println("WARNING: Assignment verification failed for room " +
+                        codigo + " on " + day + " block " + assignment.getBlock());
             }
         }
     }
