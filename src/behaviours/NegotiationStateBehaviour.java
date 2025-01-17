@@ -302,7 +302,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                         currentCampus,
                         blockProposal.getBlock(),
                         currentSchedule,
-                        profesor.getTipoContrato()
+                        profesor.getTipoContrato(),
+                        currentSubject.getActividad()
                 );
                 proposal.setSatisfactionScore(satisfaction);
             }

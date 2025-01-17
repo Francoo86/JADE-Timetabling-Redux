@@ -1,9 +1,9 @@
 package service;
 
-import agentes.AgenteProfesor;
 import constants.Commons;
 import constants.enums.Day;
 import constants.enums.TipoContrato;
+import constants.enums.Actividad;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,10 +18,12 @@ public class TimetablingEvaluator {
     private static final int MAX_STUDENTS = 70;
 
     // Weights for different constraints
-    private static final double CAPACITY_WEIGHT = 0.30;
-    private static final double TIME_SLOT_WEIGHT = 0.25;
-    private static final double CAMPUS_WEIGHT = 0.25;
-    private static final double CONTINUITY_WEIGHT = 0.20;
+    private static final double CAPACITY_WEIGHT = 0.25;
+    private static final double TIME_SLOT_WEIGHT = 0.20;
+    private static final double CAMPUS_WEIGHT = 0.20;
+    private static final double CONTINUITY_WEIGHT = 0.15;
+    private static final double ACTIVITY_TYPE_WEIGHT = 0.20;
+
     public static final int MEETING_ROOM_THRESHOLD = 10;
 
     public static int calculateSatisfaction(
@@ -32,33 +34,47 @@ public class TimetablingEvaluator {
             String preferredCampus,
             int block,
             Map<Day, List<Integer>> existingBlocks,
-            TipoContrato contrato) {
-            //int totalHours) {
+            TipoContrato contrato,
+            Actividad activity) {
 
-        // Constraint 8: Contar los limites de estudiantes.
-        // Se considerara el uso de las salas de clases para aquellas actividades curriculares que contemplen de nueve hasta setenta estudiantes.
-        // Aquellas que tengan un numero inferior a nueve, deberan utilizar salas de reuniones.
-        // Aquellas actividades curriculares que tengan un numero de estudaintes que sobrepase la capacidad de las aulas dispuestas
-        // en el campus (70), deberan dividirse en paralelos equivalentes
-
-        //FIXME: Esto tiene un problema con las salas de reuniones, ya que no se consideran en el calculo de la satisfaccion.
-        if (studentsCount < MIN_STUDENTS || studentsCount > MAX_STUDENTS) {
-            return 1;
+        // Critical capacity violation - when students exceed room capacity
+        if (studentsCount > roomCapacity) {
+            return 1; // This is a hard constraint violation
         }
 
-        //TipoContrato contrato = AgenteProfesor.inferirTipoContrato(totalHours);
+        // Small class handling - return base satisfaction of 3 for appropriate small class placement
+        if (studentsCount < MIN_STUDENTS) {
+            if (roomCapacity < MEETING_ROOM_THRESHOLD) {
+                // Small class in appropriate small room
+                double meetingRoomRatio = (double) studentsCount / roomCapacity;
+                if (meetingRoomRatio >= 0.5 && meetingRoomRatio <= 0.9) {
+                    return 5; // Good fit for small class
+                } else {
+                    return 3; // Acceptable but not optimal
+                }
+            } else {
+                return 2; // Small class in regular room - not ideal
+            }
+        }
+
+        // Very large class check
+        if (studentsCount > MAX_STUDENTS) {
+            return 2; // Should be split into parallel sections
+        }
 
         double capacityScore = evaluateCapacity(roomCapacity, studentsCount);
         double timeSlotScore = evaluateTimeSlot(nivel, block);
         double campusScore = evaluateCampus(campus, preferredCampus, existingBlocks);
         double continuityScore = evaluateContinuity(existingBlocks, contrato);
+        double activityScore = evaluateActivityType(activity, block);
 
         // Calculate weighted average
         double weightedScore = (
                 capacityScore * CAPACITY_WEIGHT +
                         timeSlotScore * TIME_SLOT_WEIGHT +
                         campusScore * CAMPUS_WEIGHT +
-                        continuityScore * CONTINUITY_WEIGHT
+                        continuityScore * CONTINUITY_WEIGHT +
+                        activityScore * ACTIVITY_TYPE_WEIGHT
         ) * 10;
 
         // Round to nearest integer and ensure score is between 1-10
@@ -68,7 +84,6 @@ public class TimetablingEvaluator {
     private static double evaluateCapacity(int roomCapacity, int studentsCount) {
         if (studentsCount < MEETING_ROOM_THRESHOLD) {
             if (roomCapacity < MEETING_ROOM_THRESHOLD) {
-                // Meeting room - use stricter ratio
                 double meetingRoomRatio = (double) studentsCount / roomCapacity;
                 if (meetingRoomRatio >= 0.5 && meetingRoomRatio <= 0.9) {
                     return 1.0; // Perfect fit for small class in meeting room
@@ -76,11 +91,10 @@ public class TimetablingEvaluator {
                     return 0.8; // Still good for meeting room
                 }
             } else {
-                // Regular room - be more lenient
                 if (roomCapacity <= studentsCount * 5) {
-                    return 0.8; // Acceptable if room isn't too oversized
+                    return 0.7; // Acceptable if room isn't too oversized
                 } else {
-                    return 0.6; // Penalty for very oversized room
+                    return 0.5; // Penalty for very oversized room
                 }
             }
         }
@@ -91,13 +105,17 @@ public class TimetablingEvaluator {
         if (occupancyRatio >= OPTIMAL_OCCUPANCY_MIN && occupancyRatio <= OPTIMAL_OCCUPANCY_MAX) {
             return 1.0;
         }
-        // Overcrowded: >95% capacity
-        else if (occupancyRatio > OPTIMAL_OCCUPANCY_MAX) {
-            return 0.6;
-        }
         // Underutilized: <75% capacity
-        else {
+        else if (occupancyRatio < OPTIMAL_OCCUPANCY_MIN) {
             return 0.7 + (occupancyRatio / OPTIMAL_OCCUPANCY_MIN) * 0.3;
+        }
+        // Near capacity: >95% but <= 100%
+        else if (occupancyRatio <= 1.0) {
+            return 0.8;
+        }
+        // Over capacity should never happen as it's caught earlier
+        else {
+            return 0.1;
         }
     }
 
@@ -124,6 +142,28 @@ public class TimetablingEvaluator {
         }
     }
 
+    private static double evaluateActivityType(Actividad activity, int block) {
+        // Constraint 2: Theory classes in morning blocks (1-4)
+        if (activity == Actividad.TEORIA) {
+            return block <= 4 ? 1.0 : 0.6;
+        }
+
+        // Labs/workshops/practices better in afternoon to allow prep time
+        if (activity == Actividad.LABORATORIO ||
+                activity == Actividad.TALLER ||
+                activity == Actividad.PRACTICA) {
+            return block >= 5 ? 1.0 : 0.7;
+        }
+
+        // Ayudantias and Tutorias are more flexible
+        if (activity == Actividad.AYUDANTIA ||
+                activity == Actividad.TUTORIA) {
+            return 1.0;
+        }
+
+        return 0.8; // Default case
+    }
+
     private static double evaluateCampus(
             String campus,
             String preferredCampus,
@@ -147,7 +187,7 @@ public class TimetablingEvaluator {
     private static double evaluateContinuity(Map<Day, List<Integer>> existingBlocks,
                                              TipoContrato tipoContrato) {
         if (tipoContrato == TipoContrato.JORNADA_PARCIAL) {
-            return 1.0; // No aplicar restricción para jornada parcial
+            return 1.0; // No continuity restrictions for part-time
         }
 
         double score = 1.0;
@@ -157,38 +197,21 @@ public class TimetablingEvaluator {
             List<Integer> sortedBlocks = new ArrayList<>(blocks);
             Collections.sort(sortedBlocks);
 
-            // Evaluar gaps entre bloques
+            // Evaluate gaps between blocks
             for (int i = 1; i < sortedBlocks.size(); i++) {
                 int gap = sortedBlocks.get(i) - sortedBlocks.get(i-1) - 1;
 
                 if (gap > 1) {
-                    // Penalizar más de un bloque libre
+                    // Penalize more than one free block
                     score *= 0.6;
                 } else if (gap == 1) {
-                    // Un bloque libre es aceptable pero no óptimo
+                    // One free block is acceptable but not optimal
                     score *= 0.9;
                 }
-                // Bloques consecutivos mantienen score = 1.0
+                // Consecutive blocks maintain score = 1.0
             }
         }
 
         return score;
     }
-    /*
-    private static double evaluateContinuity(Map<Day, List<Integer>> existingBlocks) {
-        // Constraint 6: Avoid large gaps
-        boolean hasLargeGaps = existingBlocks.values().stream()
-                .anyMatch(blocks -> {
-                    if (blocks.size() < 2) return false;
-                    blocks.sort(null);
-                    for (int i = 1; i < blocks.size(); i++) {
-                        if (blocks.get(i) - blocks.get(i-1) > 2) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-
-        return hasLargeGaps ? 0.6 : 1.0;
-    }*/
 }
