@@ -406,6 +406,7 @@ public class AgenteProfesor extends Agent {
         asignatura.put("Satisfaccion", satisfaccion);
         asignatura.put("CodigoAsignatura", currentSubject.getCodigoAsignatura());
         asignatura.put("Instance", currentInstanceIndex); // or currentInstanceIndex if you have it
+        asignatura.put("Actividad", currentSubject.getActividad().toString());
 
         ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
     }
