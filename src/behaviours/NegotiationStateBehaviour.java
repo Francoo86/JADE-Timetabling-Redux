@@ -31,6 +31,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class NegotiationStateBehaviour extends TickerBehaviour {
+    private static final int MEETING_ROOM_THRESHOLD = 10;
     private final AgenteProfesor profesor;
     private final ConcurrentLinkedQueue<BatchProposal> propuestas;
     private NegotiationState currentState;
@@ -208,20 +209,57 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         String currentCampus = currentSubject.getCampus();
         int currentNivel = currentSubject.getNivel();
         String currentAsignaturaNombre = currentSubject.getNombre();
+        boolean needsMeetingRoom = currentSubject.getVacantes() < MEETING_ROOM_THRESHOLD;
 
-        // Track current schedule state
+        // Get current schedule info
         Map<Day, List<Integer>> currentSchedule = profesor.getBlocksBySubject(currentAsignaturaNombre);
         Map<String, Integer> roomUsage = new HashMap<>();
         Map<Day, Integer> blocksPerDay = new HashMap<>();
+        String mostUsedRoom = calculateMostUsedRoom(currentSchedule, blocksPerDay, roomUsage);
+
+        ArrayList<BatchProposalScore> scoredProposals = new ArrayList<>();
+
+        // Process each proposal
+        for (BatchProposal proposal : proposals) {
+            if (!isValidProposal(proposal, currentSubject, currentNivel, needsMeetingRoom, currentAsignaturaNombre)) {
+                continue;
+            }
+
+            int totalScore = calculateTotalScore(
+                    proposal, currentSubject, currentCampus, currentNivel,
+                    needsMeetingRoom, blocksPerDay, mostUsedRoom, roomUsage,
+                    currentSchedule
+            );
+
+            if (totalScore > 0) {
+                scoredProposals.add(new BatchProposalScore(proposal, totalScore));
+            }
+        }
+
+        if (scoredProposals.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Sort by final scores
+        scoredProposals.sort((ps1, ps2) -> ps2.score - ps1.score);
+
+        return scoredProposals.stream()
+                .map(ps -> ps.proposal)
+                .collect(Collectors.toList());
+    }
+
+    private String calculateMostUsedRoom(
+            Map<Day, List<Integer>> currentSchedule,
+            Map<Day, Integer> blocksPerDay,
+            Map<String, Integer> roomUsage) {
+
         String mostUsedRoom = null;
 
-        // Calculate current room and day usage
         for (Map.Entry<Day, List<Integer>> entry : currentSchedule.entrySet()) {
             Day day = entry.getKey();
             List<Integer> blocks = entry.getValue();
             blocksPerDay.put(day, blocks.size());
 
-            // Get room usage and track most used room
             for (int block : blocks) {
                 BloqueInfo info = profesor.getBloqueInfo(day, block);
                 if (info != null) {
@@ -233,109 +271,194 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 }
             }
         }
+        return mostUsedRoom;
+    }
 
-        // Pre-calculate common values
-        boolean isOddYear = currentNivel % 2 == 1;
-
-        ArrayList<BatchProposalScore> scoredProposals = new ArrayList<>();
-
-        // Filter and score proposals
-        for (BatchProposal proposal : proposals) {
-            if (!isValidProposalFast(proposal, currentSubject, isOddYear, currentAsignaturaNombre)) {
-                continue;
+    private boolean validateGapsForProposal(BatchProposal proposal) {
+        for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry :
+                proposal.getDayProposals().entrySet()) {
+            if (!validateConsecutiveGaps(entry.getKey(), entry.getValue())) {
+                return false;
             }
+        }
+        return true;
+    }
+    private void calculateSatisfactionScores(
+            BatchProposal proposal,
+            Asignatura currentSubject,
+            String currentCampus,
+            int currentNivel,
+            Map<Day, List<Integer>> currentSchedule) {
 
-            boolean validGaps = true;
-            for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry :
-                    proposal.getDayProposals().entrySet()) {
-                if (!validateConsecutiveGaps(entry.getKey(), entry.getValue())) {
-                    validGaps = false;
-                    break;
-                }
+        for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry :
+                proposal.getDayProposals().entrySet()) {
+            for (BatchProposal.BlockProposal blockProposal : entry.getValue()) {
+                int satisfaction = TimetablingEvaluator.calculateSatisfaction(
+                        proposal.getCapacity(),
+                        currentSubject.getVacantes(),
+                        currentNivel,
+                        proposal.getCampus(),
+                        currentCampus,
+                        blockProposal.getBlock(),
+                        currentSchedule,
+                        profesor.getTipoContrato()
+                );
+                proposal.setSatisfactionScore(satisfaction);
             }
+        }
+    }
 
-            if (!validGaps) {
-                continue;
-            }
+    private boolean isValidProposal(
+            BatchProposal proposal,
+            Asignatura currentSubject,
+            int currentNivel,
+            boolean needsMeetingRoom,
+            String currentAsignaturaNombre) {
 
-            // Calculate satisfaction for each block in the proposal
-            for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry : proposal.getDayProposals().entrySet()) {
-                for (BatchProposal.BlockProposal blockProposal : entry.getValue()) {
-                    // Calculate satisfaction using TimetablingEvaluator
-                    int satisfaction = TimetablingEvaluator.calculateSatisfaction(
-                            proposal.getCapacity(),
-                            currentSubject.getVacantes(),
-                            currentNivel,
-                            proposal.getCampus(),
-                            currentCampus,
-                            blockProposal.getBlock(),
-                            currentSchedule,
-                            profesor.getTipoContrato()
-                    );
-                    proposal.setSatisfactionScore(satisfaction);
-                }
-            }
+        boolean isMeetingRoom = proposal.getCapacity() < MEETING_ROOM_THRESHOLD;
 
-            Map<Day, List<BatchProposal.BlockProposal>> dayProposals = proposal.getDayProposals();
-            int totalScore = calculateProposalScore(proposal, currentCampus, currentNivel, currentSubject);
-
-            for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry : dayProposals.entrySet()) {
-                Day proposalDay = entry.getKey();
-                int dayUsage = blocksPerDay.getOrDefault(proposalDay, 0);
-
-                // Day-based scoring
-                totalScore -= dayUsage * 6000;  // Penalty for same-day assignments
-
-                if (!blocksPerDay.containsKey(proposalDay)) {
-                    totalScore += 8000;  // Bonus for new days
-                }
-
-                // Room consistency scoring
-                if (proposal.getRoomCode().equals(mostUsedRoom)) {
-                    totalScore += 7000;
-                }
-
-                if (!proposal.getRoomCode().startsWith(currentCampus.substring(0, 1))) {
-                    totalScore -= 10000;
-                }
-
-                // Penalize room changes
-                int roomCount = roomUsage.getOrDefault(proposal.getRoomCode(), 0);
-                totalScore -= roomCount * 1500;
-
-                // Campus transition penalty
-                if (!proposal.getRoomCode().startsWith(currentCampus.substring(0, 1))) {
-                    for (BatchProposal.BlockProposal block : entry.getValue()) {
-                        BloqueInfo prevBlock = profesor.getBloqueInfo(proposalDay, block.getBlock() - 1);
-                        BloqueInfo nextBlock = profesor.getBloqueInfo(proposalDay, block.getBlock() + 1);
-
-                        if ((prevBlock != null && !prevBlock.getCampus().equals(currentCampus)) ||
-                                (nextBlock != null && !nextBlock.getCampus().equals(currentCampus))) {
-                            totalScore -= 8000;
-                        }
-                    }
-                }
-
-                // Penalty for too many blocks in one day
-                if (dayUsage >= 2) {
-                    totalScore -= 6000;
+        // More flexible room assignment strategy
+        if (needsMeetingRoom) {
+            // Small class case
+            if (!isMeetingRoom) {
+                // Allow regular rooms if they're not extremely oversized
+                if (proposal.getCapacity() > currentSubject.getVacantes() * 4) {
+                    return false; // Only reject extremely oversized rooms
                 }
             }
-
-            scoredProposals.add(new BatchProposalScore(proposal, totalScore));
+        } else {
+            // Regular class case
+            if (isMeetingRoom) {
+                return false; // Protect meeting rooms for small classes
+            }
         }
 
-        if (scoredProposals.isEmpty()) {
-            return Collections.emptyList();
+        return isValidProposalFast(proposal, currentSubject,
+                currentNivel % 2 == 1, currentAsignaturaNombre) &&
+                validateGapsForProposal(proposal);
+    }
+
+    private int calculateTotalScore(
+            BatchProposal proposal,
+            Asignatura currentSubject,
+            String currentCampus,
+            int currentNivel,
+            boolean needsMeetingRoom,
+            Map<Day, Integer> blocksPerDay,
+            String mostUsedRoom,
+            Map<String, Integer> roomUsage,
+            Map<Day, List<Integer>> currentSchedule) {
+
+        // Calculate base scores
+        calculateSatisfactionScores(proposal, currentSubject, currentCampus,
+                currentNivel, currentSchedule);
+
+        int totalScore = calculateProposalScore(proposal, currentCampus,
+                currentNivel, currentSubject);
+
+        // Apply room type scoring with more flexibility
+        totalScore = applyMeetingRoomScore(totalScore, proposal, needsMeetingRoom,
+                currentSubject);
+
+        // Reduce other penalties to make more assignments viable
+        totalScore = applyDayBasedScoring(totalScore, proposal, currentCampus,
+                blocksPerDay, mostUsedRoom, roomUsage);
+
+        // Ensure minimum viable score
+        return Math.max(totalScore, 1); // Always keep valid proposals
+    }
+
+    private int applyMeetingRoomScore(
+            int totalScore,
+            BatchProposal proposal,
+            boolean needsMeetingRoom,
+            Asignatura currentSubject) {
+
+        boolean isMeetingRoom = proposal.getCapacity() < MEETING_ROOM_THRESHOLD;
+
+        if (needsMeetingRoom) {
+            if (isMeetingRoom) {
+                // Perfect match - high bonus
+                totalScore += 15000;
+
+                // Additional bonus for optimal size match
+                int sizeDiff = Math.abs(proposal.getCapacity() - currentSubject.getVacantes());
+                if (sizeDiff <= 2) {
+                    totalScore += 5000;
+                }
+            } else {
+                // Using regular room for small class - apply penalty but don't reject
+                int oversize = proposal.getCapacity() - currentSubject.getVacantes();
+                totalScore -= oversize * 500;  // Progressive penalty for oversized rooms
+            }
         }
 
-        // Sort by final scores
-        scoredProposals.sort((ps1, ps2) -> ps2.score - ps1.score);
+        return totalScore;
+    }
+    private int applyDayBasedScoring(
+            int totalScore,
+            BatchProposal proposal,
+            String currentCampus,
+            Map<Day, Integer> blocksPerDay,
+            String mostUsedRoom,
+            Map<String, Integer> roomUsage) {
 
-        // Convert to List<BatchProposal>
-        return scoredProposals.stream()
-                .map(ps -> ps.proposal)
-                .collect(Collectors.toList());
+        for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry :
+                proposal.getDayProposals().entrySet()) {
+            Day proposalDay = entry.getKey();
+            int dayUsage = blocksPerDay.getOrDefault(proposalDay, 0);
+
+            // Day-based scoring
+            totalScore -= dayUsage * 6000;  // Penalty for same-day assignments
+
+            if (!blocksPerDay.containsKey(proposalDay)) {
+                totalScore += 8000;  // Bonus for new days
+            }
+
+            // Room consistency scoring
+            if (proposal.getRoomCode().equals(mostUsedRoom)) {
+                totalScore += 7000;
+            }
+
+            // Apply campus and block penalties
+            totalScore = applyCampusAndBlockPenalties(
+                    totalScore, proposal, proposalDay, currentCampus,
+                    dayUsage, roomUsage
+            );
+        }
+        return totalScore;
+    }
+
+    private int applyCampusAndBlockPenalties(
+            int totalScore,
+            BatchProposal proposal,
+            Day proposalDay,
+            String currentCampus,
+            int dayUsage,
+            Map<String, Integer> roomUsage) {
+
+        if (!proposal.getRoomCode().startsWith(currentCampus.substring(0, 1))) {
+            totalScore -= 10000;
+
+            for (BatchProposal.BlockProposal block : proposal.getDayProposals().get(proposalDay)) {
+                BloqueInfo prevBlock = profesor.getBloqueInfo(proposalDay, block.getBlock() - 1);
+                BloqueInfo nextBlock = profesor.getBloqueInfo(proposalDay, block.getBlock() + 1);
+
+                if ((prevBlock != null && !prevBlock.getCampus().equals(currentCampus)) ||
+                        (nextBlock != null && !nextBlock.getCampus().equals(currentCampus))) {
+                    totalScore -= 8000;
+                }
+            }
+        }
+
+        int roomCount = roomUsage.getOrDefault(proposal.getRoomCode(), 0);
+        totalScore -= roomCount * 1500;
+
+        if (dayUsage >= 2) {
+            totalScore -= 6000;
+        }
+
+        return totalScore;
     }
 
     private static class BatchProposalScore {
@@ -780,28 +903,34 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         String cacheKey = getCacheKey(subject, room.getName().getLocalName());
 
         return quickRejectCache.computeIfAbsent(cacheKey, k -> {
-            // Basic room requirements
             ServiceDescription sd = (ServiceDescription) room.getAllServices().next();
             List<Property> props = new ArrayList<>();
             sd.getAllProperties().forEachRemaining(prop -> props.add((Property) prop));
 
-            //first 0 is the campus, and 1 is the capacity
-            Property roomCampusProp = props.get(0);
-            String roomCampus = (String) roomCampusProp.getValue();
-
-            Property roomCapacityProp = props.get(2);
-            int roomCapacity = Integer.parseInt((String) roomCapacityProp.getValue());
+            String roomCampus = (String) props.get(0).getValue();
+            int roomCapacity = Integer.parseInt((String) props.get(2).getValue());
 
             // Quick reject conditions
             if (!roomCampus.equals(subject.getCampus())) {
                 return true;
             }
 
-            if (roomCapacity < subject.getVacantes()) {
-                return true; // Room too small
+            // Meeting room logic
+            boolean subjectNeedsMeetingRoom = subject.getVacantes() < MEETING_ROOM_THRESHOLD;
+            boolean isMeetingRoom = roomCapacity < MEETING_ROOM_THRESHOLD;
+
+            // Reject if meeting room requirements don't match
+            if (subjectNeedsMeetingRoom != isMeetingRoom) {
+                return true;
             }
 
-            return false; // Passed basic checks
+            // For meeting rooms, we're more lenient with capacity
+            if (isMeetingRoom) {
+                return roomCapacity < Math.ceil(subject.getVacantes() * 0.8); // Allow some flexibility
+            }
+
+            // For regular rooms
+            return roomCapacity < subject.getVacantes();
         });
     }
 
