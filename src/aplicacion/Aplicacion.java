@@ -27,7 +27,7 @@ public class Aplicacion {
 
     public static void main(String[] args) {
         // Set DF max results before container creation
-        System.setProperty("jade_domain_df_maxresult", "-1");
+        System.setProperty("jade_domain_df_maxresult", "1000");
 
         try {
             Runtime rt = Runtime.instance();
