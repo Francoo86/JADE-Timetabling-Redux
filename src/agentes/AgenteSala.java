@@ -20,8 +20,6 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import service.SatisfaccionHandler;
-import service.TimetablingEvaluator;
 
 import java.io.IOException;
 import java.util.*;
