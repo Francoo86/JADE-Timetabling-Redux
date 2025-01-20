@@ -473,6 +473,7 @@ public class AgenteProfesor extends Agent {
             e.printStackTrace();
         }
     }
+    
     private synchronized void cleanup() {
         try {
             // Close debug window if exists

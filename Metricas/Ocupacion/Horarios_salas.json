@@ -1,0 +1,4955 @@
+[ {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS3",
+  "Asignaturas" : [ {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 1,
+    "Capacidad" : 0.115384616,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Bloque" : 3,
+    "Capacidad" : 0.9230769,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 5,
+    "Capacidad" : 0.7307692,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 0.8076923,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS2",
+  "Asignaturas" : [ {
+    "Nombre" : "CÁLCULO II",
+    "Bloque" : 1,
+    "Capacidad" : 0.1923077,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Bloque" : 3,
+    "Capacidad" : 0.84615386,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.23076923,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE ROBÓTICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.46153846,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.9230769,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.88461536,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 5,
+    "Capacidad" : 0.30769232,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Bloque" : 7,
+    "Capacidad" : 0.8076923,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.61538464,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.88461536,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRATAMIENTO DE EMISIONES",
+    "Bloque" : 5,
+    "Capacidad" : 0.15384616,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Bloque" : 7,
+    "Capacidad" : 0.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 8,
+    "Capacidad" : 0.96153843,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.88461536,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Bloque" : 3,
+    "Capacidad" : 0.84615386,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.23076923,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRATAMIENTO DE EMISIONES",
+    "Bloque" : 7,
+    "Capacidad" : 0.15384616,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 7",
+    "Bloque" : 1,
+    "Capacidad" : 0.26923078,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 0.61538464,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 7,
+    "Capacidad" : 0.30769232,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS1",
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.2647059,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.2647059,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRAMIENTO DE RESIDUOS LIQ",
+    "Bloque" : 6,
+    "Capacidad" : 0.0882353,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Bloque" : 7,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRAMIENTO DE RESIDUOS LIQ",
+    "Bloque" : 8,
+    "Capacidad" : 0.0882353,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.16176471,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Bloque" : 5,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 0.5735294,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Bloque" : 8,
+    "Capacidad" : 0.5294118,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.16176471,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CINETICA QUIMICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.073529415,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 6,
+    "Capacidad" : 0.5588235,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Bloque" : 7,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 8,
+    "Capacidad" : 0.5588235,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Bloque" : 1,
+    "Capacidad" : 0.36764705,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.16176471,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Bloque" : 5,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 6,
+    "Capacidad" : 0.5588235,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Bloque" : 8,
+    "Capacidad" : 0.47058824,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.16176471,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CADENA DE VALOR HIDROMETA",
+    "Bloque" : 5,
+    "Capacidad" : 0.11764706,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Bloque" : 6,
+    "Capacidad" : 0.5294118,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.60294116,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Bloque" : 8,
+    "Capacidad" : 0.5294118,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "K1",
+  "Asignaturas" : [ {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.47560975,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIA",
+    "Bloque" : 8,
+    "Capacidad" : 0.5609756,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Bloque" : 1,
+    "Capacidad" : 0.06097561,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 3,
+    "Capacidad" : 0.81707317,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MÉTODOS NUMÉRICOS",
+    "Bloque" : 6,
+    "Capacidad" : 0.42682928,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.64634144,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 1,
+    "Capacidad" : 0.81707317,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Bloque" : 5,
+    "Capacidad" : 0.40243903,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 7,
+    "Capacidad" : 0.14634146,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 1,
+    "Capacidad" : 0.76829267,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 3,
+    "Capacidad" : 0.81707317,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 0.19512194,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 7,
+    "Capacidad" : 0.19512194,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 1,
+    "Capacidad" : 0.81707317,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 0.3292683,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.46341464,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.46341464,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "K2",
+  "Asignaturas" : [ {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 0.9,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 0.9,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 5,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 0.9,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Bloque" : 3,
+    "Capacidad" : 0.16666667,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Bloque" : 5,
+    "Capacidad" : 0.26666668,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.76666665,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ONDAS Y ÓPTICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.76666665,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Bloque" : 3,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "A106",
+  "Asignaturas" : [ {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 2,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Bloque" : 3,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Bloque" : 4,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 5,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 6,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONSTRUCCION 3",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CONSTRUCCION 3",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Bloque" : 9,
+    "Capacidad" : 0.2777778,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 1,
+    "Capacidad" : 0.22222222,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 2,
+    "Capacidad" : 0.22222222,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 3,
+    "Capacidad" : 0.22222222,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 4,
+    "Capacidad" : 0.22222222,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 1.7222222,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "DIRECCION DE PROYECTOS",
+    "Bloque" : 6,
+    "Capacidad" : 1.5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "DIRECCION DE PROYECTOS",
+    "Bloque" : 7,
+    "Capacidad" : 1.5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 8,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Bloque" : 9,
+    "Capacidad" : 0.44444445,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRACTICA EN TERRENO",
+    "Bloque" : 1,
+    "Capacidad" : 0.055555556,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 2,
+    "Capacidad" : 0.8888889,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 4,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 5,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 6,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 4",
+    "Bloque" : 7,
+    "Capacidad" : 1.3888888,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TERRITORIO 4",
+    "Bloque" : 8,
+    "Capacidad" : 1.3888888,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 9,
+    "Capacidad" : 1.2222222,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.8888889,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 2,
+    "Capacidad" : 0.22222222,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 4,
+    "Capacidad" : 1.0555556,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 1.7222222,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.6666666,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 7,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 8,
+    "Capacidad" : 1.1111112,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Bloque" : 9,
+    "Capacidad" : 0.2777778,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 1,
+    "Capacidad" : 0.22222222,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 2,
+    "Capacidad" : 0.8888889,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRACTICA EN OFICINA",
+    "Bloque" : 3,
+    "Capacidad" : 0.055555556,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRACTICA EN OFICINA",
+    "Bloque" : 4,
+    "Capacidad" : 0.055555556,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 1.7222222,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "HISTORIA Y TEORIA I",
+    "Bloque" : 6,
+    "Capacidad" : 2.6666667,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "HISTORIA Y TEORIA I",
+    "Bloque" : 7,
+    "Capacidad" : 2.6666667,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 8,
+    "Capacidad" : 1.7222222,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Bloque" : 9,
+    "Capacidad" : 0.2777778,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM3",
+  "Asignaturas" : [ {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.24,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 0.42,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.76,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Bloque" : 1,
+    "Capacidad" : 0.44,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.34,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 0.42,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 7,
+    "Capacidad" : 0.24,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "URBANISMO 3",
+    "Bloque" : 5,
+    "Capacidad" : 0.44,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.76,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 1,
+    "Capacidad" : 0.06,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.32,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.82,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.76,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.36,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.44,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 5,
+    "Capacidad" : 0.38,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.28,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Bloque" : 8,
+    "Capacidad" : 0.62,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "K3",
+  "Asignaturas" : [ {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.4,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE ROBÓTICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 0.525,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.55,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 7",
+    "Bloque" : 3,
+    "Capacidad" : 0.175,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 6,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 0.775,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.4,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Bloque" : 5,
+    "Capacidad" : 0.475,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Bloque" : 6,
+    "Capacidad" : 0.9,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.95,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Bloque" : 8,
+    "Capacidad" : 0.775,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.95,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Bloque" : 6,
+    "Capacidad" : 0.775,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Bloque" : 1,
+    "Capacidad" : 0.6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL AU",
+    "Bloque" : 5,
+    "Capacidad" : 0.275,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 0.775,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MÉTODOS NUMÉRICOS",
+    "Bloque" : 8,
+    "Capacidad" : 0.875,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM5",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 1,
+    "Capacidad" : 0.06666667,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.13333334,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRATAMIENTO DE EMISIONES",
+    "Bloque" : 5,
+    "Capacidad" : 0.08888889,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 6,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 7,
+    "Capacidad" : 0.17777778,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MÉTODOS NUMÉRICOS",
+    "Bloque" : 8,
+    "Capacidad" : 0.46666667,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 3,
+    "Capacidad" : 0.06666667,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 0.35555556,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Bloque" : 6,
+    "Capacidad" : 0.17777778,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Bloque" : 7,
+    "Capacidad" : 0.46666667,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 8,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.4888889,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GEOMETRIA Y ARQUITECTURA",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.13333334,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.13333334,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 5,
+    "Capacidad" : 0.17777778,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.9111111,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Bloque" : 8,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.4888889,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 3,
+    "Capacidad" : 0.06666667,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA ESTATICA",
+    "Bloque" : 6,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.9111111,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM4",
+  "Asignaturas" : [ {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Bloque" : 1,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.24444444,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.9111111,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.24444444,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Bloque" : 3,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CINETICA QUIMICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.11111111,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 6,
+    "Capacidad" : 0.6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 8,
+    "Capacidad" : 0.6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PREPARCIÓN PARA EL PROCES",
+    "Bloque" : 1,
+    "Capacidad" : 0.26666668,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SEGURIDAD DE LA INFORMACI",
+    "Bloque" : 3,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTIÓN DE PRODUCCIÓN",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 6,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.9111111,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 8,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.24444444,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PREPARCIÓN PARA EL PROCES",
+    "Bloque" : 3,
+    "Capacidad" : 0.26666668,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.9111111,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Bloque" : 6,
+    "Capacidad" : 0.7111111,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BALANCE DE MATERIA Y ENER",
+    "Bloque" : 7,
+    "Capacidad" : 0.11111111,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA ESTATICA",
+    "Bloque" : 8,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.42222223,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.24444444,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.9111111,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "EVALUCION AMBIENTAL",
+    "Bloque" : 6,
+    "Capacidad" : 0.11111111,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GEOMETRIA Y ARQUITECTURA",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 8,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "E1",
+  "Asignaturas" : [ {
+    "Nombre" : "FISICA I",
+    "Bloque" : 1,
+    "Capacidad" : 0.4888889,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 0.6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.9111111,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.84444445,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Bloque" : 8,
+    "Capacidad" : 0.8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 7",
+    "Bloque" : 1,
+    "Capacidad" : 0.15555556,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Bloque" : 3,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.51111114,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 7,
+    "Capacidad" : 0.6666667,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 5,
+    "Capacidad" : 0.35555556,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.4888889,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Bloque" : 8,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 5,
+    "Capacidad" : 0.17777778,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Bloque" : 6,
+    "Capacidad" : 0.8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Bloque" : 7,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CM6",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 5,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 0.7,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 0.9,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 5,
+    "Capacidad" : 0.1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 7,
+    "Capacidad" : 0.6333333,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IM3",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Bloque" : 5,
+    "Capacidad" : 0.2,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 0.5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Bloque" : 5,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Bloque" : 1,
+    "Capacidad" : 0.5,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IM2",
+  "Asignaturas" : [ {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.3,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 7,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 7,
+    "Capacidad" : 0.75,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 8",
+    "Bloque" : 5,
+    "Capacidad" : 0.6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ANALISIS DE ALGORITMOS",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CONFIABILIDAD Y MANTENIMI",
+    "Bloque" : 1,
+    "Capacidad" : 0.75,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IM4",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 4.2222223,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 7,
+    "Capacidad" : 4.2222223,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 5",
+    "Bloque" : 1,
+    "Capacidad" : 0.5555556,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ADMINISTRACION DE RIESGO",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LABORATORIO DE ELECTRÓNIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 7,
+    "Capacidad" : 0.33333334,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ADMINISTRACION DE RIESGO",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LABORATORIO DE ELECTRÓNIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ECONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 3.6666667,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 5,
+    "Capacidad" : 3.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Bloque" : 7,
+    "Capacidad" : 0.44444445,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ADMINISTRACION DE RIESGO",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LABORATORIO DE ELECTRÓNIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 4.3333335,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "E6",
+  "Asignaturas" : [ {
+    "Nombre" : "ECONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.51111114,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.51111114,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 7,
+    "Capacidad" : 0.35555556,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 5,
+    "Capacidad" : 0.24444444,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Bloque" : 8,
+    "Capacidad" : 0.6888889,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Bloque" : 1,
+    "Capacidad" : 0.11111111,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 5,
+    "Capacidad" : 0.4888889,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 7,
+    "Capacidad" : 0.42222223,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.13333334,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Bloque" : 5,
+    "Capacidad" : 0.13333334,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.51111114,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC1",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.2,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 7,
+    "Capacidad" : 0.6333333,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL DI",
+    "Bloque" : 1,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.46666667,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 8",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.73333335,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 5,
+    "Capacidad" : 0.1,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 7,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.56666666,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Bloque" : 5,
+    "Capacidad" : 0.6333333,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 7,
+    "Capacidad" : 0.1,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 8,
+    "Capacidad" : 0.8333333,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.2,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.56666666,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 7,
+    "Capacidad" : 0.2,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CRP43",
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.30985916,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.08450704,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Bloque" : 5,
+    "Capacidad" : 0.29577464,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MATEMATICAS I",
+    "Bloque" : 6,
+    "Capacidad" : 0.64788735,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Bloque" : 7,
+    "Capacidad" : 0.46478873,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA ESTATICA",
+    "Bloque" : 8,
+    "Capacidad" : 0.43661973,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Bloque" : 5,
+    "Capacidad" : 0.46478873,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ING. ECONÓMICA Y DIRECCIÓ",
+    "Bloque" : 6,
+    "Capacidad" : 0.5070422,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Bloque" : 7,
+    "Capacidad" : 0.57746476,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 8,
+    "Capacidad" : 0.5492958,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.08450704,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.08450704,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.57746476,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Bloque" : 6,
+    "Capacidad" : 0.45070422,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Bloque" : 7,
+    "Capacidad" : 0.112676054,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TRAMIENTO DE RESIDUOS LIQ",
+    "Bloque" : 8,
+    "Capacidad" : 0.08450704,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.08450704,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 0.45070422,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MATEMATICAS I",
+    "Bloque" : 6,
+    "Capacidad" : 0.64788735,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Bloque" : 7,
+    "Capacidad" : 0.46478873,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 8,
+    "Capacidad" : 0.53521127,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DERECHO MINERO Y AMBIENTA",
+    "Bloque" : 1,
+    "Capacidad" : 0.07042254,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.2535211,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INTEGRACIÓN PRO",
+    "Bloque" : 5,
+    "Capacidad" : 0.57746476,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 6,
+    "Capacidad" : 0.53521127,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.74647886,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 8,
+    "Capacidad" : 0.53521127,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC3",
+  "Asignaturas" : [ {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 5,
+    "Capacidad" : 0.475,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.675,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.15,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Bloque" : 5,
+    "Capacidad" : 0.375,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA DE MATERIALES",
+    "Bloque" : 6,
+    "Capacidad" : 0.9,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.55,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 8,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DERECHO MINERO Y AMBIENTA",
+    "Bloque" : 1,
+    "Capacidad" : 0.125,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 0.525,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.975,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Bloque" : 5,
+    "Capacidad" : 0.525,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.975,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 0.775,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "URBANISMO 1",
+    "Bloque" : 5,
+    "Capacidad" : 0.45,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Bloque" : 7,
+    "Capacidad" : 0.575,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC2",
+  "Asignaturas" : [ {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.8636364,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.5,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 6,
+    "Capacidad" : 0.8636364,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.9318182,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.9318182,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.25,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 7",
+    "Bloque" : 1,
+    "Capacidad" : 0.1590909,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.3181818,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 0.47727272,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.13636364,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 5,
+    "Capacidad" : 0.9318182,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 6,
+    "Capacidad" : 0.8636364,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 0.47727272,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC4",
+  "Asignaturas" : [ {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 1,
+    "Capacidad" : 0.8181818,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 3,
+    "Capacidad" : 0.8701299,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Bloque" : 5,
+    "Capacidad" : 0.2987013,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.53246754,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONFIABILIDAD Y MANTENIMI",
+    "Bloque" : 1,
+    "Capacidad" : 0.19480519,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 5,
+    "Capacidad" : 0.20779221,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Bloque" : 6,
+    "Capacidad" : 0.6233766,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.14285715,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Bloque" : 8,
+    "Capacidad" : 0.6233766,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Bloque" : 1,
+    "Capacidad" : 0.3116883,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.22077923,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 5,
+    "Capacidad" : 0.20779221,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Bloque" : 6,
+    "Capacidad" : 0.4025974,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.2987013,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.4935065,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.2857143,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 1,
+    "Capacidad" : 0.8181818,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA PROGRAM",
+    "Bloque" : 5,
+    "Capacidad" : 0.42857143,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Bloque" : 6,
+    "Capacidad" : 0.6233766,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.4935065,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Bloque" : 8,
+    "Capacidad" : 0.4025974,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUL1",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Bloque" : 1,
+    "Capacidad" : 0.9230769,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.65384614,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INGENIERIA DE S",
+    "Bloque" : 5,
+    "Capacidad" : 0.7307692,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 7,
+    "Capacidad" : 0.115384616,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE INNOVACION T.I.",
+    "Bloque" : 1,
+    "Capacidad" : 0.9230769,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.61538464,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.23076923,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Bloque" : 7,
+    "Capacidad" : 0.23076923,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 1,
+    "Capacidad" : 0.115384616,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.6923077,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Bloque" : 5,
+    "Capacidad" : 0.8076923,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL AU",
+    "Bloque" : 7,
+    "Capacidad" : 0.42307693,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.6923077,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.9230769,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 5,
+    "Capacidad" : 0.84615386,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE ROBÓTICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.46153846,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.9230769,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Bloque" : 3,
+    "Capacidad" : 0.9230769,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 5,
+    "Capacidad" : 0.84615386,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.84615386,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT8",
+  "Asignaturas" : [ {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 3.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CAMBIO CLIMÁTICO Y RESILE",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 9,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 5,
+    "Capacidad" : 1.1,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULACIÓN",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 9,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT7",
+  "Asignaturas" : [ {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PREPARCIÓN PARA EL PROCES",
+    "Bloque" : 3,
+    "Capacidad" : 0.6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Bloque" : 6,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Bloque" : 7,
+    "Capacidad" : 0.15,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Bloque" : 8,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Bloque" : 9,
+    "Capacidad" : 0.25,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Bloque" : 1,
+    "Capacidad" : 0.95,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 5,
+    "Capacidad" : 0.4,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Bloque" : 6,
+    "Capacidad" : 0.6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Bloque" : 7,
+    "Capacidad" : 0.15,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.9,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 3",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Bloque" : 5,
+    "Capacidad" : 0.4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Bloque" : 6,
+    "Capacidad" : 0.4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT6",
+  "Asignaturas" : [ {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.55,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BALANCE DE MATERIA Y ENER",
+    "Bloque" : 5,
+    "Capacidad" : 0.25,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BALANCE DE MATERIA Y ENER",
+    "Bloque" : 5,
+    "Capacidad" : 0.25,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Bloque" : 6,
+    "Capacidad" : 0.2,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "EVALUCION AMBIENTAL",
+    "Bloque" : 8,
+    "Capacidad" : 0.25,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.55,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 6",
+    "Bloque" : 6,
+    "Capacidad" : 0.4,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PRODUCCION I",
+    "Bloque" : 1,
+    "Capacidad" : 0.95,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CADENA DE VALOR HIDROMETA",
+    "Bloque" : 5,
+    "Capacidad" : 0.4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Bloque" : 6,
+    "Capacidad" : 0.4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GESTION AMBIENTAL",
+    "Bloque" : 8,
+    "Capacidad" : 0.4,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SALUD OCUPACIONAL II",
+    "Bloque" : 1,
+    "Capacidad" : 0.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INGENIERIA ECONOMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.95,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Bloque" : 6,
+    "Capacidad" : 0.4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CINETICA QUIMICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.25,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "EVALUCION AMBIENTAL",
+    "Bloque" : 8,
+    "Capacidad" : 0.25,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IC8",
+  "Asignaturas" : [ {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.47058824,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.7058824,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Bloque" : 5,
+    "Capacidad" : 0.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Bloque" : 6,
+    "Capacidad" : 0.9117647,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FENOMENOS DE TRANSPORTE",
+    "Bloque" : 7,
+    "Capacidad" : 0.1764706,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 0.44117647,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 3,
+    "Capacidad" : 0.5294118,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Bloque" : 5,
+    "Capacidad" : 0.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL AU",
+    "Bloque" : 7,
+    "Capacidad" : 0.32352942,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "OPERACIONES UNITARIAS",
+    "Bloque" : 8,
+    "Capacidad" : 0.3529412,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL DI",
+    "Bloque" : 1,
+    "Capacidad" : 0.3529412,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.1764706,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 3",
+    "Bloque" : 5,
+    "Capacidad" : 0.47058824,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Bloque" : 7,
+    "Capacidad" : 0.61764705,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.7058824,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.64705884,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "REDES DE COMPUTADORES",
+    "Bloque" : 5,
+    "Capacidad" : 0.61764705,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPILADORES",
+    "Bloque" : 7,
+    "Capacidad" : 0.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 1,
+    "Capacidad" : 0.0882353,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LABORATORIO DE CONTROL DI",
+    "Bloque" : 3,
+    "Capacidad" : 0.3529412,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FUNDAMENTOS DE LENGUAJE D",
+    "Bloque" : 5,
+    "Capacidad" : 0.61764705,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 0.9411765,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT5",
+  "Asignaturas" : [ {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 5,
+    "Capacidad" : 0.55,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.6,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "URBANISMO 1",
+    "Bloque" : 7,
+    "Capacidad" : 0.9,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.3,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.3,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 7,
+    "Capacidad" : 0.6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Bloque" : 7,
+    "Capacidad" : 0.75,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT4",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 5",
+    "Bloque" : 1,
+    "Capacidad" : 0.25,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DERECHO MINERO Y AMBIENTA",
+    "Bloque" : 1,
+    "Capacidad" : 0.25,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Bloque" : 3,
+    "Capacidad" : 0.25,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 3",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 6",
+    "Bloque" : 6,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 7,
+    "Capacidad" : 0.8,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.85,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 5,
+    "Capacidad" : 0.8,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 8",
+    "Bloque" : 7,
+    "Capacidad" : 0.6,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Bloque" : 1,
+    "Capacidad" : 0.85,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONFIABILIDAD Y MANTENIMI",
+    "Bloque" : 3,
+    "Capacidad" : 0.75,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.6,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Bloque" : 7,
+    "Capacidad" : 0.85,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CÁLCULO II",
+    "Bloque" : 1,
+    "Capacidad" : 0.25,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.6,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Bloque" : 5,
+    "Capacidad" : 0.15,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRODUCCION II",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT3",
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 7,
+    "Capacidad" : 0.88235295,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CIERRE Y ABANDONO DE FAEN",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SIST. DE GESTION EN SEGUR",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 7,
+    "Capacidad" : 0.1764706,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ROBÓTICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.8235294,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SIST. DE GESTION EN SEGUR",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Bloque" : 5,
+    "Capacidad" : 0.1764706,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 7,
+    "Capacidad" : 0.1764706,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CIERRE Y ABANDONO DE FAEN",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SIST. DE GESTION EN SEGUR",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT2",
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.78571427,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.42857143,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION OPERATIVA I",
+    "Bloque" : 7,
+    "Capacidad" : 1.1428572,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.60714287,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "URBANISMO 3",
+    "Bloque" : 5,
+    "Capacidad" : 0.78571427,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 0.75,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Bloque" : 5,
+    "Capacidad" : 0.2857143,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.78571427,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.60714287,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 5,
+    "Capacidad" : 0.39285713,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 7,
+    "Capacidad" : 1.3571428,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.42857143,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 5,
+    "Capacidad" : 0.42857143,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.78571427,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUT1",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "GESTION DE CALIDAD DE SOF",
+    "Bloque" : 3,
+    "Capacidad" : 0.85714287,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 5,
+    "Capacidad" : 0.96428573,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.78571427,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Bloque" : 1,
+    "Capacidad" : 0.35714287,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 5,
+    "Capacidad" : 0.39285713,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 7,
+    "Capacidad" : 0.71428573,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 0.96428573,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 5,
+    "Capacidad" : 0.78571427,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Bloque" : 7,
+    "Capacidad" : 0.14285715,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.78571427,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.9285714,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 7,
+    "Capacidad" : 0.53571427,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.5714286,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TÉCNICAS DE NEGOCIACIÓN Y",
+    "Bloque" : 5,
+    "Capacidad" : 0.71428573,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGIA DE LA INVESTI",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.96428573,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "LAMB",
+  "Asignaturas" : [ {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 0.975,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ECONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.825,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 3,
+    "Capacidad" : 0.3,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORÍA DE REDES I",
+    "Bloque" : 5,
+    "Capacidad" : 0.2,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.95,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 0.675,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 9",
+    "Bloque" : 3,
+    "Capacidad" : 0.075,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.95,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PROGRAMACION ORIENTADA A",
+    "Bloque" : 7,
+    "Capacidad" : 0.425,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 0.975,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ECONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.825,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE PERSONAS II",
+    "Bloque" : 1,
+    "Capacidad" : 0.425,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 8",
+    "Bloque" : 5,
+    "Capacidad" : 0.3,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 7,
+    "Capacidad" : 0.4,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "D105",
+  "Asignaturas" : [ {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Bloque" : 1,
+    "Capacidad" : 0.29411766,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMUNICACIÓN Y LIDERAZGO",
+    "Bloque" : 5,
+    "Capacidad" : 0.47058824,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMA DE INFORMACION GE",
+    "Bloque" : 7,
+    "Capacidad" : 0.11764706,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINAMICA",
+    "Bloque" : 1,
+    "Capacidad" : 0.3529412,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ESTADÍSTICA APLICADA",
+    "Bloque" : 3,
+    "Capacidad" : 0.5,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 5,
+    "Capacidad" : 0.5588235,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 7,
+    "Capacidad" : 0.6764706,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Bloque" : 3,
+    "Capacidad" : 0.29411766,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Bloque" : 5,
+    "Capacidad" : 0.44117647,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 7,
+    "Capacidad" : 0.64705884,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Bloque" : 5,
+    "Capacidad" : 0.6764706,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.7941176,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 5",
+    "Bloque" : 1,
+    "Capacidad" : 0.14705883,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 3,
+    "Capacidad" : 0.47058824,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.6764706,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.32352942,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "IOLAB",
+  "Asignaturas" : [ {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 5,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOQUIMICA Y MICROBIOLOGI",
+    "Bloque" : 7,
+    "Capacidad" : 0.2,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 1,
+    "Capacidad" : 0.4,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 7,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 7,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INVESTIGACION DE OPERACIO",
+    "Bloque" : 8,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "PURIFICACION Y SEPARACION",
+    "Bloque" : 5,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "COMPUTACION I",
+    "Bloque" : 7,
+    "Capacidad" : 0.53333336,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INTRODUCCION AL PROYECTO",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 6,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "CAMBIO CLIMÁTICO Y RESILE",
+    "Bloque" : 7,
+    "Capacidad" : 0.6666667,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 10
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "CRP33",
+  "Asignaturas" : [ {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.32394367,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.15492958,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 1,
+    "Capacidad" : 0.8873239,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PLANIFICACION TERRITORIAL",
+    "Bloque" : 3,
+    "Capacidad" : 0.0,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TEORIA DE SISTEMAS",
+    "Bloque" : 5,
+    "Capacidad" : 0.30985916,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MATEMATICAS I",
+    "Bloque" : 6,
+    "Capacidad" : 0.64788735,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HIGIENE OCUPACIONAL APLIC",
+    "Bloque" : 7,
+    "Capacidad" : 0.4225352,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INTRODUCCIÓN A LA INGENIE",
+    "Bloque" : 1,
+    "Capacidad" : 0.8873239,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERMODINÁMICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.74647886,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ERGONOMÍA",
+    "Bloque" : 7,
+    "Capacidad" : 0.57746476,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 3,
+    "Capacidad" : 0.3802817,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LEGISLACIÓN DE SALUD Y SE",
+    "Bloque" : 5,
+    "Capacidad" : 0.32394367,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FINANZAS",
+    "Bloque" : 6,
+    "Capacidad" : 0.35211268,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 7,
+    "Capacidad" : 0.53521127,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "ESTRUCTURA DE DATOS",
+    "Bloque" : 1,
+    "Capacidad" : 0.23943663,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y GESTION DE P",
+    "Bloque" : 3,
+    "Capacidad" : 0.14084508,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "BIOTECNOLOGIA APLICADA",
+    "Bloque" : 5,
+    "Capacidad" : 0.04225352,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "URBANISMO 3",
+    "Bloque" : 7,
+    "Capacidad" : 0.30985916,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Playa Brava",
+  "Codigo" : "ANT21",
+  "Asignaturas" : [ {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 2,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 4,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 7,
+    "Capacidad" : 1.3636364,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 8,
+    "Capacidad" : 1.3636364,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 9,
+    "Capacidad" : 1.7272727,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 2,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 4,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "HISTORIA Y TEORIA I",
+    "Bloque" : 5,
+    "Capacidad" : 2.1818182,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 7,
+    "Capacidad" : 0.45454547,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 8,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 9,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "PRACTICA EN TERRENO",
+    "Bloque" : 2,
+    "Capacidad" : 0.045454547,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 4,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 5,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Martes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "INSTALACIONES",
+    "Bloque" : 7,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "INSTALACIONES",
+    "Bloque" : 8,
+    "Capacidad" : 1.0,
+    "Dia" : "Martes",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "LEGISLACIÓN AMBIENTAL Y G",
+    "Bloque" : 9,
+    "Capacidad" : 0.22727273,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 1,
+    "Capacidad" : 0.18181819,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 2,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 4,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "INSTALACIONES",
+    "Bloque" : 5,
+    "Capacidad" : 1.0,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 10
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 7,
+    "Capacidad" : 1.3636364,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "TALLER 4",
+    "Bloque" : 8,
+    "Capacidad" : 0.45454547,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 9,
+    "Capacidad" : 1.7272727,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "GESTION DE EMPRESAS",
+    "Bloque" : 1,
+    "Capacidad" : 0.72727275,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 3",
+    "Bloque" : 2,
+    "Capacidad" : 0.18181819,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 3,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 4,
+    "Capacidad" : 0.90909094,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TERRITORIO 4",
+    "Bloque" : 5,
+    "Capacidad" : 1.1363636,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "SISTEMAS DE GESTIÓN DE CA",
+    "Bloque" : 6,
+    "Capacidad" : 1.4090909,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "CONSTRUCCION 3",
+    "Bloque" : 7,
+    "Capacidad" : 0.8181818,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "GEOMETRIA Y ARQUITECTURA",
+    "Bloque" : 8,
+    "Capacidad" : 2.0454545,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 3
+  }, {
+    "Nombre" : "CAMBIO CLIMÁTICO Y RESILE",
+    "Bloque" : 9,
+    "Capacidad" : 0.45454547,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+}, {
+  "Campus" : "Kaufmann",
+  "Codigo" : "KAUS5",
+  "Asignaturas" : [ {
+    "Nombre" : "TALLER 2",
+    "Bloque" : 5,
+    "Capacidad" : 0.51724136,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER 6",
+    "Bloque" : 7,
+    "Capacidad" : 0.27586207,
+    "Dia" : "Jueves",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "METODOLOGÍAS DE INVESTIGA",
+    "Bloque" : 5,
+    "Capacidad" : 0.55172414,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "LIDERAZGO Y EMPRENDIMIENT",
+    "Bloque" : 7,
+    "Capacidad" : 0.79310346,
+    "Dia" : "Viernes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "FISICA I",
+    "Bloque" : 1,
+    "Capacidad" : 0.7586207,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "VIGILANCIA EPIDEMIOLÓGICA",
+    "Bloque" : 5,
+    "Capacidad" : 0.8965517,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 7,
+    "Capacidad" : 0.6551724,
+    "Dia" : "Martes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "DESARROLLO Y EVALUACION D",
+    "Bloque" : 5,
+    "Capacidad" : 0.6551724,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "CONTABILIDAD Y SISTEMAS D",
+    "Bloque" : 7,
+    "Capacidad" : 0.37931034,
+    "Dia" : "Miercoles",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MICROECONOMIA",
+    "Bloque" : 1,
+    "Capacidad" : 0.9310345,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "TALLER DE TITULO",
+    "Bloque" : 5,
+    "Capacidad" : 0.7241379,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  }, {
+    "Nombre" : "MECANICA DE FLUIDOS",
+    "Bloque" : 7,
+    "Capacidad" : 0.41379312,
+    "Dia" : "Lunes",
+    "Satisfaccion" : 5
+  } ]
+} ]
