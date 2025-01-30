@@ -40,7 +40,7 @@ public class Aplicacion {
             // TODO: Preparar paralelos en archivo, si es que son muchos
 
             // Load data from JSON files
-            JSONArray profesoresJson = JSONHelper.parseAsArray("inputOfProfesores.json");
+            JSONArray profesoresJson = JSONHelper.parseAsArray("30profs.json");
             JSONArray salasJson = JSONHelper.parseAsArray("inputOfSala.json");
 
             // Preparar paralelos, actualizando su contenido en memoria.
