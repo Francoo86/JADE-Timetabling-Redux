@@ -1,7 +1,5 @@
 package df;
 
-import agentes.AgenteProfesor;
-import agentes.AgenteSala;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -22,21 +20,11 @@ public class DFCache {
 
     public static List<DFAgentDescription> search(Agent agent, String serviceType, Property... properties) {
         String cacheKey = buildCacheKey(serviceType, properties);
-        long startTime = System.nanoTime(); // Use nanoTime for more precise measurement
         long currentTime = System.currentTimeMillis();
 
         // Check cache validity
         if (agentCache.containsKey(cacheKey) &&
                 currentTime - cacheTimestamps.get(cacheKey) < CACHE_DURATION) {
-            long cacheHitTime = System.nanoTime() - startTime;
-            // Record cache hit if agent has metrics collector
-            if (agent instanceof AgenteProfesor) {
-                ((AgenteProfesor) agent).getMetricsCollector()
-                        .recordDFOperation("cache_hit", startTime, agentCache.get(cacheKey).size(), "success");
-            } else if (agent instanceof AgenteSala) {
-                ((AgenteSala) agent).getMetricsCollector()
-                        .recordDFOperation("cache_hit", startTime, agentCache.get(cacheKey).size(), "success");
-            }
             return agentCache.get(cacheKey);
         }
 
@@ -59,25 +47,8 @@ public class DFCache {
             agentCache.put(cacheKey, resultList);
             cacheTimestamps.put(cacheKey, currentTime);
 
-            // Record successful search metrics
-            if (agent instanceof AgenteProfesor) {
-                ((AgenteProfesor) agent).getMetricsCollector()
-                        .recordDFOperation("search", startTime, results.length, "success");
-            } else if (agent instanceof AgenteSala) {
-                ((AgenteSala) agent).getMetricsCollector()
-                        .recordDFOperation("search", startTime, results.length, "success");
-            }
-
             return resultList;
         } catch (FIPAException e) {
-            // Record failed search metrics
-            if (agent instanceof AgenteProfesor) {
-                ((AgenteProfesor) agent).getMetricsCollector()
-                        .recordDFOperation("search", startTime, 0, "error: " + e.getMessage());
-            } else if (agent instanceof AgenteSala) {
-                ((AgenteSala) agent).getMetricsCollector()
-                        .recordDFOperation("search", startTime, 0, "error: " + e.getMessage());
-            }
             e.printStackTrace();
             return Collections.emptyList();
         }
