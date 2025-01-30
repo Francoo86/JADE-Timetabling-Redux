@@ -11,7 +11,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -27,7 +28,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 45,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(INT75-I)",
@@ -36,7 +38,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT91-I)",
@@ -45,7 +48,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             }
         ]
     },
@@ -61,7 +65,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ23-A)",
@@ -70,7 +75,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ31-B)",
@@ -79,7 +85,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ31-B)",
@@ -88,7 +95,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ41-B)",
@@ -97,7 +105,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ41-B)",
@@ -106,7 +115,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ83-A)",
@@ -115,7 +125,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ83-A)",
@@ -124,7 +135,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -140,7 +152,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ31-B)",
@@ -149,7 +162,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ41-B)",
@@ -158,7 +172,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ41-B)",
@@ -167,7 +182,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ65-A)",
@@ -176,7 +192,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ65-A)",
@@ -185,7 +202,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ85-A)",
@@ -194,7 +212,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ85-A)",
@@ -203,7 +222,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -219,7 +239,8 @@
                 "Paralelo": "A",
                 "Horas": 7,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ21-A)",
@@ -228,7 +249,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ22-A)",
@@ -237,7 +259,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ22-A)",
@@ -246,7 +269,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ56-A)",
@@ -255,7 +279,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ56-A)",
@@ -264,7 +289,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ96-A)",
@@ -273,7 +299,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ96-A)",
@@ -282,7 +309,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             }
         ]
     },
@@ -298,7 +326,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT59-J)",
@@ -307,7 +336,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT68-I)",
@@ -316,7 +346,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT73-I)",
@@ -325,7 +356,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -341,7 +373,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 5,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI62-A)",
@@ -350,7 +383,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 50,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI85-A)",
@@ -359,7 +393,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             }
         ]
     },
@@ -375,16 +410,18 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IMEA2-A)",
                 "Nombre": "CADENA DE VALOR HIDROMETA",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -400,7 +437,8 @@
                 "Paralelo": "A",
                 "Horas": 6,
                 "Vacantes": 50,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             }
         ]
     },
@@ -412,11 +450,12 @@
             {
                 "CodigoAsignatura": "(FIA52-A)",
                 "Nombre": "ESTADÍSTICA APLICADA",
-                "Nivel": 5,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -428,11 +467,12 @@
             {
                 "CodigoAsignatura": "(FIA41-B)",
                 "Nombre": "TERMODINÁMICA",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 50,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IME61-A)",
@@ -441,7 +481,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IME83-A)",
@@ -450,7 +491,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(IME83-A)",
@@ -459,7 +501,8 @@
                 "Paralelo": "A",
                 "Horas": 4,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT52-I)",
@@ -468,7 +511,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -484,7 +528,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 45,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(IC804-A)",
@@ -493,7 +538,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 45,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IC904-A)",
@@ -502,25 +548,28 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 1,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICA04-A)",
                 "Nombre": "TALLER DE TITULO",
-                "Nivel": 0,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ICIA3-A)",
                 "Nombre": "PREPARCIÓN PARA EL PROCES",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT91-J)",
@@ -529,7 +578,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(INT91-I)",
@@ -538,7 +588,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             }
         ]
     },
@@ -550,20 +601,22 @@
             {
                 "CodigoAsignatura": "(FIA24-C)",
                 "Nombre": "INTRODUCCIÓN A LA PROGRAM",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 33,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(FIA24-C)",
                 "Nombre": "INTRODUCCIÓN A LA PROGRAM",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 33,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(CCI83-A)",
@@ -572,7 +625,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(CCI83-A)",
@@ -581,25 +635,28 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(FIA24-A)",
                 "Nombre": "INTRODUCCIÓN A LA PROGRAM",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(FIA24-A)",
                 "Nombre": "INTRODUCCIÓN A LA PROGRAM",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IC10F-A)",
@@ -608,7 +665,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(IC10F-A)",
@@ -617,7 +675,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -633,7 +692,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 50,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -649,16 +709,18 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICEA6-A)",
                 "Nombre": "TALLER DE TITULACIÓN",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 6,
                 "Vacantes": 15,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             }
         ]
     },
@@ -674,7 +736,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 24,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Ayu"
             }
         ]
     },
@@ -690,7 +753,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -706,7 +770,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 15,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             }
         ]
     },
@@ -718,20 +783,22 @@
             {
                 "CodigoAsignatura": "(ARQA2-A)",
                 "Nombre": "INTRODUCCION AL PROYECTO",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQA2-A)",
                 "Nombre": "INTRODUCCION AL PROYECTO",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -747,7 +814,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 28,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Ayu"
             },
             {
                 "CodigoAsignatura": "(INT24-FA)",
@@ -756,7 +824,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -768,47 +837,52 @@
             {
                 "CodigoAsignatura": "(ICA44-A)",
                 "Nombre": "BIOQUIMICA Y MICROBIOLOGI",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA44-A)",
                 "Nombre": "BIOQUIMICA Y MICROBIOLOGI",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 4,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICA82-A)",
                 "Nombre": "TRATAMIENTO DE EMISIONES",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA82-A)",
                 "Nombre": "TRATAMIENTO DE EMISIONES",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICAA6-A)",
                 "Nombre": "CAMBIO CLIMÁTICO Y RESILE",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 12,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -824,7 +898,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(CCI63-A)",
@@ -833,7 +908,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(CCI82-A)",
@@ -842,7 +918,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(CCI82-A)",
@@ -851,7 +928,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -867,7 +945,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI64-DV2)",
@@ -876,7 +955,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -892,7 +972,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -908,16 +989,18 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IMIA3-A)",
                 "Nombre": "CIERRE Y ABANDONO DE FAEN",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -929,47 +1012,52 @@
             {
                 "CodigoAsignatura": "(ICA61-A)",
                 "Nombre": "MECANICA DE FLUIDOS",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Ayu"
             },
             {
                 "CodigoAsignatura": "(ICA61-A)",
                 "Nombre": "MECANICA DE FLUIDOS",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA61-A)",
                 "Nombre": "MECANICA DE FLUIDOS",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICA63-A)",
                 "Nombre": "FENOMENOS DE TRANSPORTE",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICAA3-A)",
                 "Nombre": "TALLER DE TITULO",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             }
         ]
     },
@@ -985,7 +1073,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ63-A)",
@@ -994,7 +1083,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ91-A)",
@@ -1003,7 +1093,8 @@
                 "Paralelo": "A",
                 "Horas": 7,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ91-A)",
@@ -1012,7 +1103,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1028,7 +1120,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICE83-A)",
@@ -1037,7 +1130,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICE83-A)",
@@ -1046,25 +1140,28 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICEA3-A)",
                 "Nombre": "LABORATORIO DE CONTROL DI",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 15,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICEA4-A)",
                 "Nombre": "LABORATORIO DE ROBÓTICA",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 15,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             }
         ]
     },
@@ -1080,7 +1177,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 28,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(INT91-FB)",
@@ -1089,7 +1187,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 28,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             }
         ]
     },
@@ -1105,7 +1204,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI84-A)",
@@ -1114,7 +1214,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1130,7 +1231,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1146,7 +1248,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1162,7 +1265,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ71-A)",
@@ -1171,7 +1275,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ81-A)",
@@ -1180,7 +1285,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ81-A)",
@@ -1189,25 +1295,28 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQA2-A)",
                 "Nombre": "INTRODUCCION AL PROYECTO",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQA2-A)",
                 "Nombre": "INTRODUCCION AL PROYECTO",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1223,7 +1332,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1235,11 +1345,12 @@
             {
                 "CodigoAsignatura": "(IMIA4-A)",
                 "Nombre": "SIST. DE GESTION EN SEGUR",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1255,7 +1366,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(CCI84-A)",
@@ -1264,7 +1376,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(CCI84-A)",
@@ -1273,34 +1386,38 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(CCIA1-A)",
                 "Nombre": "TALLER DE INNOVACION T.I.",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(CCIA1-A)",
                 "Nombre": "TALLER DE INNOVACION T.I.",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(CCIA5-A)",
                 "Nombre": "TALLER DE TITULO",
-                "Nivel": 5,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1312,20 +1429,22 @@
             {
                 "CodigoAsignatura": "(ICA64-A)",
                 "Nombre": "BIOTECNOLOGIA APLICADA",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA64-A)",
                 "Nombre": "BIOTECNOLOGIA APLICADA",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1337,20 +1456,22 @@
             {
                 "CodigoAsignatura": "(ICA64-A)",
                 "Nombre": "BIOTECNOLOGIA APLICADA",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA64-A)",
                 "Nombre": "BIOTECNOLOGIA APLICADA",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1366,7 +1487,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             }
         ]
     },
@@ -1382,7 +1504,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT82-I)",
@@ -1391,7 +1514,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1407,7 +1531,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1423,7 +1548,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI64-AR)",
@@ -1432,7 +1558,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1448,7 +1575,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(CCI65-A)",
@@ -1457,7 +1585,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(CCI95-A)",
@@ -1466,16 +1595,18 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 3,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(CCIA5-A)",
                 "Nombre": "TALLER DE TITULO",
-                "Nivel": 5,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 4,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IC10D-A)",
@@ -1484,7 +1615,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(IC10D-A)",
@@ -1493,7 +1625,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1505,11 +1638,12 @@
             {
                 "CodigoAsignatura": "(FIA53-A)",
                 "Nombre": "ONDAS Y ÓPTICA",
-                "Nivel": 5,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 4,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICE44-A)",
@@ -1518,7 +1652,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 15,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICE44-A)",
@@ -1527,7 +1662,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 15,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT14-J)",
@@ -1536,7 +1672,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT34-J)",
@@ -1545,7 +1682,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1561,7 +1699,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(PRO51-ON)",
@@ -1570,7 +1709,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRO51-ON)",
@@ -1579,7 +1719,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tut"
             },
             {
                 "CodigoAsignatura": "(PRO52-ON)",
@@ -1588,7 +1729,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(PRO52-ON)",
@@ -1597,7 +1739,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRO52-ON)",
@@ -1606,7 +1749,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tut"
             },
             {
                 "CodigoAsignatura": "(PRO53-ON)",
@@ -1615,7 +1759,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(PRO53-ON)",
@@ -1624,7 +1769,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRO53-ON)",
@@ -1633,7 +1779,8 @@
                 "Paralelo": "A",
                 "Horas": 4,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tut"
             },
             {
                 "CodigoAsignatura": "(PRO54-ON)",
@@ -1642,7 +1789,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(PRO54-ON)",
@@ -1651,7 +1799,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRO54-ON)",
@@ -1660,7 +1809,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tut"
             },
             {
                 "CodigoAsignatura": "(PRO55-ON)",
@@ -1669,7 +1819,8 @@
                 "Paralelo": "A",
                 "Horas": 6,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(PRO55-ON)",
@@ -1678,7 +1829,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRO55-ON)",
@@ -1687,7 +1839,8 @@
                 "Paralelo": "A",
                 "Horas": 4,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tut"
             },
             {
                 "CodigoAsignatura": "(PRO56-ON)",
@@ -1696,7 +1849,8 @@
                 "Paralelo": "A",
                 "Horas": 5,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(PRO56-ON)",
@@ -1705,7 +1859,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tut"
             }
         ]
     },
@@ -1721,7 +1876,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT61-S)",
@@ -1730,7 +1886,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI61-S)",
@@ -1739,7 +1896,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1755,7 +1913,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1771,7 +1930,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1787,7 +1947,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ82-A)",
@@ -1796,7 +1957,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ82-A)",
@@ -1805,7 +1967,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1817,20 +1980,22 @@
             {
                 "CodigoAsignatura": "(FIA14-C)",
                 "Nombre": "INTRODUCCIÓN A LA INGENIE",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 65,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(FIA14-C)",
                 "Nombre": "INTRODUCCIÓN A LA INGENIE",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 65,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1846,7 +2011,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI81-S)",
@@ -1855,7 +2021,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1871,7 +2038,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1887,7 +2055,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1903,7 +2072,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI65-DV2)",
@@ -1912,7 +2082,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1928,7 +2099,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 24,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Ayu"
             },
             {
                 "CodigoAsignatura": "(INT68-FB)",
@@ -1937,7 +2109,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 24,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1949,11 +2122,12 @@
             {
                 "CodigoAsignatura": "(CCIA4-A)",
                 "Nombre": "LIDERAZGO Y EMPRENDIMIENT",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 4,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1969,7 +2143,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI82-HHH)",
@@ -1978,7 +2153,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -1990,20 +2166,22 @@
             {
                 "CodigoAsignatura": "(CCIA3-A)",
                 "Nombre": "GESTION DE CALIDAD DE SOF",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(CCIA3-A)",
                 "Nombre": "GESTION DE CALIDAD DE SOF",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2019,7 +2197,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(CCI44-A)",
@@ -2028,7 +2207,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2040,11 +2220,12 @@
             {
                 "CodigoAsignatura": "(FIA52-A)",
                 "Nombre": "ESTADÍSTICA APLICADA",
-                "Nivel": 5,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(INT42-J)",
@@ -2053,7 +2234,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT42-I)",
@@ -2062,7 +2244,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2074,29 +2257,32 @@
             {
                 "CodigoAsignatura": "(ICA65-A)",
                 "Nombre": "SISTEMA DE INFORMACION GE",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 5,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA84-A)",
                 "Nombre": "EVALUCION AMBIENTAL",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA84-A)",
                 "Nombre": "EVALUCION AMBIENTAL",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2108,38 +2294,42 @@
             {
                 "CodigoAsignatura": "(FIA62-B)",
                 "Nombre": "ECONOMÍA",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(FIA62-B)",
                 "Nombre": "ECONOMÍA",
-                "Nivel": 6,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(FIA81-A)",
                 "Nombre": "ING. ECONÓMICA Y DIRECCIÓ",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(FIA81-A)",
                 "Nombre": "ING. ECONÓMICA Y DIRECCIÓ",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2155,7 +2345,8 @@
                 "Paralelo": "A",
                 "Horas": 7,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ21-B)",
@@ -2164,7 +2355,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2180,7 +2372,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(PRI85-HHH)",
@@ -2189,7 +2382,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             }
         ]
     },
@@ -2205,7 +2399,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI81-HHH)",
@@ -2214,7 +2409,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI83-EEE)",
@@ -2223,7 +2419,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI83-HHH)",
@@ -2232,7 +2429,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2248,7 +2446,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(IC803-A)",
@@ -2257,34 +2456,38 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICIA1-A)",
                 "Nombre": "CONFIABILIDAD Y MANTENIMI",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICA81-A)",
                 "Nombre": "INVESTIGACION DE OPERACIO",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ICA81-A)",
                 "Nombre": "INVESTIGACION DE OPERACIO",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2296,47 +2499,52 @@
             {
                 "CodigoAsignatura": "(FIA14-A)",
                 "Nombre": "INTRODUCCIÓN A LA INGENIE",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 65,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(FIA14-A)",
                 "Nombre": "INTRODUCCIÓN A LA INGENIE",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 65,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICAA1-A)",
                 "Nombre": "DESARROLLO Y GESTION DE P",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 12,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ICAA1-A)",
                 "Nombre": "DESARROLLO Y GESTION DE P",
-                "Nivel": 1,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 12,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICAA3-A)",
                 "Nombre": "TALLER DE TITULO",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(INT57-J)",
@@ -2345,7 +2553,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2361,7 +2570,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ51-B)",
@@ -2370,7 +2580,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ61-B)",
@@ -2379,7 +2590,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ61-B)",
@@ -2388,7 +2600,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 20,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2400,56 +2613,62 @@
             {
                 "CodigoAsignatura": "(ICA83-A)",
                 "Nombre": "TRAMIENTO DE RESIDUOS LIQ",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(ICA83-A)",
                 "Nombre": "TRAMIENTO DE RESIDUOS LIQ",
-                "Nivel": 8,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 10,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICA94-A)",
                 "Nombre": "PLANIFICACION TERRITORIAL",
-                "Nivel": 9,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 0,
                 "Vacantes": 5,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICAA2-A)",
                 "Nombre": "GESTION AMBIENTAL",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 12,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ICAA2-A)",
                 "Nombre": "GESTION AMBIENTAL",
-                "Nivel": 2,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 12,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ICAA3-A)",
                 "Nombre": "TALLER DE TITULO",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(INT64-I)",
@@ -2458,7 +2677,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2474,7 +2694,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ25-A)",
@@ -2483,7 +2704,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(ARQ45-A)",
@@ -2492,7 +2714,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Pra"
             },
             {
                 "CodigoAsignatura": "(ARQ45-A)",
@@ -2501,7 +2724,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 60,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2517,7 +2741,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2529,11 +2754,12 @@
             {
                 "CodigoAsignatura": "(FIA42-A)",
                 "Nombre": "MÉTODOS NUMÉRICOS",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IC603-A)",
@@ -2542,7 +2768,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(IC603-A)",
@@ -2551,7 +2778,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IC802-A)",
@@ -2560,7 +2788,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 45,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(IC802-A)",
@@ -2569,16 +2798,18 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 45,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(FIA42-B)",
                 "Nombre": "MÉTODOS NUMÉRICOS",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(INT51-J)",
@@ -2587,7 +2818,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2603,7 +2835,8 @@
                 "Paralelo": "A",
                 "Horas": 7,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Tal"
             },
             {
                 "CodigoAsignatura": "(ARQ21-A)",
@@ -2612,7 +2845,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2624,11 +2858,12 @@
             {
                 "CodigoAsignatura": "(FIA41-A)",
                 "Nombre": "TERMODINÁMICA",
-                "Nivel": 4,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 50,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IMI44-A)",
@@ -2637,7 +2872,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Ayu"
             },
             {
                 "CodigoAsignatura": "(IMI44-A)",
@@ -2646,7 +2882,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 40,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2658,11 +2895,12 @@
             {
                 "CodigoAsignatura": "(IMEA3-A)",
                 "Nombre": "ADMINISTRACION DE RIESGO",
-                "Nivel": 3,
+                "Nivel": 10,
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 30,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2678,7 +2916,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 25,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     },
@@ -2694,7 +2933,8 @@
                 "Paralelo": "A",
                 "Horas": 1,
                 "Vacantes": 45,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(IC404-A)",
@@ -2703,7 +2943,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 45,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(IC601-A)",
@@ -2712,7 +2953,8 @@
                 "Paralelo": "A",
                 "Horas": 2,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Lab"
             },
             {
                 "CodigoAsignatura": "(IC601-A)",
@@ -2721,7 +2963,8 @@
                 "Paralelo": "A",
                 "Horas": 3,
                 "Vacantes": 35,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             },
             {
                 "CodigoAsignatura": "(PRI61-A)",
@@ -2730,7 +2973,8 @@
                 "Paralelo": "A",
                 "Horas": 12,
                 "Vacantes": 50,
-                "Campus": "Playa Brava"
+                "Campus": "Playa Brava",
+                "Actividad": "Teo"
             }
         ]
     }
