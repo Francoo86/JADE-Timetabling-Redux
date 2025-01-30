@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.*;
 
 public class PerformanceMonitor {
-    private static final OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+    private static final OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final String BASE_PATH = "performance_logs/";
     private final Agent monitoredAgent;
