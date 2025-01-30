@@ -1,4 +1,4 @@
-package monitoring;
+package performance;
 
 import jade.core.Agent;
 import java.lang.management.ManagementFactory;
