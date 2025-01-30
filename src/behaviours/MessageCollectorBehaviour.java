@@ -41,6 +41,7 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                         return;
                     }
 
+                    profesor.getMetricsCollector().recordMessageReceived(reply);
                     // Create single batch proposal instead of multiple individual ones
                     BatchProposal batchProposal = new BatchProposal(sala, reply);
                     batchProposals.offer(batchProposal);
