@@ -8,7 +8,6 @@ import constants.enums.Day;
 import constants.enums.TipoContrato;
 import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
-import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.Property;
@@ -913,10 +912,6 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             results.stream()
                     .filter(room -> !canQuickReject(currentSubject, room))
                     .forEach(room -> cfp.addReceiver(room.getName()));
-
-            //Measure profs
-            AgenteProfesor prof = (AgenteProfesor) myAgent;
-            prof.getMetricsCollector().recordMessageSent(cfp);
 
             profesor.send(cfp);
         } catch (Exception e) {
