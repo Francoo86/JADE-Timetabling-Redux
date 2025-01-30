@@ -23,7 +23,6 @@ import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IterativeAplicacion {
@@ -100,46 +99,39 @@ public class IterativeAplicacion {
 
         try {
             mainContainer = rt.createMainContainer(profile);
-            log("Main container created for iteration " + iteration);
 
             // Load and process data
             JSONArray professorJson = JSONHelper.parseAsArray("30profs.json");
             JSONArray roomJson = JSONHelper.parseAsArray("inputOfSala.json");
             professorJson = JSONProcessor.prepararParalelos(professorJson);
-            log("JSON data loaded and processed for iteration " + iteration);
 
             // Create monitoring for this iteration
-            PerformanceMonitor perfMonitor = new PerformanceMonitor("Iteration" + iteration);
+            PerformanceMonitor perfMonitor = new PerformanceMonitor(null, "Iteration" + iteration);
             perfMonitor.startMonitoring();
-            log("Performance monitoring started for iteration " + iteration);
 
-            // Initialize rooms first and wait for them to register
-            log("Initializing " + roomJson.size() + " rooms...");
+            // Initialize rooms
+            AtomicInteger totalSubjects = new AtomicInteger(0);
             initializeRooms(mainContainer, roomJson, roomControllers);
-            Thread.sleep(2000); // Give rooms time to register in DF
-            log("Rooms initialized and registered");
 
             // Calculate total subjects
-            AtomicInteger totalSubjects = new AtomicInteger(0);
             for (Object obj : professorJson) {
                 JSONObject professor = (JSONObject) obj;
                 JSONArray subjects = (JSONArray) professor.get("Asignaturas");
                 totalSubjects.addAndGet(subjects.size());
             }
-            log("Total subjects to assign: " + totalSubjects.get());
 
             // Configure rooms
             configureRooms(roomControllers, totalSubjects.get());
-            Thread.sleep(1000); // Wait for room configuration
-            log("Rooms configured");
 
-            // Initialize professors but don't start them yet
-            log("Initializing " + professorJson.size() + " professors...");
+            // Initialize professors
             initializeProfessors(mainContainer, professorJson, professorControllers);
-            Thread.sleep(2000); // Wait for professors to initialize
-            log("Professors initialized");
 
-            // Create and start supervisor first
+            // Start first professor
+            if (!professorControllers.isEmpty()) {
+                professorControllers.get(0).start();
+            }
+
+            // Create and start supervisor
             Object[] supervisorArgs = {professorControllers};
             AgentController supervisor = mainContainer.createNewAgent(
                     "Supervisor",
@@ -147,27 +139,13 @@ public class IterativeAplicacion {
                     supervisorArgs
             );
             supervisor.start();
-            Thread.sleep(1000); // Give supervisor time to initialize
-            log("Supervisor started");
 
-            // Now start first professor
-            if (!professorControllers.isEmpty()) {
-                log("Starting first professor");
-                professorControllers.get(0).start();
-            }
-
-            // Wait for completion with timeout
-            log("Waiting for system completion...");
-            boolean completed = waitForCompletion(supervisor, 300000); // 5 minute timeout
-            if (!completed) {
-                throw new TimeoutException("System did not complete within timeout period");
-            }
+            // Wait for completion
+            waitForCompletion(supervisor);
 
             // Get metrics
             int profAssignments = ProfesorHorarioJSON.getInstance().getPendingUpdateCount();
             int roomUtilization = SalaHorarioJSON.getInstance().getPendingUpdateCount();
-            log(String.format("Metrics - Professor Assignments: %d, Room Utilization: %d",
-                    profAssignments, roomUtilization));
 
             // Stop monitoring
             perfMonitor.stopMonitoring();
@@ -182,7 +160,6 @@ public class IterativeAplicacion {
         } catch (Exception e) {
             String error = String.format("Error in iteration %d: %s", iteration, e.getMessage());
             log(error);
-            e.printStackTrace(); // Print full stack trace for debugging
             results.add(new IterationResult(
                     iteration, System.currentTimeMillis() - startTime, 0, 0, "error", error));
 
@@ -190,29 +167,15 @@ public class IterativeAplicacion {
             // Cleanup
             if (mainContainer != null) {
                 try {
-                    log("Cleaning up container for iteration " + iteration);
                     mainContainer.kill();
                 } catch (Exception e) {
                     log("Error during container cleanup: " + e.getMessage());
-                    e.printStackTrace();
                 }
             }
-            log("Waiting before next iteration...");
-            Thread.sleep(5000);
+            Thread.sleep(5000); // Wait before next iteration
         }
     }
 
-    // Add timeout to waitForCompletion
-    private boolean waitForCompletion(AgentController supervisor, long timeout) throws Exception {
-        long startWait = System.currentTimeMillis();
-        while (System.currentTimeMillis() - startWait < timeout) {
-            Thread.sleep(1000);
-            if (supervisor.getState().getCode() == jade.core.Agent.AP_DELETED) {
-                return true;
-            }
-        }
-        return false;
-    }
     private void initializeRooms(AgentContainer container, JSONArray roomsJson,
                                  Map<String, AgentController> controllers) throws StaleProxyException {
         for (Object obj : roomsJson) {
