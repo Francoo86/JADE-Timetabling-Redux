@@ -20,6 +20,8 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import performance.MessageMetricsCollector;
+import performance.PerformanceMonitor;
 
 import java.io.IOException;
 import java.util.*;
@@ -32,6 +34,13 @@ public class AgenteSala extends Agent {
     private int capacidad;
     private int turno;
     private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
+    private PerformanceMonitor performanceMonitor;
+    private MessageMetricsCollector metricsCollector;
+
+    public MessageMetricsCollector getMetricsCollector() {
+        return metricsCollector;
+    }
+
 
     @Override
     protected void setup() {
@@ -45,6 +54,13 @@ public class AgenteSala extends Agent {
             }
             horarioOcupado.put(dia, asignaciones);
         }
+
+        // Inicializar monitor de rendimiento
+        performanceMonitor = new PerformanceMonitor(this, "Room"); // or "Room"
+        metricsCollector = new MessageMetricsCollector(this, "Room"); // or "Room"
+
+        performanceMonitor.startMonitoring();
+        addBehaviour(metricsCollector.createMessageMonitorBehaviour());
 
         // Cargar datos de la sala desde JSON
         Object[] args = getArguments();
