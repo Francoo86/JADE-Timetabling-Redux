@@ -35,6 +35,7 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         if (reply != null) {
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
                 try {
+                    profesor.getPerformanceMonitor().recordMessageReceived(reply, "PROPOSE");
                     // Record message receive time and metrics
                     profesor.getPerformanceMonitor().recordMessageMetrics(
                             reply.getConversationId(),

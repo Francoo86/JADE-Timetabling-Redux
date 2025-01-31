@@ -204,6 +204,7 @@ public class AgenteSala extends Agent {
 
         private void procesarSolicitud(ACLMessage msg) {
             try {
+                getPerformanceMonitor().recordMessageReceived(msg, "CFP");
                 long startTime = System.nanoTime();
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = sanitizeSubjectName(solicitudData[0]);
@@ -247,6 +248,7 @@ public class AgenteSala extends Agent {
                 } else {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
+                    getPerformanceMonitor().recordMessageSent(reply, "PROPOSE");
                     send(reply);
 
                     // Record metrics for refuse

@@ -914,6 +914,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                     .filter(room -> !canQuickReject(currentSubject, room))
                     .forEach(room -> cfp.addReceiver(room.getName()));
 
+            profesor.getPerformanceMonitor().recordMessageSent(cfp, "CFP");
             profesor.send(cfp);
 
             profesor.getPerformanceMonitor().recordMessageMetrics(
@@ -977,6 +978,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private ACLMessage createCFPMessage(Asignatura currentSubject) {
         ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
 
+        cfp.setSender(profesor.getAID());
         cfp.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
 
         // Build request info
