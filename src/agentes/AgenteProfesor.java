@@ -64,6 +64,10 @@ public class AgenteProfesor extends Agent {
         return inferirTipoContrato(horasTotales);
     }
 
+    public PerformanceMonitor getPerformanceMonitor() {
+        return performanceMonitor;
+    }
+
     public static TipoContrato inferirTipoContrato(int totalHours) {
         if (totalHours >= 16 && totalHours <= 18) {
             return TipoContrato.JORNADA_COMPLETA;
@@ -256,11 +260,9 @@ public class AgenteProfesor extends Agent {
             cargarDatos(jsonString);
         }
 
-        performanceMonitor = new PerformanceMonitor(this, "Professor"); // or "Room"
-        metricsCollector = new MessageMetricsCollector(this, "Professor"); // or "Room"
-
+        String iterationId = "Agent_" + getLocalName();
+        performanceMonitor = new PerformanceMonitor(iterationId);
         performanceMonitor.startMonitoring();
-        addBehaviour(metricsCollector.createMessageMonitorBehaviour());
 
         // Initialize data structures
         initializeDataStructures();

@@ -33,14 +33,12 @@ public class AgenteSupervisor extends Agent {
             profesoresControllers = (List<AgentController>) args[0];
             System.out.println("[Supervisor] Monitoring " + profesoresControllers.size() + " professors");
         }
-
-        performanceMonitor = new PerformanceMonitor(this, "Supervisor");
-        metricsCollector = new MessageMetricsCollector(this, "Supervisor");
+        String iterationId = "Supervisor_" + getLocalName();
+        performanceMonitor = new PerformanceMonitor(iterationId);
+        performanceMonitor.startMonitoring();
 
         // Start monitoring
         performanceMonitor.startMonitoring();
-        addBehaviour(metricsCollector.createMessageMonitorBehaviour());
-
         addBehaviour(new MonitorBehaviour(this, CHECK_INTERVAL));
     }
 

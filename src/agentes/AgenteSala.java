@@ -41,6 +41,9 @@ public class AgenteSala extends Agent {
         return metricsCollector;
     }
 
+    public PerformanceMonitor getPerformanceMonitor() {
+        return performanceMonitor;
+    }
 
     @Override
     protected void setup() {
@@ -55,15 +58,19 @@ public class AgenteSala extends Agent {
             horarioOcupado.put(dia, asignaciones);
         }
 
+        //get passed arguments
+        Object[] args = getArguments();
+        int currIteration = args.length > 0 ? (int) args[1] : 0;
+
         // Inicializar monitor de rendimiento
-        performanceMonitor = new PerformanceMonitor(this, "Room"); // or "Room"
-        metricsCollector = new MessageMetricsCollector(this, "Room"); // or "Room"
+        String iterationId = "Room_" + getLocalName();
+        performanceMonitor = new PerformanceMonitor(iterationId);
+        performanceMonitor.startMonitoring();
 
         performanceMonitor.startMonitoring();
-        addBehaviour(metricsCollector.createMessageMonitorBehaviour());
+        //addBehaviour(metricsCollector.createMessageMonitorBehaviour());
 
         // Cargar datos de la sala desde JSON
-        Object[] args = getArguments();
         if (args != null && args.length > 0) {
             parseJSON((String) args[0]);
         }
@@ -198,6 +205,7 @@ public class AgenteSala extends Agent {
 
         private void procesarSolicitud(ACLMessage msg) {
             try {
+                long startTime = System.nanoTime();
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = sanitizeSubjectName(solicitudData[0]);
                 int vacantes = Integer.parseInt(solicitudData[1]);
@@ -216,28 +224,40 @@ public class AgenteSala extends Agent {
                     }
                 }
                 if (!availableBlocks.isEmpty()) {
-                    // Create single availability object
                     ClassroomAvailability availability = new ClassroomAvailability(
                             codigo,
                             campus,
                             capacidad,
                             availableBlocks
-                            //satisfaccion
                     );
-                    // Send single response with all availability data
+
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.PROPOSE);
-                    try {
-                        reply.setContentObject(availability);
-                        send(reply);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    reply.setContentObject(availability);
+                    send(reply);
+
+                    // Record metrics
+                    getPerformanceMonitor().recordMessageMetrics(
+                            msg.getConversationId(),
+                            "PROPOSE_SENT",
+                            System.nanoTime() - startTime,
+                            getLocalName(),
+                            msg.getSender().getLocalName()
+                    );
+
                 } else {
-                    // Send refuse if no blocks available
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
                     send(reply);
+
+                    // Record metrics for refuse
+                    getPerformanceMonitor().recordMessageMetrics(
+                            msg.getConversationId(),
+                            "REFUSE_SENT",
+                            System.nanoTime() - startTime,
+                            getLocalName(),
+                            msg.getSender().getLocalName()
+                    );
                 }
             } catch (Exception e) {
                 System.err.println("Error processing request in classroom " + codigo + ": " + e.getMessage());
