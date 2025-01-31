@@ -63,8 +63,7 @@ public class AgenteSala extends Agent {
         int currIteration = args.length > 0 ? (int) args[1] : 0;
 
         // Inicializar monitor de rendimiento
-        String iterationId = "Room_" + getLocalName();
-        performanceMonitor = new PerformanceMonitor(iterationId);
+        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName());
         performanceMonitor.startMonitoring();
 
         performanceMonitor.startMonitoring();

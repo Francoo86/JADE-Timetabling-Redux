@@ -10,69 +10,58 @@ import com.sun.management.OperatingSystemMXBean;
 
 public class PerformanceMonitor {
     private static final String BASE_PATH = "performance_logs/";
-    private static final String CPU_FILE = "cpu_metrics.csv";
-    private static final String DF_FILE = "df_metrics.csv";
-    private static final String RTT_FILE = "rtt_metrics.csv";
-
-    private static final OperatingSystemMXBean osBean =
-            (OperatingSystemMXBean) ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
-    private static final ScheduledExecutorService scheduler =
-            Executors.newScheduledThreadPool(1);
-
-    // Static writers shared across instances
-    private static PrintWriter cpuWriter;
-    private static PrintWriter dfWriter;
-    private static PrintWriter rttWriter;
-    private static boolean isInitialized = false;
-    private static final Object initLock = new Object();
-
     private final String iterationId;
+    private final String agentId;
+    private PrintWriter cpuWriter;
+    private PrintWriter dfWriter;
+    private PrintWriter rttWriter;
     private ScheduledFuture<?> monitoringTask;
+    private final ScheduledExecutorService scheduler;
+    private static final OperatingSystemMXBean osBean;
 
-    public PerformanceMonitor(String iterationId) {
-        this.iterationId = iterationId;
-        initializeIfNeeded();
+    static {
+        osBean = (OperatingSystemMXBean) ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
     }
 
-    private void initializeIfNeeded() {
-        if (!isInitialized) {
-            synchronized(initLock) {
-                if (!isInitialized) {
-                    try {
-                        Files.createDirectories(Paths.get(BASE_PATH));
+    public PerformanceMonitor(int iterationNumber, String agentIdentifier) {
+        this.iterationId = "Iteration" + iterationNumber;
+        this.agentId = agentIdentifier;
+        this.scheduler = Executors.newScheduledThreadPool(1);
+        initializeWriters();
+    }
 
-                        // Initialize writers in append mode
-                        cpuWriter = new PrintWriter(new FileWriter(BASE_PATH + CPU_FILE, true));
-                        dfWriter = new PrintWriter(new FileWriter(BASE_PATH + DF_FILE, true));
-                        rttWriter = new PrintWriter(new FileWriter(BASE_PATH + RTT_FILE, true));
+    private void initializeWriters() {
+        try {
+            // Create directory if it doesn't exist
+            Files.createDirectories(Paths.get(BASE_PATH));
 
-                        // Write headers if files are empty
-                        writeHeadersIfNeeded();
+            // Define file paths
+            String cpuPath = String.format("%s/%s_cpu.csv", BASE_PATH, iterationId);
+            String dfPath = String.format("%s/%s_df.csv", BASE_PATH, iterationId);
+            String rttPath = String.format("%s/%s_rtt.csv", BASE_PATH, iterationId);
 
-                        isInitialized = true;
-                    } catch (IOException e) {
-                        System.err.println("Error initializing performance monitor: " + e.getMessage());
-                        e.printStackTrace();
-                    }
-                }
-            }
+            // Initialize writers in append mode
+            cpuWriter = new PrintWriter(new FileWriter(cpuPath, true));
+            dfWriter = new PrintWriter(new FileWriter(dfPath, true));
+            rttWriter = new PrintWriter(new FileWriter(rttPath, true));
+
+            // Write headers if files are empty
+            writeHeaderIfNeeded(cpuPath, "Timestamp,AgentId,CPUUsage,SystemLoad,ProcessCPUTime,AvailableProcessors");
+            writeHeaderIfNeeded(dfPath, "Timestamp,AgentId,Operation,ResponseTime_ms,NumResults,Status");
+            writeHeaderIfNeeded(rttPath, "Timestamp,AgentId,ConversationId,MessageType,RTT_ms,SenderAgent,ReceiverAgent");
+
+        } catch (IOException e) {
+            System.err.println("Error initializing writers for iteration " + iterationId + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private void writeHeadersIfNeeded() throws IOException {
-        if (new File(BASE_PATH + CPU_FILE).length() == 0) {
-            cpuWriter.println("Iteration,Timestamp,CPUUsage,SystemLoad,ProcessCPUTime,AvailableProcessors");
-            cpuWriter.flush();
-        }
-
-        if (new File(BASE_PATH + DF_FILE).length() == 0) {
-            dfWriter.println("Iteration,Timestamp,Operation,ResponseTime_ms,NumResults,Status");
-            dfWriter.flush();
-        }
-
-        if (new File(BASE_PATH + RTT_FILE).length() == 0) {
-            rttWriter.println("Iteration,Timestamp,ConversationId,MessageType,RTT_ms,SenderAgent,ReceiverAgent");
-            rttWriter.flush();
+    private void writeHeaderIfNeeded(String filePath, String header) throws IOException {
+        if (new File(filePath).length() == 0) {
+            PrintWriter writer = new PrintWriter(new FileWriter(filePath, false));
+            writer.println(header);
+            writer.flush();
+            writer.close();
         }
     }
 
@@ -90,6 +79,40 @@ public class PerformanceMonitor {
         if (monitoringTask != null) {
             monitoringTask.cancel(false);
         }
+
+        scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(1, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+
+        closeWriters();
+    }
+
+    private void closeWriters() {
+        try {
+            if (cpuWriter != null) {
+                synchronized (cpuWriter) {
+                    cpuWriter.close();
+                }
+            }
+            if (dfWriter != null) {
+                synchronized (dfWriter) {
+                    dfWriter.close();
+                }
+            }
+            if (rttWriter != null) {
+                synchronized (rttWriter) {
+                    rttWriter.close();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error closing writers: " + e.getMessage());
+        }
     }
 
     private void recordCPUMetrics() {
@@ -100,8 +123,8 @@ public class PerformanceMonitor {
 
         synchronized(cpuWriter) {
             cpuWriter.printf("%s,%s,%.2f,%.2f,%d,%d%n",
-                    iterationId,
                     LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                    agentId,
                     cpuLoad,
                     systemLoad,
                     processCpuTime,
@@ -116,8 +139,8 @@ public class PerformanceMonitor {
 
         synchronized(dfWriter) {
             dfWriter.printf("%s,%s,%s,%d,%d,%s%n",
-                    iterationId,
                     LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                    agentId,
                     operation,
                     responseTime,
                     numResults,
@@ -131,8 +154,8 @@ public class PerformanceMonitor {
                                      long rtt, String sender, String receiver) {
         synchronized(rttWriter) {
             rttWriter.printf("%s,%s,%s,%s,%d,%s,%s%n",
-                    iterationId,
                     LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                    agentId,
                     conversationId,
                     messageType,
                     rtt,
@@ -143,40 +166,17 @@ public class PerformanceMonitor {
         }
     }
 
-    public static void closeAllWriters() {
-        if (cpuWriter != null) {
-            synchronized(cpuWriter) {
-                cpuWriter.close();
-            }
-        }
-        if (dfWriter != null) {
-            synchronized(dfWriter) {
-                dfWriter.close();
-            }
-        }
-        if (rttWriter != null) {
-            synchronized(rttWriter) {
-                rttWriter.close();
-            }
-        }
-
-        scheduler.shutdown();
-        try {
-            if (!scheduler.awaitTermination(1, TimeUnit.SECONDS)) {
-                scheduler.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            scheduler.shutdownNow();
-        }
-
-        isInitialized = false;
-    }
-
     public static void cleanupFiles() {
         try {
-            Files.deleteIfExists(Paths.get(BASE_PATH + CPU_FILE));
-            Files.deleteIfExists(Paths.get(BASE_PATH + DF_FILE));
-            Files.deleteIfExists(Paths.get(BASE_PATH + RTT_FILE));
+            Files.walk(Paths.get(BASE_PATH))
+                    .filter(Files::isRegularFile)
+                    .forEach(path -> {
+                        try {
+                            Files.delete(path);
+                        } catch (IOException e) {
+                            System.err.println("Error deleting file " + path + ": " + e.getMessage());
+                        }
+                    });
         } catch (IOException e) {
             System.err.println("Error cleaning up metric files: " + e.getMessage());
         }
@@ -184,5 +184,9 @@ public class PerformanceMonitor {
 
     public String getIterationId() {
         return iterationId;
+    }
+
+    public String getAgentId() {
+        return agentId;
     }
 }

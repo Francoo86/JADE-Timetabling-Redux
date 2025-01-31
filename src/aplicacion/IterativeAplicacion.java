@@ -106,12 +106,12 @@ public class IterativeAplicacion {
             professorJson = JSONProcessor.prepararParalelos(professorJson);
 
             // Create monitoring for this iteration
-            PerformanceMonitor perfMonitor = new PerformanceMonitor(null, "Iteration" + iteration);
+            PerformanceMonitor perfMonitor = new PerformanceMonitor(iteration, "MainContainer");
             perfMonitor.startMonitoring();
 
             // Initialize rooms
             AtomicInteger totalSubjects = new AtomicInteger(0);
-            initializeRooms(mainContainer, roomJson, roomControllers);
+            initializeRooms(mainContainer, roomJson, roomControllers, iteration);
 
             // Calculate total subjects
             for (Object obj : professorJson) {
@@ -124,7 +124,7 @@ public class IterativeAplicacion {
             configureRooms(roomControllers, totalSubjects.get());
 
             // Initialize professors
-            initializeProfessors(mainContainer, professorJson, professorControllers);
+            initializeProfessors(mainContainer, professorJson, professorControllers, iteration);
 
             // Start first professor
             if (!professorControllers.isEmpty()) {
@@ -132,7 +132,7 @@ public class IterativeAplicacion {
             }
 
             // Create and start supervisor
-            Object[] supervisorArgs = {professorControllers};
+            Object[] supervisorArgs = {professorControllers, iteration};
             AgentController supervisor = mainContainer.createNewAgent(
                     "Supervisor",
                     AgenteSupervisor.class.getName(),
@@ -177,11 +177,11 @@ public class IterativeAplicacion {
     }
 
     private void initializeRooms(AgentContainer container, JSONArray roomsJson,
-                                 Map<String, AgentController> controllers) throws StaleProxyException {
+                                 Map<String, AgentController> controllers, int numIterations) throws StaleProxyException {
         for (Object obj : roomsJson) {
             JSONObject roomJson = (JSONObject) obj;
             String codigo = (String) roomJson.get("Codigo");
-            Object[] roomArgs = {roomJson.toJSONString()};
+            Object[] roomArgs = {roomJson.toJSONString(), numIterations};
 
             AgentController room = container.createNewAgent(
                     "Sala" + codigo,
@@ -194,10 +194,10 @@ public class IterativeAplicacion {
     }
 
     private void initializeProfessors(AgentContainer container, JSONArray professorJson,
-                                      List<AgentController> controllers) throws StaleProxyException {
+                                      List<AgentController> controllers, int currIteration) throws StaleProxyException {
         for (int i = 0; i < professorJson.size(); i++) {
             JSONObject profJson = (JSONObject) professorJson.get(i);
-            Object[] profArgs = {profJson.toJSONString(), i};
+            Object[] profArgs = {profJson.toJSONString(), i, currIteration};
 
             AgentController prof = container.createNewAgent(
                     AgenteProfesor.AGENT_NAME + i,

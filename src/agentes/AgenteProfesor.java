@@ -260,8 +260,11 @@ public class AgenteProfesor extends Agent {
             cargarDatos(jsonString);
         }
 
+        // Iteration is third argument
+        int itera = (int) args[2];
+
         String iterationId = "Agent_" + getLocalName();
-        performanceMonitor = new PerformanceMonitor(iterationId);
+        performanceMonitor = new PerformanceMonitor(itera, iterationId);
         performanceMonitor.startMonitoring();
 
         // Initialize data structures

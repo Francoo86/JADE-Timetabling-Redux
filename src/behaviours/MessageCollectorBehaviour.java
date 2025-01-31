@@ -35,13 +35,21 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         if (reply != null) {
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
                 try {
+                    // Record message receive time and metrics
+                    profesor.getPerformanceMonitor().recordMessageMetrics(
+                            reply.getConversationId(),
+                            "PROPOSE_RECEIVED",
+                            0, // RTT will be calculated elsewhere
+                            reply.getSender().getLocalName(),
+                            profesor.getLocalName()
+                    );
+
                     ClassroomAvailability sala = (ClassroomAvailability) reply.getContentObject();
                     if (sala == null) {
                         System.out.println("Null classroom availability received");
                         return;
                     }
 
-                    // Create single batch proposal instead of multiple individual ones
                     BatchProposal batchProposal = new BatchProposal(sala, reply);
                     batchProposals.offer(batchProposal);
                     stateBehaviour.notifyProposalReceived();

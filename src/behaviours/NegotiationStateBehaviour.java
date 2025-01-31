@@ -908,12 +908,21 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
             // Create CFP message once
             ACLMessage cfp = createCFPMessage(currentSubject);
+            long startTime = System.nanoTime();
             // Filter rooms before adding receivers
             results.stream()
                     .filter(room -> !canQuickReject(currentSubject, room))
                     .forEach(room -> cfp.addReceiver(room.getName()));
 
             profesor.send(cfp);
+
+            profesor.getPerformanceMonitor().recordMessageMetrics(
+                    cfp.getConversationId(),
+                    "CFP_SENT",
+                    System.nanoTime() - startTime,
+                    profesor.getLocalName(),
+                    "MULTICAST"
+            );
         } catch (Exception e) {
             System.err.println("Error sending proposal requests: " + e.getMessage());
             e.printStackTrace();
