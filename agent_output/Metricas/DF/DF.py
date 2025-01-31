@@ -36,13 +36,24 @@ def create_comparison_plot(data):
     # Crear nueva figura
     plt.figure(figsize=(12, 6))
     
+    # Mapeo de nombres antiguos a nuevos para la leyenda
+    nombre_plataformas = {
+        'DF_madkit': 'MadKit',
+        'Iteration10': 'Jade',
+        'MAS_Metrics': 'SPADES'
+    }
+    
+    # Definir colores específicos
+    colors = ['blue', 'orange', 'green']
+    
     # Obtener datos únicos para cada fuente
-    for fuente in data['Fuente'].unique():
+    for i, fuente in enumerate(data['Fuente'].unique()):
         subset = data[data['Fuente'] == fuente]
         plt.plot(subset['Servicios_Registrados'], 
                 subset['Tiempo_Registro'], 
                 marker='o',
-                label=fuente,
+                label=nombre_plataformas[fuente],  # Usar el nuevo nombre solo en la leyenda
+                color=colors[i],
                 linestyle='-',
                 markersize=4)
     
@@ -51,7 +62,7 @@ def create_comparison_plot(data):
     plt.xlabel('Servicios Registrados', fontsize=12)
     plt.ylabel('Tiempo de Registro (ms)', fontsize=12)
     plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend(title='Fuente de Datos', bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.legend(title='Plataformas', bbox_to_anchor=(1.05, 1), loc='upper left')
     
     # Ajustar los márgenes
     plt.tight_layout()
@@ -72,9 +83,14 @@ def main():
         
         # Imprimir algunas estadísticas básicas
         print("\nEstadísticas por fuente:")
+        nombre_plataformas = {
+            'DF_madkit': 'MadKit',
+            'Iteration10': 'Jade',
+            'MAS_Metrics': 'SPADES'
+        }
         for fuente in data['Fuente'].unique():
             subset = data[data['Fuente'] == fuente]
-            print(f"\n{fuente}:")
+            print(f"\n{nombre_plataformas[fuente]}:")
             print(f"  Promedio: {subset['Tiempo_Registro'].mean():.2f} ms")
             print(f"  Máximo: {subset['Tiempo_Registro'].max():.2f} ms")
             print(f"  Mínimo: {subset['Tiempo_Registro'].min():.2f} ms")
