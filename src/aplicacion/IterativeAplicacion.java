@@ -317,7 +317,7 @@ public class IterativeAplicacion {
 
     public static void main(String[] args) {
         try {
-            int iterations = args.length > 0 ? Integer.parseInt(args[0]) : 10;
+            int iterations = args.length > 0 ? Integer.parseInt(args[0]) : 1;
             IterativeAplicacion runner = new IterativeAplicacion(iterations);
             runner.runIterations();
         } catch (Exception e) {

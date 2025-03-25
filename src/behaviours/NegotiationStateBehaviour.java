@@ -22,6 +22,7 @@ import objetos.AssignationData;
 import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import objetos.helper.BatchProposal;
+import performance.SimpleRTT;
 import service.TimetablingEvaluator;
 
 import java.io.IOException;
@@ -54,6 +55,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         FINISHED
     }
 
+    private SimpleRTT simpleRTT;
+
     public NegotiationStateBehaviour(AgenteProfesor profesor, long period, ConcurrentLinkedQueue<BatchProposal> propuestas) {
         super(profesor, period);
         this.profesor = profesor;
@@ -61,6 +64,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         this.currentState = NegotiationState.SETUP;
         this.assignationData = new AssignationData();
         this.negotiationStartTime = System.currentTimeMillis();
+
+        this.simpleRTT = SimpleRTT.getInstance();
     }
 
     public synchronized void notifyProposalReceived() {
@@ -908,6 +913,12 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
             // Create CFP message once
             ACLMessage cfp = createCFPMessage(currentSubject);
+            simpleRTT.messageSent(
+                    cfp.getConversationId(),
+                    myAgent.getAID(),
+                    null, // null for broadcast
+                    "CFP"
+            );
             long startTime = System.nanoTime();
             // Filter rooms before adding receivers
             results.stream()

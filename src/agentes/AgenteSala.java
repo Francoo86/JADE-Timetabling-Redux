@@ -22,6 +22,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import performance.MessageMetricsCollector;
 import performance.PerformanceMonitor;
+import performance.SimpleRTT;
 
 import java.io.IOException;
 import java.util.*;
@@ -45,8 +46,11 @@ public class AgenteSala extends Agent {
         return performanceMonitor;
     }
 
+    private SimpleRTT simpleRTT;
+
     @Override
     protected void setup() {
+        this.simpleRTT = SimpleRTT.getInstance();
         // Inicializar estructuras
         initializeSchedule();
         horarioOcupado = new HashMap<>();
@@ -234,6 +238,14 @@ public class AgenteSala extends Agent {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.PROPOSE);
                     reply.setContentObject(availability);
+
+                    simpleRTT.messageSent(
+                            reply.getConversationId(),
+                            myAgent.getAID(),
+                            msg.getSender(),
+                            reply.getPerformative() == ACLMessage.PROPOSE ? "PROPOSE" : "REFUSE"
+                    );
+
                     send(reply);
 
                     // Record metrics
