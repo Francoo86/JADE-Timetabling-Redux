@@ -36,7 +36,7 @@ public class ConstraintEvaluator {
         this.behaviour = behaviour;
     }
 
-    private List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
+    public List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
         if (proposals.isEmpty()) {
             return Collections.emptyList();
         }
