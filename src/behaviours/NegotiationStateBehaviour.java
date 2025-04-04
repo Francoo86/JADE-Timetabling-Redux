@@ -68,6 +68,10 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         this.simpleRTT = SimpleRTT.getInstance();
     }
 
+    public int getBloquesPendientes() {
+        return bloquesPendientes;
+    }
+
     public synchronized void notifyProposalReceived() {
         this.proposalReceived = true;
     }
