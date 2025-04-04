@@ -1,11 +1,14 @@
 package df;
 
+import agentes.AgenteProfesor;
+import agentes.AgenteSala;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.Property;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import performance.PerformanceMonitor;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,11 +23,27 @@ public class DFCache {
 
     public static List<DFAgentDescription> search(Agent agent, String serviceType, Property... properties) {
         String cacheKey = buildCacheKey(serviceType, properties);
+        long startTime = System.nanoTime();
         long currentTime = System.currentTimeMillis();
 
         // Check cache validity
         if (agentCache.containsKey(cacheKey) &&
                 currentTime - cacheTimestamps.get(cacheKey) < CACHE_DURATION) {
+
+            if (agent != null) {
+                PerformanceMonitor monitor = null;
+                if (agent instanceof AgenteProfesor) {
+                    monitor = ((AgenteProfesor) agent).getPerformanceMonitor();
+                } else if (agent instanceof AgenteSala) {
+                    monitor = ((AgenteSala) agent).getPerformanceMonitor();
+                }
+
+                if (monitor != null) {
+                    monitor.recordDFOperation("cache_hit", startTime,
+                            agentCache.get(cacheKey).size(), "success");
+                }
+            }
+
             return agentCache.get(cacheKey);
         }
 
@@ -34,7 +53,6 @@ public class DFCache {
             ServiceDescription sd = new ServiceDescription();
             sd.setType(serviceType);
 
-            // Add any additional properties to the search
             for (Property prop : properties) {
                 sd.addProperties(prop);
             }
@@ -47,8 +65,35 @@ public class DFCache {
             agentCache.put(cacheKey, resultList);
             cacheTimestamps.put(cacheKey, currentTime);
 
+            if (agent != null) {
+                PerformanceMonitor monitor = null;
+                if (agent instanceof AgenteProfesor) {
+                    monitor = ((AgenteProfesor) agent).getPerformanceMonitor();
+                } else if (agent instanceof AgenteSala) {
+                    monitor = ((AgenteSala) agent).getPerformanceMonitor();
+                }
+
+                if (monitor != null) {
+                    monitor.recordDFOperation("search", startTime,
+                            results.length, "success");
+                }
+            }
+
             return resultList;
         } catch (FIPAException e) {
+            if (agent != null) {
+                PerformanceMonitor monitor = null;
+                if (agent instanceof AgenteProfesor) {
+                    monitor = ((AgenteProfesor) agent).getPerformanceMonitor();
+                } else if (agent instanceof AgenteSala) {
+                    monitor = ((AgenteSala) agent).getPerformanceMonitor();
+                }
+
+                if (monitor != null) {
+                    monitor.recordDFOperation("search", startTime,
+                            0, "error: " + e.getMessage());
+                }
+            }
             e.printStackTrace();
             return Collections.emptyList();
         }

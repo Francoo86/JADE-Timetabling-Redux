@@ -20,7 +20,9 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import service.TimetablingEvaluator;
+import performance.MessageMetricsCollector;
+import performance.PerformanceMonitor;
+import performance.SimpleRTT;
 
 import java.io.IOException;
 import java.util.*;
@@ -33,9 +35,22 @@ public class AgenteSala extends Agent {
     private int capacidad;
     private int turno;
     private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
+    private PerformanceMonitor performanceMonitor;
+    private MessageMetricsCollector metricsCollector;
+
+    public MessageMetricsCollector getMetricsCollector() {
+        return metricsCollector;
+    }
+
+    public PerformanceMonitor getPerformanceMonitor() {
+        return performanceMonitor;
+    }
+
+    private SimpleRTT simpleRTT;
 
     @Override
     protected void setup() {
+        this.simpleRTT = SimpleRTT.getInstance();
         // Inicializar estructuras
         initializeSchedule();
         horarioOcupado = new HashMap<>();
@@ -47,8 +62,18 @@ public class AgenteSala extends Agent {
             horarioOcupado.put(dia, asignaciones);
         }
 
-        // Cargar datos de la sala desde JSON
+        //get passed arguments
         Object[] args = getArguments();
+        int currIteration = args.length > 0 ? (int) args[1] : 0;
+
+        // Inicializar monitor de rendimiento
+        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName());
+        performanceMonitor.startMonitoring();
+
+        performanceMonitor.startMonitoring();
+        //addBehaviour(metricsCollector.createMessageMonitorBehaviour());
+
+        // Cargar datos de la sala desde JSON
         if (args != null && args.length > 0) {
             parseJSON((String) args[0]);
         }
@@ -183,67 +208,72 @@ public class AgenteSala extends Agent {
 
         private void procesarSolicitud(ACLMessage msg) {
             try {
+                getPerformanceMonitor().recordMessageReceived(msg, "CFP");
+                long startTime = System.nanoTime();
                 String[] solicitudData = msg.getContent().split(",");
                 String nombreAsignatura = sanitizeSubjectName(solicitudData[0]);
                 int vacantes = Integer.parseInt(solicitudData[1]);
-                int nivel = Integer.parseInt(solicitudData[2]);
-                String preferredCampus = solicitudData[3];
-                int remainingHours = Integer.parseInt(solicitudData[4]);
-
-                // Calculate base satisfaction
-                // Get available blocks with enhanced distribution
-                Map<String, List<Integer>> availableBlocks = getOptimizedAvailableBlocks(
-                        nombreAsignatura,
-                        nivel,
-                        preferredCampus,
-                        remainingHours
-                );
-
-
+                //int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
+                Map<String, List<Integer>> availableBlocks = new HashMap<>();
+                for (Day dia : Day.values()) {
+                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+                    List<Integer> freeBlocks = new ArrayList<>();
+                    for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {
+                        if (asignaciones.get(bloque) == null) {
+                            freeBlocks.add(bloque + 1);
+                        }
+                    }
+                    if (!freeBlocks.isEmpty()) {
+                        availableBlocks.put(dia.toString(), freeBlocks);
+                    }
+                }
                 if (!availableBlocks.isEmpty()) {
-                    Map<Day, List<Integer>> existingSchedule = convertToExistingBlocks(horarioOcupado);
-
-                    int satisfaccion = calculateBestSatisfaction(
-                            availableBlocks,
-                            capacidad,
-                            vacantes,
-                            nivel,
-                            campus,
-                            preferredCampus,
-                            existingSchedule
-                    );
-
-
-                    // Send proposal with available blocks
-                    // Create single availability object
                     ClassroomAvailability availability = new ClassroomAvailability(
                             codigo,
                             campus,
                             capacidad,
-                            availableBlocks,
-                            satisfaccion
+                            availableBlocks
                     );
 
-                    // Send single response with all availability data
                     ACLMessage reply = msg.createReply();
-                    reply.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
                     reply.setPerformative(ACLMessage.PROPOSE);
-                    try {
-                        reply.setContentObject(availability);
-                        send(reply);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    // Send refusal
-                    ACLMessage reply = msg.createReply();
-                    reply.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
-                    reply.setPerformative(ACLMessage.REFUSE);
-                    send(reply);
-                }
+                    reply.setContentObject(availability);
 
+                    simpleRTT.messageSent(
+                            reply.getConversationId(),
+                            myAgent.getAID(),
+                            msg.getSender(),
+                            reply.getPerformative() == ACLMessage.PROPOSE ? "PROPOSE" : "REFUSE"
+                    );
+
+                    send(reply);
+
+                    // Record metrics
+                    getPerformanceMonitor().recordMessageMetrics(
+                            msg.getConversationId(),
+                            "PROPOSE_SENT",
+                            System.nanoTime() - startTime,
+                            getLocalName(),
+                            msg.getSender().getLocalName()
+                    );
+
+                } else {
+                    ACLMessage reply = msg.createReply();
+                    reply.setPerformative(ACLMessage.REFUSE);
+                    getPerformanceMonitor().recordMessageSent(reply, "PROPOSE");
+                    send(reply);
+
+                    // Record metrics for refuse
+                    getPerformanceMonitor().recordMessageMetrics(
+                            msg.getConversationId(),
+                            "REFUSE_SENT",
+                            System.nanoTime() - startTime,
+                            getLocalName(),
+                            msg.getSender().getLocalName()
+                    );
+                }
             } catch (Exception e) {
-                System.err.println("Error processing request in room " + codigo + ": " + e.getMessage());
+                System.err.println("Error processing request in classroom " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -263,43 +293,6 @@ public class AgenteSala extends Agent {
                 }
             }
             return result;
-        }
-
-        private int calculateBestSatisfaction(
-                Map<String, List<Integer>> availableBlocks,
-                int roomCapacity,
-                int studentsCount,
-                int nivel,
-                String campus,
-                String preferredCampus,
-                Map<Day, List<Integer>> existingSchedule) {
-
-            int bestSatisfaction = 0;
-
-            // Evaluate each day and block combination
-            for (Map.Entry<String, List<Integer>> entry : availableBlocks.entrySet()) {
-                Day day = Day.fromString(entry.getKey());
-
-                for (Integer block : entry.getValue()) {
-                    // Create a temporary schedule that includes this potential block
-                    Map<Day, List<Integer>> tempSchedule = new HashMap<>(existingSchedule);
-                    tempSchedule.computeIfAbsent(day, k -> new ArrayList<>()).add(block);
-
-                    int satisfaction = TimetablingEvaluator.calculateSatisfaction(
-                            roomCapacity,
-                            studentsCount,
-                            nivel,
-                            campus,
-                            preferredCampus,
-                            block,
-                            tempSchedule
-                    );
-
-                    bestSatisfaction = Math.max(bestSatisfaction, satisfaction);
-                }
-            }
-
-            return bestSatisfaction;
         }
 
         private Map<String, List<Integer>> getOptimizedAvailableBlocks(
@@ -385,13 +378,19 @@ public class AgenteSala extends Agent {
                 BatchAssignmentRequest batchRequest = (BatchAssignmentRequest) msg.getContentObject();
                 List<BatchAssignmentConfirmation.ConfirmedAssignment> confirmedAssignments = new ArrayList<>();
 
+                System.out.println("\n[DEBUG] Room " + codigo + " processing assignment request");
+
                 for (BatchAssignmentRequest.AssignmentRequest request : batchRequest.getAssignments()) {
                     if (!request.getClassroomCode().equals(codigo)) {
+                        System.out.println("[DEBUG] Skipping request for different room: " + request.getClassroomCode());
                         continue;
                     }
 
                     int bloque = request.getBlock() - 1;
                     List<AsignacionSala> asignaciones = horarioOcupado.get(request.getDay());
+
+                    System.out.println("[DEBUG] Processing request for " + request.getSubjectName() +
+                            " Day: " + request.getDay() + " Block: " + request.getBlock());
 
                     if (asignaciones != null && bloque >= 0 && bloque < asignaciones.size() &&
                             asignaciones.get(bloque) == null) {
@@ -410,11 +409,21 @@ public class AgenteSala extends Agent {
                                 codigo,
                                 request.getSatisfaction()
                         ));
+
+                        System.out.println("[DEBUG] Successfully assigned " + request.getSubjectName() +
+                                " to block " + request.getBlock() + " on " + request.getDay());
+                    } else {
+                        System.out.println("[DEBUG] Could not assign - asignaciones null? " + (asignaciones == null) +
+                                " valid block? " + (bloque >= 0 && bloque < (asignaciones != null ? asignaciones.size() : 0)) +
+                                " block empty? " + (asignaciones != null && bloque >= 0 &&
+                                bloque < asignaciones.size() && asignaciones.get(bloque) == null));
                     }
                 }
 
                 // Update JSON after batch processing
                 if (!confirmedAssignments.isEmpty()) {
+                    verifyAssignments(confirmedAssignments);
+
                     SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
 
                     // Send single confirmation with all successful assignments
@@ -427,6 +436,19 @@ public class AgenteSala extends Agent {
             } catch (Exception e) {
                 System.err.println("Error procesando confirmación en sala " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private void verifyAssignments(List<BatchAssignmentConfirmation.ConfirmedAssignment> assignments) {
+        for (BatchAssignmentConfirmation.ConfirmedAssignment assignment : assignments) {
+            Day day = assignment.getDay();
+            int block = assignment.getBlock() - 1;
+
+            List<AsignacionSala> dayAssignments = horarioOcupado.get(day);
+            if (dayAssignments == null || dayAssignments.get(block) == null) {
+                System.err.println("WARNING: Assignment verification failed for room " +
+                        codigo + " on " + day + " block " + assignment.getBlock());
             }
         }
     }

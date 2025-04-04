@@ -4,6 +4,7 @@ import behaviours.MessageCollectorBehaviour;
 import behaviours.NegotiationStateBehaviour;
 import constants.Messages;
 import constants.enums.Day;
+import constants.enums.TipoContrato;
 import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
 import jade.core.AID;
@@ -23,6 +24,8 @@ import objetos.helper.BatchProposal;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import performance.MessageMetricsCollector;
+import performance.PerformanceMonitor;
 
 import javax.swing.*;
 import java.util.*;
@@ -44,6 +47,8 @@ public class AgenteProfesor extends Agent {
     //TODO: Cambiar el mapeo de string a int porque los días son del 0-6 (asumiendo que el lunes es 0).
     //TODO-2: Pienso que puede ser mejor tener un objeto que contenga la información de los bloques asignados.
     private Map<Day, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
+    private PerformanceMonitor performanceMonitor;
+    private MessageMetricsCollector metricsCollector;
 
     //METODOS EXPUESTOS PARA EL BEHAVIOUR
     @Override
@@ -51,20 +56,22 @@ public class AgenteProfesor extends Agent {
         return nombre;
     }
 
-    public enum TipoContrato {
-        JORNADA_COMPLETA,
-        MEDIA_JORNADA,
-        JORNADA_PARCIAL
-    }
-
     public TipoContrato inferirTipoContrato(List<Asignatura> asignaturas) {
         int horasTotales = asignaturas.stream()
                 .mapToInt(Asignatura::getHoras)
                 .sum();
 
-        if (horasTotales >= 16 && horasTotales <= 18) {
+        return inferirTipoContrato(horasTotales);
+    }
+
+    public PerformanceMonitor getPerformanceMonitor() {
+        return performanceMonitor;
+    }
+
+    public static TipoContrato inferirTipoContrato(int totalHours) {
+        if (totalHours >= 16 && totalHours <= 18) {
             return TipoContrato.JORNADA_COMPLETA;
-        } else if (horasTotales >= 12 && horasTotales <= 14) {
+        } else if (totalHours >= 12 && totalHours <= 14) {
             return TipoContrato.MEDIA_JORNADA;
         } else {
             return TipoContrato.JORNADA_PARCIAL;
@@ -239,6 +246,10 @@ public class AgenteProfesor extends Agent {
         return debugWindow;
     }
 
+    public MessageMetricsCollector getMetricsCollector() {
+        return metricsCollector;
+    }
+
     @Override
     protected void setup() {
         // Load data from JSON
@@ -248,6 +259,13 @@ public class AgenteProfesor extends Agent {
             orden = (Integer) args[1];
             cargarDatos(jsonString);
         }
+
+        // Iteration is third argument
+        int itera = (int) args[2];
+
+        String iterationId = "Agent_" + getLocalName();
+        performanceMonitor = new PerformanceMonitor(itera, iterationId);
+        performanceMonitor.startMonitoring();
 
         // Initialize data structures
         initializeDataStructures();
@@ -346,6 +364,10 @@ public class AgenteProfesor extends Agent {
         }
     }
 
+    public TipoContrato getTipoContrato() {
+        return inferirTipoContrato(asignaturas);
+    }
+
     public class EsperarTurnoBehaviour extends CyclicBehaviour {
         private final AgenteProfesor profesor;
         private final NegotiationStateBehaviour stateBehaviour;
@@ -403,6 +425,7 @@ public class AgenteProfesor extends Agent {
         asignatura.put("Satisfaccion", satisfaccion);
         asignatura.put("CodigoAsignatura", currentSubject.getCodigoAsignatura());
         asignatura.put("Instance", currentInstanceIndex); // or currentInstanceIndex if you have it
+        asignatura.put("Actividad", currentSubject.getActividad().toString());
 
         ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
     }
@@ -469,6 +492,7 @@ public class AgenteProfesor extends Agent {
             e.printStackTrace();
         }
     }
+    
     private synchronized void cleanup() {
         try {
             // Close debug window if exists

@@ -6,6 +6,8 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import objetos.ClassroomAvailability;
 import objetos.helper.BatchProposal;
+import performance.SimpleRTT;
+
 import java.util.Queue;
 
 // Message handler for collecting proposals
@@ -13,6 +15,7 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
     private final AgenteProfesor profesor;
     private final Queue<BatchProposal> batchProposals;
     private final NegotiationStateBehaviour stateBehaviour;
+    private final SimpleRTT rttTracker;
 
     public MessageCollectorBehaviour(AgenteProfesor profesor,
                                      Queue<BatchProposal> batchProposals,
@@ -21,6 +24,8 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         this.profesor = profesor;
         this.batchProposals = batchProposals;
         this.stateBehaviour = stateBehaviour;
+
+        this.rttTracker = SimpleRTT.getInstance();
     }
 
     @Override
@@ -35,13 +40,23 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         if (reply != null) {
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
                 try {
+                    rttTracker.messageReceived(reply.getConversationId(), reply);
+                    profesor.getPerformanceMonitor().recordMessageReceived(reply, "PROPOSE");
+                    // Record message receive time and metrics
+                    profesor.getPerformanceMonitor().recordMessageMetrics(
+                            reply.getConversationId(),
+                            "PROPOSE_RECEIVED",
+                            0, // RTT will be calculated elsewhere
+                            reply.getSender().getLocalName(),
+                            profesor.getLocalName()
+                    );
+
                     ClassroomAvailability sala = (ClassroomAvailability) reply.getContentObject();
                     if (sala == null) {
                         System.out.println("Null classroom availability received");
                         return;
                     }
 
-                    // Create single batch proposal instead of multiple individual ones
                     BatchProposal batchProposal = new BatchProposal(sala, reply);
                     batchProposals.offer(batchProposal);
                     stateBehaviour.notifyProposalReceived();
@@ -51,7 +66,7 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                 }
             }
         } else {
-            block();
+            block(50);
         }
     }
 }

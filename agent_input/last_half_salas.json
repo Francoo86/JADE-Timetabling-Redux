@@ -112,5 +112,113 @@
         "Codigo": "IM4",
         "Capacidad": 9,
         "Campus": "Playa Brava"
+    },
+    {
+        "Turno": 20,
+        "Codigo": "IOLAB",
+        "Capacidad": 15,
+        "Campus": "Playa Brava"
+    },
+    {
+        "Turno": 21,
+        "Codigo": "K1",
+        "Capacidad": 82,
+        "Campus": "Playa Brava"
+    },
+    {
+        "Turno": 22,
+        "Codigo": "K2",
+        "Capacidad": 30,
+        "Campus": "Playa Brava"
+    },
+    {
+        "Turno": 23,
+        "Codigo": "K3",
+        "Capacidad": 40,
+        "Campus": "Playa Brava"
+    },
+    {
+        "Turno": 24,
+        "Codigo": "KAUL1",
+        "Capacidad": 26,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 25,
+        "Codigo": "KAUS1",
+        "Capacidad": 68,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 26,
+        "Codigo": "KAUS2",
+        "Capacidad": 26,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 27,
+        "Codigo": "KAUS3",
+        "Capacidad": 26,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 28,
+        "Codigo": "KAUS5",
+        "Capacidad": 29,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 29,
+        "Codigo": "KAUT1",
+        "Capacidad": 28,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 30,
+        "Codigo": "KAUT2",
+        "Capacidad": 28,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 31,
+        "Codigo": "KAUT3",
+        "Capacidad": 17,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 32,
+        "Codigo": "KAUT4",
+        "Capacidad": 20,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 33,
+        "Codigo": "KAUT5",
+        "Capacidad": 20,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 34,
+        "Codigo": "KAUT6",
+        "Capacidad": 20,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 35,
+        "Codigo": "KAUT7",
+        "Capacidad": 20,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 36,
+        "Codigo": "KAUT8",
+        "Capacidad": 10,
+        "Campus": "Kaufmann"
+    },
+    {
+        "Turno": 37,
+        "Codigo": "LAMB",
+        "Capacidad": 40,
+        "Campus": "Playa Brava"
     }
 ]

@@ -11,3 +11,5 @@ MTPs-Main-Container.txt
 *.iml
 .vscode/
 venv/
+*.csv
+*.txt

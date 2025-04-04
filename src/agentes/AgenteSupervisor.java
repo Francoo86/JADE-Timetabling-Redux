@@ -6,6 +6,8 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
+import performance.MessageMetricsCollector;
+import performance.PerformanceMonitor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +18,14 @@ public class AgenteSupervisor extends Agent {
     private boolean isSystemActive = true;
     private static final int CHECK_INTERVAL = 5000; // 5 seconds
 
+    // In AgenteSupervisor.java
+    private PerformanceMonitor performanceMonitor;
+    private MessageMetricsCollector metricsCollector;
+
+    public MessageMetricsCollector getMetricsCollector() {
+        return metricsCollector;
+    }
+
     @Override
     protected void setup() {
         Object[] args = getArguments();
@@ -24,6 +34,14 @@ public class AgenteSupervisor extends Agent {
             System.out.println("[Supervisor] Monitoring " + profesoresControllers.size() + " professors");
         }
 
+        int iteration = args[1] != null ? (int) args[1] : 0;
+
+        String agentName = "Supervisor_" + getLocalName();
+        performanceMonitor = new PerformanceMonitor(iteration, agentName);
+        performanceMonitor.startMonitoring();
+
+        // Start monitoring
+        performanceMonitor.startMonitoring();
         addBehaviour(new MonitorBehaviour(this, CHECK_INTERVAL));
     }
 
@@ -168,6 +186,13 @@ public class AgenteSupervisor extends Agent {
                     System.out.println("[Supervisor] Horarios_asignados.json generado correctamente");
                 } else {
                     System.out.println("[Supervisor] ERROR: Horarios_asignados.json está vacío o no existe");
+                }
+
+                if (performanceMonitor != null) {
+                    performanceMonitor.stopMonitoring();
+                }
+                if (metricsCollector != null) {
+                    metricsCollector.close();
                 }
                 
                 System.out.println("[Supervisor] Sistema finalizado.");

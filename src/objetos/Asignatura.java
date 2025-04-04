@@ -1,5 +1,7 @@
 package objetos;
 
+import constants.enums.Actividad;
+import objetos.helper.ActividadHandler;
 import org.json.simple.JSONObject;
 
 import java.util.Arrays;
@@ -12,8 +14,18 @@ public class Asignatura {
     private int vacantes;
     private String campus;
     private String codigoAsignatura;
+    private Actividad actividad;
 
-    public Asignatura(String nombre, int nivel, String paralelo, int horas, int vacantes, String campus, String codigoAsignatura) {
+    public Asignatura(
+            String nombre,
+            int nivel,
+            String paralelo,
+            int horas,
+            int vacantes,
+            String campus,
+            String codigoAsignatura,
+            Actividad actividad
+    ) {
         this.nombre = nombre;
         this.nivel = nivel;
         this.paralelo = paralelo;
@@ -21,6 +33,7 @@ public class Asignatura {
         this.vacantes = vacantes;
         this.campus = campus;
         this.codigoAsignatura = codigoAsignatura;
+        this.actividad = actividad;
     }
 
     // Getters existentes
@@ -31,6 +44,7 @@ public class Asignatura {
     public String getCodigoAsignatura() { return codigoAsignatura; }
     public String getParalelo() { return paralelo; }
     public int getNivel() { return nivel; }
+    public Actividad getActividad() { return actividad; }
 
     @Override
     public String toString() {
@@ -46,34 +60,9 @@ public class Asignatura {
             ((Number) obj.get("Horas")).intValue(),
             ((Number) obj.get("Vacantes")).intValue(),
             (String) obj.get("Campus"),
-            (String) obj.get("CodigoAsignatura")
-        );
-    }
-
-    public static Asignatura fromString(String str) {
-        String[] parts = str.split(",");
-        return new Asignatura(
-            parts[0], // nombre
-            Integer.parseInt(parts[1]), // nivel
-            parts[2], // paralelo
-            Integer.parseInt(parts[3]), // horas
-            Integer.parseInt(parts[4]), // vacantes
-            parts[5], // campus
-            parts[6]  // codigoAsignatura
-        );
-    }
-
-    public static Asignatura parseAsignaturaByNameCap(String crudeString) {
-        String[] partes = crudeString.trim().split(",");
-        // considerando que crudeString contiene todos los elementos necesarios
-        return new Asignatura(
-            partes[0], // nombre
-            Integer.parseInt(partes[1]), // nivel
-            partes[2], // paralelo
-            Integer.parseInt(partes[3]), // horas
-            Integer.parseInt(partes[4]), // vacantes
-            partes[5], // campus
-            partes[6]  // codigoAsignatura
+            (String) obj.get("CodigoAsignatura"),
+                ActividadHandler.translateFromActividad((String) obj.get("Actividad")
+                )
         );
     }
 }
