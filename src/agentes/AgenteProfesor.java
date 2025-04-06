@@ -250,6 +250,12 @@ public class AgenteProfesor extends Agent {
         return metricsCollector;
     }
 
+    private NegotiationStateBehaviour negotiationBehaviour;
+
+    public int getBloquesPendientesInNegotiation() {
+        return negotiationBehaviour.getBloquesPendientes();
+    }
+
     @Override
     protected void setup() {
         // Load data from JSON
@@ -294,6 +300,8 @@ public class AgenteProfesor extends Agent {
         } else {
             addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour, messageCollector));
         }
+
+        negotiationBehaviour = stateBehaviour;
     }
 
     public String getSubjectKey(Asignatura subject) {
