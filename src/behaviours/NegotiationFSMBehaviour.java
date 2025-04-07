@@ -9,7 +9,6 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.UnreadableException;
-import jade.proto.ContractNetInitiator;
 import jade.domain.FIPANames;
 
 import agentes.AgenteProfesor;
@@ -29,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.io.IOException;
 
-public class FSMNegotiationBehaviour extends FSMBehaviour {
+public class NegotiationFSMBehaviour extends FSMBehaviour {
     // States
     private static final String SETUP = "SETUP";
     private static final String COLLECTING = "COLLECTING";
@@ -50,7 +49,7 @@ public class FSMNegotiationBehaviour extends FSMBehaviour {
     private long negotiationStartTime;
     private final Map<String, Long> subjectNegotiationTimes = new HashMap<>();
 
-    public FSMNegotiationBehaviour(AgenteProfesor profesor) {
+    public NegotiationFSMBehaviour(AgenteProfesor profesor) {
         super(profesor);
         this.profesor = profesor;
         this.evaluator = new ConstraintEvaluator(profesor);
