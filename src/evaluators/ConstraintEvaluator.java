@@ -26,14 +26,14 @@ public class ConstraintEvaluator {
     }
 
     private AgenteProfesor profesor;
-    private NegotiationStateBehaviour behaviour;
-    private final int MAX_BLOQUE_DIURNO = 9;
+    //private NegotiationStateBehaviour behaviour;
+    //private final int MAX_BLOQUE_DIURNO = 9;
     private final int MEETING_ROOM_THRESHOLD = 10;
     //TODO: Add the behaviour to inject the constraints
 
-    public ConstraintEvaluator(AgenteProfesor profesor, NegotiationStateBehaviour behaviour) {
+    public ConstraintEvaluator(AgenteProfesor profesor){ //NegotiationStateBehaviour behaviour) {
         this.profesor = profesor;
-        this.behaviour = behaviour;
+        //this.behaviour = behaviour;
     }
 
     public List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
@@ -201,9 +201,13 @@ public class ConstraintEvaluator {
                 }
 
                 // Block 9 constraint
-                if (bloque == Commons.MAX_BLOQUE_DIURNO && behaviour.getBloquesPendientes() % 2 == 0) {
+                if (bloque == Commons.MAX_BLOQUE_DIURNO && profesor.getBloquesPendientesInNegotiation() % 2 == 0) {
                     continue;
                 }
+                /*
+                if (bloque == Commons.MAX_BLOQUE_DIURNO && behaviour.getBloquesPendientes() % 2 == 0) {
+                    continue;
+                }*/
 
                 // Year-based constraints
                 if (isOddYear) {
