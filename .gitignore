@@ -13,3 +13,4 @@ MTPs-Main-Container.txt
 venv/
 *.csv
 *.txt
+scenarios/
