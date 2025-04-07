@@ -381,12 +381,12 @@ public class AgenteProfesorFSM extends Agent {
     }
 
     public class EsperarTurnoBehaviourFSM extends CyclicBehaviour {
-        private final AgenteProfesor profesor;
+        private final AgenteProfesorFSM profesor;
         //private final NegotiationStateBehaviour stateBehaviour;
         //private final MessageCollectorBehaviour messageCollector;
         private final NegotiationFSMBehaviour stateBehaviour;
 
-        public EsperarTurnoBehaviourFSM(AgenteProfesor profesor, NegotiationFSMBehaviour stateBehaviour) {
+        public EsperarTurnoBehaviourFSM(AgenteProfesorFSM profesor, NegotiationFSMBehaviour stateBehaviour) {
             super(profesor);
             this.profesor = profesor;
             this.stateBehaviour = stateBehaviour;
