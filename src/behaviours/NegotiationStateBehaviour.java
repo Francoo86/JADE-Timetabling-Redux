@@ -65,7 +65,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         this.propuestas = propuestas;
         this.currentState = NegotiationState.SETUP;
         this.assignationData = new AssignationData();
-        this.evaluator = new ConstraintEvaluator(profesor, this);
+        this.evaluator = new ConstraintEvaluator(profesor);//, this);
         this.negotiationStartTime = System.currentTimeMillis();
 
         this.simpleRTT = SimpleRTT.getInstance();

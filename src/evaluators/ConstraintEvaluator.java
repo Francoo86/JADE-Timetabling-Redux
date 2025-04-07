@@ -1,6 +1,7 @@
 package evaluators;
 
 import agentes.AgenteProfesor;
+import agentes.AgenteProfesorFSM;
 import behaviours.NegotiationStateBehaviour;
 import constants.Commons;
 import constants.enums.Actividad;
@@ -31,9 +32,9 @@ public class ConstraintEvaluator {
     private final int MEETING_ROOM_THRESHOLD = 10;
     //TODO: Add the behaviour to inject the constraints
 
-    public ConstraintEvaluator(AgenteProfesor profesor){ //NegotiationStateBehaviour behaviour) {
+    //leave it empty for now
+    public ConstraintEvaluator(AgenteProfesor profesor) {
         this.profesor = profesor;
-        //this.behaviour = behaviour;
     }
 
     public List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {

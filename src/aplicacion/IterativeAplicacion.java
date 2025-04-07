@@ -1,6 +1,7 @@
 package aplicacion;
 
 import agentes.AgenteProfesor;
+import agentes.AgenteProfesorFSM;
 import agentes.AgenteSala;
 import agentes.AgenteSupervisor;
 import jade.core.Profile;
@@ -101,8 +102,8 @@ public class IterativeAplicacion {
             mainContainer = rt.createMainContainer(profile);
 
             // Load and process data
-            JSONArray professorJson = JSONHelper.parseAsArray("30profs.json");
-            JSONArray roomJson = JSONHelper.parseAsArray("inputOfSala.json");
+            JSONArray professorJson = JSONHelper.parseAsArray("scenarios/small/profesores.json");
+            JSONArray roomJson = JSONHelper.parseAsArray("scenarios/small/salas.json");
             professorJson = JSONProcessor.prepararParalelos(professorJson);
 
             // Create monitoring for this iteration
