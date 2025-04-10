@@ -6,7 +6,6 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
-import performance.MessageMetricsCollector;
 import performance.PerformanceMonitor;
 
 import java.util.HashMap;
@@ -20,11 +19,6 @@ public class AgenteSupervisor extends Agent {
 
     // In AgenteSupervisor.java
     private PerformanceMonitor performanceMonitor;
-    private MessageMetricsCollector metricsCollector;
-
-    public MessageMetricsCollector getMetricsCollector() {
-        return metricsCollector;
-    }
 
     @Override
     protected void setup() {
@@ -35,9 +29,10 @@ public class AgenteSupervisor extends Agent {
         }
 
         int iteration = args[1] != null ? (int) args[1] : 0;
+        String scenarioName = args[2] != null ? (String) args[2] : "small";
 
         String agentName = "Supervisor_" + getLocalName();
-        performanceMonitor = new PerformanceMonitor(iteration, agentName);
+        performanceMonitor = new PerformanceMonitor(iteration, agentName, scenarioName);
         performanceMonitor.startMonitoring();
 
         // Start monitoring
@@ -190,9 +185,6 @@ public class AgenteSupervisor extends Agent {
 
                 if (performanceMonitor != null) {
                     performanceMonitor.stopMonitoring();
-                }
-                if (metricsCollector != null) {
-                    metricsCollector.close();
                 }
                 
                 System.out.println("[Supervisor] Sistema finalizado.");

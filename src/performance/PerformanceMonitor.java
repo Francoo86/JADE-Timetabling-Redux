@@ -21,6 +21,8 @@ public class PerformanceMonitor {
     private static final OperatingSystemMXBean osBean;
     private final ConcurrentHashMap<String, MessageTimingInfo> messageTimings;
 
+    private String baseScenario;
+
     // Inner class to store message timing information
     private static class MessageTimingInfo {
         final long startTime;
@@ -40,11 +42,12 @@ public class PerformanceMonitor {
         osBean = (OperatingSystemMXBean) ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
     }
 
-    public PerformanceMonitor(int iterationNumber, String agentIdentifier) {
+    public PerformanceMonitor(int iterationNumber, String agentIdentifier, String scenario) {
         this.iterationId = "Iteration" + iterationNumber;
         this.agentId = agentIdentifier;
         this.scheduler = Executors.newScheduledThreadPool(1);
         this.messageTimings = new ConcurrentHashMap<>();
+        this.baseScenario = scenario;
         initializeWriters();
 
         // Start periodic cleanup of stale message timings
@@ -61,14 +64,15 @@ public class PerformanceMonitor {
 
     private void initializeWriters() {
         try {
+            String fullPath = BASE_PATH + baseScenario + "/";
             // Create directory if it doesn't exist
-            Files.createDirectories(Paths.get(BASE_PATH));
+            Files.createDirectories(Paths.get(fullPath));
 
             // Define file paths with iteration and agent identifiers
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            String cpuPath = String.format("%s/%s_%s_cpu.csv", BASE_PATH, iterationId, timestamp);
-            String dfPath = String.format("%s/%s_%s_df.csv", BASE_PATH, iterationId, timestamp);
-            String rttPath = String.format("%s/%s_%s_rtt.csv", BASE_PATH, iterationId, timestamp);
+            String cpuPath = String.format("%s/%s_%s_cpu.csv", fullPath, iterationId, timestamp);
+            String dfPath = String.format("%s/%s_%s_df.csv", fullPath, iterationId, timestamp);
+            String rttPath = String.format("%s/%s_%s_rtt.csv", fullPath, iterationId, timestamp);
 
             // Initialize writers in append mode
             cpuWriter = new PrintWriter(new FileWriter(cpuPath, true));

@@ -1,7 +1,6 @@
 package aplicacion;
 
 import agentes.AgenteProfesor;
-import agentes.AgenteProfesorFSM;
 import agentes.AgenteSala;
 import agentes.AgenteSupervisor;
 import jade.core.Profile;
@@ -15,9 +14,9 @@ import json_stuff.JSONProcessor;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
 import performance.PerformanceMonitor;
-import performance.MessageMetricsCollector;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import performance.SimpleRTT;
 
 import java.io.*;
 import java.nio.file.*;
@@ -31,18 +30,23 @@ public class IterativeAplicacion {
     private final int numIterations;
     private final List<IterationResult> results;
     private final PrintWriter logWriter;
+    private String finalScenarioPath;
+    private String scenarioName;
 
-    public IterativeAplicacion(int numIterations) throws IOException {
+    public IterativeAplicacion(int numIterations, String baseScenario) throws IOException {
         this.numIterations = numIterations;
         this.results = new ArrayList<>();
+        this.scenarioName = baseScenario;
+
+        String fullPath = String.format(RESULTS_DIR + "/%s", baseScenario);
 
         // Create results directory
-        Files.createDirectories(Paths.get(RESULTS_DIR));
-
+        //Files.createDirectories(Paths.get(RESULTS_DIR));
+        Files.createDirectories(Paths.get(fullPath));
         // Initialize log file
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         this.logWriter = new PrintWriter(new FileWriter(
-                String.format("%s/iteration_log_%s.txt", RESULTS_DIR, timestamp)));
+                String.format("%s/iteration_log_%s.txt", fullPath, timestamp)));
     }
 
     private static class IterationResult {
@@ -100,14 +104,16 @@ public class IterativeAplicacion {
 
         try {
             mainContainer = rt.createMainContainer(profile);
+            String salasPath = String.format("scenarios/%s/salas.json", scenarioName);
+            String profesoresPath = String.format("scenarios/%s/profesores.json", scenarioName);
 
             // Load and process data
-            JSONArray professorJson = JSONHelper.parseAsArray("scenarios/small/profesores.json");
-            JSONArray roomJson = JSONHelper.parseAsArray("scenarios/small/salas.json");
+            JSONArray professorJson = JSONHelper.parseAsArray(profesoresPath);
+            JSONArray roomJson = JSONHelper.parseAsArray(salasPath);
             professorJson = JSONProcessor.prepararParalelos(professorJson);
 
             // Create monitoring for this iteration
-            PerformanceMonitor perfMonitor = new PerformanceMonitor(iteration, "MainContainer");
+            PerformanceMonitor perfMonitor = new PerformanceMonitor(iteration, "MainContainer", scenarioName);
             perfMonitor.startMonitoring();
 
             // Initialize rooms
@@ -319,7 +325,16 @@ public class IterativeAplicacion {
     public static void main(String[] args) {
         try {
             int iterations = args.length > 0 ? Integer.parseInt(args[0]) : 1;
-            IterativeAplicacion runner = new IterativeAplicacion(iterations);
+            String selectedScenario = args.length > 1 ? args[1].toLowerCase() : "small";
+
+            if (!Arrays.asList("small", "medium", "full").contains(selectedScenario)) {
+                System.err.println("Invalid scenario. Use 'small', 'medium', or 'full'.");
+                return;
+            }
+
+            SimpleRTT.getInstance().changeToScenarioPath(selectedScenario);
+
+            IterativeAplicacion runner = new IterativeAplicacion(iterations, selectedScenario);
             runner.runIterations();
         } catch (Exception e) {
             e.printStackTrace();

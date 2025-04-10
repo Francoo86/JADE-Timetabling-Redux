@@ -1,8 +1,6 @@
 package evaluators;
 
 import agentes.AgenteProfesor;
-import agentes.AgenteProfesorFSM;
-import behaviours.NegotiationStateBehaviour;
 import constants.Commons;
 import constants.enums.Actividad;
 import constants.enums.Day;

@@ -11,7 +11,7 @@ import java.util.Map;
 public class SimpleRTT {
     private static SimpleRTT instance;
     private final Map<String, MessageData> messageTimestamps;
-    private final String outputFile;
+    private String outputFile;
     private static final long CLEANUP_THRESHOLD = 30000;
 
     private static class MessageData {
@@ -35,6 +35,11 @@ public class SimpleRTT {
         this.outputFile = "agent_output/rtt_data.csv";
         createOutputFile();
         startCleanupTask();
+    }
+
+    public synchronized void changeToScenarioPath(String scenarioPath) {
+        this.outputFile = String.format("%s/rtt_data_%s.csv", scenarioPath, Instant.now().toString());
+        createOutputFile();
     }
 
     public static synchronized SimpleRTT getInstance() {

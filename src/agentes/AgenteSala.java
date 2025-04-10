@@ -2,7 +2,6 @@ package agentes;
 
 import constants.Commons;
 import constants.enums.Day;
-import jade.domain.FIPANames;
 import jade.proto.SubscriptionInitiator;
 import objetos.ClassroomAvailability;
 import objetos.helper.BatchAssignmentConfirmation;
@@ -20,11 +19,9 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import performance.MessageMetricsCollector;
 import performance.PerformanceMonitor;
 import performance.SimpleRTT;
 
-import java.io.IOException;
 import java.util.*;
 
 public class AgenteSala extends Agent {
@@ -36,11 +33,6 @@ public class AgenteSala extends Agent {
     private int turno;
     private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
     private PerformanceMonitor performanceMonitor;
-    private MessageMetricsCollector metricsCollector;
-
-    public MessageMetricsCollector getMetricsCollector() {
-        return metricsCollector;
-    }
 
     public PerformanceMonitor getPerformanceMonitor() {
         return performanceMonitor;
@@ -50,6 +42,7 @@ public class AgenteSala extends Agent {
 
     @Override
     protected void setup() {
+        String scenario = "small";
         this.simpleRTT = SimpleRTT.getInstance();
         // Inicializar estructuras
         initializeSchedule();
@@ -65,9 +58,10 @@ public class AgenteSala extends Agent {
         //get passed arguments
         Object[] args = getArguments();
         int currIteration = args.length > 0 ? (int) args[1] : 0;
+        scenario = args.length > 1 ? (String) args[2] : "small";
 
         // Inicializar monitor de rendimiento
-        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName());
+        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName(), scenario);
         performanceMonitor.startMonitoring();
 
         performanceMonitor.startMonitoring();
