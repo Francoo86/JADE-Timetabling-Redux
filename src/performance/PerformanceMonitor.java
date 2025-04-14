@@ -1,5 +1,6 @@
 package performance;
 
+import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import java.io.*;
 import java.nio.file.*;
@@ -182,7 +183,10 @@ public class PerformanceMonitor {
     // Method to record when a message is sent
     public void recordMessageSent(ACLMessage msg, String messageType) {
         String conversationId = msg.getConversationId();
-        String sender = msg.getSender().getLocalName();
+        AID senderAID = msg.getSender();
+        if(conversationId == null || senderAID == null) return;
+
+        String sender = senderAID.getLocalName();
         String receiver = msg.getAllReceiver().hasNext() ?
                 msg.getAllReceiver().next().toString() : "MULTICAST";
 
