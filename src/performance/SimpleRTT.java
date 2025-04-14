@@ -3,6 +3,8 @@ package performance;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import java.io.*;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.*;
 import java.nio.file.*;
 import java.time.Instant;
@@ -38,7 +40,10 @@ public class SimpleRTT {
     }
 
     public synchronized void changeToScenarioPath(String scenarioPath) {
-        this.outputFile = String.format("%s/rtt_data_%s.csv", scenarioPath, Instant.now().toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss.SSSSSSX")
+                .withZone(ZoneId.systemDefault());
+        String validTimestamp = formatter.format(Instant.now());
+        this.outputFile = String.format("%s/rtt_data_%s.csv", scenarioPath, validTimestamp);
         createOutputFile();
     }
 
@@ -51,9 +56,11 @@ public class SimpleRTT {
 
     private void createOutputFile() {
         try {
-            Path path = Paths.get("agent_output");
-            if (!Files.exists(path)) {
-                Files.createDirectory(path);
+            String fullPath = Paths.get(outputFile).toAbsolutePath().toString();
+
+            File outputDir = new File(fullPath).getParentFile();
+            if (!outputDir.exists()) {
+                outputDir.mkdirs();
             }
 
             try (FileWriter writer = new FileWriter(outputFile)) {
