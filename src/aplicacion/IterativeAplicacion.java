@@ -138,42 +138,63 @@ public class IterativeAplicacion {
                 professorControllers.get(0).start();
             }
 
-            // Create and start supervisor
-            Object[] supervisorArgs = {professorControllers, iteration};
-            AgentController supervisor = mainContainer.createNewAgent(
-                    "Supervisor",
-                    AgenteSupervisor.class.getName(),
-                    supervisorArgs
-            );
-            supervisor.start();
+            // Create and start supervisor with proper error handling
+            AgentController supervisor = null;
+            try {
+                Object[] supervisorArgs = {professorControllers, iteration, scenarioName};
+                supervisor = mainContainer.createNewAgent(
+                        "Supervisor",
+                        AgenteSupervisor.class.getName(),
+                        supervisorArgs
+                );
+                supervisor.start();
 
-            // Wait for completion
-            waitForCompletion(supervisor);
+                // Wait for completion with timeout
+                boolean completed = waitForCompletionWithTimeout(supervisor, 180000); // 3 minute timeout
 
-            // Get metrics
-            int profAssignments = ProfesorHorarioJSON.getInstance().getPendingUpdateCount();
-            int roomUtilization = SalaHorarioJSON.getInstance().getPendingUpdateCount();
+                if (!completed) {
+                    log("WARNING: Supervisor timeout - forcing completion");
+                }
 
-            // Stop monitoring
-            perfMonitor.stopMonitoring();
+                // Get metrics
+                int profAssignments = ProfesorHorarioJSON.getInstance().getPendingUpdateCount();
+                int roomUtilization = SalaHorarioJSON.getInstance().getPendingUpdateCount();
 
-            // Record results
-            long duration = System.currentTimeMillis() - startTime;
-            results.add(new IterationResult(
-                    iteration, duration, profAssignments, roomUtilization, "success", null));
+                // Stop monitoring
+                perfMonitor.stopMonitoring();
 
-            log(String.format("Iteration %d completed successfully in %d ms", iteration, duration));
+                // Record results
+                long duration = System.currentTimeMillis() - startTime;
+                results.add(new IterationResult(
+                        iteration, duration, profAssignments, roomUtilization, "success", null));
+
+                log(String.format("Iteration %d completed successfully in %d ms", iteration, duration));
+
+            } catch (Exception e) {
+                String error = String.format("Error in iteration %d: %s", iteration, e.getMessage());
+                log(error);
+                results.add(new IterationResult(
+                        iteration, System.currentTimeMillis() - startTime, 0, 0, "error", error));
+            }
 
         } catch (Exception e) {
             String error = String.format("Error in iteration %d: %s", iteration, e.getMessage());
             log(error);
+            e.printStackTrace();
             results.add(new IterationResult(
                     iteration, System.currentTimeMillis() - startTime, 0, 0, "error", error));
 
         } finally {
-            // Cleanup
+            // Cleanup with proper error handling
             if (mainContainer != null) {
                 try {
+                    // Ensure JSON files are saved before container shutdown
+                    ProfesorHorarioJSON.getInstance().generarArchivoJSON();
+                    SalaHorarioJSON.getInstance().generarArchivoJSON();
+
+                    // Give time for files to be written
+                    Thread.sleep(2000);
+
                     mainContainer.kill();
                 } catch (Exception e) {
                     log("Error during container cleanup: " + e.getMessage());
@@ -183,12 +204,39 @@ public class IterativeAplicacion {
         }
     }
 
+    // Add a timeout version of waitForCompletion
+    private boolean waitForCompletionWithTimeout(AgentController supervisor, long timeoutMs) {
+        long startTime = System.currentTimeMillis();
+
+        while (System.currentTimeMillis() - startTime < timeoutMs) {
+            try {
+                Thread.sleep(1000);
+                int state = supervisor.getState().getCode();
+
+                if (state == jade.core.Agent.AP_DELETED) {
+                    return true;
+                }
+            } catch (StaleProxyException e) {
+                // This might mean the agent is already deleted
+                log("Supervisor state check failed: " + e.getMessage());
+                return true;
+            } catch (InterruptedException e) {
+                log("Wait interrupted: " + e.getMessage());
+                Thread.currentThread().interrupt();
+                return false;
+            }
+        }
+
+        // If we reach here, we've timed out
+        return false;
+    }
+
     private void initializeRooms(AgentContainer container, JSONArray roomsJson,
                                  Map<String, AgentController> controllers, int numIterations) throws StaleProxyException {
         for (Object obj : roomsJson) {
             JSONObject roomJson = (JSONObject) obj;
             String codigo = (String) roomJson.get("Codigo");
-            Object[] roomArgs = {roomJson.toJSONString(), numIterations};
+            Object[] roomArgs = {roomJson.toJSONString(), numIterations, scenarioName};
 
             AgentController room = container.createNewAgent(
                     "Sala" + codigo,
@@ -204,7 +252,7 @@ public class IterativeAplicacion {
                                       List<AgentController> controllers, int currIteration) throws StaleProxyException {
         for (int i = 0; i < professorJson.size(); i++) {
             JSONObject profJson = (JSONObject) professorJson.get(i);
-            Object[] profArgs = {profJson.toJSONString(), i, currIteration};
+            Object[] profArgs = {profJson.toJSONString(), i, currIteration, scenarioName};
 
             AgentController prof = container.createNewAgent(
                     AgenteProfesor.AGENT_NAME + i,
@@ -246,7 +294,11 @@ public class IterativeAplicacion {
         JSONArray jsonResults = new JSONArray();
         results.forEach(result -> jsonResults.add(result.toJson()));
 
-        Path resultsPath = Paths.get(RESULTS_DIR, "iteration_results_" + timestamp + ".json");
+        String fullLogPath = String.format("%s/%s/iteration_log_%s.json",
+                RESULTS_DIR, scenarioName, timestamp);
+
+        //Path resultsPath = Paths.get(RESULTS_DIR, "iteration_results_" + timestamp + ".json");
+        Path resultsPath = Paths.get(fullLogPath);
         try (Writer writer = Files.newBufferedWriter(resultsPath)) {
             jsonResults.writeJSONString(writer);
         }
@@ -274,7 +326,11 @@ public class IterativeAplicacion {
             summary.put("avgRoomUtilization",
                     successfulRuns.stream().mapToDouble(r -> r.roomUtilization).average().orElse(0));
 
-            Path summaryPath = Paths.get(RESULTS_DIR, "iteration_summary_" + timestamp + ".json");
+            String summaryPathStr = String.format("%s/%s/iteration_summary_%s.json",
+                    RESULTS_DIR, scenarioName, timestamp);
+
+            //Path summaryPath = Paths.get(RESULTS_DIR, "iteration_summary_" + timestamp + ".json");
+            Path summaryPath = Paths.get(summaryPathStr);
             try (Writer writer = Files.newBufferedWriter(summaryPath)) {
                 summary.writeJSONString(writer);
             }
@@ -324,8 +380,14 @@ public class IterativeAplicacion {
 
     public static void main(String[] args) {
         try {
+            for (String arg : args) {
+                System.out.println("Argument: " + arg);
+            }
+
             int iterations = args.length > 0 ? Integer.parseInt(args[0]) : 1;
             String selectedScenario = args.length > 1 ? args[1].toLowerCase() : "small";
+
+            System.out.println("Running " + iterations + " iterations with scenario: " + selectedScenario);
 
             if (!Arrays.asList("small", "medium", "full").contains(selectedScenario)) {
                 System.err.println("Invalid scenario. Use 'small', 'medium', or 'full'.");
