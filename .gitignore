@@ -14,3 +14,4 @@ venv/
 *.csv
 *.txt
 scenarios/
+iteration_results/
