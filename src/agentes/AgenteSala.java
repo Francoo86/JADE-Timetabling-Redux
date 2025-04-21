@@ -20,6 +20,7 @@ import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import performance.PerformanceMonitor;
+import performance.RTTLogger;
 import performance.SimpleRTT;
 
 import java.util.*;
@@ -38,12 +39,12 @@ public class AgenteSala extends Agent {
         return performanceMonitor;
     }
 
-    private SimpleRTT simpleRTT;
+    private RTTLogger rttLogger;
 
     @Override
     protected void setup() {
         String scenario = "small";
-        this.simpleRTT = SimpleRTT.getInstance();
+        rttLogger = RTTLogger.getInstance();
         // Inicializar estructuras
         initializeSchedule();
         horarioOcupado = new HashMap<>();
@@ -232,15 +233,17 @@ public class AgenteSala extends Agent {
                     reply.setPerformative(ACLMessage.PROPOSE);
                     reply.setContentObject(availability);
 
-                    simpleRTT.messageSent(
-                            reply.getConversationId(),
-                            myAgent.getAID(),
-                            msg.getSender(),
-                            reply.getPerformative() == ACLMessage.PROPOSE ? "PROPOSE" : "REFUSE"
+                    rttLogger.recordMessageSent(
+                            myAgent.getLocalName(),
+                            msg.getConversationId(),
+                            ACLMessage.PROPOSE,
+                            msg.getSender().getLocalName(),
+                            "classroom-availability"
                     );
 
                     send(reply);
 
+                    /*
                     // Record metrics
                     getPerformanceMonitor().recordMessageMetrics(
                             msg.getConversationId(),
@@ -248,23 +251,33 @@ public class AgenteSala extends Agent {
                             System.nanoTime() - startTime,
                             getLocalName(),
                             msg.getSender().getLocalName()
-                    );
+                    );*/
 
                 } else {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
                     reply.setContent("NO AVAILABLE BLOCKS");
-                    getPerformanceMonitor().recordMessageSent(reply, "PROPOSE");
+                    //getPerformanceMonitor().recordMessageSent(reply, "PROPOSE");
+                    //THE SAME BUT REFUSE
+                    rttLogger.recordMessageSent(
+                            myAgent.getLocalName(),
+                            msg.getConversationId(),
+                            ACLMessage.REFUSE,
+                            msg.getSender().getLocalName(),
+                            "classroom-availability"
+                    );
+
                     send(reply);
 
                     // Record metrics for refuse
+                    /*
                     getPerformanceMonitor().recordMessageMetrics(
                             msg.getConversationId(),
                             "REFUSE_SENT",
                             System.nanoTime() - startTime,
                             getLocalName(),
                             msg.getSender().getLocalName()
-                    );
+                    );*/
                 }
             } catch (Exception e) {
                 System.err.println("Error processing request in classroom " + codigo + ": " + e.getMessage());

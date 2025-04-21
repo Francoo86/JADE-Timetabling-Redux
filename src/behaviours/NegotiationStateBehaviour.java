@@ -19,6 +19,7 @@ import objetos.AssignationData;
 import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import objetos.helper.BatchProposal;
+import performance.RTTLogger;
 import performance.SimpleRTT;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private final AssignationData assignationData;
     private final ConstraintEvaluator evaluator;
     private int bloquesPendientes = 0;
-    private static final long TIMEOUT_PROPUESTA = 1000; // 5 seconds
+    private static final long TIMEOUT_PROPUESTA = 5000; // 5 seconds
 
     private long negotiationStartTime;
     private final Map<String, Long> subjectNegotiationTimes = new HashMap<>();
@@ -51,7 +52,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         FINISHED
     }
 
-    private SimpleRTT simpleRTT;
+    private RTTLogger rttLogger;
 
     public NegotiationStateBehaviour(AgenteProfesor profesor, long period, ConcurrentLinkedQueue<BatchProposal> propuestas) {
         super(profesor, period);
@@ -59,10 +60,10 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         this.propuestas = propuestas;
         this.currentState = NegotiationState.SETUP;
         this.assignationData = new AssignationData();
-        this.evaluator = new ConstraintEvaluator(profesor);//, this);
+        this.evaluator = new ConstraintEvaluator(profesor);
         this.negotiationStartTime = System.currentTimeMillis();
 
-        this.simpleRTT = SimpleRTT.getInstance();
+        this.rttLogger = RTTLogger.getInstance();
     }
 
     public int getBloquesPendientes() {
@@ -408,26 +409,27 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 return;
             }
 
-            // For each room, create a unique conversation ID
             for (DFAgentDescription room : results) {
                 if (canQuickReject(currentSubject, room)) {
                     continue;
                 }
 
-                // Create unique conversation ID for each room
                 String conversationId = "neg-" + profesor.getNombre() + "-" +
                         room.getName().getLocalName() + "-" +
                         System.currentTimeMillis();
 
-                // Create CFP message with unique conversation ID
                 ACLMessage cfp = createCFPMessage(currentSubject);
                 cfp.setConversationId(conversationId);
                 cfp.addReceiver(room.getName());
 
-                // Record sent time for RTT calculation
-                simpleRTT.messageSent(conversationId, myAgent.getAID(),
-                        room.getName(), "CFP");
-                profesor.getPerformanceMonitor().recordMessageSent(cfp, "CFP");
+                rttLogger.startRequest(
+                        myAgent.getLocalName(),
+                        conversationId,
+                        ACLMessage.CFP,
+                        room.getName().getLocalName(),
+                        null,
+                        "classroom-availability"
+                );
 
                 profesor.send(cfp);
             }
@@ -444,6 +446,9 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         return subject.getCodigoAsignatura() + "-" + roomId;
     }
 
+    private final int ROOM_CAMPUS_INDEX = 0;
+    private final int ROOM_CAPACITY_INDEX = 2;
+
     //FIXME: La capacidad está como "turno" en el json de salas
     private boolean canQuickReject(Asignatura subject, DFAgentDescription room) {
         String cacheKey = getCacheKey(subject, room.getName().getLocalName());
@@ -453,8 +458,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             List<Property> props = new ArrayList<>();
             sd.getAllProperties().forEachRemaining(prop -> props.add((Property) prop));
 
-            String roomCampus = (String) props.get(0).getValue();
-            int roomCapacity = Integer.parseInt((String) props.get(2).getValue());
+            String roomCampus = (String) props.get(ROOM_CAMPUS_INDEX).getValue();
+            int roomCapacity = Integer.parseInt((String) props.get(ROOM_CAPACITY_INDEX).getValue());
 
             // Quick reject conditions
             if (!roomCampus.equals(subject.getCampus())) {
