@@ -21,7 +21,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import performance.PerformanceMonitor;
 import performance.RTTLogger;
-import performance.SimpleRTT;
 
 import java.util.*;
 

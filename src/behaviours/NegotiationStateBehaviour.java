@@ -20,7 +20,6 @@ import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import objetos.helper.BatchProposal;
 import performance.RTTLogger;
-import performance.SimpleRTT;
 
 import java.io.IOException;
 import java.util.*;
@@ -307,6 +306,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         System.out.printf("[TIMING] Total batch assignment time for %s: %d ms - Total blocks assigned: %d%n",
                 currentSubject.getNombre(), totalBatchTime, totalAssigned);
 
+        //TODO: It is really mandatory to send a REJECT_PROPOSAL?
         return totalAssigned > 0;
     }
 

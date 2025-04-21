@@ -7,7 +7,6 @@ import jade.lang.acl.MessageTemplate;
 import objetos.ClassroomAvailability;
 import objetos.helper.BatchProposal;
 import performance.RTTLogger;
-import performance.SimpleRTT;
 
 import java.util.Queue;
 
