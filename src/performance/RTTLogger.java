@@ -6,6 +6,7 @@ import java.io.*;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.UUID;
@@ -99,7 +100,7 @@ public class RTTLogger {
         }
 
         public String toCsvRow() {
-            return String.format("%s,%s,%s,%s,%s,%.3f,%d,%b,%s,%s",
+            return String.format("%s,%s,%s,%s,%s,\"%.3f\",%d,%b,%s,%s",
                     timestamp.toString(),
                     sender,
                     receiver,
@@ -114,6 +115,8 @@ public class RTTLogger {
         }
     }
 
+    private HashMap<Integer, String> translatedMessages = new HashMap<>();
+
     /**
      * Private constructor for singleton pattern
      */
@@ -122,6 +125,13 @@ public class RTTLogger {
         this.allOutgoingMessages = new ConcurrentHashMap<>();
         this.writeQueue = new LinkedBlockingQueue<>();
         this.isRunning = new AtomicBoolean(false);
+
+        // Initialize translated messages
+        translatedMessages.put(ACLMessage.REFUSE, "REFUSE");
+        translatedMessages.put(ACLMessage.PROPOSE, "PROPOSE");
+        translatedMessages.put(ACLMessage.ACCEPT_PROPOSAL, "ACCEPT_PROPOSAL");
+        translatedMessages.put(ACLMessage.INFORM, "INFORM");
+        translatedMessages.put(ACLMessage.CFP, "CFP");
     }
 
     /**
@@ -214,7 +224,7 @@ public class RTTLogger {
      * @param additionalInfo Additional information to log
      * @param ontology The ontology of the message
      */
-    public void startRequest(String agentName, String conversationId, String performative,
+    public void startRequest(String agentName, String conversationId, int performative,
                              String receiver, Map<String, Object> additionalInfo, String ontology) {
         if (conversationId == null || conversationId.isEmpty()) {
             System.out.println("Warning: Empty conversation_id in start_request from " + agentName);
@@ -224,7 +234,7 @@ public class RTTLogger {
         RequestData startData = new RequestData(
                 System.nanoTime(),
                 System.currentTimeMillis(),
-                performative,
+                translatedMessages.getOrDefault(performative, "UNKNOWN"),
                 receiver,
                 ontology,
                 additionalInfo
@@ -239,7 +249,7 @@ public class RTTLogger {
     /**
      * Record any outgoing message, even without formal start_request
      */
-    public void recordMessageSent(String agentName, String conversationId, String performative,
+    public void recordMessageSent(String agentName, String conversationId, int performative,
                                   String receiver, String ontology) {
         if (conversationId == null || conversationId.isEmpty()) {
             System.out.println("Warning: Empty conversation_id in record_message_sent from " + agentName);
@@ -252,7 +262,7 @@ public class RTTLogger {
                 allOutgoingMessages.put(conversationId, new RequestData(
                         System.nanoTime(),
                         System.currentTimeMillis(),
-                        performative,
+                        translatedMessages.getOrDefault(performative, "UNKNOWN"),
                         receiver,
                         ontology,
                         null
@@ -265,7 +275,7 @@ public class RTTLogger {
     /**
      * Record a received message and calculate RTT
      */
-    public void recordMessageReceived(String agentName, String conversationId, String performative,
+    public void recordMessageReceived(String agentName, String conversationId, int performative,
                                       String sender, int messageSize, String ontology) {
         if (conversationId == null || conversationId.isEmpty()) {
             System.out.println("Warning: Empty conversation_id in record_message_received from " + agentName);
@@ -287,7 +297,7 @@ public class RTTLogger {
                     agentName,
                     sender,
                     conversationId,
-                    performative,
+                    translatedMessages.getOrDefault(performative, "UNKNOWN"),
                     rtt,
                     messageSize,
                     true,
@@ -309,7 +319,7 @@ public class RTTLogger {
     /**
      * End a request and calculate RTT accurately
      */
-    public Double endRequest(String agentName, String conversationId, String responsePerformative,
+    public Double endRequest(String agentName, String conversationId, int responsePerformative,
                              int messageSize, boolean success, Map<String, Object> extraInfo, String ontology) {
         if (conversationId == null || conversationId.isEmpty()) {
             System.out.println("Warning: Empty conversation_id in end_request from " + agentName);
@@ -345,7 +355,8 @@ public class RTTLogger {
                         agentName,
                         requestData.receiver,
                         conversationId,
-                        responsePerformative != null ? responsePerformative : requestData.performative,
+                        //responsePerformative != null ? responsePerformative : requestData.performative,
+                        translatedMessages.getOrDefault(responsePerformative, "UNKNOWN"),
                         rtt,
                         messageSize,
                         success,
