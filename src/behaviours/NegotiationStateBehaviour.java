@@ -2,10 +2,7 @@ package behaviours;
 
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
-import constants.Commons;
-import constants.enums.Actividad;
 import constants.enums.Day;
-import constants.enums.TipoContrato;
 import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
 import evaluators.ConstraintEvaluator;
@@ -18,20 +15,17 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import objetos.Asignatura;
-import objetos.BloqueInfo;
 import objetos.AssignationData;
 import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import objetos.helper.BatchProposal;
 import performance.SimpleRTT;
-import service.TimetablingEvaluator;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 public class NegotiationStateBehaviour extends TickerBehaviour {
     private static final int MEETING_ROOM_THRESHOLD = 10;
@@ -324,6 +318,18 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         ACLMessage batchAccept = originalMsg.createReply();
         batchAccept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
         batchAccept.setContentObject(batchRequest);
+
+        /*
+        String conversationId = batchAccept.getConversationId();
+
+        simpleRTT.messageSent(
+                conversationId,
+                profesor.getAID(),
+                originalMsg.getSender(),
+                "ACCEPT_PROPOSAL"
+        );
+        profesor.getPerformanceMonitor().recordMessageSent(batchAccept, "ACCEPT_PROPOSAL");*/
+
         profesor.send(batchAccept);
 
         // Wait for confirmation
@@ -334,6 +340,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
         return waitForConfirmation(mt, requests);
     }
+
 
     // Helper method to handle confirmation waiting
     private boolean waitForConfirmation(MessageTemplate mt, List<BatchAssignmentRequest.AssignmentRequest> requests) {
@@ -348,6 +355,9 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         while (System.currentTimeMillis() - startTime < timeout) {
             ACLMessage confirm = myAgent.receive(mt);
             if (confirm != null) {
+                //String conversationId = confirm.getConversationId();
+                //simpleRTT.messageReceived(conversationId, confirm);
+                //profesor.getPerformanceMonitor().recordMessageReceived(confirm, "INFORM");
                 try {
                     BatchAssignmentConfirmation confirmation =
                             (BatchAssignmentConfirmation) confirm.getContentObject();
@@ -385,6 +395,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         return name.replaceAll("[^a-zA-Z0-9]", "");
     }
 
+    // In NegotiationStateBehaviour.java where the CFP is sent
     private void sendProposalRequests() {
         try {
             List<DFAgentDescription> results = DFCache.search(profesor, AgenteSala.SERVICE_NAME);
@@ -394,41 +405,38 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
             Asignatura currentSubject = profesor.getCurrentSubject();
             if (currentSubject == null) {
-                System.err.println("Warning: No current subject available for professor " + profesor.getNombre());
                 return;
             }
 
-            // Create CFP message once
-            ACLMessage cfp = createCFPMessage(currentSubject);
-            simpleRTT.messageSent(
-                    cfp.getConversationId(),
-                    myAgent.getAID(),
-                    null, // null for broadcast
-                    "CFP"
-            );
-            long startTime = System.nanoTime();
-            // Filter rooms before adding receivers
-            results.stream()
-                    .filter(room -> !canQuickReject(currentSubject, room))
-                    .forEach(room -> cfp.addReceiver(room.getName()));
+            // For each room, create a unique conversation ID
+            for (DFAgentDescription room : results) {
+                if (canQuickReject(currentSubject, room)) {
+                    continue;
+                }
 
-            profesor.getPerformanceMonitor().recordMessageSent(cfp, "CFP");
-            profesor.send(cfp);
+                // Create unique conversation ID for each room
+                String conversationId = "neg-" + profesor.getNombre() + "-" +
+                        room.getName().getLocalName() + "-" +
+                        System.currentTimeMillis();
 
-            profesor.getPerformanceMonitor().recordMessageMetrics(
-                    cfp.getConversationId(),
-                    "CFP_SENT",
-                    System.nanoTime() - startTime,
-                    profesor.getLocalName(),
-                    "MULTICAST"
-            );
+                // Create CFP message with unique conversation ID
+                ACLMessage cfp = createCFPMessage(currentSubject);
+                cfp.setConversationId(conversationId);
+                cfp.addReceiver(room.getName());
+
+                // Record sent time for RTT calculation
+                simpleRTT.messageSent(conversationId, myAgent.getAID(),
+                        room.getName(), "CFP");
+                profesor.getPerformanceMonitor().recordMessageSent(cfp, "CFP");
+
+                profesor.send(cfp);
+            }
         } catch (Exception e) {
             System.err.println("Error sending proposal requests: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private final Map<String, DFAgentDescription> roomCache = new ConcurrentHashMap<>();
     private final Map<String, Boolean> quickRejectCache = new ConcurrentHashMap<>();
 
     // Cache key generator

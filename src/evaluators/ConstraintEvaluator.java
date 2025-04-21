@@ -8,7 +8,6 @@ import constants.enums.TipoContrato;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
 import objetos.helper.BatchProposal;
-import service.TimetablingEvaluator;
 
 import java.util.*;
 import java.util.stream.Collectors;
