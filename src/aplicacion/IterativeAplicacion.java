@@ -33,6 +33,12 @@ public class IterativeAplicacion {
     private String finalScenarioPath;
     private String scenarioName;
 
+    private volatile boolean supervisorCompleted = false;
+
+    public synchronized void markSupervisorAsFinished() {
+        supervisorCompleted = true;
+    }
+
     public IterativeAplicacion(int numIterations, String baseScenario) throws IOException {
         this.numIterations = numIterations;
         this.results = new ArrayList<>();
@@ -141,7 +147,7 @@ public class IterativeAplicacion {
             // Create and start supervisor with proper error handling
             AgentController supervisor = null;
             try {
-                Object[] supervisorArgs = {professorControllers, iteration, scenarioName};
+                Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this};
                 supervisor = mainContainer.createNewAgent(
                         "Supervisor",
                         AgenteSupervisor.class.getName(),
@@ -150,11 +156,12 @@ public class IterativeAplicacion {
                 supervisor.start();
 
                 // Wait for completion with timeout
-                boolean completed = waitForCompletionWithTimeout(supervisor, 180000); // 3 minute timeout
+                waitForCompletion(supervisor); // 3 minute timeout
 
+                /*
                 if (!completed) {
                     log("WARNING: Supervisor timeout - forcing completion");
-                }
+                }*/
 
                 // Get metrics
                 int profAssignments = ProfesorHorarioJSON.getInstance().getPendingUpdateCount();
@@ -204,31 +211,44 @@ public class IterativeAplicacion {
         }
     }
 
-    // Add a timeout version of waitForCompletion
-    private boolean waitForCompletionWithTimeout(AgentController supervisor, long timeoutMs) {
-        long startTime = System.currentTimeMillis();
+    private void waitForCompletion(AgentController supervisor) throws Exception {
+        // Reset the completion flag before waiting
+        supervisorCompleted = false;
 
-        while (System.currentTimeMillis() - startTime < timeoutMs) {
+        log("Waiting for supervisor to complete execution...");
+
+        // Wait until the flag is set
+        while (!supervisorCompleted) {
             try {
-                Thread.sleep(1000);
-                int state = supervisor.getState().getCode();
-
-                if (state == jade.core.Agent.AP_DELETED) {
-                    return true;
+                // Still do a check on agent state as a fallback
+                if (supervisor.getState().getCode() == jade.core.Agent.AP_DELETED) {
+                    log("Supervisor completion detected via agent state.");
+                    supervisorCompleted = true;
+                    break;
                 }
+
+                // Sleep to avoid busy waiting
+                Thread.sleep(1000);
+
             } catch (StaleProxyException e) {
-                // This might mean the agent is already deleted
-                log("Supervisor state check failed: " + e.getMessage());
-                return true;
+                // Check if this is because the agent is gone (which means it completed)
+                if (e.getMessage() != null && e.getMessage().contains("No such agent exists")) {
+                    log("Supervisor agent no longer exists, assuming completion.");
+                    supervisorCompleted = true;
+                    break;
+                } else {
+                    // Other unexpected error
+                    log("Error checking supervisor state: " + e.getMessage());
+                    // Don't break, keep waiting in case it's a temporary issue
+                }
             } catch (InterruptedException e) {
                 log("Wait interrupted: " + e.getMessage());
                 Thread.currentThread().interrupt();
-                return false;
+                throw new Exception("Execution interrupted while waiting for supervisor");
             }
         }
 
-        // If we reach here, we've timed out
-        return false;
+        log("Supervisor execution completed.");
     }
 
     private void initializeRooms(AgentContainer container, JSONArray roomsJson,
@@ -276,15 +296,6 @@ public class IterativeAplicacion {
                 log("Error configuring room " + codigo + ": " + e.getMessage());
             }
         });
-    }
-
-    private void waitForCompletion(AgentController supervisor) throws Exception {
-        while (true) {
-            Thread.sleep(1000);
-            if (supervisor.getState().getCode() == jade.core.Agent.AP_DELETED) {
-                break;
-            }
-        }
     }
 
     private void saveResults() throws IOException {
