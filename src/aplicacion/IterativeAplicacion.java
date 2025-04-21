@@ -16,6 +16,7 @@ import json_stuff.SalaHorarioJSON;
 import performance.PerformanceMonitor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import performance.RTTLogger;
 import performance.SimpleRTT;
 
 import java.io.*;
@@ -405,7 +406,8 @@ public class IterativeAplicacion {
                 return;
             }
 
-            SimpleRTT.getInstance().changeToScenarioPath(selectedScenario);
+            //SimpleRTT.getInstance().changeToScenarioPath(selectedScenario);
+            RTTLogger.getInstance().start(selectedScenario);
 
             IterativeAplicacion runner = new IterativeAplicacion(iterations, selectedScenario);
             runner.runIterations();
