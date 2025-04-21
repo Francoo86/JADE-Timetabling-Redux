@@ -38,18 +38,13 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         ACLMessage reply = myAgent.receive(mt);
 
         if (reply != null) {
+            String conversationId = reply.getConversationId();
+
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
                 try {
-                    rttTracker.messageReceived(reply.getConversationId(), reply);
+                    // Record the message receipt for RTT calculation
+                    rttTracker.messageReceived(conversationId, reply);
                     profesor.getPerformanceMonitor().recordMessageReceived(reply, "PROPOSE");
-                    // Record message receive time and metrics
-                    profesor.getPerformanceMonitor().recordMessageMetrics(
-                            reply.getConversationId(),
-                            "PROPOSE_RECEIVED",
-                            0, // RTT will be calculated elsewhere
-                            reply.getSender().getLocalName(),
-                            profesor.getLocalName()
-                    );
 
                     ClassroomAvailability sala = (ClassroomAvailability) reply.getContentObject();
                     if (sala == null) {
@@ -64,6 +59,9 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else if (reply.getPerformative() == ACLMessage.REFUSE) {
+                rttTracker.messageReceived(conversationId, reply);
+                profesor.getPerformanceMonitor().recordMessageReceived(reply, "REFUSE");
             }
         } else {
             block(50);
