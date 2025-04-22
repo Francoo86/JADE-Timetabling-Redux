@@ -11,7 +11,7 @@ import java.lang.management.ManagementFactory;
 import com.sun.management.OperatingSystemMXBean;
 
 public class PerformanceMonitor {
-    private static final String BASE_PATH = "performance_logs/";
+    private static final String BASE_PATH = "PerformanceLogs/";
     private final String iterationId;
     private final String agentId;
     private PrintWriter cpuWriter;
@@ -40,7 +40,7 @@ public class PerformanceMonitor {
     }
 
     static {
-        osBean = (OperatingSystemMXBean) ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+        osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
     }
 
     public PerformanceMonitor(int iterationNumber, String agentIdentifier, String scenario) {
@@ -65,7 +65,7 @@ public class PerformanceMonitor {
 
     private void initializeWriters() {
         try {
-            String fullPath = BASE_PATH + baseScenario + "/";
+            String fullPath = "agent_output" + "/" + BASE_PATH + baseScenario + "/";
             // Create directory if it doesn't exist
             Files.createDirectories(Paths.get(fullPath));
 

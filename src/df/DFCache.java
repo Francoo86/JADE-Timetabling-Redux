@@ -26,7 +26,6 @@ public class DFCache {
         long startTime = System.nanoTime();
         long currentTime = System.currentTimeMillis();
 
-        // Check cache validity
         if (agentCache.containsKey(cacheKey) &&
                 currentTime - cacheTimestamps.get(cacheKey) < CACHE_DURATION) {
 
@@ -47,7 +46,6 @@ public class DFCache {
             return agentCache.get(cacheKey);
         }
 
-        // Perform actual DF search
         try {
             DFAgentDescription template = new DFAgentDescription();
             ServiceDescription sd = new ServiceDescription();
