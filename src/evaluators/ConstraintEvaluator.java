@@ -1,7 +1,6 @@
 package evaluators;
 
 import agentes.AgenteProfesor;
-import behaviours.NegotiationStateBehaviour;
 import constants.Commons;
 import constants.enums.Actividad;
 import constants.enums.Day;
@@ -9,7 +8,6 @@ import constants.enums.TipoContrato;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
 import objetos.helper.BatchProposal;
-import service.TimetablingEvaluator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,17 +24,17 @@ public class ConstraintEvaluator {
     }
 
     private AgenteProfesor profesor;
-    private NegotiationStateBehaviour behaviour;
-    private final int MAX_BLOQUE_DIURNO = 9;
+    //private NegotiationStateBehaviour behaviour;
+    //private final int MAX_BLOQUE_DIURNO = 9;
     private final int MEETING_ROOM_THRESHOLD = 10;
     //TODO: Add the behaviour to inject the constraints
 
-    public ConstraintEvaluator(AgenteProfesor profesor, NegotiationStateBehaviour behaviour) {
+    //leave it empty for now
+    public ConstraintEvaluator(AgenteProfesor profesor) {
         this.profesor = profesor;
-        this.behaviour = behaviour;
     }
 
-    private List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
+    public List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
         if (proposals.isEmpty()) {
             return Collections.emptyList();
         }
@@ -201,9 +199,13 @@ public class ConstraintEvaluator {
                 }
 
                 // Block 9 constraint
-                if (bloque == Commons.MAX_BLOQUE_DIURNO && behaviour.getBloquesPendientes() % 2 == 0) {
+                if (bloque == Commons.MAX_BLOQUE_DIURNO && profesor.getBloquesPendientesInNegotiation() % 2 == 0) {
                     continue;
                 }
+                /*
+                if (bloque == Commons.MAX_BLOQUE_DIURNO && behaviour.getBloquesPendientes() % 2 == 0) {
+                    continue;
+                }*/
 
                 // Year-based constraints
                 if (isOddYear) {

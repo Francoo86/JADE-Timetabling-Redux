@@ -2,7 +2,6 @@ package agentes;
 
 import constants.Commons;
 import constants.enums.Day;
-import jade.domain.FIPANames;
 import jade.proto.SubscriptionInitiator;
 import objetos.ClassroomAvailability;
 import objetos.helper.BatchAssignmentConfirmation;
@@ -20,11 +19,9 @@ import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import performance.MessageMetricsCollector;
 import performance.PerformanceMonitor;
-import performance.SimpleRTT;
+import performance.RTTLogger;
 
-import java.io.IOException;
 import java.util.*;
 
 public class AgenteSala extends Agent {
@@ -36,21 +33,17 @@ public class AgenteSala extends Agent {
     private int turno;
     private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
     private PerformanceMonitor performanceMonitor;
-    private MessageMetricsCollector metricsCollector;
-
-    public MessageMetricsCollector getMetricsCollector() {
-        return metricsCollector;
-    }
 
     public PerformanceMonitor getPerformanceMonitor() {
         return performanceMonitor;
     }
 
-    private SimpleRTT simpleRTT;
+    private RTTLogger rttLogger;
 
     @Override
     protected void setup() {
-        this.simpleRTT = SimpleRTT.getInstance();
+        String scenario = "small";
+        rttLogger = RTTLogger.getInstance();
         // Inicializar estructuras
         initializeSchedule();
         horarioOcupado = new HashMap<>();
@@ -65,9 +58,10 @@ public class AgenteSala extends Agent {
         //get passed arguments
         Object[] args = getArguments();
         int currIteration = args.length > 0 ? (int) args[1] : 0;
+        scenario = args.length > 1 ? (String) args[2] : "small";
 
         // Inicializar monitor de rendimiento
-        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName());
+        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName(), scenario);
         performanceMonitor.startMonitoring();
 
         performanceMonitor.startMonitoring();
@@ -204,29 +198,28 @@ public class AgenteSala extends Agent {
             }
         }
 
-        private Map<Day, Integer> dayLoadCount = new HashMap<>();
+        private Map<String, List<Integer>> getAvailableBlocks() {
+            Map<String, List<Integer>> availableBlocks = new HashMap<>();
+            for (Day dia : Day.values()) {
+                List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
+                List<Integer> freeBlocks = new ArrayList<>();
+                for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {
+                    if (asignaciones.get(bloque) == null) {
+                        freeBlocks.add(bloque + 1);
+                    }
+                }
+                if (!freeBlocks.isEmpty()) {
+                    availableBlocks.put(dia.toString(), freeBlocks);
+                }
+            }
+            return availableBlocks;
+        }
 
         private void procesarSolicitud(ACLMessage msg) {
             try {
                 getPerformanceMonitor().recordMessageReceived(msg, "CFP");
                 long startTime = System.nanoTime();
-                String[] solicitudData = msg.getContent().split(",");
-                String nombreAsignatura = sanitizeSubjectName(solicitudData[0]);
-                int vacantes = Integer.parseInt(solicitudData[1]);
-                //int satisfaccion = SatisfaccionHandler.getSatisfaccion(capacidad, vacantes);
-                Map<String, List<Integer>> availableBlocks = new HashMap<>();
-                for (Day dia : Day.values()) {
-                    List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-                    List<Integer> freeBlocks = new ArrayList<>();
-                    for (int bloque = 0; bloque < Commons.MAX_BLOQUE_DIURNO; bloque++) {
-                        if (asignaciones.get(bloque) == null) {
-                            freeBlocks.add(bloque + 1);
-                        }
-                    }
-                    if (!freeBlocks.isEmpty()) {
-                        availableBlocks.put(dia.toString(), freeBlocks);
-                    }
-                }
+                Map<String, List<Integer>> availableBlocks = getAvailableBlocks();
                 if (!availableBlocks.isEmpty()) {
                     ClassroomAvailability availability = new ClassroomAvailability(
                             codigo,
@@ -239,15 +232,17 @@ public class AgenteSala extends Agent {
                     reply.setPerformative(ACLMessage.PROPOSE);
                     reply.setContentObject(availability);
 
-                    simpleRTT.messageSent(
-                            reply.getConversationId(),
-                            myAgent.getAID(),
-                            msg.getSender(),
-                            reply.getPerformative() == ACLMessage.PROPOSE ? "PROPOSE" : "REFUSE"
+                    rttLogger.recordMessageSent(
+                            myAgent.getLocalName(),
+                            msg.getConversationId(),
+                            ACLMessage.PROPOSE,
+                            msg.getSender().getLocalName(),
+                            "classroom-availability"
                     );
 
                     send(reply);
 
+                    /*
                     // Record metrics
                     getPerformanceMonitor().recordMessageMetrics(
                             msg.getConversationId(),
@@ -255,122 +250,38 @@ public class AgenteSala extends Agent {
                             System.nanoTime() - startTime,
                             getLocalName(),
                             msg.getSender().getLocalName()
-                    );
+                    );*/
 
                 } else {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
-                    getPerformanceMonitor().recordMessageSent(reply, "PROPOSE");
+                    reply.setContent("NO AVAILABLE BLOCKS");
+                    //getPerformanceMonitor().recordMessageSent(reply, "PROPOSE");
+                    //THE SAME BUT REFUSE
+                    rttLogger.recordMessageSent(
+                            myAgent.getLocalName(),
+                            msg.getConversationId(),
+                            ACLMessage.REFUSE,
+                            msg.getSender().getLocalName(),
+                            "classroom-availability"
+                    );
+
                     send(reply);
 
                     // Record metrics for refuse
+                    /*
                     getPerformanceMonitor().recordMessageMetrics(
                             msg.getConversationId(),
                             "REFUSE_SENT",
                             System.nanoTime() - startTime,
                             getLocalName(),
                             msg.getSender().getLocalName()
-                    );
+                    );*/
                 }
             } catch (Exception e) {
                 System.err.println("Error processing request in classroom " + codigo + ": " + e.getMessage());
                 e.printStackTrace();
             }
-        }
-
-        private Map<Day, List<Integer>> convertToExistingBlocks(Map<Day, List<AsignacionSala>> horario) {
-            Map<Day, List<Integer>> result = new HashMap<>();
-            for (Map.Entry<Day, List<AsignacionSala>> entry : horario.entrySet()) {
-                List<Integer> blocks = new ArrayList<>();
-                List<AsignacionSala> assignments = entry.getValue();
-                for (int i = 0; i < assignments.size(); i++) {
-                    if (assignments.get(i) != null) {
-                        blocks.add(i + 1);
-                    }
-                }
-                if (!blocks.isEmpty()) {
-                    result.put(entry.getKey(), blocks);
-                }
-            }
-            return result;
-        }
-
-        private Map<String, List<Integer>> getOptimizedAvailableBlocks(
-                String asignatura,
-                int nivel,
-                String preferredCampus,
-                int remainingHours) {
-
-            Map<String, List<Integer>> availableBlocks = new HashMap<>();
-
-            for (Day dia : Day.values()) {
-                List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-                if (asignaciones == null) continue;
-
-                // Calculate day load
-                int currentDayLoad = dayLoadCount.getOrDefault(dia, 0);
-                int subjectDayLoad = countSubjectBlocksInDay(dia, asignatura);
-
-                // Skip overloaded days
-                if (currentDayLoad >= 6 || subjectDayLoad >= 2) continue;
-
-                List<Integer> freeBlocks = findOptimalBlocksForDay(
-                        dia,
-                        asignaciones,
-                        nivel,
-                        remainingHours
-                );
-
-                if (!freeBlocks.isEmpty()) {
-                    availableBlocks.put(dia.toString(), freeBlocks);
-                }
-            }
-
-            return availableBlocks;
-        }
-
-        private List<Integer> findOptimalBlocksForDay(
-                Day dia,
-                List<AsignacionSala> asignaciones,
-                int nivel,
-                int remainingHours) {
-
-            List<Integer> freeBlocks = new ArrayList<>();
-            boolean isOddYear = nivel % 2 == 1;
-
-            // Determine preferred time slots
-            int startBlock = isOddYear ? 1 : 5;
-            int endBlock = isOddYear ? 4 : Commons.MAX_BLOQUE_DIURNO;
-
-            // Find consecutive blocks when possible
-            for (int bloque = startBlock; bloque <= endBlock; bloque++) {
-                if (asignaciones.get(bloque - 1) == null) {
-                    // Check if this could form a consecutive sequence
-                    if (freeBlocks.isEmpty() ||
-                            bloque == freeBlocks.get(freeBlocks.size() - 1) + 1) {
-                        freeBlocks.add(bloque);
-
-                        // Stop if we have enough blocks for remaining hours
-                        if (freeBlocks.size() >= remainingHours) break;
-                    }
-                }
-            }
-
-            return freeBlocks;
-        }
-
-        private int countSubjectBlocksInDay(Day dia, String asignatura) {
-            List<AsignacionSala> asignaciones = horarioOcupado.get(dia);
-            if (asignaciones == null) return 0;
-
-            int count = 0;
-            for (AsignacionSala asignacion : asignaciones) {
-                if (asignacion != null &&
-                        asignacion.getNombreAsignatura().equals(asignatura)) {
-                    count++;
-                }
-            }
-            return count;
         }
 
         private void confirmarAsignacion(ACLMessage msg) {
@@ -430,6 +341,15 @@ public class AgenteSala extends Agent {
                     ACLMessage confirm = msg.createReply();
                     confirm.setPerformative(ACLMessage.INFORM);
                     confirm.setContentObject(new BatchAssignmentConfirmation(confirmedAssignments));
+                    /*
+                    String conversationId = msg.getConversationId();
+                    simpleRTT.messageSent(
+                            conversationId,
+                            myAgent.getAID(),
+                            msg.getSender(),
+                            "INFORM"
+                    );*/
+                    getPerformanceMonitor().recordMessageSent(confirm, "INFORM");
                     send(confirm);
                 }
 

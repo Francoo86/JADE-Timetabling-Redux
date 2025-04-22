@@ -7,7 +7,6 @@ import constants.enums.Day;
 import constants.enums.TipoContrato;
 import debugscreens.ProfessorDebugViewer;
 import df.DFCache;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
@@ -24,7 +23,6 @@ import objetos.helper.BatchProposal;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-import performance.MessageMetricsCollector;
 import performance.PerformanceMonitor;
 
 import javax.swing.*;
@@ -48,7 +46,6 @@ public class AgenteProfesor extends Agent {
     //TODO-2: Pienso que puede ser mejor tener un objeto que contenga la información de los bloques asignados.
     private Map<Day, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
     private PerformanceMonitor performanceMonitor;
-    private MessageMetricsCollector metricsCollector;
 
     //METODOS EXPUESTOS PARA EL BEHAVIOUR
     @Override
@@ -246,25 +243,29 @@ public class AgenteProfesor extends Agent {
         return debugWindow;
     }
 
-    public MessageMetricsCollector getMetricsCollector() {
-        return metricsCollector;
+    private NegotiationStateBehaviour negotiationBehaviour;
+
+    public int getBloquesPendientesInNegotiation() {
+        return negotiationBehaviour.getBloquesPendientes();
     }
 
     @Override
     protected void setup() {
+        String scenario = "small";
         // Load data from JSON
         Object[] args = getArguments();
         if (args != null && args.length > 1) {
             String jsonString = (String) args[0];
             orden = (Integer) args[1];
             cargarDatos(jsonString);
+            scenario = (String) args[3];
         }
 
         // Iteration is third argument
         int itera = (int) args[2];
 
         String iterationId = "Agent_" + getLocalName();
-        performanceMonitor = new PerformanceMonitor(itera, iterationId);
+        performanceMonitor = new PerformanceMonitor(itera, iterationId, scenario);
         performanceMonitor.startMonitoring();
 
         // Initialize data structures
@@ -294,6 +295,8 @@ public class AgenteProfesor extends Agent {
         } else {
             addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour, messageCollector));
         }
+
+        negotiationBehaviour = stateBehaviour;
     }
 
     public String getSubjectKey(Asignatura subject) {

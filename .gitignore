@@ -13,3 +13,6 @@ MTPs-Main-Container.txt
 venv/
 *.csv
 *.txt
+scenarios/
+iteration_results/
+agent_output/

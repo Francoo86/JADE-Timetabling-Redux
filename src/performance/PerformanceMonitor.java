@@ -1,5 +1,6 @@
 package performance;
 
+import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import java.io.*;
 import java.nio.file.*;
@@ -10,7 +11,7 @@ import java.lang.management.ManagementFactory;
 import com.sun.management.OperatingSystemMXBean;
 
 public class PerformanceMonitor {
-    private static final String BASE_PATH = "performance_logs/";
+    private static final String BASE_PATH = "PerformanceLogs/";
     private final String iterationId;
     private final String agentId;
     private PrintWriter cpuWriter;
@@ -20,6 +21,8 @@ public class PerformanceMonitor {
     private final ScheduledExecutorService scheduler;
     private static final OperatingSystemMXBean osBean;
     private final ConcurrentHashMap<String, MessageTimingInfo> messageTimings;
+
+    private String baseScenario;
 
     // Inner class to store message timing information
     private static class MessageTimingInfo {
@@ -37,14 +40,15 @@ public class PerformanceMonitor {
     }
 
     static {
-        osBean = (OperatingSystemMXBean) ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+        osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
     }
 
-    public PerformanceMonitor(int iterationNumber, String agentIdentifier) {
+    public PerformanceMonitor(int iterationNumber, String agentIdentifier, String scenario) {
         this.iterationId = "Iteration" + iterationNumber;
         this.agentId = agentIdentifier;
         this.scheduler = Executors.newScheduledThreadPool(1);
         this.messageTimings = new ConcurrentHashMap<>();
+        this.baseScenario = scenario;
         initializeWriters();
 
         // Start periodic cleanup of stale message timings
@@ -61,14 +65,15 @@ public class PerformanceMonitor {
 
     private void initializeWriters() {
         try {
+            String fullPath = "agent_output" + "/" + BASE_PATH + baseScenario + "/";
             // Create directory if it doesn't exist
-            Files.createDirectories(Paths.get(BASE_PATH));
+            Files.createDirectories(Paths.get(fullPath));
 
             // Define file paths with iteration and agent identifiers
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            String cpuPath = String.format("%s/%s_%s_cpu.csv", BASE_PATH, iterationId, timestamp);
-            String dfPath = String.format("%s/%s_%s_df.csv", BASE_PATH, iterationId, timestamp);
-            String rttPath = String.format("%s/%s_%s_rtt.csv", BASE_PATH, iterationId, timestamp);
+            String cpuPath = String.format("%s/%s_%s_cpu.csv", fullPath, iterationId, timestamp);
+            String dfPath = String.format("%s/%s_%s_df.csv", fullPath, iterationId, timestamp);
+            String rttPath = String.format("%s/%s_%s_rtt.csv", fullPath, iterationId, timestamp);
 
             // Initialize writers in append mode
             cpuWriter = new PrintWriter(new FileWriter(cpuPath, true));
@@ -178,7 +183,10 @@ public class PerformanceMonitor {
     // Method to record when a message is sent
     public void recordMessageSent(ACLMessage msg, String messageType) {
         String conversationId = msg.getConversationId();
-        String sender = msg.getSender().getLocalName();
+        AID senderAID = msg.getSender();
+        if(conversationId == null || senderAID == null) return;
+
+        String sender = senderAID.getLocalName();
         String receiver = msg.getAllReceiver().hasNext() ?
                 msg.getAllReceiver().next().toString() : "MULTICAST";
 

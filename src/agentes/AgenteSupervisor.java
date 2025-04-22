@@ -1,12 +1,12 @@
 package agentes;
 
+import aplicacion.IterativeAplicacion;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
-import performance.MessageMetricsCollector;
 import performance.PerformanceMonitor;
 
 import java.util.HashMap;
@@ -17,14 +17,10 @@ public class AgenteSupervisor extends Agent {
     private List<AgentController> profesoresControllers;
     private boolean isSystemActive = true;
     private static final int CHECK_INTERVAL = 5000; // 5 seconds
+    private IterativeAplicacion myApp;
 
     // In AgenteSupervisor.java
     private PerformanceMonitor performanceMonitor;
-    private MessageMetricsCollector metricsCollector;
-
-    public MessageMetricsCollector getMetricsCollector() {
-        return metricsCollector;
-    }
 
     @Override
     protected void setup() {
@@ -32,12 +28,17 @@ public class AgenteSupervisor extends Agent {
         if (args != null && args.length > 0) {
             profesoresControllers = (List<AgentController>) args[0];
             System.out.println("[Supervisor] Monitoring " + profesoresControllers.size() + " professors");
+
+            if (args.length > 3 && args[3] instanceof IterativeAplicacion) {
+                myApp = (IterativeAplicacion) args[3];
+            }
         }
 
         int iteration = args[1] != null ? (int) args[1] : 0;
+        String scenarioName = args[2] != null ? (String) args[2] : "small";
 
         String agentName = "Supervisor_" + getLocalName();
-        performanceMonitor = new PerformanceMonitor(iteration, agentName);
+        performanceMonitor = new PerformanceMonitor(iteration, agentName, scenarioName);
         performanceMonitor.startMonitoring();
 
         // Start monitoring
@@ -57,7 +58,6 @@ public class AgenteSupervisor extends Agent {
         @Override
         protected void onTick() {
             if (!isSystemActive) return;
-            //System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
 
             try {
                 boolean allTerminated = true;
@@ -166,6 +166,10 @@ public class AgenteSupervisor extends Agent {
                 // Generar JSONs finales
                 ProfesorHorarioJSON.getInstance().generarArchivoJSON();
                 SalaHorarioJSON.getInstance().generarArchivoJSON();
+
+                if(myApp != null) {
+                    myApp.markSupervisorAsFinished();
+                }
                 
                 // Esperar un momento para asegurar que los archivos se escriban
                 Thread.sleep(1000);
@@ -190,9 +194,6 @@ public class AgenteSupervisor extends Agent {
 
                 if (performanceMonitor != null) {
                     performanceMonitor.stopMonitoring();
-                }
-                if (metricsCollector != null) {
-                    metricsCollector.close();
                 }
                 
                 System.out.println("[Supervisor] Sistema finalizado.");

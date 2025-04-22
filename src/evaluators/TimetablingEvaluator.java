@@ -1,4 +1,4 @@
-package service;
+package evaluators;
 
 import constants.Commons;
 import constants.enums.Day;

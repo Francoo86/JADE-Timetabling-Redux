@@ -6,7 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import objetos.ClassroomAvailability;
 import objetos.helper.BatchProposal;
-import performance.SimpleRTT;
+import performance.RTTLogger;
 
 import java.util.Queue;
 
@@ -15,7 +15,7 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
     private final AgenteProfesor profesor;
     private final Queue<BatchProposal> batchProposals;
     private final NegotiationStateBehaviour stateBehaviour;
-    private final SimpleRTT rttTracker;
+    private final RTTLogger rttLogger;
 
     public MessageCollectorBehaviour(AgenteProfesor profesor,
                                      Queue<BatchProposal> batchProposals,
@@ -25,7 +25,19 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         this.batchProposals = batchProposals;
         this.stateBehaviour = stateBehaviour;
 
-        this.rttTracker = SimpleRTT.getInstance();
+        rttLogger = RTTLogger.getInstance();
+    }
+
+    private void logRequest(ACLMessage reply, boolean success) {
+        rttLogger.endRequest(
+                myAgent.getLocalName(),
+                reply.getConversationId(),
+                reply.getPerformative(),
+                reply.getByteSequenceContent().length,
+                success,
+                null,
+                "classroom-availability"
+        );
     }
 
     @Override
@@ -40,16 +52,11 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         if (reply != null) {
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
                 try {
-                    rttTracker.messageReceived(reply.getConversationId(), reply);
-                    profesor.getPerformanceMonitor().recordMessageReceived(reply, "PROPOSE");
-                    // Record message receive time and metrics
-                    profesor.getPerformanceMonitor().recordMessageMetrics(
-                            reply.getConversationId(),
-                            "PROPOSE_RECEIVED",
-                            0, // RTT will be calculated elsewhere
-                            reply.getSender().getLocalName(),
-                            profesor.getLocalName()
-                    );
+                    // Record the message receipt for RTT calculation
+                    //rttTracker.messageReceived(conversationId, reply);
+                    //profesor.getPerformanceMonitor().recordMessageReceived(reply, "PROPOSE");
+                    // Log the RTT for the received message
+                    logRequest(reply, true);
 
                     ClassroomAvailability sala = (ClassroomAvailability) reply.getContentObject();
                     if (sala == null) {
@@ -64,6 +71,10 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else if (reply.getPerformative() == ACLMessage.REFUSE) {
+                logRequest(reply, false);
+                //rttTracker.messageReceived(conversationId, reply);
+                //profesor.getPerformanceMonitor().recordMessageReceived(reply, "REFUSE");
             }
         } else {
             block(50);

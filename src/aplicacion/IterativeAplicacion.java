@@ -14,9 +14,9 @@ import json_stuff.JSONProcessor;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
 import performance.PerformanceMonitor;
-import performance.MessageMetricsCollector;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import performance.RTTLogger;
 
 import java.io.*;
 import java.nio.file.*;
@@ -26,22 +26,34 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IterativeAplicacion {
-    private static final String RESULTS_DIR = "iteration_results";
+    private static final String AGENT_OUTPUT = "agent_output";
+    private static final String RESULTS_DIR = "IterationResults";
     private final int numIterations;
     private final List<IterationResult> results;
     private final PrintWriter logWriter;
+    private String finalScenarioPath;
+    private String scenarioName;
 
-    public IterativeAplicacion(int numIterations) throws IOException {
+    private volatile boolean supervisorCompleted = false;
+
+    public synchronized void markSupervisorAsFinished() {
+        supervisorCompleted = true;
+    }
+
+    public IterativeAplicacion(int numIterations, String baseScenario) throws IOException {
         this.numIterations = numIterations;
         this.results = new ArrayList<>();
+        this.scenarioName = baseScenario;
+
+        String fullPath = String.format(AGENT_OUTPUT + "/" + RESULTS_DIR + "/%s", baseScenario);
 
         // Create results directory
-        Files.createDirectories(Paths.get(RESULTS_DIR));
-
+        //Files.createDirectories(Paths.get(RESULTS_DIR));
+        Files.createDirectories(Paths.get(fullPath));
         // Initialize log file
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         this.logWriter = new PrintWriter(new FileWriter(
-                String.format("%s/iteration_log_%s.txt", RESULTS_DIR, timestamp)));
+                String.format("%s/iteration_log_%s.txt", fullPath, timestamp)));
     }
 
     private static class IterationResult {
@@ -99,14 +111,16 @@ public class IterativeAplicacion {
 
         try {
             mainContainer = rt.createMainContainer(profile);
+            String salasPath = String.format("scenarios/%s/salas.json", scenarioName);
+            String profesoresPath = String.format("scenarios/%s/profesores.json", scenarioName);
 
             // Load and process data
-            JSONArray professorJson = JSONHelper.parseAsArray("30profs.json");
-            JSONArray roomJson = JSONHelper.parseAsArray("inputOfSala.json");
+            JSONArray professorJson = JSONHelper.parseAsArray(profesoresPath);
+            JSONArray roomJson = JSONHelper.parseAsArray(salasPath);
             professorJson = JSONProcessor.prepararParalelos(professorJson);
 
             // Create monitoring for this iteration
-            PerformanceMonitor perfMonitor = new PerformanceMonitor(iteration, "MainContainer");
+            PerformanceMonitor perfMonitor = new PerformanceMonitor(iteration, "MainContainer", scenarioName);
             perfMonitor.startMonitoring();
 
             // Initialize rooms
@@ -131,42 +145,64 @@ public class IterativeAplicacion {
                 professorControllers.get(0).start();
             }
 
-            // Create and start supervisor
-            Object[] supervisorArgs = {professorControllers, iteration};
-            AgentController supervisor = mainContainer.createNewAgent(
-                    "Supervisor",
-                    AgenteSupervisor.class.getName(),
-                    supervisorArgs
-            );
-            supervisor.start();
+            // Create and start supervisor with proper error handling
+            AgentController supervisor = null;
+            try {
+                Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this};
+                supervisor = mainContainer.createNewAgent(
+                        "Supervisor",
+                        AgenteSupervisor.class.getName(),
+                        supervisorArgs
+                );
+                supervisor.start();
 
-            // Wait for completion
-            waitForCompletion(supervisor);
+                // Wait for completion with timeout
+                waitForCompletion(supervisor); // 3 minute timeout
 
-            // Get metrics
-            int profAssignments = ProfesorHorarioJSON.getInstance().getPendingUpdateCount();
-            int roomUtilization = SalaHorarioJSON.getInstance().getPendingUpdateCount();
+                /*
+                if (!completed) {
+                    log("WARNING: Supervisor timeout - forcing completion");
+                }*/
 
-            // Stop monitoring
-            perfMonitor.stopMonitoring();
+                // Get metrics
+                int profAssignments = ProfesorHorarioJSON.getInstance().getPendingUpdateCount();
+                int roomUtilization = SalaHorarioJSON.getInstance().getPendingUpdateCount();
 
-            // Record results
-            long duration = System.currentTimeMillis() - startTime;
-            results.add(new IterationResult(
-                    iteration, duration, profAssignments, roomUtilization, "success", null));
+                // Stop monitoring
+                perfMonitor.stopMonitoring();
 
-            log(String.format("Iteration %d completed successfully in %d ms", iteration, duration));
+                // Record results
+                long duration = System.currentTimeMillis() - startTime;
+                results.add(new IterationResult(
+                        iteration, duration, profAssignments, roomUtilization, "success", null));
+
+                log(String.format("Iteration %d completed successfully in %d ms", iteration, duration));
+
+            } catch (Exception e) {
+                String error = String.format("Error in iteration %d: %s", iteration, e.getMessage());
+                log(error);
+                results.add(new IterationResult(
+                        iteration, System.currentTimeMillis() - startTime, 0, 0, "error", error));
+            }
 
         } catch (Exception e) {
             String error = String.format("Error in iteration %d: %s", iteration, e.getMessage());
             log(error);
+            e.printStackTrace();
             results.add(new IterationResult(
                     iteration, System.currentTimeMillis() - startTime, 0, 0, "error", error));
 
         } finally {
-            // Cleanup
+            // Cleanup with proper error handling
             if (mainContainer != null) {
                 try {
+                    // Ensure JSON files are saved before container shutdown
+                    ProfesorHorarioJSON.getInstance().generarArchivoJSON();
+                    SalaHorarioJSON.getInstance().generarArchivoJSON();
+
+                    // Give time for files to be written
+                    Thread.sleep(2000);
+
                     mainContainer.kill();
                 } catch (Exception e) {
                     log("Error during container cleanup: " + e.getMessage());
@@ -176,12 +212,52 @@ public class IterativeAplicacion {
         }
     }
 
+    private void waitForCompletion(AgentController supervisor) throws Exception {
+        // Reset the completion flag before waiting
+        supervisorCompleted = false;
+
+        log("Waiting for supervisor to complete execution...");
+
+        // Wait until the flag is set
+        while (!supervisorCompleted) {
+            try {
+                // Still do a check on agent state as a fallback
+                if (supervisor.getState().getCode() == jade.core.Agent.AP_DELETED) {
+                    log("Supervisor completion detected via agent state.");
+                    supervisorCompleted = true;
+                    break;
+                }
+
+                // Sleep to avoid busy waiting
+                Thread.sleep(1000);
+
+            } catch (StaleProxyException e) {
+                // Check if this is because the agent is gone (which means it completed)
+                if (e.getMessage() != null && e.getMessage().contains("No such agent exists")) {
+                    log("Supervisor agent no longer exists, assuming completion.");
+                    supervisorCompleted = true;
+                    break;
+                } else {
+                    // Other unexpected error
+                    log("Error checking supervisor state: " + e.getMessage());
+                    // Don't break, keep waiting in case it's a temporary issue
+                }
+            } catch (InterruptedException e) {
+                log("Wait interrupted: " + e.getMessage());
+                Thread.currentThread().interrupt();
+                throw new Exception("Execution interrupted while waiting for supervisor");
+            }
+        }
+
+        log("Supervisor execution completed.");
+    }
+
     private void initializeRooms(AgentContainer container, JSONArray roomsJson,
                                  Map<String, AgentController> controllers, int numIterations) throws StaleProxyException {
         for (Object obj : roomsJson) {
             JSONObject roomJson = (JSONObject) obj;
             String codigo = (String) roomJson.get("Codigo");
-            Object[] roomArgs = {roomJson.toJSONString(), numIterations};
+            Object[] roomArgs = {roomJson.toJSONString(), numIterations, scenarioName};
 
             AgentController room = container.createNewAgent(
                     "Sala" + codigo,
@@ -197,7 +273,7 @@ public class IterativeAplicacion {
                                       List<AgentController> controllers, int currIteration) throws StaleProxyException {
         for (int i = 0; i < professorJson.size(); i++) {
             JSONObject profJson = (JSONObject) professorJson.get(i);
-            Object[] profArgs = {profJson.toJSONString(), i, currIteration};
+            Object[] profArgs = {profJson.toJSONString(), i, currIteration, scenarioName};
 
             AgentController prof = container.createNewAgent(
                     AgenteProfesor.AGENT_NAME + i,
@@ -223,15 +299,6 @@ public class IterativeAplicacion {
         });
     }
 
-    private void waitForCompletion(AgentController supervisor) throws Exception {
-        while (true) {
-            Thread.sleep(1000);
-            if (supervisor.getState().getCode() == jade.core.Agent.AP_DELETED) {
-                break;
-            }
-        }
-    }
-
     private void saveResults() throws IOException {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
 
@@ -239,7 +306,11 @@ public class IterativeAplicacion {
         JSONArray jsonResults = new JSONArray();
         results.forEach(result -> jsonResults.add(result.toJson()));
 
-        Path resultsPath = Paths.get(RESULTS_DIR, "iteration_results_" + timestamp + ".json");
+        String fullLogPath = String.format("%s/%s/iteration_log_%s.json",
+                RESULTS_DIR, scenarioName, timestamp);
+
+        //Path resultsPath = Paths.get(RESULTS_DIR, "iteration_results_" + timestamp + ".json");
+        Path resultsPath = Paths.get(fullLogPath);
         try (Writer writer = Files.newBufferedWriter(resultsPath)) {
             jsonResults.writeJSONString(writer);
         }
@@ -267,7 +338,11 @@ public class IterativeAplicacion {
             summary.put("avgRoomUtilization",
                     successfulRuns.stream().mapToDouble(r -> r.roomUtilization).average().orElse(0));
 
-            Path summaryPath = Paths.get(RESULTS_DIR, "iteration_summary_" + timestamp + ".json");
+            String summaryPathStr = String.format("%s/%s/iteration_summary_%s.json",
+                    RESULTS_DIR, scenarioName, timestamp);
+
+            //Path summaryPath = Paths.get(RESULTS_DIR, "iteration_summary_" + timestamp + ".json");
+            Path summaryPath = Paths.get(summaryPathStr);
             try (Writer writer = Files.newBufferedWriter(summaryPath)) {
                 summary.writeJSONString(writer);
             }
@@ -317,8 +392,24 @@ public class IterativeAplicacion {
 
     public static void main(String[] args) {
         try {
+            for (String arg : args) {
+                System.out.println("Argument: " + arg);
+            }
+
             int iterations = args.length > 0 ? Integer.parseInt(args[0]) : 1;
-            IterativeAplicacion runner = new IterativeAplicacion(iterations);
+            String selectedScenario = args.length > 1 ? args[1].toLowerCase() : "small";
+
+            System.out.println("Running " + iterations + " iterations with scenario: " + selectedScenario);
+
+            if (!Arrays.asList("small", "medium", "full").contains(selectedScenario)) {
+                System.err.println("Invalid scenario. Use 'small', 'medium', or 'full'.");
+                return;
+            }
+
+            //SimpleRTT.getInstance().changeToScenarioPath(selectedScenario);
+            RTTLogger.getInstance().start(selectedScenario);
+
+            IterativeAplicacion runner = new IterativeAplicacion(iterations, selectedScenario);
             runner.runIterations();
         } catch (Exception e) {
             e.printStackTrace();
