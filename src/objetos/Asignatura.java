@@ -4,8 +4,6 @@ import constants.enums.Actividad;
 import objetos.helper.ActividadHandler;
 import org.json.simple.JSONObject;
 
-import java.util.Arrays;
-
 public class Asignatura {
     private String nombre;
     private int nivel;

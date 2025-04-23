@@ -2,27 +2,30 @@ package agentes;
 
 import constants.Commons;
 import constants.enums.Day;
-import jade.proto.SubscriptionInitiator;
-import objetos.ClassroomAvailability;
-import objetos.helper.BatchAssignmentConfirmation;
-import objetos.helper.BatchAssignmentRequest;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.Property;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.proto.SubscriptionInitiator;
 import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
+import objetos.ClassroomAvailability;
+import objetos.helper.BatchAssignmentConfirmation;
+import objetos.helper.BatchAssignmentRequest;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import performance.PerformanceMonitor;
 import performance.RTTLogger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AgenteSala extends Agent {
     public static final String SERVICE_NAME = "sala";
