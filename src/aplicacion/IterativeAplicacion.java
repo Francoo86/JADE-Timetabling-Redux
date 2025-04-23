@@ -31,8 +31,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IterativeAplicacion {
-    private static final String AGENT_OUTPUT = "agent_output";
-    private static final String RESULTS_DIR = "IterationResults";
+    //private static final String AGENT_OUTPUT = "agent_output";
+    private static final String RESULTS_DIR = "agent_output/IterationResults";
     private final int numIterations;
     private final List<IterationResult> results;
     private final PrintWriter logWriter;
@@ -50,7 +50,7 @@ public class IterativeAplicacion {
         this.results = new ArrayList<>();
         this.scenarioName = baseScenario;
 
-        String fullPath = String.format(AGENT_OUTPUT + "/" + RESULTS_DIR + "/%s", baseScenario);
+        String fullPath = String.format(RESULTS_DIR + "/%s", baseScenario);
 
         // Create results directory
         //Files.createDirectories(Paths.get(RESULTS_DIR));
