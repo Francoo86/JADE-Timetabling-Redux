@@ -43,6 +43,21 @@ public class ThreadBottleneckMonitor {
         initializeWriter();
     }
 
+    private PrintWriter memWriter;
+    private Runtime runtime = Runtime.getRuntime();
+
+    private void initializeMemWriter(String fullPath, String timestamp) {
+        try {
+            String memoryPath = String.format("%s/%s_%s_memory.csv", fullPath, iterationId, timestamp);
+            memWriter = new PrintWriter(new FileWriter(memoryPath, true));
+            writeHeaderIfNeeded(memoryPath,
+                    "Timestamp,TotalMemory_bytes,FreeMemory_bytes,UsedMemory_bytes,MaxMemory_bytes");
+        } catch (IOException e) {
+            System.err.println("Error initializing memory writer for " + agentId + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private void initializeWriter() {
         try {
             String fullPath = BASE_PATH + baseScenario + "/";
@@ -57,8 +72,10 @@ public class ThreadBottleneckMonitor {
             threadWriter = new PrintWriter(new FileWriter(threadPath, true));
 
             // Write header
-            writeHeaderIfNeeded(threadPath, "Timestamp,ThreadID,ThreadName,ThreadState,CPUTime_ns,UserTime_ns,CPUPercent,BlockedTime,WaitedTime");
+            writeHeaderIfNeeded(threadPath,
+                    "Timestamp,ThreadID,ThreadName,ThreadState,CPUTime_ns,UserTime_ns,CPUPercent,BlockedTime,WaitedTime");
 
+            initializeMemWriter(fullPath, timestamp);
         } catch (IOException e) {
             System.err.println("Error initializing thread bottleneck monitor for " + agentId + ": " + e.getMessage());
             e.printStackTrace();
@@ -73,8 +90,30 @@ public class ThreadBottleneckMonitor {
         }
     }
 
+    private void recordMemoryMetrics() {
+        long totalMemory = runtime.totalMemory();
+        long freeMemory = runtime.freeMemory();
+        long usedMemory = totalMemory - freeMemory;
+        long maxMemory = runtime.maxMemory();
+        
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        
+        synchronized (memWriter) {
+            memWriter.printf("%s,%d,%d,%d,%d%n",
+                    timestamp,
+                    totalMemory,
+                    freeMemory,
+                    usedMemory,
+                    maxMemory
+            );
+            memWriter.flush();
+        }
+    }
+
+
     /**
      * Start monitoring thread CPU usage
+     * 
      * @param intervalMs the interval between measurements in milliseconds
      */
     public void startMonitoring(long intervalMs) {
@@ -88,6 +127,7 @@ public class ThreadBottleneckMonitor {
         monitoringTask = scheduler.scheduleAtFixedRate(() -> {
             try {
                 recordThreadMetrics();
+                recordMemoryMetrics();
             } catch (Exception e) {
                 System.err.println("Error recording thread metrics: " + e.getMessage());
                 e.printStackTrace();
@@ -136,6 +176,10 @@ public class ThreadBottleneckMonitor {
                     threadWriter.close();
                     threadWriter = null;
                 }
+                if (memWriter != null) {
+                    memWriter.close();
+                    memWriter = null;
+                }
             }
         } catch (Exception e) {
             System.err.println("Error closing thread writer for " + agentId + ": " + e.getMessage());
@@ -176,7 +220,7 @@ public class ThreadBottleneckMonitor {
 
                         // Calculate as percentage of elapsed time
                         // Note: monitoringInterval is in ms, cpuTimeDiff is in ns
-                        cpuPercent = ((double)cpuTimeDiff / (monitoringInterval * 1_000_000)) * 100;
+                        cpuPercent = ((double) cpuTimeDiff / (monitoringInterval * 1_000_000)) * 100;
 
                         // Cap at 100% per core
                         cpuPercent = Math.min(cpuPercent, 100.0);
@@ -185,10 +229,8 @@ public class ThreadBottleneckMonitor {
                     previousCpuTimes.put(threadId, cpuTime);
                     previousUserTimes.put(threadId, userTime);
 
-                    long blockedTime = threadMXBean.isThreadContentionMonitoringEnabled() ?
-                            info.getBlockedTime() : -1;
-                    long waitedTime = threadMXBean.isThreadContentionMonitoringEnabled() ?
-                            info.getWaitedTime() : -1;
+                    long blockedTime = threadMXBean.isThreadContentionMonitoringEnabled() ? info.getBlockedTime() : -1;
+                    long waitedTime = threadMXBean.isThreadContentionMonitoringEnabled() ? info.getWaitedTime() : -1;
 
                     threadWriter.printf("%s,%d,%s,%s,%d,%d,%.2f,%d,%d%n",
                             timestamp,
@@ -211,8 +253,17 @@ public class ThreadBottleneckMonitor {
      */
     public void generateThreadDump() {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+
         String dumpPath = String.format("%s%s/thread_dump_%s_%s.txt",
-                BASE_PATH, baseScenario, agentId, timestamp);
+                BASE_PATH + "dumps/", baseScenario, agentId, timestamp);
+
+        // Create directory for thread dumps if it doesn't exist
+        try {
+            Files.createDirectories(Paths.get(BASE_PATH + "dumps/" + baseScenario));
+        } catch (IOException e) {
+            System.err.println("Error creating thread dump directory: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         try (PrintWriter dumpWriter = new PrintWriter(new FileWriter(dumpPath))) {
             // Write header information
@@ -335,7 +386,8 @@ public class ThreadBottleneckMonitor {
                         int nidIndex = line.indexOf("nid=");
                         if (nidIndex >= 0) {
                             int nidEnd = line.indexOf(" ", nidIndex);
-                            if (nidEnd < 0) nidEnd = line.length();
+                            if (nidEnd < 0)
+                                nidEnd = line.length();
                             nativeThreadId = line.substring(nidIndex + 4, nidEnd);
                         }
                     }
@@ -399,7 +451,15 @@ public class ThreadBottleneckMonitor {
     public void analyzeBottlenecks() {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         String reportPath = String.format("%s%s/bottleneck_analysis_%s_%s.txt",
-                BASE_PATH, baseScenario, agentId, timestamp);
+                BASE_PATH + "bottlenecks/", baseScenario, agentId, timestamp);
+
+        try{
+            // Create directory for bottleneck analysis if it doesn't exist
+            Files.createDirectories(Paths.get(BASE_PATH + "bottlenecks/" + baseScenario));
+        } catch (IOException e) {
+            System.err.println("Error creating bottleneck analysis directory: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         try (PrintWriter writer = new PrintWriter(new FileWriter(reportPath))) {
             // Write header
@@ -443,7 +503,8 @@ public class ThreadBottleneckMonitor {
 
             int count = 0;
             for (Map.Entry<Long, Long> entry : sortedThreads) {
-                if (count++ >= 10) break;
+                if (count++ >= 10)
+                    break;
 
                 long threadId = entry.getKey();
                 long cpuTimeMs = entry.getValue() / 1_000_000;
