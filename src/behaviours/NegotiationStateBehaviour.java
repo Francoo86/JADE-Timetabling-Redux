@@ -42,7 +42,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private final AssignationData assignationData;
     private final ConstraintEvaluator evaluator;
     private int bloquesPendientes = 0;
-    private static final long TIMEOUT_PROPUESTA = 5000; // 5 seconds
+    private static final long TIMEOUT_PROPUESTA = 1000; // 5 seconds
 
     private long negotiationStartTime;
     private final Map<String, Long> subjectNegotiationTimes = new HashMap<>();

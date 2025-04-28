@@ -24,10 +24,7 @@ public class ConstraintEvaluator {
     }
 
     private AgenteProfesor profesor;
-    //private NegotiationStateBehaviour behaviour;
-    //private final int MAX_BLOQUE_DIURNO = 9;
     private final int MEETING_ROOM_THRESHOLD = 10;
-    //TODO: Add the behaviour to inject the constraints
 
     //leave it empty for now
     public ConstraintEvaluator(AgenteProfesor profesor) {
