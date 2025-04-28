@@ -7,7 +7,6 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
-import performance.PerformanceMonitor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +19,7 @@ public class AgenteSupervisor extends Agent {
     private IterativeAplicacion myApp;
 
     // In AgenteSupervisor.java
-    private PerformanceMonitor performanceMonitor;
+    //private AgentPerformanceMonitor performanceMonitor;
 
     @Override
     protected void setup() {
@@ -37,12 +36,10 @@ public class AgenteSupervisor extends Agent {
         int iteration = args[1] != null ? (int) args[1] : 0;
         String scenarioName = args[2] != null ? (String) args[2] : "small";
 
-        String agentName = "Supervisor_" + getLocalName();
-        performanceMonitor = new PerformanceMonitor(iteration, agentName, scenarioName);
-        performanceMonitor.startMonitoring();
+        //String agentName = "Supervisor_" + getLocalName();
+        //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "SUPERVISOR", scenarioName);
+        //performanceMonitor.startMonitoring();
 
-        // Start monitoring
-        performanceMonitor.startMonitoring();
         addBehaviour(new MonitorBehaviour(this, CHECK_INTERVAL));
     }
 
@@ -192,9 +189,13 @@ public class AgenteSupervisor extends Agent {
                     System.out.println("[Supervisor] ERROR: Horarios_asignados.json está vacío o no existe");
                 }
 
+                /*
                 if (performanceMonitor != null) {
                     performanceMonitor.stopMonitoring();
-                }
+                    //performanceMonitor.analyzeBottlenecks();
+                    //performanceMonitor.generateThreadDump();
+                    CentralizedMonitor.shutdown();
+                }*/
                 
                 System.out.println("[Supervisor] Sistema finalizado.");
                 myAgent.doDelete();

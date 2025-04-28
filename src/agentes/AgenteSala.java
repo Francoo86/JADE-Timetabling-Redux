@@ -19,8 +19,7 @@ import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import performance.PerformanceMonitor;
-import performance.RTTLogger;
+import performance.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,11 +34,7 @@ public class AgenteSala extends Agent {
     private int capacidad;
     private int turno;
     private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
-    private PerformanceMonitor performanceMonitor;
-
-    public PerformanceMonitor getPerformanceMonitor() {
-        return performanceMonitor;
-    }
+    //private AgentPerformanceMonitor performanceMonitor;
 
     private RTTLogger rttLogger;
 
@@ -63,11 +58,11 @@ public class AgenteSala extends Agent {
         int currIteration = args.length > 0 ? (int) args[1] : 0;
         scenario = args.length > 1 ? (String) args[2] : "small";
 
-        // Inicializar monitor de rendimiento
-        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName(), scenario);
-        performanceMonitor.startMonitoring();
+        //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "SALA", scenario);
 
-        performanceMonitor.startMonitoring();
+        // Inicializar monitor de rendimiento
+        //performanceMonitor = new ThreadBottleneckMonitor(currIteration, "Agent_" + getLocalName(), scenario);
+        //performanceMonitor.startMonitoring();
         //addBehaviour(metricsCollector.createMessageMonitorBehaviour());
 
         // Cargar datos de la sala desde JSON
@@ -220,8 +215,8 @@ public class AgenteSala extends Agent {
 
         private void procesarSolicitud(ACLMessage msg) {
             try {
-                getPerformanceMonitor().recordMessageReceived(msg, "CFP");
-                long startTime = System.nanoTime();
+                //getPerformanceMonitor().recordMessageReceived(msg, "CFP");
+                //long startTime = System.nanoTime();
                 Map<String, List<Integer>> availableBlocks = getAvailableBlocks();
                 if (!availableBlocks.isEmpty()) {
                     ClassroomAvailability availability = new ClassroomAvailability(
@@ -352,7 +347,7 @@ public class AgenteSala extends Agent {
                             msg.getSender(),
                             "INFORM"
                     );*/
-                    getPerformanceMonitor().recordMessageSent(confirm, "INFORM");
+                    //getPerformanceMonitor().recordMessageSent(confirm, "INFORM");
                     send(confirm);
                 }
 
