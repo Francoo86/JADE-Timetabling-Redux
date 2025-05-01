@@ -57,6 +57,9 @@ public class IterativeAplicacion {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         this.logWriter = new PrintWriter(new FileWriter(
                 String.format("%s/iteration_log_%s.txt", fullPath, timestamp)));
+
+        ProfesorHorarioJSON.getInstance().setScenario(baseScenario);
+        SalaHorarioJSON.getInstance().setScenario(baseScenario);
     }
 
     private static class IterationResult {
@@ -153,7 +156,7 @@ public class IterativeAplicacion {
             // Create and start supervisor with proper error handling
             AgentController supervisor = null;
             try {
-                Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this};
+                Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this, roomControllers};
                 supervisor = mainContainer.createNewAgent(
                         "Supervisor",
                         AgenteSupervisor.class.getName(),
@@ -203,7 +206,7 @@ public class IterativeAplicacion {
                 try {
                     // Ensure JSON files are saved before container shutdown
                     ProfesorHorarioJSON.getInstance().generarArchivoJSON();
-                    SalaHorarioJSON.getInstance().generarArchivoJSON();
+                    //SalaHorarioJSON.getInstance().generarArchivoJSON();
 
                     // Give time for files to be written
                     Thread.sleep(2000);
@@ -386,6 +389,7 @@ public class IterativeAplicacion {
                 runSingleIteration(i + 1);
             }
             saveResults();
+            //Runtime.instance().shutDown();
 
         } catch (Exception e) {
             log("Critical error during iterations: " + e.getMessage());

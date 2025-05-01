@@ -9,6 +9,8 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Clase para trabajar con archivos JSON.
@@ -16,6 +18,10 @@ import java.io.IOException;
 public class JSONHelper {
     private static final String RESOURCES_PATH = System.getProperty("user.dir") + "/agent_input/";
     private static final String OUTPUT_PATH = System.getProperty("user.dir") + "/agent_output/";
+
+    public static String getBaseOutputPath() {
+        return OUTPUT_PATH;
+    }
 
     private static String formatJsonString(String crudeJson) {
         ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +50,7 @@ public class JSONHelper {
 
     /**
      * Parsea un archivo JSON y lo convierte en un objeto JSONObject.
-     * @param El archivo json (el archivo tiene que estar en la carpeta resources)
+     * @param filePath El archivo json (el archivo tiene que estar en la carpeta resources)
      * @return El objeto JSONObject
      */
     public static JSONObject parseJsonFile(String filePath) {
@@ -58,12 +64,20 @@ public class JSONHelper {
         }
     }
 
-    private static void internalJsonWrite(String fileName, String jsonString) {
+    private static void internalJsonWrite(String fileName, String jsonString, String scenario) {
+        /*
         if (!new java.io.File(OUTPUT_PATH).exists()) {
             new java.io.File(OUTPUT_PATH).mkdir();
+        }*/
+        String finalPath = OUTPUT_PATH + "/" + scenario + "/";
+
+        try {
+            Files.createDirectories(Paths.get(finalPath));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        try (FileWriter file = new FileWriter(OUTPUT_PATH + fileName)) {
+        try (FileWriter file = new FileWriter(finalPath + fileName)) {
             file.write(formatJsonString(jsonString));
             System.out.println("Archivo " + fileName + " generado exitosamente.");
         } catch (IOException e) {
@@ -71,11 +85,11 @@ public class JSONHelper {
         }
     }
 
-    public static void writeJsonFile(String fileName, JSONArray jsonArray) {
-        internalJsonWrite(fileName, jsonArray.toJSONString());
+    public static void writeJsonFile(String fileName, JSONArray jsonArray, String scenario) {
+        internalJsonWrite(fileName, jsonArray.toJSONString(), scenario);
     }
 
-    public static void writeJsonFile(String fileName, String jsonString) {
-        internalJsonWrite(fileName, jsonString);
+    public static void writeJsonFile(String fileName, String jsonString, String scenario) {
+        internalJsonWrite(fileName, jsonString, scenario);
     }
 }

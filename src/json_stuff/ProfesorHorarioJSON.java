@@ -15,6 +15,8 @@ public class ProfesorHorarioJSON {
     private static ProfesorHorarioJSON instance;
     private static final ReentrantLock instanceLock = new ReentrantLock();
 
+    public static final String FINAL_JSON_NAME = "Horarios_asignados.json";
+
     // Threshold for number of updates before writing to disk
     private static final int WRITE_THRESHOLD = 10;
 
@@ -24,6 +26,8 @@ public class ProfesorHorarioJSON {
 
     // Lock for file writing operations
     private final ReentrantLock writeLock;
+
+    private String scenario;
 
     private ProfesorHorarioJSON() {
         profesoresHorarios = new ConcurrentHashMap<>();
@@ -43,6 +47,10 @@ public class ProfesorHorarioJSON {
             }
         }
         return instance;
+    }
+
+    public synchronized void setScenario(String scenario) {
+        this.scenario = scenario;
     }
 
     public void agregarHorarioProfesor(String nombre, JSONObject horario, List<Asignatura> originalAsignaturas) {
@@ -121,7 +129,7 @@ public class ProfesorHorarioJSON {
             JSONArray jsonArray = new JSONArray();
             jsonArray.addAll(profesoresHorarios.values());
 
-            JSONHelper.writeJsonFile("Horarios_asignados.json", jsonArray);
+            JSONHelper.writeJsonFile(FINAL_JSON_NAME, jsonArray, scenario);
 
             if (isFinalWrite) {
                 printAsignationSummary();
@@ -152,8 +160,17 @@ public class ProfesorHorarioJSON {
     public void generarArchivoJSON() {
         System.out.println("Generando archivo JSON final de profesores...");
         flushUpdates(true);
-        System.out.println("Archivo Horarios_asignados.json generado con " +
+        System.out.println(FINAL_JSON_NAME + " generado con " +
                 profesoresHorarios.size() + " profesores");
+    }
+
+    public String getFinalJSONPath() {
+        return JSONHelper.getBaseOutputPath() + "/" + scenario + "/" + FINAL_JSON_NAME;
+    }
+
+    public boolean isJsonFileGenerated() {
+        java.io.File file = new java.io.File(getFinalJSONPath());
+        return file.exists() && file.isFile();
     }
 
     // Get current number of pending updates
