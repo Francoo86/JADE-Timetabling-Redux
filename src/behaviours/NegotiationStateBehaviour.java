@@ -277,7 +277,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                             currentSubject.getNombre(),
                             batchProposal.getSatisfactionScore(),
                             batchProposal.getRoomCode(),
-                            currentSubject.getVacantes()
+                            currentSubject.getVacantes(),
+                            profesor.getNombre()
                     ));
 
                     totalAssigned++;

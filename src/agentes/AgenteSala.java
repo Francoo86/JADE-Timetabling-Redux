@@ -2,6 +2,7 @@ package agentes;
 
 import constants.Commons;
 import constants.enums.Day;
+import interfaces.SalaDataInterface;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AgenteSala extends Agent {
+public class AgenteSala extends Agent implements SalaDataInterface {
     public static final String SERVICE_NAME = "sala";
     private boolean isRegistered = false;
     private String codigo;
@@ -58,6 +59,9 @@ public class AgenteSala extends Agent {
         int currIteration = args.length > 0 ? (int) args[1] : 0;
         scenario = args.length > 1 ? (String) args[2] : "small";
 
+        setEnabledO2ACommunication(true, 10);
+        registerO2AInterface(SalaDataInterface.class, this);
+
         //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "SALA", scenario);
 
         // Inicializar monitor de rendimiento
@@ -81,6 +85,16 @@ public class AgenteSala extends Agent {
     }
 
     private int MEEETING_ROOM_THRESHOLD = 10;
+
+    @Override
+    public String getCodigo() {
+        return codigo;
+    }
+
+    @Override
+    public String getCampus() {
+        return campus;
+    }
 
     public boolean isMeetingRoom() {
         return capacidad < MEEETING_ROOM_THRESHOLD;
@@ -308,7 +322,8 @@ public class AgenteSala extends Agent {
                         AsignacionSala nuevaAsignacion = new AsignacionSala(
                                 request.getSubjectName(),
                                 request.getSatisfaction(),
-                                capacidadFraccion
+                                capacidadFraccion,
+                                request.getProfName()
                         );
                         asignaciones.set(bloque, nuevaAsignacion);
 
@@ -333,7 +348,7 @@ public class AgenteSala extends Agent {
                 if (!confirmedAssignments.isEmpty()) {
                     verifyAssignments(confirmedAssignments);
 
-                    SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
+                    //SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
 
                     // Send single confirmation with all successful assignments
                     ACLMessage confirm = msg.createReply();
@@ -388,13 +403,24 @@ public class AgenteSala extends Agent {
     
             // Asegurarse de guardar el estado final en JSON
             System.out.println("Guardando estado final de sala " + codigo);
-            SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
+            //SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
     
         } catch (Exception e) {
             System.err.println("Error durante cleanup de sala " + codigo + ": " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    //create a getter for horarioOcupado
+    public Map<Day, List<AsignacionSala>> getHorarioOcupado() {
+        // Return a defensive copy to avoid concurrent modification issues
+        Map<Day, List<AsignacionSala>> copy = new HashMap<>();
+        for (Map.Entry<Day, List<AsignacionSala>> entry : horarioOcupado.entrySet()) {
+            copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+        return copy;
+    }
+
 
     @Override
     protected void takeDown() {

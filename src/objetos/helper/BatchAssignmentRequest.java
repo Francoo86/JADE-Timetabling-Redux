@@ -24,15 +24,17 @@ public class BatchAssignmentRequest implements Serializable {
         private int satisfaction;
         private String classroomCode;
         private int vacancy;
+        private String profName;
 
         public AssignmentRequest(Day day, int block, String subjectName,
-                                 int satisfaction, String classroomCode, int vacancy) {
+                                 int satisfaction, String classroomCode, int vacancy, String profName) {
             this.day = day;
             this.block = block;
             this.subjectName = subjectName;
             this.satisfaction = satisfaction;
             this.classroomCode = classroomCode;
             this.vacancy = vacancy;
+            this.profName = profName;
         }
 
         // Add getters
@@ -42,6 +44,7 @@ public class BatchAssignmentRequest implements Serializable {
         public int getSatisfaction() { return satisfaction; }
         public String getClassroomCode() { return classroomCode; }
         public int getVacancy() { return vacancy; }
+        public String getProfName() { return profName; }
     }
 }
 
