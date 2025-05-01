@@ -2,11 +2,13 @@ package agentes;
 
 import aplicacion.IterativeAplicacion;
 import jade.core.Agent;
+import jade.core.Runtime;
 import jade.core.behaviours.TickerBehaviour;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
+import performance.RTTLogger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +16,11 @@ import java.util.Map;
 
 public class AgenteSupervisor extends Agent {
     private List<AgentController> profesoresControllers;
+    private Map<String, AgentController> salasControllers;
     private boolean isSystemActive = true;
     private static final int CHECK_INTERVAL = 5000; // 5 seconds
     private IterativeAplicacion myApp;
+    private String scenario;
 
     // In AgenteSupervisor.java
     //private AgentPerformanceMonitor performanceMonitor;
@@ -31,10 +35,18 @@ public class AgenteSupervisor extends Agent {
             if (args.length > 3 && args[3] instanceof IterativeAplicacion) {
                 myApp = (IterativeAplicacion) args[3];
             }
+
+            if (args.length > 4 && args[4] instanceof Map) {
+                salasControllers = (Map<String, AgentController>) args[4];
+                System.out.println("[Supervisor] Monitoring " + salasControllers.size() + " rooms");
+            } else {
+                System.out.println("[Supervisor] No room agents to monitor.");
+            }
         }
 
         int iteration = args[1] != null ? (int) args[1] : 0;
         String scenarioName = args[2] != null ? (String) args[2] : "small";
+        scenario = scenarioName;
 
         //String agentName = "Supervisor_" + getLocalName();
         //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "SUPERVISOR", scenarioName);
@@ -162,7 +174,15 @@ public class AgenteSupervisor extends Agent {
                 
                 // Generar JSONs finales
                 ProfesorHorarioJSON.getInstance().generarArchivoJSON();
-                SalaHorarioJSON.getInstance().generarArchivoJSON();
+                //SalaHorarioJSON.getInstance().generarArchivoJSON();
+
+                if(salasControllers != null && !salasControllers.isEmpty()) {
+                    List<AgentController> salaList = List.copyOf(salasControllers.values());
+                    SalaHorarioJSON.getInstance().generateSupervisorFinalReport(salaList);
+                }
+                else {
+                    SalaHorarioJSON.getInstance().generarArchivoJSON();
+                }
 
                 if(myApp != null) {
                     myApp.markSupervisorAsFinished();
@@ -171,19 +191,15 @@ public class AgenteSupervisor extends Agent {
                 // Esperar un momento para asegurar que los archivos se escriban
                 Thread.sleep(1000);
                 
-                System.out.println("[Supervisor] Verificando archivos generados...");
-                
-                // Verificar que los archivos se hayan generado correctamente
-                java.io.File horariosSalas = new java.io.File("agent_output/Horarios_salas.json");
-                java.io.File horariosProf = new java.io.File("agent_output/Horarios_asignados.json");
-                
-                if (horariosSalas.exists() && horariosSalas.length() > 0) {
+                System.out.println("[Supervisor] Verificando archivos generados para el escenario: " + scenario);
+
+                if (SalaHorarioJSON.getInstance().isJsonFileGenerated()) {
                     System.out.println("[Supervisor] Horarios_salas.json generado correctamente");
                 } else {
                     System.out.println("[Supervisor] ERROR: Horarios_salas.json está vacío o no existe");
                 }
                 
-                if (horariosProf.exists() && horariosProf.length() > 0) {
+                if (ProfesorHorarioJSON.getInstance().isJsonFileGenerated()) {
                     System.out.println("[Supervisor] Horarios_asignados.json generado correctamente");
                 } else {
                     System.out.println("[Supervisor] ERROR: Horarios_asignados.json está vacío o no existe");
@@ -196,6 +212,18 @@ public class AgenteSupervisor extends Agent {
                     //performanceMonitor.generateThreadDump();
                     CentralizedMonitor.shutdown();
                 }*/
+
+                // kill all salas
+                for (AgentController sala : salasControllers.values()) {
+                    try {
+                        sala.kill();
+                    } catch (StaleProxyException e) {
+                        System.err.println("[Supervisor] Error killing room agent: " + e.getMessage());
+                    }
+                }
+
+                //Runtime.instance().shutDown();
+                RTTLogger.getInstance().stop();
                 
                 System.out.println("[Supervisor] Sistema finalizado.");
                 myAgent.doDelete();
