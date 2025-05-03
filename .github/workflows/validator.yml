@@ -1,0 +1,104 @@
+name: Validate Generated Schedules
+
+on:
+  workflow_run:
+    workflows: ["Run JADE Application"]
+    types:
+      - completed
+    # branches: [main, development]
+  workflow_dispatch:
+
+jobs:
+  validate-schedules:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Download artifacts from previous workflow
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: "Run JADE Application"
+          workflow_conclusion: success
+          name: jade-output
+          path: agent_output
+
+      - name: List downloaded artifacts
+        run: |
+          echo "Downloaded artifacts:"
+          ls -la agent_output
+
+      - name: Create validator directory structure
+        run: |
+          mkdir -p small
+          cp agent_output/small/Horarios_asignados.json small/ || echo "Failed to copy Horarios_asignados.json"
+          cp agent_output/small/Horarios_salas.json small/ || echo "Failed to copy Horarios_salas.json"
+          ls -la small/ || echo "small directory issue"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Add any dependencies your validator script needs
+          # pip install -r validator/requirements.txt
+
+      - name: Run validation script
+        run: |
+          if [ -f "validator/final_validator.py" ]; then
+            python validator/final_validator.py
+          else
+            echo "Error: validator/final_validator.py not found!"
+            find . -name "*.py" | grep validator
+          fi
+
+      - name: Generate validation report
+        run: |
+          mkdir -p validation_report
+          
+          echo "# Schedule Validation Report" > validation_report/report.md
+          echo "## Summary" >> validation_report/report.md
+          echo "- Scenario: small" >> validation_report/report.md
+          echo "- Date: $(date)" >> validation_report/report.md
+          
+          if [ -f "small/Horarios_asignados.json" ]; then
+            echo "## Professor Schedule" >> validation_report/report.md
+            echo '```json' >> validation_report/report.md
+            cat small/Horarios_asignados.json >> validation_report/report.md
+            echo '```' >> validation_report/report.md
+          else
+            echo "## ERROR: Professor Schedule file not found" >> validation_report/report.md
+          fi
+          
+          if [ -f "small/Horarios_salas.json" ]; then
+            echo "## Room Schedule" >> validation_report/report.md
+            echo '```json' >> validation_report/report.md
+            cat small/Horarios_salas.json >> validation_report/report.md
+            echo '```' >> validation_report/report.md
+          else
+            echo "## ERROR: Room Schedule file not found" >> validation_report/report.md
+          fi
+          
+          echo "## Validation Output" >> validation_report/report.md
+          echo '```' >> validation_report/report.md
+          if [ -f "validator/scenario_validator.py" ]; then
+            python validator/scenario_validator.py >> validation_report/report.md 2>&1 || true
+          elif [ -f "scenario_validator.py" ]; then
+            python scenario_validator.py >> validation_report/report.md 2>&1 || true
+          else
+            echo "ERROR: Could not find validation script" >> validation_report/report.md
+          fi
+          echo '```' >> validation_report/report.md
+
+      - name: Upload validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: validation_report/
