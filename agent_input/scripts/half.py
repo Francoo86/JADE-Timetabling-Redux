@@ -67,5 +67,5 @@ def split_json_file(input_file, output_file):
 
 # Example usage
 if __name__ == "__main__":
-    split_json_file("inputOfProfesores.json", "last_half_profesores.json")
-    split_json_file("inputOfSala.json", "last_half_salas.json")
+    split_json_file("../inputOfProfesores.json", "last_half_profesores.json")
+    split_json_file("../inputOfSala.json", "last_half_salas.json")
