@@ -2,29 +2,32 @@ package agentes;
 
 import constants.Commons;
 import constants.enums.Day;
-import jade.proto.SubscriptionInitiator;
-import objetos.ClassroomAvailability;
-import objetos.helper.BatchAssignmentConfirmation;
-import objetos.helper.BatchAssignmentRequest;
+import interfaces.SalaDataInterface;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.Property;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.proto.SubscriptionInitiator;
 import json_stuff.SalaHorarioJSON;
 import objetos.AsignacionSala;
+import objetos.ClassroomAvailability;
+import objetos.helper.BatchAssignmentConfirmation;
+import objetos.helper.BatchAssignmentRequest;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import performance.PerformanceMonitor;
-import performance.RTTLogger;
+import performance.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class AgenteSala extends Agent {
+public class AgenteSala extends Agent implements SalaDataInterface {
     public static final String SERVICE_NAME = "sala";
     private boolean isRegistered = false;
     private String codigo;
@@ -32,11 +35,7 @@ public class AgenteSala extends Agent {
     private int capacidad;
     private int turno;
     private Map<Day, List<AsignacionSala>> horarioOcupado; // dia -> lista de asignaciones
-    private PerformanceMonitor performanceMonitor;
-
-    public PerformanceMonitor getPerformanceMonitor() {
-        return performanceMonitor;
-    }
+    //private AgentPerformanceMonitor performanceMonitor;
 
     private RTTLogger rttLogger;
 
@@ -60,11 +59,14 @@ public class AgenteSala extends Agent {
         int currIteration = args.length > 0 ? (int) args[1] : 0;
         scenario = args.length > 1 ? (String) args[2] : "small";
 
-        // Inicializar monitor de rendimiento
-        performanceMonitor = new PerformanceMonitor(currIteration, "Agent_" + getLocalName(), scenario);
-        performanceMonitor.startMonitoring();
+        setEnabledO2ACommunication(true, 10);
+        registerO2AInterface(SalaDataInterface.class, this);
 
-        performanceMonitor.startMonitoring();
+        //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "SALA", scenario);
+
+        // Inicializar monitor de rendimiento
+        //performanceMonitor = new ThreadBottleneckMonitor(currIteration, "Agent_" + getLocalName(), scenario);
+        //performanceMonitor.startMonitoring();
         //addBehaviour(metricsCollector.createMessageMonitorBehaviour());
 
         // Cargar datos de la sala desde JSON
@@ -83,6 +85,16 @@ public class AgenteSala extends Agent {
     }
 
     private int MEEETING_ROOM_THRESHOLD = 10;
+
+    @Override
+    public String getCodigo() {
+        return codigo;
+    }
+
+    @Override
+    public String getCampus() {
+        return campus;
+    }
 
     public boolean isMeetingRoom() {
         return capacidad < MEEETING_ROOM_THRESHOLD;
@@ -217,8 +229,8 @@ public class AgenteSala extends Agent {
 
         private void procesarSolicitud(ACLMessage msg) {
             try {
-                getPerformanceMonitor().recordMessageReceived(msg, "CFP");
-                long startTime = System.nanoTime();
+                //getPerformanceMonitor().recordMessageReceived(msg, "CFP");
+                //long startTime = System.nanoTime();
                 Map<String, List<Integer>> availableBlocks = getAvailableBlocks();
                 if (!availableBlocks.isEmpty()) {
                     ClassroomAvailability availability = new ClassroomAvailability(
@@ -310,7 +322,8 @@ public class AgenteSala extends Agent {
                         AsignacionSala nuevaAsignacion = new AsignacionSala(
                                 request.getSubjectName(),
                                 request.getSatisfaction(),
-                                capacidadFraccion
+                                capacidadFraccion,
+                                request.getProfName()
                         );
                         asignaciones.set(bloque, nuevaAsignacion);
 
@@ -335,7 +348,7 @@ public class AgenteSala extends Agent {
                 if (!confirmedAssignments.isEmpty()) {
                     verifyAssignments(confirmedAssignments);
 
-                    SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
+                    //SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
 
                     // Send single confirmation with all successful assignments
                     ACLMessage confirm = msg.createReply();
@@ -349,7 +362,7 @@ public class AgenteSala extends Agent {
                             msg.getSender(),
                             "INFORM"
                     );*/
-                    getPerformanceMonitor().recordMessageSent(confirm, "INFORM");
+                    //getPerformanceMonitor().recordMessageSent(confirm, "INFORM");
                     send(confirm);
                 }
 
@@ -390,13 +403,24 @@ public class AgenteSala extends Agent {
     
             // Asegurarse de guardar el estado final en JSON
             System.out.println("Guardando estado final de sala " + codigo);
-            SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
+            //SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
     
         } catch (Exception e) {
             System.err.println("Error durante cleanup de sala " + codigo + ": " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    //create a getter for horarioOcupado
+    public Map<Day, List<AsignacionSala>> getHorarioOcupado() {
+        // Return a defensive copy to avoid concurrent modification issues
+        Map<Day, List<AsignacionSala>> copy = new HashMap<>();
+        for (Map.Entry<Day, List<AsignacionSala>> entry : horarioOcupado.entrySet()) {
+            copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+        return copy;
+    }
+
 
     @Override
     protected void takeDown() {

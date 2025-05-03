@@ -13,25 +13,28 @@ import json_stuff.JSONHelper;
 import json_stuff.JSONProcessor;
 import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
-import performance.PerformanceMonitor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import performance.RTTLogger;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IterativeAplicacion {
-    private static final String AGENT_OUTPUT = "agent_output";
-    private static final String RESULTS_DIR = "IterationResults";
+    //private static final String AGENT_OUTPUT = "agent_output";
+    private static final String RESULTS_DIR = "agent_output/IterationResults";
     private final int numIterations;
     private final List<IterationResult> results;
     private final PrintWriter logWriter;
-    private String finalScenarioPath;
     private String scenarioName;
 
     private volatile boolean supervisorCompleted = false;
@@ -45,7 +48,7 @@ public class IterativeAplicacion {
         this.results = new ArrayList<>();
         this.scenarioName = baseScenario;
 
-        String fullPath = String.format(AGENT_OUTPUT + "/" + RESULTS_DIR + "/%s", baseScenario);
+        String fullPath = String.format(RESULTS_DIR + "/%s", baseScenario);
 
         // Create results directory
         //Files.createDirectories(Paths.get(RESULTS_DIR));
@@ -54,6 +57,9 @@ public class IterativeAplicacion {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         this.logWriter = new PrintWriter(new FileWriter(
                 String.format("%s/iteration_log_%s.txt", fullPath, timestamp)));
+
+        ProfesorHorarioJSON.getInstance().setScenario(baseScenario);
+        SalaHorarioJSON.getInstance().setScenario(baseScenario);
     }
 
     private static class IterationResult {
@@ -119,9 +125,11 @@ public class IterativeAplicacion {
             JSONArray roomJson = JSONHelper.parseAsArray(salasPath);
             professorJson = JSONProcessor.prepararParalelos(professorJson);
 
+            //CentralizedMonitor.initialize(scenarioName, iteration);
+
             // Create monitoring for this iteration
-            PerformanceMonitor perfMonitor = new PerformanceMonitor(iteration, "MainContainer", scenarioName);
-            perfMonitor.startMonitoring();
+            //ThreadBottleneckMonitor perfMonitor = new ThreadBottleneckMonitor(iteration, "MainContainer", scenarioName);
+            //perfMonitor.startMonitoring();
 
             // Initialize rooms
             AtomicInteger totalSubjects = new AtomicInteger(0);
@@ -148,7 +156,7 @@ public class IterativeAplicacion {
             // Create and start supervisor with proper error handling
             AgentController supervisor = null;
             try {
-                Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this};
+                Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this, roomControllers};
                 supervisor = mainContainer.createNewAgent(
                         "Supervisor",
                         AgenteSupervisor.class.getName(),
@@ -169,7 +177,7 @@ public class IterativeAplicacion {
                 int roomUtilization = SalaHorarioJSON.getInstance().getPendingUpdateCount();
 
                 // Stop monitoring
-                perfMonitor.stopMonitoring();
+                //perfMonitor.stopMonitoring();
 
                 // Record results
                 long duration = System.currentTimeMillis() - startTime;
@@ -198,7 +206,7 @@ public class IterativeAplicacion {
                 try {
                     // Ensure JSON files are saved before container shutdown
                     ProfesorHorarioJSON.getInstance().generarArchivoJSON();
-                    SalaHorarioJSON.getInstance().generarArchivoJSON();
+                    //SalaHorarioJSON.getInstance().generarArchivoJSON();
 
                     // Give time for files to be written
                     Thread.sleep(2000);
@@ -381,6 +389,7 @@ public class IterativeAplicacion {
                 runSingleIteration(i + 1);
             }
             saveResults();
+            //Runtime.instance().shutDown();
 
         } catch (Exception e) {
             log("Critical error during iterations: " + e.getMessage());

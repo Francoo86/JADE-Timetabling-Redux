@@ -10,20 +10,20 @@ import df.DFCache;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.Property;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.Property;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import json_stuff.ProfesorHorarioJSON;
 import objetos.Asignatura;
 import objetos.BloqueInfo;
 import objetos.helper.BatchProposal;
-import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import performance.PerformanceMonitor;
+import performance.*;
 
 import javax.swing.*;
 import java.util.*;
@@ -45,7 +45,7 @@ public class AgenteProfesor extends Agent {
     //TODO: Cambiar el mapeo de string a int porque los días son del 0-6 (asumiendo que el lunes es 0).
     //TODO-2: Pienso que puede ser mejor tener un objeto que contenga la información de los bloques asignados.
     private Map<Day, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
-    private PerformanceMonitor performanceMonitor;
+    //private AgentPerformanceMonitor performanceMonitor;
 
     //METODOS EXPUESTOS PARA EL BEHAVIOUR
     @Override
@@ -59,10 +59,6 @@ public class AgenteProfesor extends Agent {
                 .sum();
 
         return inferirTipoContrato(horasTotales);
-    }
-
-    public PerformanceMonitor getPerformanceMonitor() {
-        return performanceMonitor;
     }
 
     public static TipoContrato inferirTipoContrato(int totalHours) {
@@ -264,9 +260,9 @@ public class AgenteProfesor extends Agent {
         // Iteration is third argument
         int itera = (int) args[2];
 
-        String iterationId = "Agent_" + getLocalName();
-        performanceMonitor = new PerformanceMonitor(itera, iterationId, scenario);
-        performanceMonitor.startMonitoring();
+        //String iterationId = "Agent_" + getLocalName();
+        //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "PROFESOR", scenario);
+        //performanceMonitor.startMonitoring();
 
         // Initialize data structures
         initializeDataStructures();
@@ -576,5 +572,11 @@ public class AgenteProfesor extends Agent {
                 completedCount,
                 totalSubjects,
                 totalRequiredHours);
+
+        /*
+        if (performanceMonitor != null) {
+            performanceMonitor.stopMonitoring();
+            //performanceMonitor.analyzeBottlenecks();
+        }*/
     }
 }

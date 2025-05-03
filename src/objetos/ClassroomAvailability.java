@@ -1,7 +1,8 @@
 package objetos;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 // First, create a serializable class to hold all availability data
 public class ClassroomAvailability implements Serializable {

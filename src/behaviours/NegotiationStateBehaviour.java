@@ -22,7 +22,10 @@ import objetos.helper.BatchProposal;
 import performance.RTTLogger;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicReference;
@@ -39,7 +42,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private final AssignationData assignationData;
     private final ConstraintEvaluator evaluator;
     private int bloquesPendientes = 0;
-    private static final long TIMEOUT_PROPUESTA = 5000; // 5 seconds
+    private static final long TIMEOUT_PROPUESTA = 1000; // 5 seconds
 
     private long negotiationStartTime;
     private final Map<String, Long> subjectNegotiationTimes = new HashMap<>();
@@ -274,7 +277,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                             currentSubject.getNombre(),
                             batchProposal.getSatisfactionScore(),
                             batchProposal.getRoomCode(),
-                            currentSubject.getVacantes()
+                            currentSubject.getVacantes(),
+                            profesor.getNombre()
                     ));
 
                     totalAssigned++;

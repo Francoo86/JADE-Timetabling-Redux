@@ -1,9 +1,9 @@
 package evaluators;
 
 import constants.Commons;
+import constants.enums.Actividad;
 import constants.enums.Day;
 import constants.enums.TipoContrato;
-import constants.enums.Actividad;
 
 import java.util.ArrayList;
 import java.util.Collections;

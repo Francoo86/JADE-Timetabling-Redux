@@ -29,7 +29,7 @@ public class DFCache {
         if (agentCache.containsKey(cacheKey) &&
                 currentTime - cacheTimestamps.get(cacheKey) < CACHE_DURATION) {
 
-            if (agent != null) {
+            /*if (agent != null) {
                 PerformanceMonitor monitor = null;
                 if (agent instanceof AgenteProfesor) {
                     monitor = ((AgenteProfesor) agent).getPerformanceMonitor();
@@ -41,7 +41,7 @@ public class DFCache {
                     monitor.recordDFOperation("cache_hit", startTime,
                             agentCache.get(cacheKey).size(), "success");
                 }
-            }
+            }*/
 
             return agentCache.get(cacheKey);
         }
@@ -63,7 +63,7 @@ public class DFCache {
             agentCache.put(cacheKey, resultList);
             cacheTimestamps.put(cacheKey, currentTime);
 
-            if (agent != null) {
+            /*if (agent != null) {
                 PerformanceMonitor monitor = null;
                 if (agent instanceof AgenteProfesor) {
                     monitor = ((AgenteProfesor) agent).getPerformanceMonitor();
@@ -75,11 +75,11 @@ public class DFCache {
                     monitor.recordDFOperation("search", startTime,
                             results.length, "success");
                 }
-            }
+            }*/
 
             return resultList;
         } catch (FIPAException e) {
-            if (agent != null) {
+            /*if (agent != null) {
                 PerformanceMonitor monitor = null;
                 if (agent instanceof AgenteProfesor) {
                     monitor = ((AgenteProfesor) agent).getPerformanceMonitor();
@@ -91,7 +91,7 @@ public class DFCache {
                     monitor.recordDFOperation("search", startTime,
                             0, "error: " + e.getMessage());
                 }
-            }
+            }*/
             e.printStackTrace();
             return Collections.emptyList();
         }

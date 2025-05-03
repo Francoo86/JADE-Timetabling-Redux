@@ -1,10 +1,12 @@
 package debugscreens;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 public class ProfessorDebugViewer extends JFrame {
     private final JTable scheduleTable;
