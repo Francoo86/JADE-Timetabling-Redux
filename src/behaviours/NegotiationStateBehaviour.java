@@ -78,7 +78,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
     @Override
     protected void onTick() {
-        System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
+        //System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
         switch (currentState) {
             case SETUP:
                 handleSetupState();

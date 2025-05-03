@@ -390,6 +390,9 @@ public class IterativeAplicacion {
             }
             saveResults();
             //Runtime.instance().shutDown();
+            //HACK: Force shutdown of JADE runtime
+            //Common bug of running jade apps
+            System.exit(0);
 
         } catch (Exception e) {
             log("Critical error during iterations: " + e.getMessage());
