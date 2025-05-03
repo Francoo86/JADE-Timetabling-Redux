@@ -1,7 +1,0 @@
-categoria,Cantidad_Salas,Capacidad_Min,Capacidad_Max,Pct_Aforo_Promedio,Pct_Aforo_Min,Pct_Aforo_Max
-Muy pequeña,22,8,21,15.9,0.99,22.97
-Pequeña,24,22,30,36.05,22.97,69.11
-Mediana-Baja,12,34,40,80.56,69.5,87.13
-Mediana,8,44,50,91.53,87.13,93.86
-Mediana-Alta,1,60,60,98.42,98.42,98.42
-Grande,6,65,82,100.0,100.0,100.0
