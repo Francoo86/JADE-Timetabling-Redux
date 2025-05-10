@@ -143,7 +143,8 @@ public class IterativeAplicacion {
             }
 
             // Configure rooms
-            configureRooms(roomControllers, totalSubjects.get());
+            // FIXME: Is this really used?
+            //configureRooms(roomControllers, totalSubjects.get());
 
             // Initialize professors
             initializeProfessors(mainContainer, professorJson, professorControllers, iteration);
@@ -154,7 +155,7 @@ public class IterativeAplicacion {
             }
 
             // Create and start supervisor with proper error handling
-            AgentController supervisor = null;
+            AgentController supervisor;
             try {
                 Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this, roomControllers};
                 supervisor = mainContainer.createNewAgent(
@@ -291,20 +292,6 @@ public class IterativeAplicacion {
             controllers.add(prof);
             prof.start();
         }
-    }
-
-    private void configureRooms(Map<String, AgentController> controllers, int totalSubjects) {
-        controllers.forEach((codigo, controller) -> {
-            try {
-                interfaces.SalaInterface roomInterface =
-                        controller.getO2AInterface(interfaces.SalaInterface.class);
-                if (roomInterface != null) {
-                    roomInterface.setTotalSolicitudes(totalSubjects);
-                }
-            } catch (StaleProxyException e) {
-                log("Error configuring room " + codigo + ": " + e.getMessage());
-            }
-        });
     }
 
     private void saveResults() throws IOException {

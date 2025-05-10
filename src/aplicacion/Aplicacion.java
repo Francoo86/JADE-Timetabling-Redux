@@ -3,7 +3,6 @@ package aplicacion;
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
 import agentes.AgenteSupervisor;
-import interfaces.SalaInterface;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -51,7 +50,6 @@ public class Aplicacion {
             Thread.sleep(2000);
 
             int totalSubjects = calculateTotalSubjects(profesoresJson);
-            configureSalasRequests(totalSubjects);
 
             System.out.println("Creating professor agents...");
             initializeProfesores(mainContainer, profesoresJson);
@@ -128,20 +126,6 @@ public class Aplicacion {
         }
         System.out.println("Total subjects to assign: " + total);
         return total;
-    }
-
-    private static void configureSalasRequests(int totalSubjects) {
-        for (Map.Entry<String, AgentController> entry : salasControllers.entrySet()) {
-            try {
-                SalaInterface salaInterface = entry.getValue().getO2AInterface(SalaInterface.class);
-                if (salaInterface != null) {
-                    salaInterface.setTotalSolicitudes(totalSubjects);
-                }
-            } catch (StaleProxyException e) {
-                System.out.println("Error configuring requests for room: " + entry.getKey());
-                e.printStackTrace();
-            }
-        }
     }
 
     private static void createMonitorAgent(AgentContainer container) throws StaleProxyException {
