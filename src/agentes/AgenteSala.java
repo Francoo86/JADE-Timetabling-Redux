@@ -81,7 +81,7 @@ public class AgenteSala extends Agent implements SalaDataInterface {
         addBehaviour(new ResponderSolicitudesBehaviour());
 
         // Agregar comportamiento para revisar si los profesores han terminado
-        addBehaviour(new ProfessorMonitorBehaviour(this));
+        //addBehaviour(new ProfessorMonitorBehaviour(this));
     }
 
     private int MEEETING_ROOM_THRESHOLD = 10;
@@ -151,6 +151,8 @@ public class AgenteSala extends Agent implements SalaDataInterface {
 
     private boolean allDone = false;
 
+    //FIXME: Is this really needed?, because AgentSupervisor should take care of this
+    /*
     private class ProfessorMonitorBehaviour extends SubscriptionInitiator {
         public ProfessorMonitorBehaviour(Agent a) {
             // Create template directly in constructor
@@ -186,7 +188,7 @@ public class AgenteSala extends Agent implements SalaDataInterface {
                 fe.printStackTrace();
             }
         }
-    }
+    }*/
 
     private class ResponderSolicitudesBehaviour extends CyclicBehaviour {
         public void action() {
