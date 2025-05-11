@@ -464,11 +464,19 @@ public class AgenteProfesor extends Agent {
             List<DFAgentDescription> results = DFCache.search(this, SERVICE_NAME, ordenProp);
 
             if (results.isEmpty()) {
-                System.out.println("Warning: No next professor found with order " + nextOrden);
+                System.out.println("WARNING: No hay mas profesores disponibles, avisando a supervisor");
+                // Notify supervisor or handle the case where no next professor is found
+                results = DFCache.search(this, AgenteSupervisor.AGENT_NAME);
+                ACLMessage ackMsg = new ACLMessage(ACLMessage.CANCEL);
+                ackMsg.setContent("NULL_PROF");
+                ackMsg.addReceiver(results.getFirst().getName());
+                send(ackMsg);
+
+                //System.out.println("Warning: No next professor found with order " + nextOrden);
                 return;
             }
 
-            DFAgentDescription nextProfessor = results.get(0);
+            DFAgentDescription nextProfessor = results.getFirst();
             notifyNextProfessor(nextProfessor, nextOrden);
 
         } catch (Exception e) {
