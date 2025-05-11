@@ -149,47 +149,6 @@ public class AgenteSala extends Agent implements SalaDataInterface {
         }
     }
 
-    private boolean allDone = false;
-
-    //FIXME: Is this really needed?, because AgentSupervisor should take care of this
-    /*
-    private class ProfessorMonitorBehaviour extends SubscriptionInitiator {
-        public ProfessorMonitorBehaviour(Agent a) {
-            // Create template directly in constructor
-            super(a, createSubscriptionMessage(a));
-        }
-
-        // Make this static or move it out
-        private static ACLMessage createSubscriptionMessage(Agent a) {
-            DFAgentDescription template = new DFAgentDescription();
-            ServiceDescription sd = new ServiceDescription();
-            sd.setType(AgenteProfesor.SERVICE_NAME);
-            template.addServices(sd);
-
-            return DFService.createSubscriptionMessage(a,
-                    a.getDefaultDF(),
-                    template,
-                    null);
-        }
-
-        @Override
-        protected void handleInform(ACLMessage inform) {
-            try {
-                DFAgentDescription[] results = DFService.decodeNotification(inform.getContent());
-                if (results == null || results.length < 1) {
-                    // No professors left
-                    if (isRegistered) {
-                        DFService.deregister(myAgent);
-                        isRegistered = false;
-                        myAgent.doDelete();
-                    }
-                }
-            } catch (FIPAException fe) {
-                fe.printStackTrace();
-            }
-        }
-    }*/
-
     private class ResponderSolicitudesBehaviour extends CyclicBehaviour {
         public void action() {
             MessageTemplate mt = MessageTemplate.or(
