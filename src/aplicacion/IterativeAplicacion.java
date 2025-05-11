@@ -109,7 +109,7 @@ public class IterativeAplicacion {
         Runtime rt = Runtime.instance();
         Profile profile = new ProfileImpl();
         profile.setParameter(Profile.MAIN_HOST, "localhost");
-        profile.setParameter(Profile.GUI, "true");
+        //profile.setParameter(Profile.GUI, "true");
 
         AgentContainer mainContainer = null;
         List<AgentController> professorControllers = new ArrayList<>();
