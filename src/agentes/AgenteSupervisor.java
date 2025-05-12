@@ -3,7 +3,14 @@ package agentes;
 import aplicacion.IterativeAplicacion;
 import jade.core.Agent;
 import jade.core.Runtime;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import json_stuff.ProfesorHorarioJSON;
@@ -21,6 +28,7 @@ public class AgenteSupervisor extends Agent {
     private static final int CHECK_INTERVAL = 5000; // 5 seconds
     private IterativeAplicacion myApp;
     private String scenario;
+    public static final String AGENT_NAME = "SUPERVISOR";
 
     // In AgenteSupervisor.java
     //private AgentPerformanceMonitor performanceMonitor;
@@ -52,118 +60,37 @@ public class AgenteSupervisor extends Agent {
         //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "SUPERVISOR", scenarioName);
         //performanceMonitor.startMonitoring();
 
-        addBehaviour(new MonitorBehaviour(this, CHECK_INTERVAL));
+        addBehaviour(new ShutdownBehaviour(this));
+
+        try {
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(getAID());
+            ServiceDescription sd = new ServiceDescription();
+            sd.setName(AGENT_NAME);
+            sd.setType(AGENT_NAME);
+
+            dfd.addServices(sd);
+            DFService.register(this, dfd);
+        } catch (FIPAException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private class MonitorBehaviour extends TickerBehaviour {
-        private static final int MAX_INACTIVITY = 12; // 1 minute with 5-second intervals
-        private Map<Integer, Integer> inactivityCounters = new HashMap<>();
-        private Map<Integer, Integer> lastKnownStates = new HashMap<>();
-
-        public MonitorBehaviour(Agent a, long period) {
-            super(a, period);
+    private class ShutdownBehaviour extends CyclicBehaviour {
+        public ShutdownBehaviour(Agent a) {
+            super(a);
         }
 
         @Override
-        protected void onTick() {
-            if (!isSystemActive) return;
+        public void action() {
+            MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.CANCEL);
+            ACLMessage msg = myAgent.receive(template);
 
-            try {
-                boolean allTerminated = true;
-                Map<Integer, Integer> stateCount = new HashMap<>();
-
-                // Monitor each professor's state
-                for (int i = 0; i < profesoresControllers.size(); i++) {
-                    AgentController profesor = profesoresControllers.get(i);
-
-                    try {
-                        int currentState = profesor.getState().getCode();
-                        int previousState = lastKnownStates.getOrDefault(i, -1);
-
-                        // Update state counts
-                        stateCount.merge(currentState, 1, Integer::sum);
-
-                        // Check if state has changed
-                        if (currentState == previousState) {
-                            inactivityCounters.merge(i, 1, Integer::sum);
-                        } else {
-                            inactivityCounters.put(i, 0);
-                            lastKnownStates.put(i, currentState);
-                        }
-
-                        // Check different states
-                        switch (currentState) {
-                            case Agent.AP_ACTIVE:
-                                allTerminated = false;
-//                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
-//                                    System.out.println("[WARNING] Professor " + i + " appears stuck in ACTIVE state. " +
-//                                            "Inactivity count: " + inactivityCounters.get(i));
-//                                }
-                                break;
-
-                            case Agent.AP_WAITING:
-                                allTerminated = false;
-//                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
-//                                    System.out.println("[WARNING] Professor " + i + " appears stuck in WAITING state. " +
-//                                            "Inactivity count: " + inactivityCounters.get(i));
-//                                }
-                                break;
-
-                            case Agent.AP_SUSPENDED:
-                                allTerminated = false;
-                                System.out.println("[WARNING] Professor " + i + " is in SUSPENDED state.");
-                                break;
-
-                            case Agent.AP_IDLE:
-                                allTerminated = false;
-//                                if (inactivityCounters.getOrDefault(i, 0) >= MAX_INACTIVITY) {
-//                                    System.out.println("[WARNING] Professor " + i + " appears stuck in IDLE state. " +
-//                                            "Inactivity count: " + inactivityCounters.get(i));
-//                                }
-                                break;
-
-                            case Agent.AP_DELETED:
-                                // Consider this professor terminated
-                                inactivityCounters.remove(i);
-                                lastKnownStates.remove(i);
-                                break;
-
-                            case Agent.AP_INITIATED:
-                                allTerminated = false;
-                                System.out.println("[INFO] Professor " + i + " is still in INITIATED state.");
-                                break;
-
-                            default:
-                                System.out.println("[WARNING] Professor " + i + " is in unknown state: " + currentState);
-                                break;
-                        }
-
-                    } catch (StaleProxyException e) {
-                        // Consider terminated if we can't get state
-                        stateCount.merge(Agent.AP_DELETED, 1, Integer::sum);
-                    }
-                }
-
-                // Regular status update
-                if (getPeriod() % (CHECK_INTERVAL * 4) == 0) {
-//                    System.out.println("\n[Supervisor] Status Report:");
-//                    System.out.println("- Active: " + stateCount.getOrDefault(Agent.AP_ACTIVE, 0));
-//                    System.out.println("- Waiting: " + stateCount.getOrDefault(Agent.AP_WAITING, 0));
-//                    System.out.println("- Idle: " + stateCount.getOrDefault(Agent.AP_IDLE, 0));
-//                    System.out.println("- Suspended: " + stateCount.getOrDefault(Agent.AP_SUSPENDED, 0));
-//                    System.out.println("- Deleted: " + stateCount.getOrDefault(Agent.AP_DELETED, 0));
-//                    System.out.println("- Initiated: " + stateCount.getOrDefault(Agent.AP_INITIATED, 0));
-//                    System.out.println("Total Agents: " + profesoresControllers.size() + "\n");
-                }
-
-                if (allTerminated || stateCount.getOrDefault(Agent.AP_DELETED, 0) == profesoresControllers.size()) {
-                    //System.out.println("[Supervisor] All professors have completed their work.");
-                    finishSystem();
-                }
-
-            } catch (Exception e) {
-                //System.err.println("[Supervisor] Error in monitoring: " + e.getMessage());
-                e.printStackTrace();
+            if (msg != null) {
+                System.out.println("[Supervisor] Received shutdown message.");
+                finishSystem();
+            } else {
+                block();
             }
         }
 

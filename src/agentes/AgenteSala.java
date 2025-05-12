@@ -81,7 +81,7 @@ public class AgenteSala extends Agent implements SalaDataInterface {
         addBehaviour(new ResponderSolicitudesBehaviour());
 
         // Agregar comportamiento para revisar si los profesores han terminado
-        addBehaviour(new ProfessorMonitorBehaviour(this));
+        //addBehaviour(new ProfessorMonitorBehaviour(this));
     }
 
     private int MEEETING_ROOM_THRESHOLD = 10;
@@ -146,45 +146,6 @@ public class AgenteSala extends Agent implements SalaDataInterface {
             isRegistered = true;
         } catch (FIPAException fe) {
             fe.printStackTrace();
-        }
-    }
-
-    private boolean allDone = false;
-
-    private class ProfessorMonitorBehaviour extends SubscriptionInitiator {
-        public ProfessorMonitorBehaviour(Agent a) {
-            // Create template directly in constructor
-            super(a, createSubscriptionMessage(a));
-        }
-
-        // Make this static or move it out
-        private static ACLMessage createSubscriptionMessage(Agent a) {
-            DFAgentDescription template = new DFAgentDescription();
-            ServiceDescription sd = new ServiceDescription();
-            sd.setType(AgenteProfesor.SERVICE_NAME);
-            template.addServices(sd);
-
-            return DFService.createSubscriptionMessage(a,
-                    a.getDefaultDF(),
-                    template,
-                    null);
-        }
-
-        @Override
-        protected void handleInform(ACLMessage inform) {
-            try {
-                DFAgentDescription[] results = DFService.decodeNotification(inform.getContent());
-                if (results == null || results.length < 1) {
-                    // No professors left
-                    if (isRegistered) {
-                        DFService.deregister(myAgent);
-                        isRegistered = false;
-                        myAgent.doDelete();
-                    }
-                }
-            } catch (FIPAException fe) {
-                fe.printStackTrace();
-            }
         }
     }
 

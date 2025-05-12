@@ -229,7 +229,7 @@ public class RTTLogger {
     public void startRequest(String agentName, String conversationId, int performative,
                              String receiver, Map<String, Object> additionalInfo, String ontology) {
         if (conversationId == null || conversationId.isEmpty()) {
-            System.out.println("Warning: Empty conversation_id in start_request from " + agentName);
+            //System.out.println("Warning: Empty conversation_id in start_request from " + agentName);
             return;
         }
 
@@ -245,7 +245,7 @@ public class RTTLogger {
         pendingRequests.put(conversationId, startData);
         allOutgoingMessages.put(conversationId, startData);
 
-        System.out.println("DEBUG: " + agentName + " starting request " + conversationId + " to " + receiver);
+        //System.out.println("DEBUG: " + agentName + " starting request " + conversationId + " to " + receiver);
     }
 
     /**
@@ -269,7 +269,7 @@ public class RTTLogger {
                         ontology,
                         null
                 ));
-                System.out.println("DEBUG: " + agentName + " recording message " + conversationId + " to " + receiver);
+                //System.out.println("DEBUG: " + agentName + " recording message " + conversationId + " to " + receiver);
             }
         }
     }
@@ -324,7 +324,7 @@ public class RTTLogger {
     public Double endRequest(String agentName, String conversationId, int responsePerformative,
                              int messageSize, boolean success, Map<String, Object> extraInfo, String ontology) {
         if (conversationId == null || conversationId.isEmpty()) {
-            System.out.println("Warning: Empty conversation_id in end_request from " + agentName);
+            //System.out.println("Warning: Empty conversation_id in end_request from " + agentName);
             return null;
         }
 
@@ -374,8 +374,8 @@ public class RTTLogger {
 
                 return rtt;
             } else {
-                System.out.println("Warning: No request data found for conversation_id " +
-                        conversationId + " in end_request");
+                //System.out.println("Warning: No request data found for conversation_id " +
+                //        conversationId + " in end_request");
                 return null;
             }
         }

@@ -109,7 +109,7 @@ public class IterativeAplicacion {
         Runtime rt = Runtime.instance();
         Profile profile = new ProfileImpl();
         profile.setParameter(Profile.MAIN_HOST, "localhost");
-        profile.setParameter(Profile.GUI, "true");
+        //profile.setParameter(Profile.GUI, "true");
 
         AgentContainer mainContainer = null;
         List<AgentController> professorControllers = new ArrayList<>();
@@ -143,7 +143,8 @@ public class IterativeAplicacion {
             }
 
             // Configure rooms
-            configureRooms(roomControllers, totalSubjects.get());
+            // FIXME: Is this really used?
+            //configureRooms(roomControllers, totalSubjects.get());
 
             // Initialize professors
             initializeProfessors(mainContainer, professorJson, professorControllers, iteration);
@@ -154,7 +155,7 @@ public class IterativeAplicacion {
             }
 
             // Create and start supervisor with proper error handling
-            AgentController supervisor = null;
+            AgentController supervisor;
             try {
                 Object[] supervisorArgs = {professorControllers, iteration, scenarioName, this, roomControllers};
                 supervisor = mainContainer.createNewAgent(
@@ -293,20 +294,6 @@ public class IterativeAplicacion {
         }
     }
 
-    private void configureRooms(Map<String, AgentController> controllers, int totalSubjects) {
-        controllers.forEach((codigo, controller) -> {
-            try {
-                interfaces.SalaInterface roomInterface =
-                        controller.getO2AInterface(interfaces.SalaInterface.class);
-                if (roomInterface != null) {
-                    roomInterface.setTotalSolicitudes(totalSubjects);
-                }
-            } catch (StaleProxyException e) {
-                log("Error configuring room " + codigo + ": " + e.getMessage());
-            }
-        });
-    }
-
     private void saveResults() throws IOException {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
 
@@ -390,6 +377,9 @@ public class IterativeAplicacion {
             }
             saveResults();
             //Runtime.instance().shutDown();
+            //HACK: Force shutdown of JADE runtime
+            //Common bug of running jade apps
+            System.exit(0);
 
         } catch (Exception e) {
             log("Critical error during iterations: " + e.getMessage());

@@ -78,7 +78,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
     @Override
     protected void onTick() {
-        System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
+        //System.out.println(myAgent.getLocalName() + "MSG Pendientes: " + myAgent.getCurQueueSize());
         switch (currentState) {
             case SETUP:
                 handleSetupState();
@@ -96,16 +96,16 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     }
 
     private void handleSetupState() {
+        /*
         AtomicReference<ProfessorDebugViewer> debugWindow = new AtomicReference<>(profesor.getDebugWindow());
         if (debugWindow.get() == null) {
-            /*
             SwingUtilities.invokeLater(() -> {
                 ProfessorDebugViewer newWindow = new ProfessorDebugViewer(profesor.getNombre());
                 debugWindow.set(newWindow);
                 profesor.setDebugWindow(newWindow);  // Update the agent's reference
                 newWindow.setVisible(true);
-            });*/
-        }
+            });
+        }*/
         if (!profesor.canUseMoreSubjects()) {
             currentState = NegotiationState.FINISHED;
             long totalTime = System.currentTimeMillis() - negotiationStartTime;
@@ -201,10 +201,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         retryCount++;
         if (retryCount >= MAX_RETRIES) {
             if (assignationData.hasSalaAsignada()) {
-                // Try different room if current one isn't working
                 assignationData.setSalaAsignada(null);
             } else {
-                // If we've tried different rooms without success, move on
                 profesor.moveToNextSubject();
             }
             retryCount = 0;
@@ -220,7 +218,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
     private void handleCollectingState() {
         // If we received proposals, evaluate immediately
-        if (proposalReceived) {
+        if (receivedResponseCount >= sentRequestCount && sentRequestCount > 0) {
             if (!propuestas.isEmpty()) {
                 currentState = NegotiationState.EVALUATING_PROPOSALS;
                 return;
@@ -400,8 +398,26 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         return name.replaceAll("[^a-zA-Z0-9]", "");
     }
 
+    private int sentRequestCount = 0;
+    private int receivedResponseCount = 0;
+
+    public synchronized void incrementResponseCount() {
+        receivedResponseCount++;
+        notifyProposalReceived();
+
+        //System.out.println("[DEBUG] Response received: " + receivedResponseCount + "/" + sentRequestCount);
+
+        if (receivedResponseCount >= sentRequestCount && sentRequestCount > 0) {
+            //System.out.println("[DEBUG] All responses received, proceeding to evaluation");
+            currentState = NegotiationState.EVALUATING_PROPOSALS;
+        }
+    }
+
     // In NegotiationStateBehaviour.java where the CFP is sent
     private void sendProposalRequests() {
+        sentRequestCount = 0;
+        receivedResponseCount = 0;
+
         try {
             List<DFAgentDescription> results = DFCache.search(profesor, AgenteSala.SERVICE_NAME);
             if (results.isEmpty()) {
@@ -436,6 +452,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
                 );
 
                 profesor.send(cfp);
+                sentRequestCount++;
             }
         } catch (Exception e) {
             System.err.println("Error sending proposal requests: " + e.getMessage());
@@ -489,7 +506,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         });
     }
 
-    // Separate method for creating the CFP message to improve readability
+
     private ACLMessage createCFPMessage(Asignatura currentSubject) {
         ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
 

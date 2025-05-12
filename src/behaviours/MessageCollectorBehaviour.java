@@ -52,10 +52,6 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
         if (reply != null) {
             if (reply.getPerformative() == ACLMessage.PROPOSE) {
                 try {
-                    // Record the message receipt for RTT calculation
-                    //rttTracker.messageReceived(conversationId, reply);
-                    //profesor.getPerformanceMonitor().recordMessageReceived(reply, "PROPOSE");
-                    // Log the RTT for the received message
                     logRequest(reply, true);
 
                     ClassroomAvailability sala = (ClassroomAvailability) reply.getContentObject();
@@ -66,15 +62,13 @@ public class MessageCollectorBehaviour extends CyclicBehaviour {
 
                     BatchProposal batchProposal = new BatchProposal(sala, reply);
                     batchProposals.offer(batchProposal);
-                    stateBehaviour.notifyProposalReceived();
-
+                    stateBehaviour.incrementResponseCount();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else if (reply.getPerformative() == ACLMessage.REFUSE) {
                 logRequest(reply, false);
-                //rttTracker.messageReceived(conversationId, reply);
-                //profesor.getPerformanceMonitor().recordMessageReceived(reply, "REFUSE");
+                stateBehaviour.incrementResponseCount();
             }
         } else {
             block(50);
