@@ -42,7 +42,8 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private final AssignationData assignationData;
     private final ConstraintEvaluator evaluator;
     private int bloquesPendientes = 0;
-    private static final long TIMEOUT_PROPUESTA = 1000; // 5 seconds
+    private static final long TIMEOUT_PROPUESTA = 5000; // 5 seconds
+    private static final long BACKOFF_TIME_OFFSET = 1000; // 1 second
 
     private long negotiationStartTime;
     private final Map<String, Long> subjectNegotiationTimes = new HashMap<>();
@@ -121,28 +122,29 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         }
 
         Asignatura currentSubject = profesor.getCurrentSubject();
-        if (currentSubject != null) {
-            bloquesPendientes = currentSubject.getHoras();
-            assignationData.clear();
+        if (currentSubject == null) {
+            //System.out.println("Error: No hay asignatura actual para " + profesor.getNombre());
+            currentState = NegotiationState.FINISHED;
+            return;
+        }
 
-            negotiationStartTime = System.currentTimeMillis();
+        bloquesPendientes = currentSubject.getHoras();
+        assignationData.clear();
 
-            // Add logging here
-            System.out.printf("[SETUP] Starting assignment for %s (Code: %s) - Required hours: %d%n",
-                    currentSubject.getNombre(),
-                    currentSubject.getCodigoAsignatura(),
-                    currentSubject.getHoras());
+        negotiationStartTime = System.currentTimeMillis();
+
+        // Add logging here
+        System.out.printf("[SETUP] Starting assignment for %s (Code: %s) - Required hours: %d%n",
+                currentSubject.getNombre(),
+                currentSubject.getCodigoAsignatura(),
+                currentSubject.getHoras());
 
 //            System.out.println("Profesor " + profesor.getNombre() + " iniciando negociación para " +
 //                    currentSubject.getNombre() + " (" + bloquesPendientes + " horas)");
-            sendProposalRequests();
-            proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
-            currentState = NegotiationState.COLLECTING_PROPOSALS;
-            proposalReceived = false;
-        } else {
-//            System.out.println("Error: No hay asignatura actual para " + profesor.getNombre());
-            currentState = NegotiationState.FINISHED;
-        }
+        sendProposalRequests();
+        proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
+        currentState = NegotiationState.COLLECTING_PROPOSALS;
+        proposalReceived = false;
     }
 
     private void handleEvaluatingState() {
@@ -191,7 +193,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
             currentState = NegotiationState.SETUP;
         } else {
             // Add exponential backoff to avoid overwhelming the system
-            long backoffTime = (long) Math.pow(2, retryCount) * 1000; // 2^retry seconds
+            long backoffTime = (long) Math.pow(2, retryCount) * BACKOFF_TIME_OFFSET; // 2^retry seconds
             proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA + backoffTime;
             sendProposalRequests();
         }
@@ -210,7 +212,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         } else {
             currentState = NegotiationState.COLLECTING_PROPOSALS;
             // Add exponential backoff here too
-            long backoffTime = (long) Math.pow(2, retryCount) * 1000;
+            long backoffTime = (long) Math.pow(2, retryCount) * BACKOFF_TIME_OFFSET;
             proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA + backoffTime;
             sendProposalRequests();
         }
