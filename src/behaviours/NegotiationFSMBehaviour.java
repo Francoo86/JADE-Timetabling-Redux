@@ -173,8 +173,10 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
                         processProposal(msg);
                     } else if (msg.getPerformative() == ACLMessage.REFUSE) {
                         incrementResponseCount();
-
                     }
+
+                    //true because the request was received
+                    logRequest(msg, true);
                 } else {
                     // No more messages to process
                     collectingDone = true;
@@ -215,16 +217,6 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
 
         private void processProposal(ACLMessage msg) {
             try {
-                // Log the RTT for this request
-                rttLogger.recordMessageReceived(
-                        myAgent.getLocalName(),
-                        msg.getConversationId(),
-                        msg.getPerformative(),
-                        msg.getSender().getLocalName(),
-                        msg.getByteSequenceContent().length,
-                        "classroom-availability"
-                );
-
                 ClassroomAvailability sala = (ClassroomAvailability) msg.getContentObject();
                 if (sala == null) {
                     System.out.println("Null classroom availability received");
@@ -263,6 +255,18 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         @Override
         public int onEnd() {
             return onEnd;
+        }
+
+        private void logRequest(ACLMessage reply, boolean success) {
+            rttLogger.endRequest(
+                    myAgent.getLocalName(),
+                    reply.getConversationId(),
+                    reply.getPerformative(),
+                    reply.getByteSequenceContent().length,
+                    success,
+                    null,
+                    "classroom-availability"
+            );
         }
     }
 
