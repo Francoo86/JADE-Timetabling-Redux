@@ -1,6 +1,7 @@
 package agentes;
 
 import behaviours.MessageCollectorBehaviour;
+import behaviours.NegotiationFSMBehaviour;
 import behaviours.NegotiationStateBehaviour;
 import constants.Messages;
 import constants.enums.Day;
@@ -239,7 +240,8 @@ public class AgenteProfesor extends Agent {
         return debugWindow;
     }
 
-    private NegotiationStateBehaviour negotiationBehaviour;
+    //private NegotiationStateBehaviour negotiationBehaviour;
+    private NegotiationFSMBehaviour negotiationBehaviour;
 
     public int getBloquesPendientesInNegotiation() {
         return negotiationBehaviour.getBloquesPendientes();
@@ -282,14 +284,15 @@ public class AgenteProfesor extends Agent {
 
         // Create shared proposal queue and behaviors
         ConcurrentLinkedQueue<BatchProposal> batchProposals = new ConcurrentLinkedQueue<>();
-        NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 500, batchProposals);
-        MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, batchProposals, stateBehaviour);
+        //NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 500, batchProposals);
+        //MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, batchProposals, stateBehaviour);
+        NegotiationFSMBehaviour stateBehaviour = new NegotiationFSMBehaviour(this);
 
         if (orden == 0) {
             addBehaviour(stateBehaviour);
-            addBehaviour(messageCollector);
+            //addBehaviour(messageCollector);
         } else {
-            addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour, messageCollector));
+            addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour));
         }
 
         negotiationBehaviour = stateBehaviour;
@@ -369,16 +372,16 @@ public class AgenteProfesor extends Agent {
 
     public class EsperarTurnoBehaviour extends CyclicBehaviour {
         private final AgenteProfesor profesor;
-        private final NegotiationStateBehaviour stateBehaviour;
-        private final MessageCollectorBehaviour messageCollector;
+        private final NegotiationFSMBehaviour stateBehaviour;
+        //private final MessageCollectorBehaviour messageCollector;
 
         public EsperarTurnoBehaviour(AgenteProfesor profesor,
-                                     NegotiationStateBehaviour stateBehaviour,
-                                     MessageCollectorBehaviour messageCollector) {
+                                     NegotiationFSMBehaviour stateBehaviour){
+                                     //MessageCollectorBehaviour messageCollector) {
             super(profesor);
             this.profesor = profesor;
             this.stateBehaviour = stateBehaviour;
-            this.messageCollector = messageCollector;
+            //this.messageCollector = messageCollector;
         }
 
         @Override
@@ -400,7 +403,7 @@ public class AgenteProfesor extends Agent {
 
                     // Add negotiation behaviors when it's our turn
                     myAgent.addBehaviour(stateBehaviour);
-                    myAgent.addBehaviour(messageCollector);
+                    //myAgent.addBehaviour(messageCollector);
 
                     // Remove this waiting behavior
                     myAgent.removeBehaviour(this);
