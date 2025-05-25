@@ -460,9 +460,7 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         return waitForConfirmation(mt, requests);
     }
 
-    /**
-     * Waits for confirmation from the classroom agent
-     */
+
     private boolean waitForConfirmation(MessageTemplate mt, List<BatchAssignmentRequest.AssignmentRequest> requests) {
         if (bloquesPendientes - requests.size() < 0) {
             System.out.println("WARNING: Assignment would exceed required hours");
@@ -470,9 +468,9 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         }
 
         long startTime = System.currentTimeMillis();
-        long timeout = 1000;
+        //long timeout = 1000;
 
-        while (System.currentTimeMillis() - startTime < timeout) {
+        while (System.currentTimeMillis() - startTime < TIMEOUT_PROPUESTA) {
             ACLMessage confirm = myAgent.receive(mt);
             if (confirm != null) {
                 try {
@@ -504,12 +502,12 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
                 }
             }
 
-            // Short block to avoid busy waiting
+            /*
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-            }
+            }*/
         }
         return false;
     }
@@ -531,6 +529,9 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
             if (currentSubject == null) {
                 return;
             }
+
+            //sort rooms by localname
+            //results.sort(Comparator.comparing(DFAgentDescription::getName));
 
             for (DFAgentDescription room : results) {
                 if (canQuickReject(currentSubject, room)) {
