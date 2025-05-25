@@ -38,7 +38,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
     private long proposalTimeout;
     private int retryCount = 0;
     //private static final int MAX_RETRIES = 10;
-    private boolean proposalReceived = false;
+    //private boolean proposalReceived = false;
     private final AssignationData assignationData;
     private final ConstraintEvaluator evaluator;
     private int bloquesPendientes = 0;
@@ -73,9 +73,10 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         return bloquesPendientes;
     }
 
+    /*
     public synchronized void notifyProposalReceived() {
         this.proposalReceived = true;
-    }
+    }*/
 
     @Override
     protected void onTick() {
@@ -144,7 +145,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
         sendProposalRequests();
         proposalTimeout = System.currentTimeMillis() + TIMEOUT_PROPUESTA;
         currentState = NegotiationState.COLLECTING_PROPOSALS;
-        proposalReceived = false;
+        //proposalReceived = false;
     }
 
     private void handleEvaluatingState() {
@@ -405,7 +406,7 @@ public class NegotiationStateBehaviour extends TickerBehaviour {
 
     public synchronized void incrementResponseCount() {
         receivedResponseCount++;
-        notifyProposalReceived();
+        //notifyProposalReceived();
 
         //System.out.println("[DEBUG] Response received: " + receivedResponseCount + "/" + sentRequestCount);
 
