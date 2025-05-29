@@ -47,6 +47,7 @@ public class AgenteProfesor extends Agent {
     //TODO-2: Pienso que puede ser mejor tener un objeto que contenga la información de los bloques asignados.
     private Map<Day, Map<String, List<Integer>>> bloquesAsignadosPorDia; // dia -> (bloque -> asignatura)
     //private AgentPerformanceMonitor performanceMonitor;
+    private AgentMessageLogger messageLogger;
 
     //METODOS EXPUESTOS PARA EL BEHAVIOUR
     @Override
@@ -261,6 +262,7 @@ public class AgenteProfesor extends Agent {
 
         // Iteration is third argument
         int itera = (int) args[2];
+        messageLogger = AgentMessageLogger.getInstance();
 
         //String iterationId = "Agent_" + getLocalName();
         //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "PROFESOR", scenario);
@@ -474,6 +476,7 @@ public class AgenteProfesor extends Agent {
                 ackMsg.setContent("NULL_PROF");
                 ackMsg.addReceiver(results.getFirst().getName());
                 send(ackMsg);
+                messageLogger.logMessageSent(getLocalName(), ackMsg);
 
                 //System.out.println("Warning: No next professor found with order " + nextOrden);
                 return;
@@ -494,6 +497,7 @@ public class AgenteProfesor extends Agent {
             msg.addReceiver(dfd.getName());
             msg.setContent(Messages.START);
             msg.addUserDefinedParameter("nextOrden", Integer.toString(nextOrden));
+            messageLogger.logMessageSent(getLocalName(), msg);
             send(msg);
             System.out.println("Successfully notified next professor " +
                     dfd.getName().getLocalName() + " with order: " + nextOrden);

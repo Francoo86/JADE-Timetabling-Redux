@@ -20,6 +20,7 @@ import objetos.ClassroomAvailability;
 import objetos.helper.BatchAssignmentConfirmation;
 import objetos.helper.BatchAssignmentRequest;
 import objetos.helper.BatchProposal;
+import performance.AgentMessageLogger;
 import performance.RTTLogger;
 
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
 
     // Performance logging
     private RTTLogger rttLogger;
+    private AgentMessageLogger messageLogger = AgentMessageLogger.getInstance();
 
     public NegotiationFSMBehaviour(AgenteProfesor profesor) {
         this.profesor = profesor;
@@ -169,6 +171,8 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
                 ACLMessage msg = myAgent.receive(mt);
 
                 if (msg != null) {
+                    messageLogger.logMessageReceived(myAgent.getLocalName(), msg);
+
                     if (msg.getPerformative() == ACLMessage.PROPOSE) {
                         processProposal(msg);
                     } else if (msg.getPerformative() == ACLMessage.REFUSE) {
@@ -449,6 +453,8 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         batchAccept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
         batchAccept.setContentObject(batchRequest);
 
+        messageLogger.logMessageSent(myAgent.getLocalName(), batchAccept);
+
         profesor.send(batchAccept);
 
         // Wait for confirmation
@@ -473,6 +479,7 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         while (System.currentTimeMillis() - startTime < TIMEOUT_PROPUESTA) {
             ACLMessage confirm = myAgent.receive(mt);
             if (confirm != null) {
+                messageLogger.logMessageReceived(myAgent.getLocalName(), confirm);
                 try {
                     BatchAssignmentConfirmation confirmation =
                             (BatchAssignmentConfirmation) confirm.getContentObject();
@@ -554,6 +561,8 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
                         null,
                         "classroom-availability"
                 );
+
+                messageLogger.logMessageSent(myAgent.getLocalName(), cfp);
 
                 profesor.send(cfp);
                 sentRequestCount++;

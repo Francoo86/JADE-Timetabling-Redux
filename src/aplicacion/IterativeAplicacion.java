@@ -15,6 +15,7 @@ import json_stuff.ProfesorHorarioJSON;
 import json_stuff.SalaHorarioJSON;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import performance.AgentMessageLogger;
 import performance.RTTLogger;
 
 import java.io.FileWriter;
@@ -49,6 +50,7 @@ public class IterativeAplicacion {
         this.scenarioName = baseScenario;
 
         String fullPath = String.format(RESULTS_DIR + "/%s", baseScenario);
+        AgentMessageLogger.getInstance().start(baseScenario);
 
         // Create results directory
         //Files.createDirectories(Paths.get(RESULTS_DIR));
@@ -386,6 +388,7 @@ public class IterativeAplicacion {
             e.printStackTrace();
         } finally {
             logWriter.close();
+            AgentMessageLogger.getInstance().stop();
         }
     }
 
