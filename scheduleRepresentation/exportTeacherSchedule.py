@@ -85,7 +85,7 @@ def save_schedules(data, filename='teacher_schedules.xlsx'):
 
 def main():
     try:
-        with open(os.path.join(PROJECT_PATH, "agent_output/Horarios_asignados.json"), 'r', encoding="utf-8") as file:
+        with open(os.path.join(PROJECT_PATH, "agent_output/full/Horarios_asignados.json"), 'r', encoding="utf-8") as file:
             schedule_data = json.load(file)
             save_schedules(schedule_data)
             print(f"Schedules generated successfully for {len(schedule_data)} teachers")

@@ -38,6 +38,7 @@ public class AgenteSala extends Agent implements SalaDataInterface {
     //private AgentPerformanceMonitor performanceMonitor;
 
     private RTTLogger rttLogger;
+    private AgentMessageLogger messageLogger = AgentMessageLogger.getInstance();
 
     @Override
     protected void setup() {
@@ -158,6 +159,7 @@ public class AgenteSala extends Agent implements SalaDataInterface {
 
             ACLMessage msg = receive(mt);
             if (msg != null) {
+                messageLogger.logMessageReceived(myAgent.getLocalName(), msg);
                 switch (msg.getPerformative()) {
                     case ACLMessage.CFP:
                         procesarSolicitud(msg);
@@ -213,18 +215,9 @@ public class AgenteSala extends Agent implements SalaDataInterface {
                             "classroom-availability"
                     );
 
+                    messageLogger.logMessageSent(myAgent.getLocalName(), reply);
+
                     send(reply);
-
-                    /*
-                    // Record metrics
-                    getPerformanceMonitor().recordMessageMetrics(
-                            msg.getConversationId(),
-                            "PROPOSE_SENT",
-                            System.nanoTime() - startTime,
-                            getLocalName(),
-                            msg.getSender().getLocalName()
-                    );*/
-
                 } else {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
@@ -239,17 +232,8 @@ public class AgenteSala extends Agent implements SalaDataInterface {
                             "classroom-availability"
                     );
 
+                    messageLogger.logMessageSent(myAgent.getLocalName(), reply);
                     send(reply);
-
-                    // Record metrics for refuse
-                    /*
-                    getPerformanceMonitor().recordMessageMetrics(
-                            msg.getConversationId(),
-                            "REFUSE_SENT",
-                            System.nanoTime() - startTime,
-                            getLocalName(),
-                            msg.getSender().getLocalName()
-                    );*/
                 }
             } catch (Exception e) {
                 System.err.println("Error processing request in classroom " + codigo + ": " + e.getMessage());
@@ -324,6 +308,7 @@ public class AgenteSala extends Agent implements SalaDataInterface {
                             "INFORM"
                     );*/
                     //getPerformanceMonitor().recordMessageSent(confirm, "INFORM");
+                    messageLogger.logMessageSent(myAgent.getLocalName(), confirm);
                     send(confirm);
                 }
 
