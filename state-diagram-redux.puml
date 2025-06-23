@@ -1,0 +1,103 @@
+@startuml FSM_Negotiation_Professor
+!define POSITIVE #90EE90
+!define NEGATIVE #FFB6C1
+!define NEUTRAL #87CEEB
+!define WARNING #FFD700
+
+title Máquina de Estados Finitos - NegotiationFSMBehaviour
+
+skinparam state {
+    BackgroundColor NEUTRAL
+    BorderColor Black
+    FontSize 12
+    AttributeFontSize 10
+}
+
+' Estado inicial
+[*] --> SETUP : Profesor inicia turno
+
+' Estado SETUP
+state SETUP {
+    SETUP : **Acciones:**
+    SETUP : • Verificar asignaturas restantes
+    SETUP : • Obtener asignatura actual
+    SETUP : • Calcular bloquesPendientes
+    SETUP : • Enviar CFP a todas las salas
+    SETUP : • Iniciar temporizador (5s)
+}
+
+' Estado COLLECTING
+state COLLECTING #NEUTRAL {
+    COLLECTING : **Acciones:**
+    COLLECTING : • Recibir mensajes (PROPOSE/REFUSE)
+    COLLECTING : • Almacenar propuestas en cola
+    COLLECTING : • Incrementar contador respuestas
+    COLLECTING : • Verificar timeout
+}
+
+' Estado EVALUATING
+state EVALUATING #WARNING {
+    EVALUATING : **Acciones:**
+    EVALUATING : • Filtrar propuestas por restricciones
+    EVALUATING : • Calcular satisfactionScore
+    EVALUATING : • Ordenar por prioridad
+    EVALUATING : • Enviar ACCEPT_PROPOSAL
+    EVALUATING : • Esperar confirmación (INFORM)
+    EVALUATING : • Actualizar bloquesPendientes
+}
+
+' Estado FINISHED
+state FINISHED #POSITIVE {
+    FINISHED : **Acciones:**
+    FINISHED : • Guardar horario en JSON
+    FINISHED : • Registrar métricas de rendimiento
+    FINISHED : • Notificar siguiente profesor
+    FINISHED : • Finalizar agente
+}
+
+' Transiciones principales
+SETUP --> COLLECTING : Solicitudes enviadas\n[sentRequestCount > 0]
+SETUP --> FINISHED : No hay más asignaturas\n[!canUseMoreSubjects()]
+
+COLLECTING --> EVALUATING : Propuestas recibidas\n[receivedResponseCount >= sentRequestCount ||\ntimeout && proposals.size() > 0]
+COLLECTING --> SETUP : Sin propuestas + reintentos\n[timeout && proposals.empty() &&\nretryCount < MAX_RETRIES]
+
+EVALUATING --> COLLECTING : Necesita más bloques\n[bloquesPendientes > 0 &&\nassignmentSuccess]
+EVALUATING --> SETUP : Asignatura completada\n[bloquesPendientes == 0]
+EVALUATING --> SETUP : Fallo en asignación\n[!assignmentSuccess &&\nretryCount < MAX_RETRIES]
+EVALUATING --> FINISHED : Todas asignadas\n[!canUseMoreSubjects()]
+
+FINISHED --> [*] : Sistema continúa con\nsiguiente profesor
+
+' Notas y condiciones
+note right of COLLECTING
+    **Timeout**: 5 segundos
+    **Backoff**: 2^retry * 1s
+    **Max reintentos**: 3
+end note
+
+note left of EVALUATING
+    **Filtros aplicados**:
+    • Campus correcto
+    • Capacidad suficiente
+    • Meeting room match
+    • Bloques disponibles
+end note
+
+note bottom of SETUP
+    **Condiciones de entrada**:
+    • Turno del profesor activo
+    • Mensaje de profesor anterior
+    • Primera ejecución
+end note
+
+' Leyenda
+legend bottom
+    |= Color |= Significado |
+    |<NEUTRAL> Azul | Estados de procesamiento |
+    |<WARNING> Amarillo | Estado de decisión crítica |
+    |<POSITIVE> Verde | Estado exitoso |
+    | Flechas | Transiciones con guardas |
+endlegend
+
+@enduml

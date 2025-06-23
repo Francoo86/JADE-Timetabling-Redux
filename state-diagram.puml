@@ -1,0 +1,7 @@
+@startuml "DIAGRAMA DE ESTADOS DE FSM Behaviour"
+[*] --> SETUP
+SETUP --> COLLECTING : sendProposalRequests()
+COLLECTING --> EVALUATING : proposals.size() > 0
+EVALUATING --> SETUP : bloquesPendientes > 0
+EVALUATING --> FINISHED : bloquesPendientes == 0
+@enduml
