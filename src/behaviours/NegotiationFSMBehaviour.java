@@ -74,13 +74,11 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         this.quickRejectCache = new HashMap<>();
         this.rttLogger = RTTLogger.getInstance();
 
-        // Register states
         registerFirstState(new SetupState(), SETUP);
         registerState(new CollectingState(), COLLECTING);
         registerState(new EvaluatingState(), EVALUATING);
         registerLastState(new FinishedState(), FINISHED);
-
-        // Register transitions
+        
         registerDefaultTransition(SETUP, COLLECTING);
         registerTransition(COLLECTING, EVALUATING, 0);
         registerTransition(COLLECTING, SETUP, 1);
@@ -538,7 +536,7 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
             }
 
             //sort rooms by localname
-            //results.sort(Comparator.comparing(DFAgentDescription::getName));
+            results.sort(Comparator.comparing(DFAgentDescription::getName));
 
             for (DFAgentDescription room : results) {
                 if (canQuickReject(currentSubject, room)) {
