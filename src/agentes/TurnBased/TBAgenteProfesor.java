@@ -1,5 +1,6 @@
-package agentes;
+package agentes.TurnBased;
 
+import agentes.AgenteSupervisor;
 import behaviours.NegotiationFSMBehaviour;
 import constants.Messages;
 import constants.enums.Day;

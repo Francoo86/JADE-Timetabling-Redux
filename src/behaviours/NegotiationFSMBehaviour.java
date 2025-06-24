@@ -2,7 +2,7 @@ package behaviours;
 
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
-import agentes.TBAgenteProfesor;
+import agentes.TurnBased.TBAgenteProfesor;
 import constants.enums.Day;
 import df.DFCache;
 import evaluators.ConstraintEvaluator;
