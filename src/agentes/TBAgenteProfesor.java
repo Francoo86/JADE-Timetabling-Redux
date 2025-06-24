@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
-public class OldAgenteProfesor extends Agent {
+public class TBAgenteProfesor extends Agent {
     public static final String AGENT_NAME = "Profesor";
     public static final String SERVICE_NAME = AGENT_NAME.toLowerCase(Locale.ROOT);
     private String nombre;
@@ -371,11 +371,11 @@ public class OldAgenteProfesor extends Agent {
     }
 
     public class EsperarTurnoBehaviour extends CyclicBehaviour {
-        private final OldAgenteProfesor profesor;
+        private final TBAgenteProfesor profesor;
         private final NegotiationFSMBehaviour stateBehaviour;
         //private final MessageCollectorBehaviour messageCollector;
 
-        public EsperarTurnoBehaviour(OldAgenteProfesor profesor,
+        public EsperarTurnoBehaviour(TBAgenteProfesor profesor,
                                      NegotiationFSMBehaviour stateBehaviour){
                                      //MessageCollectorBehaviour messageCollector) {
             super(profesor);

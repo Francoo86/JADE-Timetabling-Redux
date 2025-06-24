@@ -2,7 +2,7 @@ package behaviours;
 
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
-import agentes.OldAgenteProfesor;
+import agentes.TBAgenteProfesor;
 import constants.enums.Day;
 import df.DFCache;
 import evaluators.ConstraintEvaluator;
@@ -89,7 +89,7 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         registerTransition(SETUP, FINISHED, 1);
     }
 
-    public NegotiationFSMBehaviour(OldAgenteProfesor profesor) {
+    public NegotiationFSMBehaviour(TBAgenteProfesor profesor) {
         //vacio solamente para que el compilador no se queje
         this.profesor = null; // This constructor is not used in the current implementation
         this.batchProposals = new ConcurrentLinkedQueue<>();
