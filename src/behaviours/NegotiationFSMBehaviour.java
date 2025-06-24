@@ -2,6 +2,7 @@ package behaviours;
 
 import agentes.AgenteProfesor;
 import agentes.AgenteSala;
+import agentes.OldAgenteProfesor;
 import constants.enums.Day;
 import df.DFCache;
 import evaluators.ConstraintEvaluator;
@@ -86,6 +87,15 @@ public class NegotiationFSMBehaviour extends FSMBehaviour {
         registerTransition(EVALUATING, COLLECTING, 1);
         registerTransition(EVALUATING, FINISHED, 2);
         registerTransition(SETUP, FINISHED, 1);
+    }
+
+    public NegotiationFSMBehaviour(OldAgenteProfesor profesor) {
+        //vacio solamente para que el compilador no se queje
+        this.profesor = null; // This constructor is not used in the current implementation
+        this.batchProposals = new ConcurrentLinkedQueue<>();
+        this.assignationData = new AssignationData();
+        this.evaluator = null;
+        this.quickRejectCache = new HashMap<>();
     }
 
     /**
