@@ -41,7 +41,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     // Configuration
     private static final int MAX_CONCURRENT = 3;
     private static final long TIMEOUT_MS = 5000;
-    private static final long STUCK_THRESHOLD_MS = 15000;
+    private static final long STUCK_THRESHOLD_MS = 2000;
     private static final int MAX_RETRIES = 3;
     private static final int MEETING_ROOM_THRESHOLD = 10;
     private static final int EARLY_TERMINATION_THRESHOLD = 5;
@@ -50,6 +50,9 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     private int completedTasks = 0;
     private boolean done = false;
 
+    private final Queue<SubjectTask> pendingTasks;  // Add this
+    private final Set<SubjectTask> activeTasks;      // Add this
+
     public ParallelNegotiationBehaviourV2(AgenteProfesor profesor) {
         this.profesor = profesor;
         this.tasks = new ArrayList<>();
@@ -57,6 +60,8 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         this.evaluator = new ConstraintEvaluator(profesor);
         this.messageLogger = AgentMessageLogger.getInstance();
         this.rttLogger = RTTLogger.getInstance();
+        this.pendingTasks = new LinkedList<>();  // Add this
+        this.activeTasks = new HashSet<>();      // Add this
 
         initializeTasks();
     }
@@ -120,10 +125,192 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     private void initializeTasks() {
         List<Asignatura> subjects = profesor.getAsignaturas();
         for (int i = 0; i < subjects.size(); i++) {
-            tasks.add(new SubjectTask(subjects.get(i), i));
+            SubjectTask task = new SubjectTask(subjects.get(i), i);
+            tasks.add(task);
+            pendingTasks.offer(task);  // Add all tasks to pending queue
         }
         System.out.printf("[PARALLEL] Initialized %d tasks for %s%n",
                 tasks.size(), profesor.getNombre());
+    }
+
+    // 4. Replace startNewNegotiations method
+    private void startNewNegotiations() {
+        while (activeTasks.size() < MAX_CONCURRENT && !pendingTasks.isEmpty()) {
+            SubjectTask task = pendingTasks.poll();
+
+            if (task == null) break;
+
+            if (!task.isComplete()) {
+                startTaskNegotiation(task);
+                activeTasks.add(task);
+            } else {
+                completedTasks++;
+            }
+        }
+    }
+
+    // 5. Replace cleanupStuckNegotiations method
+    private void cleanupStuckNegotiations() {
+        long now = System.currentTimeMillis();
+        List<SubjectTask> stuckTasks = new ArrayList<>();
+
+        for (SubjectTask task : activeTasks) {
+            if (task.isActive && (now - task.startTime) > STUCK_THRESHOLD_MS) {
+                System.out.printf("[STUCK] Force cleanup for %s after %d ms%n",
+                        task.subject.getNombre(), now - task.startTime);
+                stuckTasks.add(task);
+            }
+        }
+
+        for (SubjectTask task : stuckTasks) {
+            // Remove from active set and conversation tracking
+            activeTasks.remove(task);
+            task.pendingConversations.forEach(tasksByConvId::remove);
+            task.isActive = false;
+
+            if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
+                task.retries++;
+                pendingTasks.offer(task);  // Re-queue for retry
+            } else {
+                completedTasks++;
+                System.out.printf("[ABANDON] Task %s abandoned after timeouts%n",
+                        task.subject.getNombre());
+            }
+        }
+    }
+
+    // 6. Replace retryOrAbandon method
+    private void retryOrAbandon(SubjectTask task) {
+        // Remove from active tracking
+        task.isActive = false;
+        activeTasks.remove(task);
+        task.pendingConversations.forEach(tasksByConvId::remove);
+
+        if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
+            task.retries++;
+            pendingTasks.offer(task);  // Re-queue instead of index manipulation
+            System.out.printf("[RETRY] Will retry %s (attempt %d/%d)%n",
+                    task.subject.getNombre(), task.retries + 1, MAX_RETRIES);
+        } else {
+            completedTasks++;
+            if (task.blocksRemaining > 0) {
+                System.out.printf("[ABANDON] Abandoning %s with %d blocks unassigned%n",
+                        task.subject.getNombre(), task.blocksRemaining);
+            }
+        }
+    }
+
+    // 7. Replace handleConfirmation method
+    private void handleConfirmation(SubjectTask task, ACLMessage msg) {
+        try {
+            BatchAssignmentConfirmation confirmation =
+                    (BatchAssignmentConfirmation) msg.getContentObject();
+
+            if (confirmation != null && !confirmation.getConfirmedAssignments().isEmpty()) {
+                // Update professor's schedule with proper index handling
+                int originalIndex = profesor.asignaturaActual;
+                profesor.asignaturaActual = task.subjectIndex;
+
+                try {
+                    for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
+                            confirmation.getConfirmedAssignments()) {
+
+                        profesor.updateScheduleInfo(
+                                assignment.getDay(),
+                                assignment.getClassroomCode(),
+                                assignment.getBlock(),
+                                task.subject.getNombre(),
+                                assignment.getSatisfaction()
+                        );
+
+                        task.blocksRemaining--;
+                        task.hasPartialAssignment = true;
+                        task.lastAssignedDay = assignment.getDay();
+                        task.lastAssignedBlock = assignment.getBlock();
+
+                        System.out.printf("[ASSIGNED] %s: block %d on %s in %s (%d remaining)%n",
+                                task.subject.getNombre(), assignment.getBlock(),
+                                assignment.getDay(), assignment.getClassroomCode(),
+                                task.blocksRemaining);
+                    }
+                } finally {
+                    profesor.asignaturaActual = originalIndex;
+                }
+
+                if (task.isComplete()) {
+                    task.isActive = false;
+                    activeTasks.remove(task);  // Remove from active set
+                    completedTasks++;
+                    System.out.printf("[COMPLETE] Finished %s%n", task.subject.getNombre());
+                } else {
+                    // Continue negotiation - task stays in activeTasks
+                    startTaskNegotiation(task);
+                }
+            } else {
+                handleAssignmentFailure(task);
+            }
+        } catch (UnreadableException e) {
+            System.err.println("Error reading confirmation: " + e.getMessage());
+            handleAssignmentFailure(task);
+        }
+    }
+
+    // 8. Replace checkCompletion method
+    private void checkCompletion() {
+        // Check if all tasks are done (no pending, no active)
+        if (pendingTasks.isEmpty() && activeTasks.isEmpty()) {
+            System.out.printf("[PARALLEL] All tasks processed for %s%n", profesor.getNombre());
+
+            // Print summary
+            int totalAssigned = tasks.stream()
+                    .mapToInt(t -> t.subject.getHoras() - t.blocksRemaining)
+                    .sum();
+            int totalRequired = tasks.stream()
+                    .mapToInt(t -> t.subject.getHoras())
+                    .sum();
+
+            System.out.printf("[SUMMARY] %s: Assigned %d/%d blocks (%.1f%%)%n",
+                    profesor.getNombre(), totalAssigned, totalRequired,
+                    (totalAssigned * 100.0) / totalRequired);
+
+            profesor.finalizarNegociaciones();
+            done = true;
+        }
+    }
+
+    // 9. Update processTaskProposals to add safety check
+    private void processTaskProposals(SubjectTask task) {
+        if (!task.isActive) {
+            // Task was already handled, ignore
+            return;
+        }
+
+        if (task.proposals.isEmpty()) {
+            handleNoProposals(task);
+            return;
+        }
+
+        List<BatchProposal> proposalList = new ArrayList<>();
+        BatchProposal proposal;
+        while ((proposal = task.proposals.poll()) != null) {
+            proposalList.add(proposal);
+        }
+
+        // Use evaluator with task's current standards
+        List<BatchProposal> validProposals = evaluator.filterAndSortProposals(proposalList);
+
+        // Apply satisfaction threshold
+        if (task.minAcceptableSatisfaction < 7) {
+            validProposals = validProposals.stream()
+                    .filter(p -> p.getSatisfactionScore() >= task.minAcceptableSatisfaction)
+                    .collect(Collectors.toList());
+        }
+
+        if (!validProposals.isEmpty()) {
+            tryAssignments(task, validProposals);
+        } else {
+            handleNoValidProposals(task);
+        }
     }
 
     @Override
@@ -139,51 +326,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
 
         // Step 4: Check if we're done
         checkCompletion();
-    }
-
-    private void cleanupStuckNegotiations() {
-        long now = System.currentTimeMillis();
-        List<SubjectTask> stuckTasks = new ArrayList<>();
-
-        for (SubjectTask task : tasksByConvId.values()) {
-            if (task.isActive && (now - task.startTime) > STUCK_THRESHOLD_MS) {
-                System.out.printf("[STUCK] Force cleanup for %s after %d ms%n",
-                        task.subject.getNombre(), now - task.startTime);
-                stuckTasks.add(task);
-            }
-        }
-
-        for (SubjectTask task : stuckTasks) {
-            // Remove all conversation IDs for this task
-            task.pendingConversations.forEach(tasksByConvId::remove);
-            task.isActive = false;
-
-            if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
-                task.retries++;
-                currentTaskIndex--; // Will be picked up again
-            } else {
-                completedTasks++;
-                System.out.printf("[ABANDON] Task %s abandoned after timeouts%n",
-                        task.subject.getNombre());
-            }
-        }
-    }
-
-    private void startNewNegotiations() {
-        int activeCount = (int) tasks.stream()
-                .filter(t -> t.isActive)
-                .count();
-
-        while (activeCount < MAX_CONCURRENT && currentTaskIndex < tasks.size()) {
-            SubjectTask task = tasks.get(currentTaskIndex++);
-
-            if (!task.isComplete()) {
-                startTaskNegotiation(task);
-                activeCount++;
-            } else {
-                completedTasks++;
-            }
-        }
     }
 
     private void startTaskNegotiation(SubjectTask task) {
@@ -417,35 +559,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                 hasEnoughProposals;
     }
 
-    private void processTaskProposals(SubjectTask task) {
-        if (task.proposals.isEmpty()) {
-            handleNoProposals(task);
-            return;
-        }
-
-        List<BatchProposal> proposalList = new ArrayList<>();
-        BatchProposal proposal;
-        while ((proposal = task.proposals.poll()) != null) {
-            proposalList.add(proposal);
-        }
-
-        // Use evaluator with task's current standards
-        List<BatchProposal> validProposals = evaluator.filterAndSortProposals(proposalList);
-
-        // Apply satisfaction threshold
-        if (task.minAcceptableSatisfaction < 7) {
-            validProposals = validProposals.stream()
-                    .filter(p -> p.getSatisfactionScore() >= task.minAcceptableSatisfaction)
-                    .collect(Collectors.toList());
-        }
-
-        if (!validProposals.isEmpty()) {
-            tryAssignments(task, validProposals);
-        } else {
-            handleNoValidProposals(task);
-        }
-    }
-
     private void tryAssignments(SubjectTask task, List<BatchProposal> proposals) {
         for (BatchProposal proposal : proposals) {
             if (task.blocksRemaining <= 0) break;
@@ -507,59 +620,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         }
     }
 
-    private void handleConfirmation(SubjectTask task, ACLMessage msg) {
-        try {
-            BatchAssignmentConfirmation confirmation =
-                    (BatchAssignmentConfirmation) msg.getContentObject();
-
-            if (confirmation != null && !confirmation.getConfirmedAssignments().isEmpty()) {
-                // Update professor's schedule with proper index handling
-                int originalIndex = profesor.asignaturaActual;
-                profesor.asignaturaActual = task.subjectIndex;
-
-                try {
-                    for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
-                            confirmation.getConfirmedAssignments()) {
-
-                        profesor.updateScheduleInfo(
-                                assignment.getDay(),
-                                assignment.getClassroomCode(),
-                                assignment.getBlock(),
-                                task.subject.getNombre(),
-                                assignment.getSatisfaction()
-                        );
-
-                        task.blocksRemaining--;
-                        task.hasPartialAssignment = true;
-                        task.lastAssignedDay = assignment.getDay();
-                        task.lastAssignedBlock = assignment.getBlock();
-
-                        System.out.printf("[ASSIGNED] %s: block %d on %s in %s (%d remaining)%n",
-                                task.subject.getNombre(), assignment.getBlock(),
-                                assignment.getDay(), assignment.getClassroomCode(),
-                                task.blocksRemaining);
-                    }
-                } finally {
-                    profesor.asignaturaActual = originalIndex;
-                }
-
-                if (task.isComplete()) {
-                    task.isActive = false;
-                    completedTasks++;
-                    System.out.printf("[COMPLETE] Finished %s%n", task.subject.getNombre());
-                } else {
-                    // Continue negotiation
-                    startTaskNegotiation(task);
-                }
-            } else {
-                handleAssignmentFailure(task);
-            }
-        } catch (UnreadableException e) {
-            System.err.println("Error reading confirmation: " + e.getMessage());
-            handleAssignmentFailure(task);
-        }
-    }
-
     private void handleNoProposals(SubjectTask task) {
         System.out.printf("[NO_PROPOSALS] No proposals received for %s%n",
                 task.subject.getNombre());
@@ -576,45 +636,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         System.out.printf("[ASSIGN_FAIL] Assignment failed for %s%n",
                 task.subject.getNombre());
         retryOrAbandon(task);
-    }
-
-    private void retryOrAbandon(SubjectTask task) {
-        task.isActive = false;
-        task.pendingConversations.forEach(tasksByConvId::remove);
-
-        if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
-            task.retries++;
-            currentTaskIndex--; // Re-queue
-            System.out.printf("[RETRY] Will retry %s (attempt %d/%d)%n",
-                    task.subject.getNombre(), task.retries + 1, MAX_RETRIES);
-        } else {
-            completedTasks++;
-            if (task.blocksRemaining > 0) {
-                System.out.printf("[ABANDON] Abandoning %s with %d blocks unassigned%n",
-                        task.subject.getNombre(), task.blocksRemaining);
-            }
-        }
-    }
-
-    private void checkCompletion() {
-        if (completedTasks >= tasks.size()) {
-            System.out.printf("[PARALLEL] All tasks completed for %s%n", profesor.getNombre());
-
-            // Print summary
-            int totalAssigned = tasks.stream()
-                    .mapToInt(t -> t.subject.getHoras() - t.blocksRemaining)
-                    .sum();
-            int totalRequired = tasks.stream()
-                    .mapToInt(t -> t.subject.getHoras())
-                    .sum();
-
-            System.out.printf("[SUMMARY] %s: Assigned %d/%d blocks (%.1f%%)%n",
-                    profesor.getNombre(), totalAssigned, totalRequired,
-                    (totalAssigned * 100.0) / totalRequired);
-
-            profesor.finalizarNegociaciones();
-            done = true;
-        }
     }
 
     private ACLMessage createCFP(SubjectTask task, DFAgentDescription room) {
