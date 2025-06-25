@@ -39,14 +39,13 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     private final RTTLogger rttLogger;
 
     // Configuration
-    private static final int MAX_CONCURRENT = 3;
+    private static final int MAX_CONCURRENT = 2;
     private static final long TIMEOUT_MS = 5000;
     private static final long STUCK_THRESHOLD_MS = 2000;
     private static final int MAX_RETRIES = 3;
     private static final int MEETING_ROOM_THRESHOLD = 10;
     private static final int EARLY_TERMINATION_THRESHOLD = 5;
 
-    private int currentTaskIndex = 0;
     private int completedTasks = 0;
     private boolean done = false;
 
@@ -666,11 +665,5 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     @Override
     public boolean done() {
         return done;
-    }
-
-    public int getBloquesPendientes() {
-        return tasks.stream()
-                .mapToInt(t -> t.blocksRemaining)
-                .sum();
     }
 }
