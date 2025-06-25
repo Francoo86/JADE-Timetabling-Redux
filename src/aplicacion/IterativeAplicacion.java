@@ -152,9 +152,10 @@ public class IterativeAplicacion {
             initializeProfessors(mainContainer, professorJson, professorControllers, iteration);
 
             // Start first professor
+            /*
             if (!professorControllers.isEmpty()) {
                 professorControllers.get(0).start();
-            }
+            }*/
 
             // Create and start supervisor with proper error handling
             AgentController supervisor;

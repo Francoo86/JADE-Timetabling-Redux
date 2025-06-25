@@ -3,6 +3,8 @@ package agentes;
 import behaviours.MessageCollectorBehaviour;
 import behaviours.NegotiationFSMBehaviour;
 import behaviours.NegotiationStateBehaviour;
+import behaviours.parallel.ParallelNegotiationBehaviour;
+import behaviours.parallel.ParallelNegotiationBehaviourV2;
 import constants.Messages;
 import constants.enums.Day;
 import constants.enums.TipoContrato;
@@ -37,7 +39,7 @@ public class AgenteProfesor extends Agent {
     public static final String SERVICE_NAME = AGENT_NAME.toLowerCase(Locale.ROOT);
     private String nombre;
     private List<Asignatura> asignaturas;
-    private int asignaturaActual = 0;
+    public int asignaturaActual = 0;
     private Map<Day, Set<Integer>> horarioOcupado; // dia -> bloques
     private int orden;
     private JSONObject horarioJSON;
@@ -71,6 +73,20 @@ public class AgenteProfesor extends Agent {
         } else {
             return TipoContrato.JORNADA_PARCIAL;
         }
+    }
+
+    public void updateScheduleInfoWithContext(Day dia, String sala, int bloque,
+                                              String nombreAsignatura, int satisfaccion,
+                                              int subjectIndex) {
+        // Guardar índice actual
+        int previousIndex = asignaturaActual;
+        asignaturaActual = subjectIndex;
+
+        // Actualizar
+        updateScheduleInfo(dia, sala, bloque, nombreAsignatura, satisfaccion);
+
+        // Restaurar índice
+        asignaturaActual = previousIndex;
     }
 
     public synchronized boolean canUseMoreSubjects() {
@@ -248,6 +264,8 @@ public class AgenteProfesor extends Agent {
         return negotiationBehaviour.getBloquesPendientes();
     }
 
+    private ParallelNegotiationBehaviourV2 parallelNegotiationBehaviour;
+
     @Override
     protected void setup() {
         String scenario = "small";
@@ -289,15 +307,22 @@ public class AgenteProfesor extends Agent {
         //NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 500, batchProposals);
         //MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, batchProposals, stateBehaviour);
         NegotiationFSMBehaviour stateBehaviour = new NegotiationFSMBehaviour(this);
+        parallelNegotiationBehaviour = new ParallelNegotiationBehaviourV2(this);
 
+        addBehaviour(parallelNegotiationBehaviour);
+        /*
         if (orden == 0) {
             addBehaviour(stateBehaviour);
             //addBehaviour(messageCollector);
         } else {
             addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour));
-        }
+        }*/
 
         negotiationBehaviour = stateBehaviour;
+    }
+
+    public List<Asignatura> getAsignaturas() {
+        return new ArrayList<>(asignaturas); // Defensive copy
     }
 
     public String getSubjectKey(Asignatura subject) {
@@ -372,50 +397,6 @@ public class AgenteProfesor extends Agent {
         return inferirTipoContrato(asignaturas);
     }
 
-    public class EsperarTurnoBehaviour extends CyclicBehaviour {
-        private final AgenteProfesor profesor;
-        private final NegotiationFSMBehaviour stateBehaviour;
-        //private final MessageCollectorBehaviour messageCollector;
-
-        public EsperarTurnoBehaviour(AgenteProfesor profesor,
-                                     NegotiationFSMBehaviour stateBehaviour){
-                                     //MessageCollectorBehaviour messageCollector) {
-            super(profesor);
-            this.profesor = profesor;
-            this.stateBehaviour = stateBehaviour;
-            //this.messageCollector = messageCollector;
-        }
-
-        @Override
-        public void action() {
-            MessageTemplate mt = MessageTemplate.and(
-                    MessageTemplate.MatchPerformative(ACLMessage.INFORM),
-                    MessageTemplate.MatchContent(Messages.START)
-            );
-
-            ACLMessage msg = myAgent.receive(mt);
-            if (msg != null) {
-                String nextOrdenStr = msg.getUserDefinedParameter("nextOrden");
-                int nextOrden = Integer.parseInt(nextOrdenStr);
-
-                if (nextOrden == profesor.getOrden()) {
-                    System.out.println("Professor " + profesor.getNombre() +
-                            " received START signal. My order=" + profesor.getOrden() +
-                            ", requested order=" + nextOrden);
-
-                    // Add negotiation behaviors when it's our turn
-                    myAgent.addBehaviour(stateBehaviour);
-                    //myAgent.addBehaviour(messageCollector);
-
-                    // Remove this waiting behavior
-                    myAgent.removeBehaviour(this);
-                }
-            } else {
-                block();
-            }
-        }
-    }
-
     //why is this a god object?
     public void actualizarHorarioJSON(Day dia, String sala, int bloque, int satisfaccion) {
         // Get current subject
@@ -434,7 +415,7 @@ public class AgenteProfesor extends Agent {
         ((JSONArray) horarioJSON.get("Asignaturas")).add(asignatura);
     }
 
-    public void finalizarNegociaciones() {
+    public synchronized void finalizarNegociaciones() {
         // Finalizar negociaciones y limpiar
         try {
             if (isCleaningUp) {
@@ -446,10 +427,7 @@ public class AgenteProfesor extends Agent {
             ProfesorHorarioJSON.getInstance().agregarHorarioProfesor(
                     nombre, horarioJSON, asignaturas);
 
-            // Notificar al siguiente profesor antes de hacer cleanup
-            notificarSiguienteProfesor();
-
-            // Realizar cleanup y terminar
+            notificarSupervisor();
             cleanup();
         } catch (Exception e) {
             System.err.println("Error finalizando negociaciones para profesor " + nombre + ": " + e.getMessage());
@@ -457,56 +435,23 @@ public class AgenteProfesor extends Agent {
         }
     }
 
-    private void notificarSiguienteProfesor() {
+    private void notificarSupervisor() {
         try {
-            int nextOrden = orden + 1;
-
-            Property ordenProp = new Property();
-            ordenProp.setName("orden");
-            ordenProp.setValue(nextOrden);
-
-            //Es mejor usar DFCache.search en vez de DFService.search debido al performance.
-            List<DFAgentDescription> results = DFCache.search(this, SERVICE_NAME, ordenProp);
-
-            if (results.isEmpty()) {
-                System.out.println("WARNING: No hay mas profesores disponibles, avisando a supervisor");
-                // Notify supervisor or handle the case where no next professor is found
-                results = DFCache.search(this, AgenteSupervisor.AGENT_NAME);
-                ACLMessage ackMsg = new ACLMessage(ACLMessage.CANCEL);
-                ackMsg.setContent("NULL_PROF");
-                ackMsg.addReceiver(results.getFirst().getName());
-                send(ackMsg);
-                messageLogger.logMessageSent(getLocalName(), ackMsg);
-
-                //System.out.println("Warning: No next professor found with order " + nextOrden);
-                return;
+            List<DFAgentDescription> results = DFCache.search(this, AgenteSupervisor.AGENT_NAME);
+            if (!results.isEmpty()) {
+                ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                msg.setContent("PROFESSOR_FINISHED");
+                msg.addReceiver(results.getFirst().getName());
+                msg.addUserDefinedParameter("professorName", nombre);
+                send(msg);
+                messageLogger.logMessageSent(getLocalName(), msg);
             }
-
-            DFAgentDescription nextProfessor = results.getFirst();
-            notifyNextProfessor(nextProfessor, nextOrden);
-
         } catch (Exception e) {
-            System.err.println("Error notifying next professor: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Error notifying supervisor: " + e.getMessage());
         }
     }
 
-    private void notifyNextProfessor(DFAgentDescription dfd, int nextOrden) {
-        try {
-            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-            msg.addReceiver(dfd.getName());
-            msg.setContent(Messages.START);
-            msg.addUserDefinedParameter("nextOrden", Integer.toString(nextOrden));
-            messageLogger.logMessageSent(getLocalName(), msg);
-            send(msg);
-            System.out.println("Successfully notified next professor " +
-                    dfd.getName().getLocalName() + " with order: " + nextOrden);
-        } catch (Exception e) {
-            System.err.println("Error sending notification: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    
+
     private synchronized void cleanup() {
         try {
             // Close debug window if exists
