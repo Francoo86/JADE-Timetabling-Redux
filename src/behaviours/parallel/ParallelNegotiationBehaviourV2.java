@@ -39,7 +39,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     private final RTTLogger rttLogger;
 
     // Configuration
-    private static final int MAX_CONCURRENT = 2;
+    private static final int MAX_CONCURRENT = 1;
     private static final long TIMEOUT_MS = 5000;
     private static final long STUCK_THRESHOLD_MS = 2000;
     private static final int MAX_RETRIES = 3;
@@ -132,7 +132,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                 tasks.size(), profesor.getNombre());
     }
 
-    // 4. Replace startNewNegotiations method
     private void startNewNegotiations() {
         while (activeTasks.size() < MAX_CONCURRENT && !pendingTasks.isEmpty()) {
             SubjectTask task = pendingTasks.poll();
@@ -187,7 +186,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
 
         if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
             task.retries++;
-            pendingTasks.offer(task);  // Re-queue instead of index manipulation
+            pendingTasks.offer(task);
             System.out.printf("[RETRY] Will retry %s (attempt %d/%d)%n",
                     task.subject.getNombre(), task.retries + 1, MAX_RETRIES);
         } else {
@@ -213,6 +212,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                 try {
                     for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
                             confirmation.getConfirmedAssignments()) {
+                        if (task.blocksRemaining <= 0) break;
 
                         profesor.updateScheduleInfo(
                                 assignment.getDay(),
@@ -254,9 +254,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         }
     }
 
-    // 8. Replace checkCompletion method
     private void checkCompletion() {
-        // Check if all tasks are done (no pending, no active)
         if (pendingTasks.isEmpty() && activeTasks.isEmpty()) {
             System.out.printf("[PARALLEL] All tasks processed for %s%n", profesor.getNombre());
 
@@ -366,6 +364,13 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             }
         }
 
+        if (task.sentCount == 0) {
+            System.out.printf("[NO_ROOMS] No suitable rooms found for %s%n",
+                    task.subject.getNombre());
+            retryOrAbandon(task);
+            return;
+        }
+
         System.out.printf("[START] Sent %d CFPs for %s (retry: %d)%n",
                 task.sentCount, task.subject.getNombre(), task.retries);
     }
@@ -436,7 +441,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                 System.out.printf("[ORPHAN] Message from %s with conv %s%n",
                         msg.getSender().getLocalName(), convId);
 
-                // Log RTT for orphaned messages
                 if (msg.getPerformative() != ACLMessage.INFORM) {
                     rttLogger.endRequest(
                             profesor.getLocalName(),
@@ -480,7 +484,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             }
         }
 
-        // Strategy 3: For confirmations, find task with matching room
         if (msg.getPerformative() == ACLMessage.INFORM && senderName.startsWith("Sala")) {
             return tasks.stream()
                     .filter(t -> t.isActive && senderName.equals(t.lastAssignedRoom))
@@ -508,7 +511,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
 
             case ACLMessage.INFORM:
                 handleConfirmation(task, msg);
-                return; // Don't check for proposal processing after confirmation
+                return;
 
             case ACLMessage.FAILURE:
                 task.rejectedRooms.add(msg.getSender().getLocalName());
@@ -558,7 +561,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                 hasEnoughProposals;
     }
 
-    private void tryAssignments(SubjectTask task, List<BatchProposal> proposals) {
+    private synchronized void tryAssignments(SubjectTask task, List<BatchProposal> proposals) {
         for (BatchProposal proposal : proposals) {
             if (task.blocksRemaining <= 0) break;
 
@@ -589,8 +592,9 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             }
 
             if (!requests.isEmpty()) {
+                task.blocksRemaining -= requests.size();
                 sendAssignmentRequest(task, proposal, requests);
-                return; // Wait for confirmation
+                return;
             }
         }
     }
@@ -604,7 +608,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
             accept.setContentObject(batchRequest);
 
-            // Track this assignment attempt
             task.lastAssignedRoom = proposal.getRoomCode();
 
             profesor.send(accept);
