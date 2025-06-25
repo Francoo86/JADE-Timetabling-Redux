@@ -111,7 +111,7 @@ public class ProfesorHorarioJSON {
         }
     }
 
-    private void flushUpdates(boolean isFinalWrite) {
+    public void flushUpdates(boolean isFinalWrite) {
         // Try to acquire write lock - if can't get it immediately, skip this flush unless it's final write
         if (!isFinalWrite && !writeLock.tryLock()) {
             return;

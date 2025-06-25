@@ -31,7 +31,7 @@ public class ConstraintEvaluator {
         this.profesor = profesor;
     }
 
-    public List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
+    public synchronized List<BatchProposal> filterAndSortProposals(List<BatchProposal> proposals) {
         if (proposals.isEmpty()) {
             return Collections.emptyList();
         }
