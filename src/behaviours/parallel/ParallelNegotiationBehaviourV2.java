@@ -6,8 +6,6 @@ import constants.enums.Day;
 import df.DFCache;
 import evaluators.ConstraintEvaluator;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.Property;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -30,20 +28,23 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 /**
- * Simple parallel negotiation behavior - no over-engineering
+ * Simplified parallel negotiation behavior - robust and deadlock-free
  */
 public class ParallelNegotiationBehaviourV2 extends Behaviour {
     private final AgenteProfesor profesor;
     private final List<SubjectTask> tasks;
-    private final Map<String, SubjectTask> activeNegotiations;
+    private final Map<String, SubjectTask> tasksByConvId;
     private final ConstraintEvaluator evaluator;
     private final AgentMessageLogger messageLogger;
     private final RTTLogger rttLogger;
 
-    // Simple configuration
+    // Configuration
     private static final int MAX_CONCURRENT = 3;
     private static final long TIMEOUT_MS = 5000;
+    private static final long STUCK_THRESHOLD_MS = 15000;
+    private static final int MAX_RETRIES = 3;
     private static final int MEETING_ROOM_THRESHOLD = 10;
+    private static final int EARLY_TERMINATION_THRESHOLD = 5;
 
     private int currentTaskIndex = 0;
     private int completedTasks = 0;
@@ -52,7 +53,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     public ParallelNegotiationBehaviourV2(AgenteProfesor profesor) {
         this.profesor = profesor;
         this.tasks = new ArrayList<>();
-        this.activeNegotiations = new ConcurrentHashMap<>();
+        this.tasksByConvId = new ConcurrentHashMap<>();
         this.evaluator = new ConstraintEvaluator(profesor);
         this.messageLogger = AgentMessageLogger.getInstance();
         this.rttLogger = RTTLogger.getInstance();
@@ -61,76 +62,36 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     }
 
     /**
-     * Simple task representation for each subject
+     * Task representation for each subject
      */
     private static class SubjectTask {
         final Asignatura subject;
         final int subjectIndex;
-        final String taskId;
         int blocksRemaining;
         int retries = 0;
         long startTime;
+        boolean isActive = false;
 
-        // Track sent requests and received responses
-        final Map<String, ACLMessage> sentRequests = new HashMap<>();
-        final Queue<BatchProposal> proposals = new ConcurrentLinkedQueue<>();
-        int responseCount = 0;
+        // Tracking
+        int sentCount = 0;
+        int receivedCount = 0;
+        Set<String> pendingConversations = new HashSet<>();
+        Queue<BatchProposal> proposals = new ConcurrentLinkedQueue<>();
 
-        // Assignment tracking
+        // Assignment state
         String lastAssignedRoom = null;
         Day lastAssignedDay = null;
         int lastAssignedBlock = -1;
-
         boolean hasPartialAssignment = false;
-        int consecutiveFailures = 0;
+
+        // Negotiation strategy
         Set<String> rejectedRooms = new HashSet<>();
         boolean expandedSearch = false;
-        int minAcceptableSatisfaction = 7; // Start with high standards
-
-        boolean shouldRenegotiate() {
-            // Re-negotiate if:
-            // 1. We have partial assignments and got stuck
-            // 2. We've been rejected too many times
-            // 3. We need to lower our standards
-            return (hasPartialAssignment && consecutiveFailures > 0) ||
-                    (consecutiveFailures >= 2 && minAcceptableSatisfaction > 3) ||
-                    (rejectedRooms.size() > 5 && !expandedSearch);
-        }
-
-        void prepareForRenegotiation() {
-            if (consecutiveFailures >= 2) {
-                // Lower satisfaction standards
-                minAcceptableSatisfaction = Math.max(3, minAcceptableSatisfaction - 2);
-                System.out.printf("[RENEGOTIATE] Lowering standards to %d for %s%n",
-                        minAcceptableSatisfaction, subject.getNombre());
-            }
-
-            if (rejectedRooms.size() > 5 && !expandedSearch) {
-                // Expand search to other campuses
-                expandedSearch = true;
-                System.out.printf("[RENEGOTIATE] Expanding search to all campuses for %s%n",
-                        subject.getNombre());
-            }
-
-            if (hasPartialAssignment && lastAssignedRoom != null) {
-                // Try different rooms if stuck with partial assignment
-                rejectedRooms.add(lastAssignedRoom);
-                lastAssignedRoom = null;
-                System.out.printf("[RENEGOTIATE] Trying different rooms for %s%n",
-                        subject.getNombre());
-            }
-
-            // Reset for new negotiation round
-            sentRequests.clear();
-            proposals.clear();
-            responseCount = 0;
-            startTime = System.currentTimeMillis();
-        }
+        int minAcceptableSatisfaction = 7;
 
         SubjectTask(Asignatura subject, int index) {
             this.subject = subject;
             this.subjectIndex = index;
-            this.taskId = subject.getNombre() + "-" + index + "-" + System.currentTimeMillis();
             this.blocksRemaining = subject.getHoras();
         }
 
@@ -138,15 +99,21 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             return blocksRemaining <= 0;
         }
 
-        boolean isTimedOut() {
-            return System.currentTimeMillis() - startTime > TIMEOUT_MS;
+        void reset() {
+            sentCount = 0;
+            receivedCount = 0;
+            pendingConversations.clear();
+            proposals.clear();
+            startTime = System.currentTimeMillis();
         }
 
-        void reset() {
-            sentRequests.clear();
-            proposals.clear();
-            responseCount = 0;
-            startTime = System.currentTimeMillis();
+        void adjustNegotiationStrategy() {
+            if (retries > 0) {
+                minAcceptableSatisfaction = Math.max(3, minAcceptableSatisfaction - 2);
+            }
+            if (rejectedRooms.size() > 5 && !expandedSearch) {
+                expandedSearch = true;
+            }
         }
     }
 
@@ -161,73 +128,105 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
 
     @Override
     public void action() {
-        // Step 1: Start new negotiations if we have capacity
+        // Step 1: Clean up stuck negotiations
+        cleanupStuckNegotiations();
+
+        // Step 2: Start new negotiations
         startNewNegotiations();
 
-        // Step 2: Process incoming messages
-        processMessages();
-
-        // Step 3: Check timeouts and process proposals
-        checkTimeoutsAndProcess();
+        // Step 3: Process ALL messages
+        processAllMessages();
 
         // Step 4: Check if we're done
-        if (completedTasks >= tasks.size()) {
-            System.out.printf("[PARALLEL] All tasks completed for %s%n", profesor.getNombre());
-            profesor.finalizarNegociaciones();
-            done = true;
+        checkCompletion();
+    }
+
+    private void cleanupStuckNegotiations() {
+        long now = System.currentTimeMillis();
+        List<SubjectTask> stuckTasks = new ArrayList<>();
+
+        for (SubjectTask task : tasksByConvId.values()) {
+            if (task.isActive && (now - task.startTime) > STUCK_THRESHOLD_MS) {
+                System.out.printf("[STUCK] Force cleanup for %s after %d ms%n",
+                        task.subject.getNombre(), now - task.startTime);
+                stuckTasks.add(task);
+            }
+        }
+
+        for (SubjectTask task : stuckTasks) {
+            // Remove all conversation IDs for this task
+            task.pendingConversations.forEach(tasksByConvId::remove);
+            task.isActive = false;
+
+            if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
+                task.retries++;
+                currentTaskIndex--; // Will be picked up again
+            } else {
+                completedTasks++;
+                System.out.printf("[ABANDON] Task %s abandoned after timeouts%n",
+                        task.subject.getNombre());
+            }
         }
     }
 
     private void startNewNegotiations() {
-        while (activeNegotiations.size() < MAX_CONCURRENT && currentTaskIndex < tasks.size()) {
+        int activeCount = (int) tasks.stream()
+                .filter(t -> t.isActive)
+                .count();
+
+        while (activeCount < MAX_CONCURRENT && currentTaskIndex < tasks.size()) {
             SubjectTask task = tasks.get(currentTaskIndex++);
 
-            if (task.isComplete()) {
+            if (!task.isComplete()) {
+                startTaskNegotiation(task);
+                activeCount++;
+            } else {
                 completedTasks++;
-                continue;
             }
-
-            System.out.printf("[START] Starting negotiation for %s (blocks needed: %d)%n",
-                    task.subject.getNombre(), task.blocksRemaining);
-
-            task.reset();
-            sendCFPsForTask(task);
-            activeNegotiations.put(task.taskId, task);
         }
     }
 
-    private void sendCFPsForTask(SubjectTask task) {
-        try {
-            List<DFAgentDescription> rooms = DFCache.search(profesor, AgenteSala.SERVICE_NAME);
+    private void startTaskNegotiation(SubjectTask task) {
+        task.reset();
+        task.isActive = true;
+        task.adjustNegotiationStrategy();
 
-            for (DFAgentDescription room : rooms) {
-                if (shouldSendToRoom(task, room)) {
-                    ACLMessage cfp = createCFP(task, room);
+        List<DFAgentDescription> rooms = DFCache.search(profesor, AgenteSala.SERVICE_NAME);
 
-                    // Track the request
-                    task.sentRequests.put(room.getName().getLocalName(), cfp);
+        for (DFAgentDescription room : rooms) {
+            if (shouldSendToRoom(task, room)) {
+                String roomName = room.getName().getLocalName();
+                String convId = String.format("%s-%s-%d",
+                        sanitizeName(task.subject.getNombre()),
+                        roomName,
+                        System.currentTimeMillis());
 
-                    // Send it
-                    profesor.send(cfp);
-                    messageLogger.logMessageSent(profesor.getLocalName(), cfp);
+                ACLMessage cfp = createCFP(task, room);
+                cfp.setConversationId(convId);
 
-                    rttLogger.startRequest(
-                            profesor.getLocalName(),
-                            cfp.getConversationId(),
-                            ACLMessage.CFP,
-                            room.getName().getLocalName(),
-                            null,
-                            "classroom-availability"
-                    );
-                }
+                // Track conversation
+                tasksByConvId.put(convId, task);
+                task.pendingConversations.add(convId);
+
+                // Send and log
+                profesor.send(cfp);
+                messageLogger.logMessageSent(profesor.getLocalName(), cfp);
+
+                rttLogger.startRequest(
+                        profesor.getLocalName(),
+                        convId,
+                        ACLMessage.CFP,
+                        roomName,
+                        null,
+                        "classroom-availability"
+                );
+
+                task.sentCount++;
             }
-
-            System.out.printf("[CFP] Sent %d requests for %s%n",
-                    task.sentRequests.size(), task.subject.getNombre());
-
-        } catch (Exception e) {
-            System.err.println("Error sending CFPs: " + e.getMessage());
         }
+
+        System.out.printf("[START] Sent %d CFPs for %s (retry: %d)%n",
+                task.sentCount, task.subject.getNombre(), task.retries);
     }
 
     private boolean shouldSendToRoom(SubjectTask task, DFAgentDescription room) {
@@ -241,131 +240,41 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         String roomCampus = (String) props.get(0).getValue();
         int roomCapacity = Integer.parseInt((String) props.get(2).getValue());
 
-        // Skip previously rejected rooms unless we're desperate
-        if (task.rejectedRooms.contains(roomCode) && task.retries < 3) {
+        // Skip rejected rooms unless desperate
+        if (task.rejectedRooms.contains(roomCode) && task.retries < 2) {
             return false;
         }
 
-        // Campus filtering based on negotiation state
-        if (!roomCampus.equals(task.subject.getCampus())) {
-            // Only consider other campuses if:
-            // 1. We've expanded search
-            // 2. Or it's a retry
-            // 3. Or we have partial assignments
-            if (!task.expandedSearch && task.retries == 0 && !task.hasPartialAssignment) {
-                return false;
-            }
+        // Campus check with expansion
+        if (!roomCampus.equals(task.subject.getCampus()) && !task.expandedSearch) {
+            return false;
         }
 
-        // Capacity filtering with flexibility for re-negotiation
-        if (task.subject.getVacantes() < MEETING_ROOM_THRESHOLD) {
-            // Small class - be more flexible in later attempts
-            boolean isMeetingRoom = roomCapacity < MEETING_ROOM_THRESHOLD;
-            if (!isMeetingRoom && task.retries == 0) {
-                return false; // First attempt: only meeting rooms
-            }
-            // Later attempts: accept any room that fits
-            return roomCapacity >= task.subject.getVacantes();
-        } else {
-            // Regular class
-            if (roomCapacity < task.subject.getVacantes()) {
-                return false;
-            }
-            // Avoid extremely oversized rooms unless desperate
-            if (roomCapacity > task.subject.getVacantes() * 3 && task.retries < 2) {
-                return false;
-            }
+        // Capacity check
+        if (roomCapacity < task.subject.getVacantes()) {
+            return false;
+        }
+
+        // Meeting room logic
+        boolean needsMeetingRoom = task.subject.getVacantes() < MEETING_ROOM_THRESHOLD;
+        boolean isMeetingRoom = roomCapacity < MEETING_ROOM_THRESHOLD;
+
+        if (needsMeetingRoom && !isMeetingRoom && task.retries == 0) {
+            return false;
         }
 
         return true;
     }
 
-    private ACLMessage createCFP(SubjectTask task, DFAgentDescription room) {
-        ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
-        cfp.setSender(profesor.getAID());
-        cfp.addReceiver(room.getName());
-        cfp.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
-
-        String conversationId = task.taskId + "-" + room.getName().getLocalName();
-        cfp.setConversationId(conversationId);
-        cfp.addUserDefinedParameter("taskId", task.taskId);
-
-        // Content format that AgenteSala expects
-        String content = String.format("%s,%d,%d,%s,%d,%s,%s,%d",
-                sanitizeName(task.subject.getNombre()),
-                task.subject.getVacantes(),
-                task.subject.getNivel(),
-                task.subject.getCampus(),
-                task.blocksRemaining,
-                task.lastAssignedRoom != null ? task.lastAssignedRoom : "",
-                task.lastAssignedDay != null ? task.lastAssignedDay.toString() : "",
-                task.lastAssignedBlock
-        );
-        cfp.setContent(content);
-
-        return cfp;
-    }
-
-    private void checkTimeoutsAndProcess() {
-        List<String> toRemove = new ArrayList<>();
-
-        for (Map.Entry<String, SubjectTask> entry : activeNegotiations.entrySet()) {
-            SubjectTask task = entry.getValue();
-
-            boolean allResponses = task.responseCount >= task.sentRequests.size();
-            boolean timedOut = task.isTimedOut();
-
-            if (allResponses || timedOut) {
-                if (!task.proposals.isEmpty()) {
-                    boolean assigned = processProposals(task);
-                    if (!assigned) {
-                        task.consecutiveFailures++;
-                        handleFailedNegotiation(task, toRemove);
-                    } else {
-                        task.consecutiveFailures = 0;
-                    }
-                } else {
-                    task.consecutiveFailures++;
-                    handleFailedNegotiation(task, toRemove);
-                }
-            }
-        }
-
-        toRemove.forEach(activeNegotiations::remove);
-    }
-
-    private void handleFailedNegotiation(SubjectTask task, List<String> toRemove) {
-        // Check if we should re-negotiate with different criteria
-        if (task.shouldRenegotiate()) {
-            System.out.printf("[RENEGOTIATE] Adjusting criteria for %s%n",
-                    task.subject.getNombre());
-            task.prepareForRenegotiation();
-            sendCFPsForTask(task);
-        } else if (task.retries >= 3) {
-            // Give up after 3 retries
-            System.out.printf("[FAILED] No assignments for %s after 3 retries%n",
-                    task.subject.getNombre());
-            toRemove.add(task.taskId);
-            completedTasks++;
-        } else {
-            // Simple retry
-            task.retries++;
-            System.out.printf("[RETRY] Retrying %s (attempt %d)%n",
-                    task.subject.getNombre(), task.retries + 1);
-            task.reset();
-            sendCFPsForTask(task);
-        }
-    }
-
-    private void processMessages() {
+    private void processAllMessages() {
         MessageTemplate mt = MessageTemplate.or(
+                MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
                 MessageTemplate.or(
-                        MessageTemplate.MatchPerformative(ACLMessage.PROPOSE),
-                        MessageTemplate.MatchPerformative(ACLMessage.REFUSE)
-                ),
-                MessageTemplate.or(
-                        MessageTemplate.MatchPerformative(ACLMessage.INFORM),
-                        MessageTemplate.MatchPerformative(ACLMessage.FAILURE)
+                        MessageTemplate.MatchPerformative(ACLMessage.REFUSE),
+                        MessageTemplate.or(
+                                MessageTemplate.MatchPerformative(ACLMessage.INFORM),
+                                MessageTemplate.MatchPerformative(ACLMessage.FAILURE)
+                        )
                 )
         );
 
@@ -373,103 +282,116 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         while ((msg = profesor.receive(mt)) != null) {
             messageLogger.logMessageReceived(profesor.getLocalName(), msg);
 
-            // Find the task this message belongs to
-            String taskId = msg.getUserDefinedParameter("taskId");
-            if (taskId == null) {
-                // Try to extract from conversation ID
-                String convId = msg.getConversationId();
-                if (convId != null) {
-                    // Try to find matching task by conversation ID prefix
-                    for (String tid : activeNegotiations.keySet()) {
-                        if (convId.startsWith(tid)) {
-                            taskId = tid;
-                            break;
-                        }
-                    }
+            String convId = msg.getConversationId();
+            SubjectTask task = tasksByConvId.get(convId);
 
-                    // If still not found, try to extract from conversation ID format
-                    if (taskId == null && convId.contains("-")) {
-                        // Assuming format: "taskId-roomName"
-                        int lastDash = convId.lastIndexOf("-");
-                        if (lastDash > 0) {
-                            String potentialTaskId = convId.substring(0, lastDash);
-                            // Verify this is actually a valid task ID
-                            if (activeNegotiations.containsKey(potentialTaskId)) {
-                                taskId = potentialTaskId;
-                            }
-                        }
-                    }
-                }
+            if (task == null) {
+                task = findTaskByContext(msg);
             }
 
-            // CRITICAL: Check if taskId is still null before using it
-            if (taskId == null) {
-                System.out.printf("[WARNING] Received %s from %s with no identifiable task ID (conv: %s)%n",
-                        ACLMessage.getPerformative(msg.getPerformative()),
-                        msg.getSender().getLocalName(),
-                        msg.getConversationId());
+            if (task != null) {
+                processMessageForTask(task, msg);
+            } else {
+                System.out.printf("[ORPHAN] Message from %s with conv %s%n",
+                        msg.getSender().getLocalName(), convId);
 
-                // Log RTT anyway to avoid losing metrics
+                // Log RTT for orphaned messages
                 if (msg.getPerformative() != ACLMessage.INFORM) {
                     rttLogger.endRequest(
                             profesor.getLocalName(),
-                            msg.getConversationId() != null ? msg.getConversationId() : "unknown",
+                            convId != null ? convId : "unknown",
                             msg.getPerformative(),
-                            msg.getByteSequenceContent() != null ? msg.getByteSequenceContent().length : 0,
-                            false, // not successful since we can't process it
+                            0,
+                            false,
                             null,
                             "classroom-availability"
                     );
                 }
-                continue; // Skip this message
             }
+        }
+    }
 
-            SubjectTask task = activeNegotiations.get(taskId);
-            if (task == null) {
-                System.out.printf("[ORPHAN_MSG] Received %s for completed/unknown task %s%n",
-                        ACLMessage.getPerformative(msg.getPerformative()), taskId);
-                continue;
+    private SubjectTask findTaskByContext(ACLMessage msg) {
+        String convId = msg.getConversationId();
+
+        // Strategy 1: Check if conversation ID contains subject name
+        if (convId != null) {
+            for (SubjectTask task : tasks) {
+                if (task.isActive && convId.contains(sanitizeName(task.subject.getNombre()))) {
+                    for (String pending : task.pendingConversations) {
+                        if (pending.equals(convId)) {
+                            return task;
+                        }
+                    }
+                }
             }
+        }
 
-            // Rest of the switch statement remains the same...
-            switch (msg.getPerformative()) {
-                case ACLMessage.PROPOSE:
-                    handleProposal(task, msg);
-                    break;
-
-                case ACLMessage.REFUSE:
-                    task.responseCount++;
-                    task.rejectedRooms.add(msg.getSender().getLocalName());
-                    System.out.printf("[REFUSE] Room %s refused request for %s%n",
-                            msg.getSender().getLocalName(), task.subject.getNombre());
-                    break;
-
-                case ACLMessage.FAILURE:
-                    task.responseCount++;
-                    task.consecutiveFailures++;
-                    task.rejectedRooms.add(msg.getSender().getLocalName());
-                    System.out.printf("[FAILURE] Room %s failed assignment for %s: %s%n",
-                            msg.getSender().getLocalName(), task.subject.getNombre(),
-                            msg.getContent());
-                    break;
-
-                case ACLMessage.INFORM:
-                    handleConfirmation(task, msg);
-                    break;
+        // Strategy 2: Match by sender for active tasks
+        String senderName = msg.getSender().getLocalName();
+        for (SubjectTask task : tasks) {
+            if (task.isActive) {
+                for (String pendingConv : task.pendingConversations) {
+                    if (pendingConv.contains(senderName)) {
+                        return task;
+                    }
+                }
             }
+        }
 
-            // Log RTT for non-INFORM messages
-            if (msg.getPerformative() != ACLMessage.INFORM) {
-                rttLogger.endRequest(
-                        profesor.getLocalName(),
-                        msg.getConversationId(),
-                        msg.getPerformative(),
-                        msg.getByteSequenceContent() != null ? msg.getByteSequenceContent().length : 0,
-                        msg.getPerformative() == ACLMessage.PROPOSE,
-                        null,
-                        "classroom-availability"
-                );
-            }
+        // Strategy 3: For confirmations, find task with matching room
+        if (msg.getPerformative() == ACLMessage.INFORM && senderName.startsWith("Sala")) {
+            return tasks.stream()
+                    .filter(t -> t.isActive && senderName.equals(t.lastAssignedRoom))
+                    .findFirst()
+                    .orElse(null);
+        }
+
+        return null;
+    }
+
+    private void processMessageForTask(SubjectTask task, ACLMessage msg) {
+        task.pendingConversations.remove(msg.getConversationId());
+        task.receivedCount++;
+
+        switch (msg.getPerformative()) {
+            case ACLMessage.PROPOSE:
+                handleProposal(task, msg);
+                break;
+
+            case ACLMessage.REFUSE:
+                task.rejectedRooms.add(msg.getSender().getLocalName());
+                System.out.printf("[REFUSE] Room %s refused %s%n",
+                        msg.getSender().getLocalName(), task.subject.getNombre());
+                break;
+
+            case ACLMessage.INFORM:
+                handleConfirmation(task, msg);
+                return; // Don't check for proposal processing after confirmation
+
+            case ACLMessage.FAILURE:
+                task.rejectedRooms.add(msg.getSender().getLocalName());
+                System.out.printf("[FAILURE] Assignment failed for %s from %s%n",
+                        task.subject.getNombre(), msg.getSender().getLocalName());
+                break;
+        }
+
+        // Log RTT for non-INFORM messages
+        if (msg.getPerformative() != ACLMessage.INFORM) {
+            rttLogger.endRequest(
+                    profesor.getLocalName(),
+                    msg.getConversationId(),
+                    msg.getPerformative(),
+                    msg.getByteSequenceContent() != null ? msg.getByteSequenceContent().length : 0,
+                    msg.getPerformative() == ACLMessage.PROPOSE,
+                    null,
+                    "classroom-availability"
+            );
+        }
+
+        // Check if we should process proposals
+        if (shouldProcessProposals(task)) {
+            processTaskProposals(task);
         }
     }
 
@@ -479,102 +401,38 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             if (availability != null) {
                 BatchProposal proposal = new BatchProposal(availability, msg);
                 task.proposals.offer(proposal);
-                task.responseCount++;
             }
         } catch (UnreadableException e) {
             System.err.println("Error reading proposal: " + e.getMessage());
-            task.responseCount++;
         }
     }
 
-    // Complete handleConfirmation method for SimpleParallelNegotiationBehaviour:
-    private void handleConfirmation(SubjectTask task, ACLMessage msg) {
-        try {
-            BatchAssignmentConfirmation confirmation =
-                    (BatchAssignmentConfirmation) msg.getContentObject();
+    private boolean shouldProcessProposals(SubjectTask task) {
+        boolean allResponsesReceived = task.receivedCount >= task.sentCount;
+        boolean timeoutReached = System.currentTimeMillis() - task.startTime > TIMEOUT_MS;
+        boolean hasEnoughProposals = task.proposals.size() >= EARLY_TERMINATION_THRESHOLD;
 
-            if (confirmation != null && !confirmation.getConfirmedAssignments().isEmpty()) {
-                // Mark that we have partial assignment
-                task.hasPartialAssignment = true;
-
-                // Update professor's schedule - need to handle subject index properly
-                int originalIndex = profesor.asignaturaActual;
-                profesor.asignaturaActual = task.subjectIndex;
-
-                try {
-                    for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
-                            confirmation.getConfirmedAssignments()) {
-
-                        profesor.updateScheduleInfo(
-                                assignment.getDay(),
-                                assignment.getClassroomCode(),
-                                assignment.getBlock(),
-                                task.subject.getNombre(),
-                                assignment.getSatisfaction()
-                        );
-
-                        // Update task state
-                        task.blocksRemaining--;
-                        task.lastAssignedRoom = assignment.getClassroomCode();
-                        task.lastAssignedDay = assignment.getDay();
-                        task.lastAssignedBlock = assignment.getBlock();
-
-                        System.out.printf("[ASSIGNED] %s: block %d on %s in %s (%d remaining)%n",
-                                task.subject.getNombre(), assignment.getBlock(),
-                                assignment.getDay(), assignment.getClassroomCode(),
-                                task.blocksRemaining);
-                    }
-                } finally {
-                    // ALWAYS restore the original index
-                    profesor.asignaturaActual = originalIndex;
-                }
-
-                // Check if task is complete
-                if (task.isComplete()) {
-                    activeNegotiations.remove(task.taskId);
-                    completedTasks++;
-                    System.out.printf("[COMPLETE] Finished %s%n", task.subject.getNombre());
-                } else {
-                    // Continue negotiation for remaining blocks
-                    System.out.printf("[PARTIAL] %s has %d blocks remaining%n",
-                            task.subject.getNombre(), task.blocksRemaining);
-                    task.reset();
-                    sendCFPsForTask(task);
-                }
-            } else {
-                // Empty confirmation - treat as failure
-                System.out.printf("[EMPTY_CONFIRM] No assignments confirmed for %s%n",
-                        task.subject.getNombre());
-                task.consecutiveFailures++;
-
-                // Add the room to rejected list if we can identify it
-                String sender = msg.getSender().getLocalName();
-                if (sender != null && sender.startsWith("Sala")) {
-                    task.rejectedRooms.add(sender);
-                }
-
-                // Trigger re-negotiation
-                handleFailedNegotiation(task, new ArrayList<>());
-            }
-        } catch (UnreadableException e) {
-            System.err.println("Error reading confirmation: " + e.getMessage());
-            // Treat read errors as failures too
-            task.consecutiveFailures++;
-            handleFailedNegotiation(task, new ArrayList<>());
-        }
+        return allResponsesReceived ||
+                (timeoutReached && !task.proposals.isEmpty()) ||
+                hasEnoughProposals;
     }
 
-    private boolean processProposals(SubjectTask task) {
-        List<BatchProposal> proposals = new ArrayList<>();
+    private void processTaskProposals(SubjectTask task) {
+        if (task.proposals.isEmpty()) {
+            handleNoProposals(task);
+            return;
+        }
+
+        List<BatchProposal> proposalList = new ArrayList<>();
         BatchProposal proposal;
         while ((proposal = task.proposals.poll()) != null) {
-            proposals.add(proposal);
+            proposalList.add(proposal);
         }
 
-        // Filter with current standards
-        List<BatchProposal> validProposals = evaluator.filterAndSortProposals(proposals);
+        // Use evaluator with task's current standards
+        List<BatchProposal> validProposals = evaluator.filterAndSortProposals(proposalList);
 
-        // Apply satisfaction threshold if re-negotiating
+        // Apply satisfaction threshold
         if (task.minAcceptableSatisfaction < 7) {
             validProposals = validProposals.stream()
                     .filter(p -> p.getSatisfactionScore() >= task.minAcceptableSatisfaction)
@@ -582,21 +440,19 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         }
 
         if (!validProposals.isEmpty()) {
-            return tryAssignment(task, validProposals);
+            tryAssignments(task, validProposals);
         } else {
-            System.out.printf("[NO_VALID] No proposals meeting criteria (min satisfaction: %d) for %s%n",
-                    task.minAcceptableSatisfaction, task.subject.getNombre());
-            return false;
+            handleNoValidProposals(task);
         }
     }
-    private boolean tryAssignment(SubjectTask task, List<BatchProposal> proposals) {
+
+    private void tryAssignments(SubjectTask task, List<BatchProposal> proposals) {
         for (BatchProposal proposal : proposals) {
             if (task.blocksRemaining <= 0) break;
 
             List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
             int blocksToRequest = Math.min(task.blocksRemaining, 2);
 
-            // Build assignment requests
             for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry :
                     proposal.getDayProposals().entrySet()) {
 
@@ -620,31 +476,167 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                 }
             }
 
-            // Send assignment request
             if (!requests.isEmpty()) {
-                try {
-                    BatchAssignmentRequest batchRequest = new BatchAssignmentRequest(requests);
-
-                    ACLMessage accept = proposal.getOriginalMessage().createReply();
-                    accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-                    accept.setContentObject(batchRequest);
-                    accept.addUserDefinedParameter("taskId", task.taskId);
-
-                    profesor.send(accept);
-                    messageLogger.logMessageSent(profesor.getLocalName(), accept);
-
-                    System.out.printf("[ACCEPT] Sent assignment request for %d blocks to %s%n",
-                            requests.size(), proposal.getRoomCode());
-
-                    return true; // Successfully sent assignment
-                } catch (IOException e) {
-                    System.err.println("Error sending assignment: " + e.getMessage());
-                }
+                sendAssignmentRequest(task, proposal, requests);
+                return; // Wait for confirmation
             }
         }
-        return false; // No assignment made
     }
 
+    private void sendAssignmentRequest(SubjectTask task, BatchProposal proposal,
+                                       List<BatchAssignmentRequest.AssignmentRequest> requests) {
+        try {
+            BatchAssignmentRequest batchRequest = new BatchAssignmentRequest(requests);
+
+            ACLMessage accept = proposal.getOriginalMessage().createReply();
+            accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+            accept.setContentObject(batchRequest);
+
+            // Track this assignment attempt
+            task.lastAssignedRoom = proposal.getRoomCode();
+
+            profesor.send(accept);
+            messageLogger.logMessageSent(profesor.getLocalName(), accept);
+
+            System.out.printf("[ACCEPT] Requested %d blocks from %s for %s%n",
+                    requests.size(), proposal.getRoomCode(), task.subject.getNombre());
+
+        } catch (IOException e) {
+            System.err.println("Error sending assignment: " + e.getMessage());
+            handleAssignmentFailure(task);
+        }
+    }
+
+    private void handleConfirmation(SubjectTask task, ACLMessage msg) {
+        try {
+            BatchAssignmentConfirmation confirmation =
+                    (BatchAssignmentConfirmation) msg.getContentObject();
+
+            if (confirmation != null && !confirmation.getConfirmedAssignments().isEmpty()) {
+                // Update professor's schedule with proper index handling
+                int originalIndex = profesor.asignaturaActual;
+                profesor.asignaturaActual = task.subjectIndex;
+
+                try {
+                    for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
+                            confirmation.getConfirmedAssignments()) {
+
+                        profesor.updateScheduleInfo(
+                                assignment.getDay(),
+                                assignment.getClassroomCode(),
+                                assignment.getBlock(),
+                                task.subject.getNombre(),
+                                assignment.getSatisfaction()
+                        );
+
+                        task.blocksRemaining--;
+                        task.hasPartialAssignment = true;
+                        task.lastAssignedDay = assignment.getDay();
+                        task.lastAssignedBlock = assignment.getBlock();
+
+                        System.out.printf("[ASSIGNED] %s: block %d on %s in %s (%d remaining)%n",
+                                task.subject.getNombre(), assignment.getBlock(),
+                                assignment.getDay(), assignment.getClassroomCode(),
+                                task.blocksRemaining);
+                    }
+                } finally {
+                    profesor.asignaturaActual = originalIndex;
+                }
+
+                if (task.isComplete()) {
+                    task.isActive = false;
+                    completedTasks++;
+                    System.out.printf("[COMPLETE] Finished %s%n", task.subject.getNombre());
+                } else {
+                    // Continue negotiation
+                    startTaskNegotiation(task);
+                }
+            } else {
+                handleAssignmentFailure(task);
+            }
+        } catch (UnreadableException e) {
+            System.err.println("Error reading confirmation: " + e.getMessage());
+            handleAssignmentFailure(task);
+        }
+    }
+
+    private void handleNoProposals(SubjectTask task) {
+        System.out.printf("[NO_PROPOSALS] No proposals received for %s%n",
+                task.subject.getNombre());
+        retryOrAbandon(task);
+    }
+
+    private void handleNoValidProposals(SubjectTask task) {
+        System.out.printf("[NO_VALID] No valid proposals for %s (min satisfaction: %d)%n",
+                task.subject.getNombre(), task.minAcceptableSatisfaction);
+        retryOrAbandon(task);
+    }
+
+    private void handleAssignmentFailure(SubjectTask task) {
+        System.out.printf("[ASSIGN_FAIL] Assignment failed for %s%n",
+                task.subject.getNombre());
+        retryOrAbandon(task);
+    }
+
+    private void retryOrAbandon(SubjectTask task) {
+        task.isActive = false;
+        task.pendingConversations.forEach(tasksByConvId::remove);
+
+        if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
+            task.retries++;
+            currentTaskIndex--; // Re-queue
+            System.out.printf("[RETRY] Will retry %s (attempt %d/%d)%n",
+                    task.subject.getNombre(), task.retries + 1, MAX_RETRIES);
+        } else {
+            completedTasks++;
+            if (task.blocksRemaining > 0) {
+                System.out.printf("[ABANDON] Abandoning %s with %d blocks unassigned%n",
+                        task.subject.getNombre(), task.blocksRemaining);
+            }
+        }
+    }
+
+    private void checkCompletion() {
+        if (completedTasks >= tasks.size()) {
+            System.out.printf("[PARALLEL] All tasks completed for %s%n", profesor.getNombre());
+
+            // Print summary
+            int totalAssigned = tasks.stream()
+                    .mapToInt(t -> t.subject.getHoras() - t.blocksRemaining)
+                    .sum();
+            int totalRequired = tasks.stream()
+                    .mapToInt(t -> t.subject.getHoras())
+                    .sum();
+
+            System.out.printf("[SUMMARY] %s: Assigned %d/%d blocks (%.1f%%)%n",
+                    profesor.getNombre(), totalAssigned, totalRequired,
+                    (totalAssigned * 100.0) / totalRequired);
+
+            profesor.finalizarNegociaciones();
+            done = true;
+        }
+    }
+
+    private ACLMessage createCFP(SubjectTask task, DFAgentDescription room) {
+        ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
+        cfp.setSender(profesor.getAID());
+        cfp.addReceiver(room.getName());
+        cfp.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
+
+        String content = String.format("%s,%d,%d,%s,%d,%s,%s,%d",
+                sanitizeName(task.subject.getNombre()),
+                task.subject.getVacantes(),
+                task.subject.getNivel(),
+                task.subject.getCampus(),
+                task.blocksRemaining,
+                task.lastAssignedRoom != null ? task.lastAssignedRoom : "",
+                task.lastAssignedDay != null ? task.lastAssignedDay.toString() : "",
+                task.lastAssignedBlock
+        );
+        cfp.setContent(content);
+
+        return cfp;
+    }
 
     private String sanitizeName(String name) {
         return name.replaceAll("[^a-zA-Z0-9]", "");
