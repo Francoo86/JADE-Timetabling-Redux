@@ -103,6 +103,9 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             return blocksRemaining <= 0;
         }
 
+        public int pendingBlocks = 0;
+        boolean waitingForConfirmation = false;
+
         void reset() {
             sentCount = 0;
             receivedCount = 0;
@@ -153,26 +156,38 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
         List<SubjectTask> stuckTasks = new ArrayList<>();
 
         for (SubjectTask task : activeTasks) {
+            boolean isStuck = false;
+
             if (task.isActive && (now - task.startTime) > STUCK_THRESHOLD_MS) {
-                System.out.printf("[STUCK] Force cleanup for %s after %d ms%n",
-                        task.subject.getNombre(), now - task.startTime);
+                isStuck = true;
+            }
+
+            // NUEVO: También verificar si está esperando confirmación por mucho tiempo
+            if (task.waitingForConfirmation && (now - task.startTime) > TIMEOUT_MS) {
+                isStuck = true;
+                System.out.printf("[TIMEOUT] Assignment confirmation timeout for %s%n",
+                        task.subject.getNombre());
+            }
+
+            if (isStuck) {
                 stuckTasks.add(task);
             }
         }
 
         for (SubjectTask task : stuckTasks) {
-            // Remove from active set and conversation tracking
+            // Limpiar todos los flags
+            task.waitingForConfirmation = false;
+            task.pendingBlocks = 0;
+
             activeTasks.remove(task);
             task.pendingConversations.forEach(tasksByConvId::remove);
             task.isActive = false;
 
             if (task.retries < MAX_RETRIES && task.blocksRemaining > 0) {
                 task.retries++;
-                pendingTasks.offer(task);  // Re-queue for retry
+                pendingTasks.offer(task);
             } else {
                 completedTasks++;
-                System.out.printf("[ABANDON] Task %s abandoned after timeouts%n",
-                        task.subject.getNombre());
             }
         }
     }
@@ -200,19 +215,27 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
 
     // 7. Replace handleConfirmation method
     private void handleConfirmation(SubjectTask task, ACLMessage msg) {
+        task.waitingForConfirmation = false;  // LIMPIAR FLAG
+
         try {
             BatchAssignmentConfirmation confirmation =
                     (BatchAssignmentConfirmation) msg.getContentObject();
 
             if (confirmation != null && !confirmation.getConfirmedAssignments().isEmpty()) {
-                // Update professor's schedule with proper index handling
                 int originalIndex = profesor.asignaturaActual;
                 profesor.asignaturaActual = task.subjectIndex;
 
                 try {
+                    int actualAssigned = 0;
                     for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
                             confirmation.getConfirmedAssignments()) {
-                        if (task.blocksRemaining <= 0) break;
+
+                        // Verificar que no excedamos
+                        if (task.blocksRemaining <= 0) {
+                            System.out.printf("[REJECT] Ignoring extra assignment for %s%n",
+                                    task.subject.getNombre());
+                            break;
+                        }
 
                         profesor.updateScheduleInfo(
                                 assignment.getDay(),
@@ -223,9 +246,11 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                         );
 
                         task.blocksRemaining--;
+                        actualAssigned++;
                         task.hasPartialAssignment = true;
                         task.lastAssignedDay = assignment.getDay();
                         task.lastAssignedBlock = assignment.getBlock();
+                        task.lastAssignedRoom = assignment.getClassroomCode();
 
                         System.out.printf("[ASSIGNED] %s: block %d on %s in %s (%d remaining)%n",
                                 task.subject.getNombre(), assignment.getBlock(),
@@ -234,22 +259,25 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                     }
                 } finally {
                     profesor.asignaturaActual = originalIndex;
+                    task.pendingBlocks = 0;
                 }
 
                 if (task.isComplete()) {
                     task.isActive = false;
-                    activeTasks.remove(task);  // Remove from active set
+                    activeTasks.remove(task);
                     completedTasks++;
                     System.out.printf("[COMPLETE] Finished %s%n", task.subject.getNombre());
                 } else {
-                    // Continue negotiation - task stays in activeTasks
+                    // Continuar inmediatamente
                     startTaskNegotiation(task);
                 }
             } else {
+                task.pendingBlocks = 0;
                 handleAssignmentFailure(task);
             }
         } catch (UnreadableException e) {
             System.err.println("Error reading confirmation: " + e.getMessage());
+            task.pendingBlocks = 0;
             handleAssignmentFailure(task);
         }
     }
@@ -278,7 +306,11 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
     // 9. Update processTaskProposals to add safety check
     private void processTaskProposals(SubjectTask task) {
         if (!task.isActive) {
-            // Task was already handled, ignore
+            return;
+        }
+
+        // NUEVO: No procesar si estamos esperando confirmación
+        if (task.waitingForConfirmation) {
             return;
         }
 
@@ -293,7 +325,6 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             proposalList.add(proposal);
         }
 
-        // Use evaluator with task's current standards
         List<BatchProposal> validProposals = evaluator.filterAndSortProposals(proposalList);
 
         // Apply satisfaction threshold
@@ -561,7 +592,7 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
                 hasEnoughProposals;
     }
 
-    private synchronized void tryAssignments(SubjectTask task, List<BatchProposal> proposals) {
+    private void tryAssignments(SubjectTask task, List<BatchProposal> proposals) {
         for (BatchProposal proposal : proposals) {
             if (task.blocksRemaining <= 0) break;
 
@@ -592,9 +623,9 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             }
 
             if (!requests.isEmpty()) {
-                task.blocksRemaining -= requests.size();
+                // NO RESTAR AQUÍ - solo enviar la solicitud
                 sendAssignmentRequest(task, proposal, requests);
-                return;
+                return;  // Solo intentar una propuesta a la vez
             }
         }
     }
@@ -609,15 +640,20 @@ public class ParallelNegotiationBehaviourV2 extends Behaviour {
             accept.setContentObject(batchRequest);
 
             task.lastAssignedRoom = proposal.getRoomCode();
+            task.waitingForConfirmation = true;
+            task.pendingBlocks = requests.size();
 
             profesor.send(accept);
             messageLogger.logMessageSent(profesor.getLocalName(), accept);
 
-            System.out.printf("[ACCEPT] Requested %d blocks from %s for %s%n",
-                    requests.size(), proposal.getRoomCode(), task.subject.getNombre());
+            System.out.printf("[ACCEPT] Requested %d blocks from %s for %s (remaining: %d)%n",
+                    requests.size(), proposal.getRoomCode(), task.subject.getNombre(),
+                    task.blocksRemaining);
 
         } catch (IOException e) {
             System.err.println("Error sending assignment: " + e.getMessage());
+            task.waitingForConfirmation = false;
+            task.pendingBlocks = 0;
             handleAssignmentFailure(task);
         }
     }
