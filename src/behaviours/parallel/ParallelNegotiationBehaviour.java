@@ -26,8 +26,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * Simplified parallel negotiation - processes all subjects concurrently
- * but with clear state management and no over-engineering
+ * Parallel negotiation with explicit state management
  */
 public class ParallelNegotiationBehaviour extends Behaviour {
     private final AgenteProfesor profesor;
@@ -55,25 +54,39 @@ public class ParallelNegotiationBehaviour extends Behaviour {
     }
 
     /**
-     * Simple representation of each subject negotiation
+     * Estados explícitos para cada negociación de materia
+     */
+    private enum NegotiationState {
+        PENDING,           // Lista para empezar
+        NEGOTIATING,       // Enviando CFPs y recibiendo propuestas
+        PROCESSING,        // Evaluando propuestas recibidas
+        WAITING_CONFIRMATION, // Esperando confirmación de asignación
+        COMPLETED,         // Materia completamente asignada
+        ABANDONED          // Abandonada después de MAX_RETRIES
+    }
+
+    /**
+     * Representación mejorada de cada negociación de materia
      */
     private static class SubjectNegotiation {
         final Asignatura subject;
         final int subjectIndex;
 
-        // State
+        // Estado principal
+        NegotiationState state = NegotiationState.PENDING;
         int blocksRemaining;
         int retryCount = 0;
-        boolean isActive = false;
-        boolean waitingForConfirmation = false;
 
-        // Negotiation tracking
+        // Tiempos para timeout
         long negotiationStartTime = 0;
+        long stateChangeTime = 0;
+
+        // Tracking de negociación
         int sentRequests = 0;
         int receivedResponses = 0;
         Queue<BatchProposal> proposals = new ConcurrentLinkedQueue<>();
 
-        // Conversation tracking - simple map
+        // Mapeo de conversaciones
         Map<String, String> conversationToRoom = new HashMap<>();
 
         SubjectNegotiation(Asignatura subject, int index) {
@@ -82,13 +95,43 @@ public class ParallelNegotiationBehaviour extends Behaviour {
             this.blocksRemaining = subject.getHoras();
         }
 
+        // Métodos de estado
         boolean isComplete() {
             return blocksRemaining <= 0;
         }
 
         boolean shouldTimeout() {
-            return isActive &&
-                    System.currentTimeMillis() - negotiationStartTime > TIMEOUT_MS;
+            long elapsed = System.currentTimeMillis() - stateChangeTime;
+
+            // Timeout aplica a estados activos
+            boolean timeoutApplies = (state == NegotiationState.NEGOTIATING ||
+                    state == NegotiationState.WAITING_CONFIRMATION);
+
+            if (timeoutApplies && elapsed > TIMEOUT_MS) {
+                System.out.printf("[TIMEOUT_DEBUG] %s in state %s for %dms (limit: %dms)%n",
+                        subject.getNombre(), state, elapsed, TIMEOUT_MS);
+                return true;
+            }
+
+            return false;
+        }
+
+        boolean canStart() {
+            return state == NegotiationState.PENDING &&
+                    !isComplete() &&
+                    retryCount < MAX_RETRIES;
+        }
+
+        boolean isWaitingForResponses() {
+            return state == NegotiationState.NEGOTIATING &&
+                    receivedResponses >= sentRequests;
+        }
+
+        void changeState(NegotiationState newState) {
+            System.out.printf("[STATE_CHANGE] %s: %s -> %s%n",
+                    subject.getNombre(), state, newState);
+            this.state = newState;
+            this.stateChangeTime = System.currentTimeMillis();
         }
 
         void reset() {
@@ -97,6 +140,7 @@ public class ParallelNegotiationBehaviour extends Behaviour {
             proposals.clear();
             conversationToRoom.clear();
             negotiationStartTime = System.currentTimeMillis();
+            stateChangeTime = System.currentTimeMillis();
         }
     }
 
@@ -105,7 +149,7 @@ public class ParallelNegotiationBehaviour extends Behaviour {
         for (int i = 0; i < subjects.size(); i++) {
             negotiations.add(new SubjectNegotiation(subjects.get(i), i));
         }
-        System.out.printf("[SIMPLE_PARALLEL] Initialized %d subjects for %s%n",
+        System.out.printf("[STATE_INIT] Initialized %d subjects for %s%n",
                 subjects.size(), profesor.getNombre());
     }
 
@@ -114,13 +158,13 @@ public class ParallelNegotiationBehaviour extends Behaviour {
         // Step 1: Process all incoming messages
         processAllMessages();
 
-        // Step 2: Start negotiations for subjects that need them
+        // Step 2: Handle state transitions and timeouts
+        processStateTransitions();
+
+        // Step 3: Start new negotiations
         startPendingNegotiations();
 
-        // Step 3: Handle timeouts and process completed negotiations
-        handleTimeoutsAndProcessing();
-
-        // Step 4: Check if we're done
+        // Step 4: Check completion
         checkCompletion();
 
         // Small delay to prevent busy waiting
@@ -149,7 +193,6 @@ public class ParallelNegotiationBehaviour extends Behaviour {
     }
 
     private void processMessage(ACLMessage msg) {
-        // Find which negotiation this message belongs to
         SubjectNegotiation negotiation = findNegotiationForMessage(msg);
 
         if (negotiation == null) {
@@ -191,138 +234,55 @@ public class ParallelNegotiationBehaviour extends Behaviour {
         );
     }
 
-    private SubjectNegotiation findNegotiationForMessage(ACLMessage msg) {
-        String convId = msg.getConversationId();
-
-        // First try exact conversation ID match
-        for (SubjectNegotiation neg : negotiations) {
-            if (neg.conversationToRoom.containsKey(convId)) {
-                return neg;
-            }
-        }
-
-        // If that fails, try to match by subject name in conversation ID
-        if (convId != null) {
-            for (SubjectNegotiation neg : negotiations) {
-                String sanitizedName = sanitizeName(neg.subject.getNombre());
-                if (convId.contains(sanitizedName) && neg.isActive) {
-                    return neg;
-                }
-            }
-        }
-
-        // Last resort: find active negotiation waiting for confirmation from this sender
-        String senderName = msg.getSender().getLocalName();
-        if (msg.getPerformative() == ACLMessage.INFORM) {
-            for (SubjectNegotiation neg : negotiations) {
-                if (neg.waitingForConfirmation && neg.conversationToRoom.containsValue(senderName)) {
-                    return neg;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    private void handleProposal(SubjectNegotiation negotiation, ACLMessage msg) {
-        try {
-            ClassroomAvailability availability = (ClassroomAvailability) msg.getContentObject();
-            if (availability != null) {
-                BatchProposal proposal = new BatchProposal(availability, msg);
-                negotiation.proposals.offer(proposal);
-                System.out.printf("[PROPOSAL] Received proposal from %s for %s%n",
-                        msg.getSender().getLocalName(), negotiation.subject.getNombre());
-            }
-        } catch (UnreadableException e) {
-            System.err.println("Error reading proposal: " + e.getMessage());
-        }
-    }
-
-    private void handleRefuse(SubjectNegotiation negotiation, ACLMessage msg) {
-        System.out.printf("[REFUSE] Room %s refused %s%n",
-                msg.getSender().getLocalName(), negotiation.subject.getNombre());
-    }
-
-    private void handleFailure(SubjectNegotiation negotiation, ACLMessage msg) {
-        System.out.printf("[FAILURE] Assignment failed for %s from %s%n",
-                negotiation.subject.getNombre(), msg.getSender().getLocalName());
-        negotiation.waitingForConfirmation = false;
-    }
-
-    private void handleConfirmation(SubjectNegotiation negotiation, ACLMessage msg) {
-        negotiation.waitingForConfirmation = false;
-
-        try {
-            BatchAssignmentConfirmation confirmation =
-                    (BatchAssignmentConfirmation) msg.getContentObject();
-
-            if (confirmation != null && !confirmation.getConfirmedAssignments().isEmpty()) {
-                // Switch context to this subject
-                int originalIndex = profesor.asignaturaActual;
-                profesor.asignaturaActual = negotiation.subjectIndex;
-
-                try {
-                    int assignedCount = 0;
-                    for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
-                            confirmation.getConfirmedAssignments()) {
-
-                        if (negotiation.blocksRemaining <= 0) {
-                            System.out.printf("[EXCESS] Ignoring excess assignment for %s%n",
-                                    negotiation.subject.getNombre());
-                            break;
-                        }
-
-                        profesor.updateScheduleInfo(
-                                assignment.getDay(),
-                                assignment.getClassroomCode(),
-                                assignment.getBlock(),
-                                negotiation.subject.getNombre(),
-                                assignment.getSatisfaction()
-                        );
-
-                        negotiation.blocksRemaining--;
-                        assignedCount++;
-
-                        System.out.printf("[ASSIGNED] %s: block %d on %s in %s (%d remaining)%n",
-                                negotiation.subject.getNombre(), assignment.getBlock(),
-                                assignment.getDay(), assignment.getClassroomCode(),
-                                negotiation.blocksRemaining);
+    private void processStateTransitions() {
+        for (SubjectNegotiation negotiation : negotiations) {
+            switch (negotiation.state) {
+                case NEGOTIATING:
+                    if (negotiation.shouldTimeout()) {
+                        System.out.printf("[TIMEOUT] %s timed out in NEGOTIATING state%n",
+                                negotiation.subject.getNombre());
+                        handleNegotiationTimeout(negotiation);
+                    } else if (negotiation.isWaitingForResponses()) {
+                        // Todas las respuestas recibidas, cambiar a procesamiento
+                        negotiation.changeState(NegotiationState.PROCESSING);
                     }
+                    break;
 
-                    System.out.printf("[BATCH_COMPLETE] Assigned %d blocks for %s%n",
-                            assignedCount, negotiation.subject.getNombre());
+                case PROCESSING:
+                    // Procesar propuestas inmediatamente
+                    processProposals(negotiation);
+                    break;
 
-                } finally {
-                    profesor.asignaturaActual = originalIndex;
-                }
-
-                // Check if subject is complete
-                if (negotiation.isComplete()) {
-                    negotiation.isActive = false;
-                    completedSubjects++;
-                    System.out.printf("[SUBJECT_COMPLETE] Finished %s%n",
-                            negotiation.subject.getNombre());
-                } else {
-                    // Continue negotiating for remaining blocks
-                    negotiation.reset();
-                    // Will be picked up in next startPendingNegotiations call
-                }
-            } else {
-                System.out.printf("[EMPTY_CONFIRM] Empty confirmation for %s%n",
-                        negotiation.subject.getNombre());
+                case WAITING_CONFIRMATION:
+                    if (negotiation.shouldTimeout()) {
+                        System.out.printf("[TIMEOUT] %s timed out waiting for confirmation%n",
+                                negotiation.subject.getNombre());
+                        handleConfirmationTimeout(negotiation);
+                    }
+                    break;
             }
-        } catch (UnreadableException e) {
-            System.err.println("Error reading confirmation: " + e.getMessage());
         }
+    }
+
+    private void handleNegotiationTimeout(SubjectNegotiation negotiation) {
+        if (!negotiation.proposals.isEmpty()) {
+            // Tenemos algunas propuestas, procesarlas
+            negotiation.changeState(NegotiationState.PROCESSING);
+        } else {
+            // Sin propuestas, retry o abandonar
+            retryOrAbandon(negotiation);
+        }
+    }
+
+    private void handleConfirmationTimeout(SubjectNegotiation negotiation) {
+        System.out.printf("[CONFIRMATION_TIMEOUT] %s didn't receive confirmation%n",
+                negotiation.subject.getNombre());
+        retryOrAbandon(negotiation);
     }
 
     private void startPendingNegotiations() {
         for (SubjectNegotiation negotiation : negotiations) {
-            if (!negotiation.isActive &&
-                    !negotiation.isComplete() &&
-                    !negotiation.waitingForConfirmation &&
-                    negotiation.retryCount < MAX_RETRIES) {
-
+            if (negotiation.canStart()) {
                 startNegotiation(negotiation);
             }
         }
@@ -330,7 +290,7 @@ public class ParallelNegotiationBehaviour extends Behaviour {
 
     private void startNegotiation(SubjectNegotiation negotiation) {
         negotiation.reset();
-        negotiation.isActive = true;
+        negotiation.changeState(NegotiationState.NEGOTIATING);
 
         List<DFAgentDescription> rooms = DFCache.search(profesor, AgenteSala.SERVICE_NAME);
 
@@ -345,14 +305,11 @@ public class ParallelNegotiationBehaviour extends Behaviour {
                 ACLMessage cfp = createCFP(negotiation, room);
                 cfp.setConversationId(convId);
 
-                // Track this conversation
                 negotiation.conversationToRoom.put(convId, roomName);
 
-                // Send message
                 profesor.send(cfp);
                 messageLogger.logMessageSent(profesor.getLocalName(), cfp);
 
-                // Start RTT tracking
                 rttLogger.startRequest(
                         profesor.getLocalName(),
                         convId,
@@ -369,68 +326,11 @@ public class ParallelNegotiationBehaviour extends Behaviour {
         if (negotiation.sentRequests == 0) {
             System.out.printf("[NO_ROOMS] No suitable rooms for %s%n",
                     negotiation.subject.getNombre());
-            negotiation.isActive = false;
-            negotiation.retryCount++;
+            retryOrAbandon(negotiation);
         } else {
             System.out.printf("[STARTED] Sent %d CFPs for %s (retry: %d)%n",
                     negotiation.sentRequests, negotiation.subject.getNombre(),
                     negotiation.retryCount);
-        }
-    }
-
-    private boolean shouldSendToRoom(SubjectNegotiation negotiation, DFAgentDescription room) {
-        ServiceDescription sd = (ServiceDescription) room.getAllServices().next();
-        List<Property> props = new ArrayList<>();
-        sd.getAllProperties().forEachRemaining(prop -> props.add((Property) prop));
-
-        if (props.size() < 3) return false;
-
-        String roomCampus = (String) props.get(0).getValue();
-        int roomCapacity = Integer.parseInt((String) props.get(2).getValue());
-
-        // Basic capacity check
-        if (roomCapacity < negotiation.subject.getVacantes()) {
-            return false;
-        }
-
-        // Campus preference (but allow cross-campus if retrying)
-        if (!roomCampus.equals(negotiation.subject.getCampus()) && negotiation.retryCount == 0) {
-            return false;
-        }
-
-        // Meeting room logic
-        boolean needsMeetingRoom = negotiation.subject.getVacantes() < MEETING_ROOM_THRESHOLD;
-        boolean isMeetingRoom = roomCapacity < MEETING_ROOM_THRESHOLD;
-
-        // On first try, be strict about meeting room matching
-        if (negotiation.retryCount == 0 && needsMeetingRoom != isMeetingRoom) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private void handleTimeoutsAndProcessing() {
-        for (SubjectNegotiation negotiation : negotiations) {
-            if (negotiation.shouldTimeout() ||
-                    (negotiation.isActive && negotiation.receivedResponses >= negotiation.sentRequests)) {
-
-                if (negotiation.waitingForConfirmation) {
-                    // Timeout waiting for confirmation
-                    System.out.printf("[TIMEOUT] Confirmation timeout for %s%n",
-                            negotiation.subject.getNombre());
-                    negotiation.waitingForConfirmation = false;
-                    retryOrComplete(negotiation);
-                } else if (!negotiation.proposals.isEmpty()) {
-                    // Process proposals
-                    processProposals(negotiation);
-                } else {
-                    // No proposals received
-                    System.out.printf("[NO_PROPOSALS] No proposals for %s%n",
-                            negotiation.subject.getNombre());
-                    retryOrComplete(negotiation);
-                }
-            }
         }
     }
 
@@ -441,27 +341,32 @@ public class ParallelNegotiationBehaviour extends Behaviour {
             proposalList.add(proposal);
         }
 
+        if (proposalList.isEmpty()) {
+            System.out.printf("[NO_PROPOSALS] No proposals for %s%n",
+                    negotiation.subject.getNombre());
+            retryOrAbandon(negotiation);
+            return;
+        }
+
         List<BatchProposal> validProposals = evaluator.filterAndSortProposals(proposalList);
 
         if (!validProposals.isEmpty()) {
             if (tryAssignment(negotiation, validProposals)) {
-                // Assignment sent, now waiting for confirmation
-                negotiation.isActive = false;
-                negotiation.waitingForConfirmation = true;
+                // Assignment sent successfully
+                negotiation.changeState(NegotiationState.WAITING_CONFIRMATION);
                 return;
             }
         }
 
         System.out.printf("[NO_VALID] No valid proposals for %s%n",
                 negotiation.subject.getNombre());
-        retryOrComplete(negotiation);
+        retryOrAbandon(negotiation);
     }
 
     private boolean tryAssignment(SubjectNegotiation negotiation, List<BatchProposal> proposals) {
         for (BatchProposal proposal : proposals) {
             List<BatchAssignmentRequest.AssignmentRequest> requests = new ArrayList<>();
 
-            // Try to get up to 2 blocks from this room
             int maxBlocks = Math.min(2, negotiation.blocksRemaining);
 
             for (Map.Entry<Day, List<BatchProposal.BlockProposal>> entry :
@@ -512,22 +417,191 @@ public class ParallelNegotiationBehaviour extends Behaviour {
         return false;
     }
 
-    private void retryOrComplete(SubjectNegotiation negotiation) {
-        negotiation.isActive = false;
+    private void retryOrAbandon(SubjectNegotiation negotiation) {
         negotiation.retryCount++;
 
         if (negotiation.retryCount >= MAX_RETRIES) {
+            negotiation.changeState(NegotiationState.ABANDONED);
             completedSubjects++;
             System.out.printf("[ABANDON] Abandoning %s with %d blocks unassigned%n",
                     negotiation.subject.getNombre(), negotiation.blocksRemaining);
         } else {
+            negotiation.changeState(NegotiationState.PENDING);
             System.out.printf("[RETRY] Will retry %s (attempt %d/%d)%n",
                     negotiation.subject.getNombre(), negotiation.retryCount + 1, MAX_RETRIES);
         }
     }
 
+    private void handleConfirmation(SubjectNegotiation negotiation, ACLMessage msg) {
+        if (negotiation.state != NegotiationState.WAITING_CONFIRMATION) {
+            System.out.printf("[UNEXPECTED_CONFIRM] Received confirmation for %s in state %s%n",
+                    negotiation.subject.getNombre(), negotiation.state);
+            return;
+        }
+
+        try {
+            BatchAssignmentConfirmation confirmation =
+                    (BatchAssignmentConfirmation) msg.getContentObject();
+
+            if (confirmation != null && !confirmation.getConfirmedAssignments().isEmpty()) {
+                // Switch context to this subject
+                int originalIndex = profesor.asignaturaActual;
+                profesor.asignaturaActual = negotiation.subjectIndex;
+
+                try {
+                    int assignedCount = 0;
+                    for (BatchAssignmentConfirmation.ConfirmedAssignment assignment :
+                            confirmation.getConfirmedAssignments()) {
+
+                        if (negotiation.blocksRemaining <= 0) {
+                            System.out.printf("[EXCESS] Ignoring excess assignment for %s%n",
+                                    negotiation.subject.getNombre());
+                            break;
+                        }
+
+                        profesor.updateScheduleInfo(
+                                assignment.getDay(),
+                                assignment.getClassroomCode(),
+                                assignment.getBlock(),
+                                negotiation.subject.getNombre(),
+                                assignment.getSatisfaction()
+                        );
+
+                        negotiation.blocksRemaining--;
+                        assignedCount++;
+
+                        System.out.printf("[ASSIGNED] %s: block %d on %s in %s (%d remaining)%n",
+                                negotiation.subject.getNombre(), assignment.getBlock(),
+                                assignment.getDay(), assignment.getClassroomCode(),
+                                negotiation.blocksRemaining);
+                    }
+
+                    System.out.printf("[BATCH_COMPLETE] Assigned %d blocks for %s%n",
+                            assignedCount, negotiation.subject.getNombre());
+
+                } finally {
+                    profesor.asignaturaActual = originalIndex;
+                }
+
+                // Check if subject is complete
+                if (negotiation.isComplete()) {
+                    negotiation.changeState(NegotiationState.COMPLETED);
+                    completedSubjects++;
+                    System.out.printf("[SUBJECT_COMPLETE] Finished %s%n",
+                            negotiation.subject.getNombre());
+                } else {
+                    // Continue negotiating for remaining blocks
+                    negotiation.changeState(NegotiationState.PENDING);
+                }
+            } else {
+                System.out.printf("[EMPTY_CONFIRM] Empty confirmation for %s%n",
+                        negotiation.subject.getNombre());
+                retryOrAbandon(negotiation);
+            }
+        } catch (UnreadableException e) {
+            System.err.println("Error reading confirmation: " + e.getMessage());
+            retryOrAbandon(negotiation);
+        }
+    }
+
+    // Métodos auxiliares (sin cambios significativos)
+    private SubjectNegotiation findNegotiationForMessage(ACLMessage msg) {
+        String convId = msg.getConversationId();
+
+        for (SubjectNegotiation neg : negotiations) {
+            if (neg.conversationToRoom.containsKey(convId)) {
+                return neg;
+            }
+        }
+
+        if (convId != null) {
+            for (SubjectNegotiation neg : negotiations) {
+                String sanitizedName = sanitizeName(neg.subject.getNombre());
+                if (convId.contains(sanitizedName) &&
+                        (neg.state == NegotiationState.NEGOTIATING ||
+                                neg.state == NegotiationState.WAITING_CONFIRMATION)) {
+                    return neg;
+                }
+            }
+        }
+
+        String senderName = msg.getSender().getLocalName();
+        if (msg.getPerformative() == ACLMessage.INFORM) {
+            for (SubjectNegotiation neg : negotiations) {
+                if (neg.state == NegotiationState.WAITING_CONFIRMATION &&
+                        neg.conversationToRoom.containsValue(senderName)) {
+                    return neg;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private void handleProposal(SubjectNegotiation negotiation, ACLMessage msg) {
+        try {
+            ClassroomAvailability availability = (ClassroomAvailability) msg.getContentObject();
+            if (availability != null) {
+                BatchProposal proposal = new BatchProposal(availability, msg);
+                negotiation.proposals.offer(proposal);
+                System.out.printf("[PROPOSAL] Received proposal from %s for %s%n",
+                        msg.getSender().getLocalName(), negotiation.subject.getNombre());
+            }
+        } catch (UnreadableException e) {
+            System.err.println("Error reading proposal: " + e.getMessage());
+        }
+    }
+
+    private void handleRefuse(SubjectNegotiation negotiation, ACLMessage msg) {
+        System.out.printf("[REFUSE] Room %s refused %s%n",
+                msg.getSender().getLocalName(), negotiation.subject.getNombre());
+    }
+
+    private void handleFailure(SubjectNegotiation negotiation, ACLMessage msg) {
+        System.out.printf("[FAILURE] Assignment failed for %s from %s%n",
+                negotiation.subject.getNombre(), msg.getSender().getLocalName());
+
+        if (negotiation.state == NegotiationState.WAITING_CONFIRMATION) {
+            retryOrAbandon(negotiation);
+        }
+    }
+
+    private boolean shouldSendToRoom(SubjectNegotiation negotiation, DFAgentDescription room) {
+        ServiceDescription sd = (ServiceDescription) room.getAllServices().next();
+        List<Property> props = new ArrayList<>();
+        sd.getAllProperties().forEachRemaining(prop -> props.add((Property) prop));
+
+        if (props.size() < 3) return false;
+
+        String roomCampus = (String) props.get(0).getValue();
+        int roomCapacity = Integer.parseInt((String) props.get(2).getValue());
+
+        if (roomCapacity < negotiation.subject.getVacantes()) {
+            return false;
+        }
+
+        if (!roomCampus.equals(negotiation.subject.getCampus()) && negotiation.retryCount == 0) {
+            return false;
+        }
+
+        boolean needsMeetingRoom = negotiation.subject.getVacantes() < MEETING_ROOM_THRESHOLD;
+        boolean isMeetingRoom = roomCapacity < MEETING_ROOM_THRESHOLD;
+
+        if (negotiation.retryCount == 0 && needsMeetingRoom != isMeetingRoom) {
+            return false;
+        }
+
+        return true;
+    }
+
     private void checkCompletion() {
-        System.out.println("COMPLETION CHECK: " + completedSubjects + "/" + negotiations.size() + " PROF : " + profesor.getNombre());
+        long activeNegotiations = negotiations.stream()
+                .filter(n -> n.state != NegotiationState.COMPLETED &&
+                        n.state != NegotiationState.ABANDONED)
+                .count();
+
+        System.out.printf("[COMPLETION_CHECK] %s: %d active, %d completed/abandoned%n",
+                profesor.getNombre(), activeNegotiations, completedSubjects);
 
         if (completedSubjects >= negotiations.size()) {
             // Calculate summary
@@ -540,7 +614,7 @@ public class ParallelNegotiationBehaviour extends Behaviour {
                 totalRequired += neg.subject.getHoras();
             }
 
-            System.out.printf("[PARALLEL] All subjects processed for %s%n", profesor.getNombre());
+            System.out.printf("[PARALLEL_COMPLETE] All subjects processed for %s%n", profesor.getNombre());
             System.out.printf("[SUMMARY] %s: Assigned %d/%d blocks (%.1f%%)%n",
                     profesor.getNombre(), totalAssigned, totalRequired,
                     (totalAssigned * 100.0) / totalRequired);
