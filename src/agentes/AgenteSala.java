@@ -222,8 +222,6 @@ public class AgenteSala extends Agent implements SalaDataInterface {
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.REFUSE);
                     reply.setContent("NO AVAILABLE BLOCKS");
-                    //getPerformanceMonitor().recordMessageSent(reply, "PROPOSE");
-                    //THE SAME BUT REFUSE
                     rttLogger.recordMessageSent(
                             myAgent.getLocalName(),
                             msg.getConversationId(),
@@ -289,25 +287,12 @@ public class AgenteSala extends Agent implements SalaDataInterface {
                     }
                 }
 
-                // Update JSON after batch processing
                 if (!confirmedAssignments.isEmpty()) {
                     verifyAssignments(confirmedAssignments);
-
-                    //SalaHorarioJSON.getInstance().agregarHorarioSala(codigo, campus, horarioOcupado);
-
-                    // Send single confirmation with all successful assignments
                     ACLMessage confirm = msg.createReply();
                     confirm.setPerformative(ACLMessage.INFORM);
                     confirm.setContentObject(new BatchAssignmentConfirmation(confirmedAssignments));
-                    /*
-                    String conversationId = msg.getConversationId();
-                    simpleRTT.messageSent(
-                            conversationId,
-                            myAgent.getAID(),
-                            msg.getSender(),
-                            "INFORM"
-                    );*/
-                    //getPerformanceMonitor().recordMessageSent(confirm, "INFORM");
+
                     messageLogger.logMessageSent(myAgent.getLocalName(), confirm);
                     send(confirm);
                 }

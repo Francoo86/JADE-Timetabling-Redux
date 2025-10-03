@@ -260,18 +260,9 @@ public class AgenteProfesor extends Agent {
             scenario = (String) args[3];
         }
 
-        // Iteration is third argument
-        int itera = (int) args[2];
         messageLogger = AgentMessageLogger.getInstance();
 
-        //String iterationId = "Agent_" + getLocalName();
-        //performanceMonitor = new AgentPerformanceMonitor(getLocalName(), "PROFESOR", scenario);
-        //performanceMonitor.startMonitoring();
-
-        // Initialize data structures
         initializeDataStructures();
-
-        // Initialize required hours per subject
         requiredHoursPerInstance = new HashMap<>();
         subjectInstanceKeys = new HashMap<>();
 
@@ -281,18 +272,11 @@ public class AgenteProfesor extends Agent {
             subjectInstanceKeys.put(instanceKey, asig.getNombre());
         }
 
-        // Register in DF
         registrarEnDF();
-
-        // Create shared proposal queue and behaviors
-        ConcurrentLinkedQueue<BatchProposal> batchProposals = new ConcurrentLinkedQueue<>();
-        //NegotiationStateBehaviour stateBehaviour = new NegotiationStateBehaviour(this, 500, batchProposals);
-        //MessageCollectorBehaviour messageCollector = new MessageCollectorBehaviour(this, batchProposals, stateBehaviour);
         NegotiationFSMBehaviour stateBehaviour = new NegotiationFSMBehaviour(this);
 
         if (orden == 0) {
             addBehaviour(stateBehaviour);
-            //addBehaviour(messageCollector);
         } else {
             addBehaviour(new EsperarTurnoBehaviour(this, stateBehaviour));
         }
