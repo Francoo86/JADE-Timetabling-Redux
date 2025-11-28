@@ -192,8 +192,6 @@ public class AgenteSala extends Agent implements SalaDataInterface {
 
         private void procesarSolicitud(ACLMessage msg) {
             try {
-                //getPerformanceMonitor().recordMessageReceived(msg, "CFP");
-                //long startTime = System.nanoTime();
                 Map<String, List<Integer>> availableBlocks = getAvailableBlocks();
                 if (!availableBlocks.isEmpty()) {
                     ClassroomAvailability availability = new ClassroomAvailability(
