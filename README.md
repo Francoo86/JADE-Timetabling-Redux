@@ -1,111 +1,243 @@
-# JADE-TimeTabling
-Implementación de una resolución de un problema de timetabling (prototipo) basado en agentes.
+# JADE-Timetabling-Redux
 
-# Instalación
-1. Descargar el proyecto vía zip o clonar el repositorio directamente con:  
-    ```
-    git clone https://github.com/Francoo86/Implementaciones-MAS
-    ```
+Implementación de un sistema de resolución de timetabling universitario basado en agentes, usando el framework JADE (Java Agent DEvelopment Framework). Los agentes negocian entre sí para asignar salas y horarios a los profesores de forma distribuida.
 
-2. Instalar [Java](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) (idealmente versión 17/18)
-3. Finalizada la instalación importar las librerías esenciales que son las que están en las carpetas de LibreriaJADE y LibreriaJSON.
-4. Ejecutar el proyecto desde algún IDE, puede ser NetBeans, Eclipse o IntelliJ. (Las instrucciones de ejecución están [aquí](#ejecucion))
-5. Luego de eso instalar Python de la siguiente pagína: [Python (Ultima version)](https://www.python.org/downloads/)
-6. Al momento de instalar Python asegurarse de que esté checkeada la opción de `AGREGAR A PATH`.
+---
 
-    6.1. Luego si la instalación lo pide, reiniciar el computador.
+## Requisitos previos
 
-7. Dentro de la carpeta raíz del proyecto ejecutar el comando: `python -m venv venv`
-8. Esperar a que se cree la carpeta y ejecutamos el siguiente comando en Powershell: `venv\Scripts\Activate`
-9. Ejecutar el siguiente comando:
-`pip install -r requeriments.txt`
-10. Ya con todos esos pasos ya estaremos finalizando la instalación.
+| Herramienta | Versión mínima | Notas |
+|---|---|---|
+| Java JDK | 21 | El script `.bat` apunta a `C:\Program Files\Java\jdk-21` |
+| IntelliJ IDEA | Cualquier edición | Para compilar el proyecto |
+| Python | 3.10+ | Para exportar los resultados a Excel |
 
-# Empezando
-Los archivos de entrada son los que están en la carpeta de agent_input. Los cuales poseen los JSONs mencionados a continuación.
+---
 
-## Estructura de los Archivos JSON
+## Instalación
 
-### profesores.json
-Este archivo contiene la información de los profesores y sus asignaturas asignadas.
+### 1. Clonar el repositorio
 
+```bash
+git clone https://github.com/Francoo86/JADE-Timetabling-Redux.git
+cd JADE-Timetabling-Redux
+```
+
+### 2. Instalar Java JDK 21
+
+Descargar e instalar desde: https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html
+
+Verificar la instalación:
+```bash
+java -version
+```
+
+### 3. Abrir el proyecto en IntelliJ IDEA
+
+1. Abrir IntelliJ IDEA
+2. Seleccionar **File > Open** y elegir la carpeta raíz del proyecto
+3. IntelliJ detectará automáticamente el módulo `.iml`
+
+### 4. Configurar las librerías en IntelliJ
+
+Las librerías ya están incluidas en la carpeta `lib/`. Solo hay que agregarlas al proyecto:
+
+1. Ir a **File > Project Structure** (`Ctrl+Alt+Shift+S`)
+2. Seleccionar **Modules > Dependencies**
+3. Hacer clic en **+** > **JARs or Directories**
+4. Agregar todos los archivos de `lib/jade/`:
+   - `jade.jar`
+   - `jadeExamples.jar`
+5. Agregar todos los archivos de `lib/json/`:
+   - `json-simple-1.1.1.jar`
+   - `json-lib-2.4-jdk15.jar`
+   - `jackson-core-2.18.0.jar`
+   - `jackson-databind-2.18.0.jar`
+   - `jackson-annotations-2.18.0.jar`
+   - `javax.json-api-1.1-javadoc.jar`
+6. Hacer clic en **Apply > OK**
+
+### 5. Compilar el proyecto
+
+Con el proyecto abierto en IntelliJ:
+
+```
+Build > Build Project   (Ctrl + F9)
+```
+
+Esto genera los `.class` en `out/production/JADE-Timetabling-Redux/`, que es lo que usa el script de ejecución.
+
+> **Si no compilas el proyecto primero, el script `.bat` fallará con `ClassNotFoundException`.**
+
+### 6. Instalar Python y dependencias
+
+**Instalar Python:** https://www.python.org/downloads/
+
+> Al instalar, marcar la opción **"Add Python to PATH"**.
+
+Crear el entorno virtual e instalar dependencias:
+
+```bash
+# En la raíz del proyecto
+python -m venv venv
+
+# Activar el entorno virtual (PowerShell)
+venv\Scripts\Activate
+
+# Instalar dependencias
+pip install -r requeriments.txt
+```
+
+Las dependencias instaladas son:
+- `pandas==2.2.3`
+- `openpyxl==3.1.5`
+- `numpy==2.1.3`
+
+---
+
+## Estructura del proyecto
+
+```
+JADE-Timetabling-Redux/
+├── agent_input/
+│   ├── scenarios/          # Escenarios de entrada para la simulación
+│   │   ├── small/          # Escenario pequeño
+│   │   ├── medium/         # Escenario mediano
+│   │   └── full/           # Escenario completo
+│   └── examples/           # Ejemplos de archivos JSON de entrada
+│       ├── profesores.json
+│       └── salas.json
+├── agent_output/           # Resultados generados (ignorado por git)
+├── lib/
+│   ├── jade/               # Librerías del framework JADE
+│   └── json/               # Librerías para manejo de JSON
+├── scheduleRepresentation/ # Scripts Python para exportar a Excel
+│   ├── exportTeacherSchedule.py
+│   └── exportClassroomSchedule.py
+├── src/                    # Código fuente Java
+├── jade-exec.bat           # Script de ejecución principal
+└── requeriments.txt        # Dependencias Python
+```
+
+### Archivos de entrada (por escenario)
+
+Cada escenario dentro de `agent_input/scenarios/` debe contener:
+
+#### `profesores.json`
+Contiene la información de los profesores y sus asignaturas:
 ```json
-{
+[
+  {
     "RUT": "string",
     "Nombre": "string",
-    "Turno": number,
+    "Turno": 0,
     "Asignaturas": [
-        {
-            "CodigoAsignatura": "string",
-            "Nombre": "string", 
-            "Nivel": number,
-            "Paralelo": "string",
-            "Horas": number,
-            "Vacantes": number,
-            "Campus": "string"
-        }
+      {
+        "CodigoAsignatura": "string",
+        "Nombre": "string",
+        "Nivel": 0,
+        "Paralelo": "string",
+        "Horas": 0,
+        "Vacantes": 0,
+        "Campus": "string"
+      }
     ]
-}
+  }
+]
 ```
 
-### salas.json
-Define las salas con sus respectivas caracteristicas.
+#### `salas.json`
+Contiene la información de las salas disponibles:
 ```json
-{
-    "Turno": number,
+[
+  {
+    "Turno": 0,
     "Codigo": "string",
-    "Capacidad": number,
+    "Capacidad": 0,
     "Campus": "string"
-}
+  }
+]
 ```
 
-### blocks.json
-Contiene la configuración acerca de los bloques.  
-Disclaimer: De momento los campus están hardcodeados.
-```json
-{
-    "Campuses": {
-        "[NombreCampus]": {
-            "morning_blocks": number[],
-            "afternoon_blocks": number[],
-            "year_preferences": {
-                "morning": number[],
-                "afternoon": number[]
-            },
-            "time_blocks": {
-                "[numeroBloque]": "string horario"
-            }
-        }
-    },
-    "BlocksInfo": {
-        "Morning": {
-            "Primary": number[],
-            "Secondary": number[]
-        },
-        "Afternoon": {
-            "Primary": number[],
-            "Secondary": number[]
-        }
-    }
-}
+---
+
+## Ejecución
+
+### Ejecutar la simulación
+
+Desde la raíz del proyecto usar el script `jade-exec.bat`:
+
+```bash
+# Sintaxis
+.\jade-exec.bat [iteraciones] [escenario]
+
+# Ejemplos
+.\jade-exec.bat                    # 1 iteración, escenario "small" (por defecto)
+.\jade-exec.bat 5 small            # 5 iteraciones con escenario pequeño
+.\jade-exec.bat 3 medium           # 3 iteraciones con escenario mediano
+.\jade-exec.bat 1 full             # 1 iteración con escenario completo
 ```
 
-# Ejecucion
-Ejecutar el archivo `Aplicacion.java` y esperar a que finalize la asignación de todas las salas a los profesores.
+Los escenarios disponibles son: `small`, `medium`, `full`.
 
-Al momento de finalizar todas las negociaciones este soltara 2 archivos en la carpeta `agent_output`.
+> El script usa el JDK ubicado en `C:\Program Files\Java\jdk-21`. Si tu instalación está en otra ruta, edita la línea `set JAVA_HOME=` dentro de `jade-exec.bat`.
 
-`Horarios_asignados.json`: El cual contiene todos los horarios asignados con respecto a los profesores.
+### Archivos de salida
 
-`Horarios_salas.json`: Contiene la información de todos los horarios asignados a las salas correspondientes.
+Al finalizar la simulación, se generan los siguientes archivos en `agent_output/`:
 
-Ya finalizado eso, cargamos el entorno virtual de python con:  
-`venv\Scripts\Activate`
+```
+agent_output/
+└── IterationResults/
+    └── [escenario]/
+        ├── Horarios_asignados.json     # Horarios asignados por profesor
+        ├── Horarios_salas.json         # Horarios asignados por sala
+        ├── iteration_log_[timestamp].txt
+        ├── iteration_log_[timestamp].json
+        └── iteration_summary_[timestamp].json
+```
 
-Nos vamos a la carpeta de `scheduleRepresentation` y ejecutamos los 2 scripts de python y soltarán 2 archivos excel, que contienen los datos de los JSONs mencionados anteriormente. 
+- **`Horarios_asignados.json`**: Horarios de cada profesor con sus asignaturas y bloques asignados.
+- **`Horarios_salas.json`**: Ocupación de cada sala por bloque horario.
+- **`iteration_summary_[timestamp].json`**: Métricas de rendimiento de las iteraciones (duración promedio, éxitos, fallos, etc.).
 
-Ejecutar con:
-* `py exportClassroomScheule.py` para las salas.
-* `py exportTeacherSchedule.py` para los profesores.
-# Issues / Observaciones
-La aplicación no va a finalizar debido a que la GUI de JADE está abierta.
+### Exportar resultados a Excel
+
+Con la simulación finalizada y el entorno virtual activado:
+
+```bash
+# Activar entorno virtual (si no está activo)
+venv\Scripts\Activate
+
+# Exportar horarios de salas
+cd scheduleRepresentation
+py exportClassroomSchedule.py
+
+# Exportar horarios de profesores
+py exportTeacherSchedule.py
+```
+
+Esto generará archivos `.xlsx` con los horarios en formato tabular.
+
+---
+
+## Solución de problemas
+
+### `ClassNotFoundException: aplicacion.IterativeAplicacion`
+
+El proyecto no está compilado. Abrir IntelliJ IDEA y ejecutar **Build > Build Project** (`Ctrl+F9`).
+
+### `JAVA_HOME` no encontrado o versión incorrecta
+
+Verificar que el JDK 21 esté instalado en `C:\Program Files\Java\jdk-21`. Si está en otra ruta, editar `jade-exec.bat`:
+```bat
+set JAVA_HOME=C:\ruta\a\tu\jdk
+```
+
+### El script Python falla con `ModuleNotFoundError`
+
+El entorno virtual no está activado o las dependencias no están instaladas:
+```bash
+venv\Scripts\Activate
+pip install -r requeriments.txt
+```
